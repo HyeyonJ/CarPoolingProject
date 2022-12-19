@@ -1,4 +1,4 @@
-package project.carPooling.controller;
+package project.carPooling.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 
 	@GetMapping("/")
-	public String home(Model model
-					, HttpServletRequest req) {
+	public String home(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-		if(session == null) { return "home"; }
+		if (session == null) {
+			return "home";
+		}
 		return "home";
-	} 
+	}
 }
