@@ -2,7 +2,7 @@ package project.carPooling.driver.domain;
 
 public enum CarType {
 	LIGHT("경차"), SMALL("소형"), MID("중형"), FULL("대형");
-	//CarType은 ;
+	//CarType은 LIGHT, SMALL, MID, FULL;
 	//()안의 문자열은 memo
 	
 	private final String memo;
