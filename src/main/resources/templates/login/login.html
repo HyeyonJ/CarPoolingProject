@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<h1>Login Page</h1>
+		
+		<form action="" method="post" th:object="${loginForm}">
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
+				글로벌오류</p>
+			</div>
+		
+			<label for="loginId">ID</label>
+			<input type="text" th:field="*{loginId}" id="loginId">
+			<div th:errors="*{loginId}"></div>
+			<div>
+				<label for="password">PW</label>
+				<input type="password" th:field="*{password}" id="password">
+				<div th:errors="*{password}"></div>
+			</div>
+			
+			<button type="submit">Login</button>
+			<button type="button" th:onclick="|location.href='@{/}'|">취소</button>
+			
+		</form>
+	</div>
+	
+</body>
+</html>
