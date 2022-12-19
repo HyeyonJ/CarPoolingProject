@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>CarPooling Home Page</h1>
+	<div>
+		<button type="button" th:onclick="|location.href='@{/members/new}'|">회원가입</button>
+		<button type="button" th:onclick="|location.href='@{/login}'|">로그인</button>
+	</div>
+</body>
+</html>
