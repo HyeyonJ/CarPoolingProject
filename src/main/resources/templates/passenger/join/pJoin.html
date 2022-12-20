@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutPassenger}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-.errormsg {
-	color: red;
-}
-</style>
+	<meta charset="UTF-8">
+	<title>Passenger Join</title>
+	<!-- css js -->
+	<style>
+	.errormsg { color: red; }
+	</style>
 </head>
 <body>
-	<h1>Passenger Join</h1>	
+<th:block layout:fragment="content">
  	<div>
 		<form action="" method="post" th:object="${member}">
 			<label for="loginId">ID</label>
@@ -31,5 +32,7 @@
 			</div>
 		</form>
 	</div>
+</th:block>
+	
 </body>
 </html>
