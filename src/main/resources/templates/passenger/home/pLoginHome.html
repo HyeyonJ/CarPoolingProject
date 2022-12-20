@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutPassenger}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Passenger Login Home</title>
+<!-- css js -->
 </head>
-<body>
-	<h1>Passenger Login Home</h1>
+<th:block layout:fragment="content">
 	<div>
-		<button type="button" th:onclick="|location.href='@{/}'|"></button>
-		<button type="button" th:onclick="|location.href='@{/}'|"></button>
+		<button type="button" th:onclick="|location.href='@{/passenger/login}'|">로그인</button>
+		<button type="button" th:onclick="|location.href='@{/passenger/join}'|">회원가입</button>
 	</div>
-</body>
+</th:block>
 </html>

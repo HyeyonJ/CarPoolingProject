@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutPassenger}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Passenger Login</title>
+<!-- css js -->
 </head>
-<body>
-	<div>
-		<h1>Passenger Login</h1>
-		
-		<form action="" method="post" th:object="${loginForm}">
+
+<th:block layout:fragment="content">
+	<h1>Passenger Login</h1>		
+	<form action="" method="post" th:object="${loginForm}">
 <!-- 			<div th:if="${#fields.hasGlobalErrors()}"> -->
 <!-- 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"> -->
 <!-- 				글로벌오류</p> -->
 <!-- 			</div> -->
+	
+		<label for="loginId">ID</label>
+		<input type="text" th:field="*{loginId}" id="loginId">
+		<div th:errors="*{loginId}"></div>
+		<div>
+			<label for="password">PW</label>
+			<input type="password" th:field="*{password}" id="password">
+			<div th:errors="*{password}"></div>
+		</div>
 		
-			<label for="loginId">ID</label>
-			<input type="text" th:field="*{loginId}" id="loginId">
-			<div th:errors="*{loginId}"></div>
-			<div>
-				<label for="password">PW</label>
-				<input type="password" th:field="*{password}" id="password">
-				<div th:errors="*{password}"></div>
-			</div>
-			
-			<button type="submit">Login</button>
-			<button type="button" th:onclick="|location.href='@{/}'|">취소</button>
-			
-		</form>
+		<button type="submit">Login</button>
+		<button type="button" th:onclick="|location.href='@{/}'|">취소</button>			
+	</form>
+</th:block>
+</html>
+
+
+
+
+<body>
+	<div>
+		
 	</div>
 	
 </body>
