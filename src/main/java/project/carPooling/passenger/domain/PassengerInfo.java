@@ -16,5 +16,4 @@ public class PassengerInfo {
 	private String idNum2;
 	
 	private Boolean signOut;
-	private String dOption;
 }
