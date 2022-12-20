@@ -38,9 +38,9 @@ public class NaverLoginController {
    * @throws UnknownHostException 
    */
   @RequestMapping("driver/login/naver")
-  public String testNaver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
+  public String Naver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
 
-    String redirectURI = URLEncoder.encode("http://localhost:8080/naver/callback1", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/naver/callback1", "UTF-8");
 
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();

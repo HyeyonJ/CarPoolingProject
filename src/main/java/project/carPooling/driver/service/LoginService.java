@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DriverInfo;
-import project.carPooling.driver.repository.DriverMemRepository;
 
 @Service
 @RequiredArgsConstructor
