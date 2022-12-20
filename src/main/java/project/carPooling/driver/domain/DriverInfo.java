@@ -1,5 +1,10 @@
 package project.carPooling.driver.domain;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
 public class DriverInfo {
 	private int userNum;
 	private UserType userType;
@@ -14,7 +19,6 @@ public class DriverInfo {
 	private String idNum2;
 	
 	private Boolean signOut;
-	private String dOption;
 	
 	private String licenseNum;
 	private String licenseDate;
