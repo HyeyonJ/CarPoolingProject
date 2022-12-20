@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+		<h1>운전자 인증</h1>
+		
+		<form action="" method="post" th:object="${licenseNum}">
+			<label for="licenseNum">운전면허번호</label>
+			<input type="text" id="licenseNum" th:field="*{licenseNum}">
+			<div class="errormsg" th:errors="*{licenseNum}"></div>
+			
+			<label for="userName">이름</label>
+			<input type="text" id="userName" th:field="*{userName}">
+			<div class="errormsg" th:errors="*{userName}"></div>
+			
+			<label for="idNum1">주민등록번호 앞 6자리</label>
+			<input type="text" id="idNum1" th:field="*{idNum1}">
+			<div class="errormsg" th:errors="*{idNum1}"></div>
+			
+			<label for="idNum2">주민등록번호 뒤 1자리</label>
+			<input type="text" id="idNum2" th:field="*{idNum2}">
+			<div class="errormsg" th:errors="*{idNum2}"></div>
+			
+			<label for="licenseDate">허가일자</label>
+			<input type="text" id="licenseDate" th:field="licenseDate">
+			<div class="errormsg" th:errors="*{licenseDate}"></div>
+			
+			<label for="carNum">자동차 번호</label>
+			<input type="text" id="carNum" th:field="carNum">
+			<div class="errormsg" th:errors="*{carNum}"></div>
+			
+			<label for="carType">차 종류</label>
+			<input type="text" id="carType" th:field="carType">
+			<div class="errormsg" th:errors="*{carType}"></div>
+			
+			
+			<div>
+				<button>prev</button>
+				<p>1/4</p>
+				<button>Join</button>
+			</div>
+		</form>
+</body>
+</html>
