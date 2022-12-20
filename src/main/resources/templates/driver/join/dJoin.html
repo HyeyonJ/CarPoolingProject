@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.errormsg {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<h1>Driver Join</h1>	
+ 	<div>
+		<form action="" method="post" th:object="${member}">
+			<label for="loginId">ID</label>
+			<input type="text" id="loginId" th:field="*{loginId}">
+			<div class="errormsg" th:errors="*{loginId}"></div>
+			
+			<label for="password">PW</label>
+			<input type="password" id="password" th:field="*{password}">
+			<div class="errormsg" th:errors="*{password}"></div>
+			
+			<label for="name">이름</label>
+			<input type="text" id="name" th:field="*{name}">
+			<div class="errormsg" th:errors="*{name}"></div>
+			
+			<div>
+				<button type="submit">가입</button>
+				<button type="button" th:onclick="|location.href='@{/}'|">취소</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
