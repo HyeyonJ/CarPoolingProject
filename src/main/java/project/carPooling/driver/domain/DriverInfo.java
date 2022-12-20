@@ -1,5 +1,10 @@
 package project.carPooling.driver.domain;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
 public class DriverInfo {
 	private int userNum;
 	private UserType userType;

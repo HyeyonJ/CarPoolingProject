@@ -3,28 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+  pre{
+    overflow: scroll;
+  }
+</style>
 </head>
 <body>
 	<div>
-		<h1>Login Page</h1>
+		<h1>carpooling 로그인</h1>
 		
-		<form action="" method="post" th:object="${loginForm}">
-<!-- 			<div th:if="${#fields.hasGlobalErrors()}"> -->
-<!-- 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}"> -->
-<!-- 				글로벌오류</p> -->
-<!-- 			</div> -->
-		
-			<label for="loginId">ID</label>
-			<input type="text" th:field="*{loginId}" id="loginId">
-			<div th:errors="*{loginId}"></div>
+		<form action="" method="get" th:object="${loginForm}">
+			<div>
+				<label for="loginId">ID</label>
+					<input>
+<!-- 				<input type="text" th:field="*{loginId}" id="loginId"> -->
+			</div>
 			<div>
 				<label for="password">PW</label>
-				<input type="password" th:field="*{password}" id="password">
-				<div th:errors="*{password}"></div>
+					<input>
+<!-- 				<input type="password" th:field="*{password}" id="password"> -->
 			</div>
 			
-			<button type="submit">Login</button>
-			<button type="button" th:onclick="|location.href='@{/}'|">취소</button>
+			<button type="submit">로그인</button>
+			<button type="submit">카카오톡 아이디로 로그인</button>
+			<button type="submit">네이버 아이디로 로그인</button>
+
+			  <div th:if="${session.currentUser eq null}">
+			    <h3>네이버 로그인</h3>
+			    <a th:href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+			  </div>
+			  
+			  <div th:if="${session.currentUser ne null}">
+			    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
+			    <pre th:text="${session.currentUser}"></pre>
+			    <a th:href="${'/naver/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
+			    <a th:href="${'/naver/refreshToken?refreshToken=' + session.currentRT}">Refresh Token</a>
+			    <a th:href="${'/naver/deleteToken?accessToken=' + session.currentAT}">Delete Token</a>
+			    <a href="/naver/invalidate">로그아웃 (Invalidate Session)</a>
+			  </div>
+			<button type="submit">구글 아이디로 로그인</button>
+			
+			<a href="/member/login">아이디 찾기</a>
+			<a href="/member/login">패스워드 찾기</a>
+			
+			<a href="/member/login">아직 회원이 아니신가요?</a>
 			
 		</form>
 	</div>
