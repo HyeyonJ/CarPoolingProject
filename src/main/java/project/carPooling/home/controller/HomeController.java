@@ -1,4 +1,4 @@
-package project.carPooling.home;
+package project.carPooling.home.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
