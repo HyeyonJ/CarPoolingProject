@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<h1>carpooling 로그인</h1>
+		
+		<form action="" method="get" th:object="${loginForm}">
+			<div>
+				<label for="loginId">ID</label>
+				<input type="text" th:field="*{loginId}" id="loginId">
+			</div>
+			<div>
+				<label for="password">PW</label>
+				<input type="password" th:field="*{password}" id="password">
+			</div>
+			
+			<button type="submit">로그인</button>
+			<button type="submit">카카오톡 아이디로 로그인</button>
+			<button type="submit">네이버 아이디로 로그인</button>
+			<button type="submit">구글 아이디로 로그인</button>
+			
+			<a href="/member/login">아이디 찾기</a>
+			<a href="/member/login">패스워드 찾기</a>
+			
+			<a href="/member/login">아직 회원이 아니신가요?</a>
+			
+		</form>
+	</div>
+	
+</body>
+</html>

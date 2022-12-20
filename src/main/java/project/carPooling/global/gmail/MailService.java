@@ -39,7 +39,7 @@ public class MailService {
         mailHandler.setText(htmlContent, true);
         mailHandler.setAttach("txt", "static/test.txt");
         // asd = Inline의 key값
-        mailHandler.setInline("asd", "static/asd.jpg");
+        mailHandler.setInline("asd", "static/img/city.jpeg");
         mailHandler.send();
     }
     
