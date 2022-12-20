@@ -14,7 +14,6 @@ public class DriverInfo {
 	private String idNum2;
 	
 	private Boolean signOut;
-	private String dOption;
 	
 	private String licenseNum;
 	private String licenseDate;
