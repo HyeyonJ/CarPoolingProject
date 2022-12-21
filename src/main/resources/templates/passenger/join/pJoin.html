@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutPassenger}">
+      layout:decorate="~{layouts/layoutHome}">
 <head>
 	<meta charset="UTF-8">
 	<title>Passenger Join</title>
@@ -10,7 +10,7 @@
 	.errormsg { color: red; }
 	</style>
 </head>
-<body>
+
 <th:block layout:fragment="content">
  	<div>
 		<form action="" method="post" th:object="${passenger}">
@@ -64,9 +64,8 @@
 				<label for="idNum1">주민번호</label>
 				<input type="text" id="idNum1" th:field="*{idNum1}">
 				<div class="errormsg" th:errors="*{idNum1}"></div>
-			</div>
-			<div>
-				<label for="idNum2">-</label>
+
+				<label for="idNum2"> - </label>
 				<input type="text" id="idNum2" th:field="*{idNum2}">
 				<div class="errormsg" th:errors="*{idNum2}"></div>
 			</div>			
@@ -85,6 +84,5 @@
 		myModal.addEventListener('shown.bs.modal', function () { myInput.focus() })
 	</script>
 </th:block>
-	
-</body>
+
 </html>
