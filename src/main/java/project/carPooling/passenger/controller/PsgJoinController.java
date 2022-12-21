@@ -25,7 +25,7 @@ public class PsgJoinController {
 	public String newPassenger(Model model) {
 		PassengerInfo passenger = new PassengerInfo();
 		model.addAttribute("passenger", passenger);
-		return "passenger/home/pLoginHome";
+		return "passenger/home/pLogin";
 	}
 	
 	@PostMapping("/join")
