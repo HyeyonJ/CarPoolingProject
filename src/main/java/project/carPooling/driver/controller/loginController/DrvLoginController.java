@@ -1,6 +1,7 @@
 package project.carPooling.driver.controller.loginController;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -29,15 +30,12 @@ import project.carPooling.driver.service.LoginService;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class loginController {
+@RequestMapping("/driver")
+public class DrvLoginController {
 	
-//	private final LoginService loginService;
-
-	@GetMapping("/driver/login")
+	@GetMapping("/login")
 	public String login(Model model) {
-//		LoginForm loginForm = new LoginForm();
-//		model.addAttribute("loginForm", loginForm);
 
-		return "login/login";
+		return "driver/login/dLogin";
 	}
 }
