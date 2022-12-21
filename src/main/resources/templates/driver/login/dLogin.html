@@ -18,38 +18,46 @@
 			<div>
 				<label for="loginId">ID</label>
 					<input>
-<!-- 				<input type="text" th:field="*{loginId}" id="loginId"> -->
-			</div>
+			</div>		
 			<div>
 				<label for="password">PW</label>
 					<input>
-<!-- 				<input type="password" th:field="*{password}" id="password"> -->
 			</div>
+				<button type="submit">로그인</button>
 			
-			<button type="submit">로그인</button>
-			<button type="submit">카카오톡 아이디로 로그인</button>
-			<button type="submit">네이버 아이디로 로그인</button>
-
+			<h4>간편 로그인</h4>
+<!-- 			네이버 로그인 -->
 			  <div th:if="${session.currentUser eq null}">
-			    <h3>네이버 로그인</h3>
-			    <a th:href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+			    <a th:href="${apiURL}"><img height="50" width="50px" src="/img/naverLoginCircle.png"/></a>
+				  
+				  <div th:if="${session.currentUser ne null}">
+				    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
+				    <pre th:text="${session.currentUser}"></pre>
+				    <a th:href="${'/naver/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
+				    <a th:href="${'/naver/refreshToken?refreshToken=' + session.currentRT}">Refresh Token</a>
+				    <a th:href="${'/naver/deleteToken?accessToken=' + session.currentAT}">Delete Token</a>
+				    <a href="/naver/invalidate">로그아웃 (Invalidate Session)</a>
+				  </div>
 			  </div>
-			  
-			  <div th:if="${session.currentUser ne null}">
-			    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
-			    <pre th:text="${session.currentUser}"></pre>
-			    <a th:href="${'/naver/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
-			    <a th:href="${'/naver/refreshToken?refreshToken=' + session.currentRT}">Refresh Token</a>
-			    <a th:href="${'/naver/deleteToken?accessToken=' + session.currentAT}">Delete Token</a>
-			    <a href="/naver/invalidate">로그아웃 (Invalidate Session)</a>
+<!-- 			  카카오 로그인 -->
+			  <div>
+			  	<a>
+					<img src="/img/kakaoLoginCircle.png" width="50px" height="50px" alt="카카오 로그인 버튼"/>
+			  	</a>
 			  </div>
-			<button type="submit">구글 아이디로 로그인</button>
+<!-- 			  구글 로그인 -->
+			  <div>
+			  	<a>
+					<img src="/img/googleLoginCircle.png" width="50px" height="50px" alt="구글 로그인 버튼"/>
+			  	</a>
+			  </div>
 			
 			<a href="/member/login">아이디 찾기</a>
 			<a href="/member/login">패스워드 찾기</a>
 			
-			<a href="/member/login">아직 회원이 아니신가요?</a>
-			
+			<div>
+				<a href="/driver/join">아직 회원이 아니신가요?</a>
+			</div>
 		</form>
 	</div>
 	

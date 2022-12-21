@@ -5,13 +5,15 @@
 
 <head>
 <title>Select CarPooling Mode</title>
-<!-- css js -->
+<!-- CSS only -->
 </head>
 <th:block layout:fragment="content">
-    <h1>CarPooling 모드 선택</h1>
-	<div>
-		<button type="button" th:onclick="|location.href='@{/driver/login}'|">운전자모드</button>
-		<button type="button" th:onclick="|location.href='@{/passenger/login}'|">탑승자모드</button>
+	<div margin="textauto-center">
+	    <h3>사용자 모드를 선택해주세요</h3>
+		<div>
+			<button type="button" th:onclick="|location.href='@{/driver/login}'|">운전자모드</button>
+			<button type="button" th:onclick="|location.href='@{/passenger/login}'|">탑승자모드</button>
+		</div>
 	</div>
 </th:block>
 </html>

@@ -14,8 +14,6 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String login(Model model) {
-//		LoginForm loginForm = new LoginForm();
-//		model.addAttribute("loginForm", loginForm);
 
 		return "home";
 	}
