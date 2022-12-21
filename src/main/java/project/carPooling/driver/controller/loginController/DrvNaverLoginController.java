@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class NaverLoginController {
+@RequestMapping("/driver/login")
+public class DrvNaverLoginController {
 
   private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; //애플리케이션 클라이언트 아이디값";
   private String CLI_SECRET = "Y28XSEjKSi"; //애플리케이션 클라이언트 시크릿값";
@@ -37,10 +38,10 @@ public class NaverLoginController {
    * @throws UnsupportedEncodingException
    * @throws UnknownHostException 
    */
-  @RequestMapping("driver/login/naver")
+  @RequestMapping("/naver")
   public String Naver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
 
-    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/naver/callback1", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
 
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
@@ -50,7 +51,7 @@ public class NaverLoginController {
     session.setAttribute("state", state);
 
     model.addAttribute("apiURL", apiURL);
-    return "login/login";
+    return "driver/login/dLogin";
   }
 
   /**
@@ -62,12 +63,12 @@ public class NaverLoginController {
    * @throws IOException
    * @throws ParseException
    */
-  @RequestMapping("driver/login/naver/callback1")
+  @RequestMapping("/naver/callback")
   public String naverCallback1(HttpSession session, HttpServletRequest request, Model model) throws IOException, ParseException {
 
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost:8080/naver/callback1", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
 
     String apiURL;
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -89,7 +90,7 @@ public class NaverLoginController {
     } else {
       model.addAttribute("res", "Login failed!");
     }
-    return "naverCallback";
+    return "driver/login/dNaverCallback";
   }
 
   /**
@@ -102,7 +103,7 @@ public class NaverLoginController {
    * @throws IOException
    * @throws ParseException
    */
-  @RequestMapping("driver/login/naver/refreshToken")
+  @RequestMapping("/naver/refreshToken")
   public String refreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken) throws IOException, ParseException {
 
     String apiURL;
@@ -117,7 +118,7 @@ public class NaverLoginController {
     String res = requestToServer(apiURL);
     model.addAttribute("res", res);
     session.invalidate();
-    return "naverCallback";
+    return "driver/login/dNaverCallback";
   }
 
   /**
@@ -129,7 +130,7 @@ public class NaverLoginController {
    * @return
    * @throws IOException
    */
-  @RequestMapping("driver/login/naver/deleteToken")
+  @RequestMapping("/naver/deleteToken")
   public String deleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken) throws IOException {
 
     String apiURL;
@@ -145,24 +146,7 @@ public class NaverLoginController {
     String res = requestToServer(apiURL);
     model.addAttribute("res", res);
     session.invalidate();
-    return "naverCallback";
-  }
-
-  /**
-   * 액세스 토큰으로 네이버에서 프로필 받기
-   * @param accessToken
-   * @return
-   * @throws IOException
-   */
-  @ResponseBody
-  @RequestMapping("driver/login/naver/getProfile")
-  public String getProfileFromNaver(String accessToken) throws IOException {
-
-    // 네이버 로그인 접근 토큰;
-    String apiURL = "https://openapi.naver.com/v1/nid/me";
-    String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-    String res = requestToServer(apiURL, headerStr);
-    return res;
+    return "driver/login/dNaverCallback";
   }
 
   /**
@@ -170,7 +154,7 @@ public class NaverLoginController {
    * @param session
    * @return
    */
-  @RequestMapping("driver/login/naver/invalidate")
+  @RequestMapping("/naver/invalidate")
   public String invalidateSession(HttpSession session) {
     session.invalidate();
     return "redirect:/naver";
