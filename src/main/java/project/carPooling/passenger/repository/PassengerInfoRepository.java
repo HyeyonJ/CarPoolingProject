@@ -5,7 +5,7 @@ import project.carPooling.passenger.domain.PassengerInfo;
 
 public interface PassengerInfoRepository {
 	
-	public PassengerInfo insert(PassengerInfo psgInfo);
+	public PassengerInfo insert(PassengerInfo passenger);
 	
 	public PassengerInfo selectById(int id);
 	

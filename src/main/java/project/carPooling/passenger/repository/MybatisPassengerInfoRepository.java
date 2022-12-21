@@ -15,35 +15,35 @@ import project.carPooling.passenger.mapper.PassengerInfoMapper;
 public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 	
 	//Mapper 인터페이스 호출
-	private final PassengerInfoMapper psgMapper;
+	private final PassengerInfoMapper passengerMapper;
 
 	@Override
 	public PassengerInfo insert(PassengerInfo passenger) {
-		psgMapper.insert(passenger);
+		passengerMapper.insert(passenger);
 		return passenger;
 	}
 
 	@Override
 	public PassengerInfo selectById(int id) {
-		PassengerInfo passenger = psgMapper.selectById(id);
+		PassengerInfo passenger = passengerMapper.selectById(id);
 		return passenger;
 	}
 
 	@Override
 	public PassengerInfo selectByLoginId(String loginId) {
-		PassengerInfo passenger = psgMapper.selectByLoginId(loginId);
+		PassengerInfo passenger = passengerMapper.selectByLoginId(loginId);
 		return passenger;
 	}
 
 	@Override
 	public List<PassengerInfo> selectAll() {
-		List<PassengerInfo> passengers = psgMapper.selectAll();
+		List<PassengerInfo> passengers = passengerMapper.selectAll();
 		return passengers;
 	}
 
 	@Override
 	public void deleteAll() {
-		psgMapper.deleteAll();		
+		passengerMapper.deleteAll();		
 	}
 
 }
