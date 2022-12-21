@@ -25,7 +25,7 @@ public class PsgJoinController {
 	public String newPassenger(Model model) {
 		PassengerInfo passenger = new PassengerInfo();
 		model.addAttribute("passenger", passenger);
-		return "passenger/home/pLogin";
+		return "passenger/join/pJoin";
 	}
 	
 	@PostMapping("/join")
@@ -35,7 +35,7 @@ public class PsgJoinController {
 		//validator에서 passengerInfo 검증 후 bindingResult 넘겨받고
 		//error 있으면, 회원가입페이지
 		if (bindingResult.hasErrors()) {
-			return "passenger/join";
+			return "passenger/join/pJoin";
 		}
 		//error 없으면, insert() 수행 후 로그인페이지
 		mybatisPassengerRepository.insert(passenger);
