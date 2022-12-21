@@ -12,11 +12,11 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 @RequiredArgsConstructor
 public class PassengerAppConfig {
 	
-	private final PassengerInfoMapper psgMapper;
+	private final PassengerInfoMapper passengerMapper;
 	
 	@Bean
-	public PassengerInfoRepository passengerRepository() {
-		return new MybatisPassengerInfoRepository(psgMapper);
+	public PassengerInfoRepository passengerInfoRepository() {
+		return new MybatisPassengerInfoRepository(passengerMapper);
 	}
 
 }

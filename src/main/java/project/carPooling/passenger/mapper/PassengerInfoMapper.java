@@ -7,7 +7,7 @@ import project.carPooling.passenger.domain.PassengerInfo;
 @Mapper
 public interface PassengerInfoMapper {
 	
-	public Integer insert(PassengerInfo psgInfo);
+	public Integer insert(PassengerInfo passsenger);
 	
 	public PassengerInfo selectById(int id);
 	
