@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/layoutDriver}">
+  layout:decorate="~{layouts/layoutPassenger}">
 
 <head>
-  <title>registration</title>
+  <title>reservation</title>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
   <style>
-    #drSection {
+    #prSection {
       margin-top: 100px;
     }
 
@@ -22,43 +22,29 @@
       margin-top: 5px;
     }
 
-    .label {
-      color: black;
-      margin-bottom: 5px;
-      font-weight: bolder;
-      display: block;
+    .rsvform {
+      display: inline-block !important;
+      width: 230px !important;
+      border: 1px solid #6258A4 !important;
+      background: transparent !important;
     }
 
-    .text {
-      border-radius: 5px;
-      border: 1px solid #DDD;
+    .rsvbtn {
+      display: inline-block !important;
+      width: 230px !important;
+      height: 50px;
+    }
+
+    .rsbbtn {
+      display: inline-block !important;
+      width: 470px !important;
+      height: 50px;
+    }
+
+    .rsvsbtn {
+      display: inline-block !important;
+      width: 217px !important;
       height: 40px;
-      width: 300px;
-      padding-left: 10px;
-      margin-left: 5px;
-      margin-right: 10px;
-    }
-
-    .texts {
-      border-radius: 5px;
-      border: 1px solid #DDD;
-      height: 40px;
-      width: 182px;
-      padding-left: 10px;
-      color: #757575;
-    }
-
-    .setext {
-      border-radius: 5px;
-      border: 1px solid #DDD;
-      height: 40px;
-      width: 300px;
-      padding-left: 10px;
-      color: #757575;
-    }
-
-    .form-field {
-      width: 400px;
     }
 
     /* radio 버튼 안보이게 */
@@ -88,55 +74,21 @@
       background: #6258a4;
       color: #fff;
     }
-
-    #tocommute {
-      background-color: white;
-      margin-right: 20px;
-      margin-left: 5px;
-    }
-
-    #tocommutess {
-      margin-right: 20px;
-    }
-
-    #startCSS {
-      margin-bottom: 10px;
-    }
-
-    #searchSP {
-      width: 102px;
-    }
-
-    #searchEP {
-      width: 102px;
-    }
-
-    #start {
-      margin-left: 10px;
-      margin-bottom: 10px;
-    }
-
-    #end {
-      margin-left: 10px;
-      margin-right: 10px;
-    }
   </style>
 </head>
 
 <th:block layout:fragment="content">
-  <section id="drSection">
+  <section id="prSection">
     <div class="container">
 
       <div class="d-flex justify-content-center">
-        <h2 class="mb-4 fw-bold">카풀등록</h2>
+        <h2 class="mb-4 fw-bold">카풀찾기</h2>
       </div>
 
-      <div id="registration">
+      <div id="search">
 
-        <form id="drForm">
-
+        <form id="searchForm">
           <div id="commute">
-            <label class="label">출퇴근</label>
             <label class="box-radio-input"><input type="radio" id="towork" name="work"
                 value="출근"><span>출근</span></label>
             <label class="box-radio-input"><input type="radio" id="fromwork" name="work"
@@ -145,23 +97,11 @@
             <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
           </div>
 
-          <div id="date">
-            <label for="datepicker" class="label">Date</label>
-            <div class="form-field">
-              <input type="text" class="text" placeholder="날짜를 선택해주세요" id="datepicker" name="datepicker">
-              <!-- 선택안했을 때 -->
-              <span id="dateCheck" class="check">날짜를 선택해주세요.</span>
-              <span id="dateRecheck" class="check">날짜를 다시 선택해주세요.</span>
-            </div>
-          </div>
+          <div id="datetime">
+            <input type="text" class="form-control rsvform" placeholder="날짜를 선택해주세요" id="datepicker" name="datepicker">
 
-          <div id="time">
-            <label class="label">픽업가능시간</label>
-
-            <!-- 출발시간 -->
-            <select name="tocommute" class="texts" id="tocommute">
-              <option class="toworktime" hidden>선택</option>
-              <!-- 출근할 때 출발시간 -->
+            <select name="time" id="time" class="form-control rsvform">
+              <option hidden>카풀시간</option>
               <option value="07:00" class="toworktime">07:00</option>
               <option value="07:15" class="toworktime">07:15</option>
               <option value="07:30" class="toworktime">07:30</option>
@@ -171,8 +111,6 @@
               <option value="08:30" class="toworktime">08:30</option>
               <option value="08:45" class="toworktime">08:45</option>
               <option value="09:00" class="toworktime">09:00</option>
-
-              <!-- 퇴근할 떄 출발시간 -->
               <option value="18:00" class="fromworktime">18:00</option>
               <option value="18:15" class="fromworktime">18:15</option>
               <option value="18:30" class="fromworktime">18:30</option>
@@ -180,107 +118,43 @@
               <option value="19:00" class="fromworktime">19:00</option>
               <option value="19:15" class="fromworktime">19:15</option>
               <option value="19:30" class="fromworktime">19:30</option>
-              <option value="19:30" class="fromworktime">19:45</option>
+              <option value="19:45" class="fromworktime">19:45</option>
               <option value="20:00" class="fromworktime">20:00</option>
             </select>
-            <label id="tocommutess">-</label>
-
-            <!-- 도착시간 -->
-            <select name="tocommutes" class="texts" id="tocommutes">
-              <option class="toworktimes" hidden>선택</option>
-              <!-- 출근할 때 도착시간 -->
-              <option value="07:15" class="toworktimes">07:15</option>
-              <option value="07:30" class="toworktimes">07:30</option>
-              <option value="07:45" class="toworktimes">07:45</option>
-              <option value="08:00" class="toworktimes">08:00</option>
-              <option value="08:15" class="toworktimes">08:15</option>
-              <option value="08:30" class="toworktimes">08:30</option>
-              <option value="08:45" class="toworktimes">08:45</option>
-              <option value="09:00" class="toworktimes">09:00</option>
-              <option value="09:15" class="toworktimes">09:15</option>
-              <option value="09:30" class="toworktimes">09:30</option>
-              <option value="09:45" class="toworktimes">09:45</option>
-              <option value="10:00" class="toworktimes">10:00</option>
-
-              <!-- 퇴근할 때 도착시간 -->
-              <option value="18:15" class="fromworktimes">18:15</option>
-              <option value="18:30" class="fromworktimes">18:30</option>
-              <option value="18:45" class="fromworktimes">18:45</option>
-              <option value="19:00" class="fromworktimes">19:00</option>
-              <option value="19:15" class="fromworktimes">19:15</option>
-              <option value="19:30" class="fromworktimes">19:30</option>
-              <option value="19:45" class="fromworktimes">19:45</option>
-              <option value="20:00" class="fromworktimes">20:00</option>
-              <option value="20:15" class="fromworktimes">20:15</option>
-              <option value="20:30" class="fromworktimes">20:30</option>
-              <option value="20:45" class="fromworktimes">20:45</option>
-              <option value="21:00" class="fromworktimes">21:00</option>
-            </select>
-
-            <!-- 선택안했을 때 -->
             <span id="timeCheck" class="check">시간을 선택해주세요.</span>
-            <span id="timeRecheck" class="check">도착시간을 다시 선택해주세요.</span>
-
           </div>
 
-          <div id="map">
-            <label class="label">경로선택</label>
-            <div id="routeCSS">
-              <div id="startCSS">
-                <label for="startPoint" class="label">출발지</label>
-                <!--지도 div-->
-                <input type="text" class="text" id="startPoint" placeholder="검색어를 입력해주세요" value="">
-                <input type="button" class="btn btn-primary" id="searchSP" onclick="searchPOIS();" value="검색">
+          <div id="showroute">
+            <div id="searchmap">
+              <div>
+                <input type="text" id="startPoint" name="startPoint" placeholder="출발지찾기" class="form-control rsvform">
+                <input type="button" id="searchSP" onclick="searchPOIS();" value="출발지찾기" class="btn btn-primary rsvbtn">
               </div>
-              <div id="endCSS">
-                <label for="endPoint" class="label">도착지</label>
-                <input type="text" class="text" id="endPoint" placeholder="검색어를 입력해주세요" value="">
-                <input type="button" class="btn btn-primary" id="searchEP" onclick="searchPOIE();" value="검색">
-                <!-- 입력안했을 때 -->
-                <span id="routeCheck" class="check">출발지와 도착지를 검색해주세요.</span>
+              <div>
+                <input type="text" id="endPoint" name="endPoint" placeholder="도착지찾기" class="form-control rsvform">
+                <input type="button" id="searchEP" onclick="searchPOIE();" value="도착지찾기" class="btn btn-primary rsvbtn">
               </div>
+
+              <input type="text" id="start" readonly class="form-control rsvform" placeholder="출발지">
+              <input type="text" id="end" readonly class="form-control rsvform" placeholder="도착지">
+
+              <input type="button" id="routesearch" onclick="route();" value="경로확인" class="btn btn-primary rsbbtn">
+              <div id="map_div" class="bg-white"></div>
+              <input type="hidden" id="startlon" name="startlon">
+              <input type="hidden" id="startlat" name="startlat">
+              <input type="hidden" id="endlon" name="endlon">
+              <input type="hidden" id="endlat" name="endlat">
+              <input type="button" id="searchcarpool" onclick="search()" value="카풀검색" class="btn btn-primary rsbbtn">
             </div>
-
-            <div id="map_div">
-            </div>
-
-            <div id="mapDIV">
-              <input type="text" class="setext" id="start" placeholder="출발지" readonly>
-              <input type="text" class="setext" id="end" placeholder="도착지" readonly>
-              <input type="button" class="btn btn-primary" id="routesearch" onclick="route();" value="경로검색">
-
-              <span id="searchCheck" class="check">경로검색은 필수입니다.</span>
-              <br>
-            </div>
-
-            <input type="hidden" id="startlon" value="">
-            <input type="hidden" id="startlat" value="">
-            <input type="hidden" id="endlon" value="">
-            <input type="hidden" id="endlat" value="">
-
-            <input type="hidden" id="distance" value="">
-            <input type="hidden" id="time" value="">
-            <input type="hidden" id="fare" value="">
-
-            <p id="result"></p>
-            <!--지도 div끝-->
-
-            <div class="col-lg align-self-end">
-              <div class="form-group">
-                <div class="form-field">
-                  <input type="submit" value="등  록" id="submit" class="btn btn-primary">
-                  <div id="footer">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
         </form>
+
       </div>
+
     </div>
+
+
   </section>
 </th:block>
 
@@ -291,89 +165,6 @@
         dateFormat: 'yy-mm-dd'
       });
     });
-
-    // 출근에 따른 변화
-    $('#towork').change(() => {
-      // prop('checked') = 만약 towork가 checked 상태이면 true값 반환
-      if ($('#towork').prop('checked') == true) {
-        $('.toworktime').css('display', 'block');
-        $('.fromworktime').css('display', 'none');
-        $('.toworktimes').css('display', 'block');
-        $('.fromworktimes').css('display', 'none');
-        $('#tocommute').val("선택");
-        $('#tocommutes').val("선택");
-
-      }
-    });
-
-    // 퇴근에 따른 변화
-    $('#fromwork').change(() => {
-      // prop('checked') = 만약 fromwork가 checked 상태이면 true값 반환
-      if ($('#fromwork').prop('checked') == true) {
-        $('.toworktime').css('display', 'none');
-        $('.fromworktime').css('display', 'block');
-        $('.toworktimes').css('display', 'none');
-        $('.fromworktimes').css('display', 'block');
-        $('#tocommute').val("선택");
-        $('#tocommutes').val("선택");
-
-      }
-    });
-
-    $("#datepicker").change(() => {
-      // 현재날짜
-      const today = new Date();
-      const year = today.getFullYear().toString(); // 년도
-      const month = (today.getMonth() + 1).toString();  // 월
-      const date = today.getDate().toString();  // 날짜
-
-      // 선택한날짜
-      const dateVal = $("#datepicker").val();
-      const drYear = dateVal.substring(0, 4);
-      const drMonth = dateVal.substring(5, 7);
-      const drDate = dateVal.substring(8, 10);
-
-      if (year + month + date > drYear + drMonth + drDate) {
-        $('#dateRecheck').css('display', 'block');
-        $("#datepicker").val("");
-        return false;
-      } else {
-        $('#dateRecheck').css('display', 'none');
-      }
-    })
-
-    $("#tocommute").click(() => {
-      if ($(':radio[name="work"]:checked').length < 1) {
-        $('#workCheck').css('display', 'block');
-        $("#tocommute").blur();
-        return false;
-      } else {
-        $('#workCheck').css('display', 'none');
-      }
-    })
-
-    $("#tocommutes").click(() => {
-      if ($(':radio[name="work"]:checked').length < 1) {
-        $('#workCheck').css('display', 'block');
-        $("#tocommutes").blur();
-        return false;
-      } else {
-        $('#workCheck').css('display', 'none');
-      }
-
-      const tocommute = ($("#tocommute").val()).substring(0, 2) + ($("#tocommute").val()).substring(3, 5);
-      const tocommutes = ($("#tocommutes").val()).substring(0, 2) + ($("#tocommutes").val()).substring(3, 5);
-
-      if (tocommute > tocommutes) {
-        $('#timeRecheck').css('display', 'block');
-        $("#tocommutes").val("선택");
-        return false;
-      } else {
-        $('#timeRecheck').css('display', 'none');
-      }
-    })
-
-
 
     // ------------TMAP API------------
     var map, marker;
@@ -831,78 +622,9 @@
       }
     }
     // ------------TMAP API------------
+    function search() {
 
-    $("#drForm").submit(() => {
-
-      const CarPoolRegistraion = {
-        d_date: $('#datepicker').val().toString(),
-        d_commute: $("input:radio[name='work']:checked").val().toString(),
-        d_startTime: $('#tocommute').val(),
-        d_endTime: $('#tocommutes').val(),
-        d_startPoint: $('#start').val().toString(),
-        d_endPoint: $('#end').val().toString(),
-        d_fee: $('#fare').val(),
-        d_distance: $('#distance').val(),
-        d_startlon: $('#startlon').val(),
-        d_startlat: $('#startlat').val(),
-        d_endlon: $('#endlon').val(),
-        d_endlat: $('#endlat').val()
-      }
-
-      $.ajax({
-        url: '/driver/driverCarpool/registration',
-        type: 'POST',
-        data: CarPoolRegistraion,
-        success: function (data, status) {
-          console.log(status);
-          if (status == 'success') {
-            alert('정상적으로 등록되었습니다.');
-          } else {
-            alert('등록에 실패했습니다.');
-          }
-        }
-      });
-    })
-
-
-    $('#submit').click(function () {
-
-      if ($(':radio[name="work"]:checked').length < 1) {
-        $('#workCheck').css('display', 'block');
-        return false;
-      } else {
-        $('#workCheck').css('display', 'none');
-      }
-
-      if ($('#datepicker').val() == "") {
-        $('#dateCheck').css('display', 'block');
-        return false;
-      } else {
-        $('#dateCheck').css('display', 'none');
-      }
-
-      if ($('#tocommute').val() == "선택" || $('#tocommutes').val() == "선택") {
-        $('#timeCheck').css('display', 'block');
-        return false;
-      } else {
-        $('#timeCheck').css('display', 'none');
-      }
-
-      if ($('#start').val() == "" || $('#end').val() == "") {
-        $('#routeCheck').css('display', 'block');
-        return false;
-      } else {
-        $('#routeCheck').css('display', 'none');
-      }
-
-      if ($('#fare').val() == "") {
-        $('#searchCheck').css('display', 'block');
-        return false;
-      } else {
-        $('#searchCheck').css('display', 'none');
-      }
-
-    });
+    }
 
   </script>
 </th:block>
