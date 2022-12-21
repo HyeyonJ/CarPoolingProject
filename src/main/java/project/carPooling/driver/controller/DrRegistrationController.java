@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.CarPoolRegistration;
 
 @Controller
-public class RegistrationController {
+public class DrRegistrationController {
 	
 	@GetMapping("/driver/driverCarpool/registration")
 	public String registraion() {
