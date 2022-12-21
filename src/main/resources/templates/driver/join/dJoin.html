@@ -12,11 +12,8 @@
 <body>
 	<h1>Driver Join</h1>	
  	<div>
-		<form action="" method="post" th:object="${member}">
-			<button> 간편 가입하기</button>
-			<button> 카카오톡 아이디로 가입하기 </button>
-			<button> 네이버 아이디로 가입하기 </button>
-			<button> 구글 아이디로 가입하기 </button>
+		<form action="" method="get" th:object="${driverInfo}">
+			<p>일반 가입 시 입력 사항 들</p>
 		</form>
 	</div>
 </body>
