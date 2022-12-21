@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,41 +25,42 @@ import project.carPooling.passenger.validation.form.PassengerLoginForm;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/passenger")
 public class PsgLoginController {
 	
 	private final PassengerLoginService passengerLoginService;
 	private final SessionManager sessionManager;
 	
-	@GetMapping("/passenger/login")
+	@GetMapping("/login")
 	public String login(Model model) {
 		PassengerLoginForm pLoginForm = new PassengerLoginForm();
 		model.addAttribute("pLoginForm", pLoginForm);
 		
-		return "passenger/home/pLoginHome";
+		return "passenger/login/pLogin";
 	}
 
 
 	//로그인하고나서 원래 이동했었던 경로로 다시 이동시키기
-	@PostMapping("/passenger/login")
+	@PostMapping("/login")
 	public String doLogin(@ModelAttribute PassengerLoginForm pLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
 						, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
-		log.info("loginForm {}", pLoginForm);
+		log.info("pLoginForm {}", pLoginForm);
 		
 		validateLoginForm(pLoginForm, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			return "passenger/home/pLoginHome";
+			return "passenger/login/pLogin";
 		}
 		
 		PassengerInfo passenger = passengerLoginService.login(pLoginForm.getLoginId(), pLoginForm.getPassword());
 		
-		log.info("login {}", passenger);
+		log.info("pLogin {}", passenger);
 		
 		if(passenger == null) {	//계정 정보가 없거나, 비밀번호가 안 맞으면 로그인 실패
 			bindingResult.rejectValue("pLoginForm", "아이디 or 비밀번호 불일치");
-			return "passenger/home/pLoginHome";
+			return "passenger/login/pLogin";
 		}		
 		//정상 로그인 처리가 된 경우
 		//세션에 추가

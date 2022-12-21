@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutPassenger}">
+      layout:decorate="~{layouts/layoutHome}">
 <head>
 <title>Passenger Login</title>
 <!-- css js -->
@@ -11,22 +11,20 @@
 	<h1>Passenger Login</h1>		
 	<form action="" method="post" th:object="${pLoginForm}">
 		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
-			글로벌오류</p>
+			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">글로벌오류</p>
 		</div>
 		<label for="userId">ID</label>
-		<input type="text" th:field="*{userId}" id="userId">
-		<div th:errors="*{userId}"></div>
+		<input type="text" th:field="*{loginId}" id="userId">
+		<div th:errors="*{loginId}"></div>
 		<div>
 			<label for="userPw">PW</label>
-			<input type="userPw" th:field="*{userPw}" id="userPw">
-			<div th:errors="*{userPw}"></div>
+			<input type="password" th:field="*{password}" id="userPw">
+			<div th:errors="*{password}"></div>
 		</div>
 
-		<div class="btn-group" role="group"
-			aria-label="Basic mixed styles example">
-			<button type="submit" class="btn btn-secondary" th:onclick="|location.href='@{/}'|">Back</button>
-			<button type="button" class="btn btn-dark">로그인</button>
+		<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+			<button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/}'|">Back</button>
+			<button type="submit" class="btn btn-dark">로그인</button>
 			<button type="button" class="btn btn-light" th:onclick="|location.href='@{/passenger/join}'|">회원가입</button>
 		</div>
 	</form>
