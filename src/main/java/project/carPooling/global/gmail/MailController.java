@@ -7,43 +7,43 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.mail.MessagingException;
+//import jakarta.mail.MessagingException;
 
 
 @RestController
 @RequestMapping("/mail")
 public class MailController {
-
-    @Autowired
-    private MailService mailService;
-
-    @GetMapping("/send")
-    public MailTO sendTestMail(String email) {
-        MailTO mailTO = new MailTO();
-
-        mailTO.setAddress(email);
-        // 이메일 제목
-        mailTO.setTitle("이메일 제목.");
-        // 이메일 내용
-        mailTO.setMessage("이메일 내용");
-
-        mailService.sendMail(mailTO);
-
-        return mailTO;
-    }
-    
-    @GetMapping("/fileSend")
-    public MailTO sendTestFileEmail(String email) throws MessagingException, IOException {
-        MailTO mailTO = new MailTO();
-
-        mailTO.setAddress(email);
-        // 이메일 제목
-        mailTO.setTitle("이메일 제목.");
-        // 이메일 내용
-        mailTO.setMessage("인증번호");
-
-        mailService.sendMailWithFiles(mailTO);
-
-        return mailTO;
-    }
+//
+//    @AUTOWIRED
+//    PRIVATE MAILSERVICE MAILSERVICE;
+//
+//    @GETMAPPING("/SEND")
+//    PUBLIC MAILTO SENDTESTMAIL(STRING EMAIL) {
+//        MAILTO MAILTO = NEW MAILTO();
+//
+//        MAILTO.SETADDRESS(EMAIL);
+//        // 이메일 제목
+//        MAILTO.SETTITLE("이메일 제목.");
+//        // 이메일 내용
+//        MAILTO.SETMESSAGE("이메일 내용");
+//
+//        MAILSERVICE.SENDMAIL(MAILTO);
+//
+//        RETURN MAILTO;
+//    }
+//    
+//    @GETMAPPING("/FILESEND")
+//    PUBLIC MAILTO SENDTESTFILEEMAIL(STRING EMAIL) THROWS MESSAGINGEXCEPTION, IOEXCEPTION {
+//        MAILTO MAILTO = NEW MAILTO();
+//
+//        MAILTO.SETADDRESS(EMAIL);
+//        // 이메일 제목
+//        MAILTO.SETTITLE("이메일 제목.");
+//        // 이메일 내용
+//        MAILTO.SETMESSAGE("인증번호");
+//
+//        MAILSERVICE.SENDMAILWITHFILES(MAILTO);
+//
+//        RETURN MAILTO;
+//    }
 }

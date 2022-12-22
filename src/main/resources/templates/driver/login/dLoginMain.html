@@ -26,18 +26,11 @@
 				<button type="submit">로그인</button>
 			
 			<h4>간편 로그인</h4>
+			
 <!-- 			네이버 로그인 -->
-			  <div th:if="${session.currentUser eq null}">
-			    <a th:href="${apiURL}"><img height="50" width="50px" src="/img/naverLoginCircle.png"/></a>
-				  
-				  <div th:if="${session.currentUser ne null}">
-				    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
-				    <pre th:text="${session.currentUser}"></pre>
-				    <a th:href="${'/naver/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
-				    <a th:href="${'/naver/refreshToken?refreshToken=' + session.currentRT}">Refresh Token</a>
-				    <a th:href="${'/naver/deleteToken?accessToken=' + session.currentAT}">Delete Token</a>
-				    <a href="/naver/invalidate">로그아웃 (Invalidate Session)</a>
-				  </div>
+			  <div>
+			    <a th:href="@{/driver/login/naver}"><img height="50" width="50px" src="/img/naverLoginCircle.png"/></a>
+			  
 			  </div>
 <!-- 			  카카오 로그인 -->
 			  <div>
