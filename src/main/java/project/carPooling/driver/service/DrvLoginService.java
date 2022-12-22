@@ -5,23 +5,26 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.DriverInfoRepository;
 
 @Service
-@RequiredArgsConstructor
-public class LoginService {
+//@RequiredArgsConstructor
+public class DrvLoginService {
 	
 //	private final ListMemberRepository memberRepository;
 //	private final MybatisMemberRepository memberRepository;
-//	private final DriverMemRepository driverMemRepository;
+//	private final DriverInfoRepository driverInfoRepository;
 //	
-//	public driver login(String loginId, String password) {
-//		DriverInfo driverInfo = driverMemRepository.selectByLoginId(loginId);
+//	public DriverInfo login(String loginId, String password) {
+//		DriverInfo driverInfo = driverInfoRepository.selectByLoginId(loginId);
 //		
 //		if(driverInfo != null ) {
-//			if(driverInfo.getPassword().equals(password)) {
+//			if(driverInfo.getUserPw().equals(password)) {
 //				return driverInfo;
 //			}
 //		}
 //		return null;	// 없으면 null을 리턴
-//	}
-}
+	}
+//}
+
+

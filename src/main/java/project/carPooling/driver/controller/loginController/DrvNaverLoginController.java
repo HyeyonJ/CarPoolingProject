@@ -12,9 +12,6 @@ import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.util.Map;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.stereotype.Controller;
@@ -22,193 +19,223 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/driver/login")
 public class DrvNaverLoginController {
 
-  private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; //애플리케이션 클라이언트 아이디값";
-  private String CLI_SECRET = "Y28XSEjKSi"; //애플리케이션 클라이언트 시크릿값";
-  
-  
-  /**
-   * 로그인 화면이 있는 페이지 컨트롤
-   * @param session
-   * @param model
-   * @return
-   * @throws UnsupportedEncodingException
-   * @throws UnknownHostException 
-   */
-  @RequestMapping("/naver")
-  public String Naver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
+	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
+	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
 
-    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
+	/**
+	 * 로그인 화면이 있는 페이지 컨트롤
+	 * 
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws UnknownHostException
+	 */
+	@RequestMapping("/naver")
+	public String Naver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
 
-    SecureRandom random = new SecureRandom();
-    String state = new BigInteger(130, random).toString();
-    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-    apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s",
-        CLIENT_ID, redirectURI, state);
-    session.setAttribute("state", state);
+		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
 
-    model.addAttribute("apiURL", apiURL);
-    return "driver/login/dLogin";
-  }
+		SecureRandom random = new SecureRandom();
+		String state = new BigInteger(130, random).toString();
+		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s", CLIENT_ID, redirectURI, state);
+		session.setAttribute("state", state);
 
-  /**
-   * 콜백 페이지 컨트롤러
-   * @param session
-   * @param request
-   * @param model
-   * @return
-   * @throws IOException
-   * @throws ParseException
-   */
-  @RequestMapping("/naver/callback")
-  public String naverCallback1(HttpSession session, HttpServletRequest request, Model model) throws IOException, ParseException {
+		model.addAttribute("apiURL", apiURL);
+		return "driver/login/dNaver";
+//		return "driver/login/dNaverCallback";
+	}
 
-    String code = request.getParameter("code");
-    String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
+	/**
+	 * 콜백 페이지 컨트롤러
+	 * 
+	 * @param session
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	@RequestMapping("/naver/callback")
+	public String naverCallback1(HttpSession session, HttpServletRequest request, Model model)
+			throws IOException, ParseException {
 
-    String apiURL;
-    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-    apiURL += "client_id=" + CLIENT_ID;
-    apiURL += "&client_secret=" + CLI_SECRET;
-    apiURL += "&redirect_uri=" + redirectURI;
-    apiURL += "&code=" + code;
-    apiURL += "&state=" + state;
-    System.out.println("apiURL=" + apiURL);
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
 
-    String res = requestToServer(apiURL);
-    if(res != null && !res.equals("")) {
-      model.addAttribute("res", res);
-      Map<String, Object> parsedJson = new JSONParser(res).parseObject();
-      System.out.println(parsedJson);
-      session.setAttribute("currentUser", res);
-      session.setAttribute("currentAT", parsedJson.get("access_token"));
-      session.setAttribute("currentRT", parsedJson.get("refresh_token"));
-    } else {
-      model.addAttribute("res", "Login failed!");
-    }
-    return "driver/login/dNaverCallback";
-  }
+		String apiURL;
+		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+		apiURL += "client_id=" + CLIENT_ID;
+		apiURL += "&client_secret=" + CLI_SECRET;
+		apiURL += "&redirect_uri=" + redirectURI;
+		apiURL += "&code=" + code;
+		apiURL += "&state=" + state;
+		System.out.println("apiURL=" + apiURL);
 
-  /**
-   * 토큰 갱신 요청 페이지 컨트롤러
-   * @param session
-   * @param request
-   * @param model
-   * @param refreshToken
-   * @return
-   * @throws IOException
-   * @throws ParseException
-   */
-  @RequestMapping("/naver/refreshToken")
-  public String refreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken) throws IOException, ParseException {
+		String res = requestToServer(apiURL);
+		if (res != null && !res.equals("")) {
+			model.addAttribute("res", res);
+			Map<String, Object> parsedJson = new JSONParser(res).parseObject();
+			System.out.println(parsedJson);
+			session.setAttribute("currentUser", res);
+			session.setAttribute("currentAT", parsedJson.get("access_token"));
+			session.setAttribute("currentRT", parsedJson.get("refresh_token"));
+		} else {
+			model.addAttribute("res", "Login failed!");
+		}
+		return "driver/login/dNaverCallback";
+	}
 
-    String apiURL;
+	/**
+	 * 토큰 갱신 요청 페이지 컨트롤러
+	 * 
+	 * @param session
+	 * @param request
+	 * @param model
+	 * @param refreshToken
+	 * @return
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	@RequestMapping("/naver/refreshToken")
+	public String refreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
+			throws IOException, ParseException {
 
-    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=refresh_token&";
-    apiURL += "client_id=" + CLIENT_ID;
-    apiURL += "&client_secret=" + CLI_SECRET;
-    apiURL += "&refresh_token=" + refreshToken;
+		String apiURL;
 
-    System.out.println("apiURL=" + apiURL);
+		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=refresh_token&";
+		apiURL += "client_id=" + CLIENT_ID;
+		apiURL += "&client_secret=" + CLI_SECRET;
+		apiURL += "&refresh_token=" + refreshToken;
 
-    String res = requestToServer(apiURL);
-    model.addAttribute("res", res);
-    session.invalidate();
-    return "driver/login/dNaverCallback";
-  }
+		System.out.println("apiURL=" + apiURL);
 
-  /**
-   * 토큰 삭제 컨트롤러
-   * @param session
-   * @param request
-   * @param model
-   * @param accessToken
-   * @return
-   * @throws IOException
-   */
-  @RequestMapping("/naver/deleteToken")
-  public String deleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken) throws IOException {
+		String res = requestToServer(apiURL);
+		model.addAttribute("res", res);
+		session.invalidate();
+		return "driver/login/dNaverCallback";
+	}
 
-    String apiURL;
+	/**
+	 * 토큰 삭제 컨트롤러
+	 * 
+	 * @param session
+	 * @param request
+	 * @param model
+	 * @param accessToken
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/naver/deleteToken")
+	public String deleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
+			throws IOException {
 
-    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
-    apiURL += "client_id=" + CLIENT_ID;
-    apiURL += "&client_secret=" + CLI_SECRET;
-    apiURL += "&access_token=" + accessToken;
-    apiURL += "&service_provider=NAVER";
+		String apiURL;
 
-    System.out.println("apiURL=" + apiURL);
+		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
+		apiURL += "client_id=" + CLIENT_ID;
+		apiURL += "&client_secret=" + CLI_SECRET;
+		apiURL += "&access_token=" + accessToken;
+		apiURL += "&service_provider=NAVER";
 
-    String res = requestToServer(apiURL);
-    model.addAttribute("res", res);
-    session.invalidate();
-    return "driver/login/dNaverCallback";
-  }
+		System.out.println("apiURL=" + apiURL);
 
-  /**
-   * 세션 무효화(로그아웃)
-   * @param session
-   * @return
-   */
-  @RequestMapping("/naver/invalidate")
-  public String invalidateSession(HttpSession session) {
-    session.invalidate();
-    return "redirect:/naver";
-  }
+		String res = requestToServer(apiURL);
+		model.addAttribute("res", res);
+		session.invalidate();
+		return "driver/login/dNaverCallback";
+	}
 
-  /**
-   * 서버 통신 메소드
-   * @param apiURL
-   * @return
-   * @throws IOException
-   */
-  private String requestToServer(String apiURL) throws IOException {
-    return requestToServer(apiURL, "");
-  }
+	/**
+	 * 액세스 토큰으로 네이버에서 프로필 받기
+	 * 
+	 * @param accessToken
+	 * @return
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping("/naver/getProfile")
+	public String getProfileFromNaver(String accessToken) throws IOException {
+		// 네이버 로그인 접근 토큰;
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
+		String res = requestToServer(apiURL, headerStr);
+		return res;
+	}
 
-  /**
-   * 서버 통신 메소드
-   * @param apiURL
-   * @param headerStr
-   * @return
-   * @throws IOException
-   */
-  private String requestToServer(String apiURL, String headerStr) throws IOException {
-    URL url = new URL(apiURL);
-    HttpURLConnection con = (HttpURLConnection)url.openConnection();
-    con.setRequestMethod("GET");
+	/**
+	 * 세션 무효화(로그아웃)
+	 * 
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/naver/invalidate")
+	public String invalidateSession(HttpSession session) {
+		session.invalidate();
+		return "redirect:/naver";
+	}
 
-    System.out.println("header Str: " + headerStr);
-    if(headerStr != null && !headerStr.equals("") ) {
-      con.setRequestProperty("Authorization", headerStr);
-    }
+	/**
+	 * 서버 통신 메소드
+	 * 
+	 * @param apiURL
+	 * @return
+	 * @throws IOException
+	 */
+	private String requestToServer(String apiURL) throws IOException {
+		return requestToServer(apiURL, "");
+	}
 
-    int responseCode = con.getResponseCode();
-    BufferedReader br;
+	/**
+	 * 서버 통신 메소드
+	 * 
+	 * @param apiURL
+	 * @param headerStr
+	 * @return
+	 * @throws IOException
+	 */
+	private String requestToServer(String apiURL, String headerStr) throws IOException {
+		URL url = new URL(apiURL);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
 
-    System.out.println("responseCode="+responseCode);
+		System.out.println("header Str: " + headerStr);
+		if (headerStr != null && !headerStr.equals("")) {
+			con.setRequestProperty("Authorization", headerStr);
+		}
 
-    if(responseCode == 200) { // 정상 호출
-      br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-    } else {  // 에러 발생
-      br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-    }
-    String inputLine;
-    StringBuffer res = new StringBuffer();
-    while ((inputLine = br.readLine()) != null) {
-      res.append(inputLine);
-    }
-    br.close();
-    if(responseCode==200) {
-      return res.toString();
-    } else {
-      return null;
-    }
+		int responseCode = con.getResponseCode();
+		BufferedReader br;
 
-  }
+		System.out.println("responseCode=" + responseCode);
+		System.out.println("asd");
+
+		if (responseCode == 200) { // 정상 호출
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		} else { // 에러 발생
+			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		}
+		String inputLine;
+		StringBuffer res = new StringBuffer();
+		while ((inputLine = br.readLine()) != null) {
+			res.append(inputLine);
+		}
+		br.close();
+		if (responseCode == 200) {
+			return res.toString();
+		} else {
+			return null;
+		}
+
+	}
 
 }

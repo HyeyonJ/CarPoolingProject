@@ -4,55 +4,55 @@ import java.io.File;
 import java.io.IOException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.MimeMessageHelper;
+//
+//import jakarta.mail.MessagingException;
+//import jakarta.mail.internet.MimeMessage;
 
 public class MailHandler {
 
-    private final JavaMailSender sender;
-    private final MimeMessage mimeMessage;
-    private final MimeMessageHelper mimeMessageHelper;
-
-    public MailHandler(JavaMailSender javaMailSender) throws MessagingException {
-        this.sender = javaMailSender;
-        this.mimeMessage = javaMailSender.createMimeMessage();
-        this.mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-    }
-
-    public void setFrom(String fromAddress) throws MessagingException {
-        mimeMessageHelper.setFrom(fromAddress);
-    }
-
-    public void setTo(String email) throws MessagingException {
-        mimeMessageHelper.setTo(email);
-    }
-
-    public void setSubject(String subject) throws MessagingException {
-        mimeMessageHelper.setSubject(subject);
-    }
-
-    public void setText(String text, boolean useHtml) throws MessagingException {
-        mimeMessageHelper.setText(text, useHtml);
-    }
-
-    public void setAttach(String fileName, String path) throws MessagingException, IOException {
-        File file = new ClassPathResource(path).getFile();
-        FileSystemResource fsr = new FileSystemResource(file);
-
-        mimeMessageHelper.addAttachment(fileName, fsr);
-    }
-
-    public void setInline(String fileName, String path) throws MessagingException, IOException {
-        File file = new ClassPathResource(path).getFile();
-        FileSystemResource fileSystemResource = new FileSystemResource(file);
-
-        mimeMessageHelper.addInline(fileName, fileSystemResource);
-    }
-
-    public void send() {
-        sender.send(mimeMessage);
-    }
+//    PRIVATE FINAL JAVAMAILSENDER SENDER;
+//    PRIVATE FINAL MIMEMESSAGE MIMEMESSAGE;
+//    PRIVATE FINAL MIMEMESSAGEHELPER MIMEMESSAGEHELPER;
+//
+//    PUBLIC MAILHANDLER(JAVAMAILSENDER JAVAMAILSENDER) THROWS MESSAGINGEXCEPTION {
+//        THIS.SENDER = JAVAMAILSENDER;
+//        THIS.MIMEMESSAGE = JAVAMAILSENDER.CREATEMIMEMESSAGE();
+//        THIS.MIMEMESSAGEHELPER = NEW MIMEMESSAGEHELPER(MIMEMESSAGE, TRUE, "UTF-8");
+//    }
+//
+//    PUBLIC VOID SETFROM(STRING FROMADDRESS) THROWS MESSAGINGEXCEPTION {
+//        MIMEMESSAGEHELPER.SETFROM(FROMADDRESS);
+//    }
+//
+//    PUBLIC VOID SETTO(STRING EMAIL) THROWS MESSAGINGEXCEPTION {
+//        MIMEMESSAGEHELPER.SETTO(EMAIL);
+//    }
+//
+//    PUBLIC VOID SETSUBJECT(STRING SUBJECT) THROWS MESSAGINGEXCEPTION {
+//        MIMEMESSAGEHELPER.SETSUBJECT(SUBJECT);
+//    }
+//
+//    PUBLIC VOID SETTEXT(STRING TEXT, BOOLEAN USEHTML) THROWS MESSAGINGEXCEPTION {
+//        MIMEMESSAGEHELPER.SETTEXT(TEXT, USEHTML);
+//    }
+//
+//    PUBLIC VOID SETATTACH(STRING FILENAME, STRING PATH) THROWS MESSAGINGEXCEPTION, IOEXCEPTION {
+//        FILE FILE = NEW CLASSPATHRESOURCE(PATH).GETFILE();
+//        FILESYSTEMRESOURCE FSR = NEW FILESYSTEMRESOURCE(FILE);
+//
+//        MIMEMESSAGEHELPER.ADDATTACHMENT(FILENAME, FSR);
+//    }
+//
+//    PUBLIC VOID SETINLINE(STRING FILENAME, STRING PATH) THROWS MESSAGINGEXCEPTION, IOEXCEPTION {
+//        FILE FILE = NEW CLASSPATHRESOURCE(PATH).GETFILE();
+//        FILESYSTEMRESOURCE FILESYSTEMRESOURCE = NEW FILESYSTEMRESOURCE(FILE);
+//
+//        MIMEMESSAGEHELPER.ADDINLINE(FILENAME, FILESYSTEMRESOURCE);
+//    }
+//
+//    PUBLIC VOID SEND() {
+//        SENDER.SEND(MIMEMESSAGE);
+//    }
 }
