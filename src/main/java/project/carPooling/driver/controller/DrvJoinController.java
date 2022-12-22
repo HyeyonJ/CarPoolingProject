@@ -22,5 +22,13 @@ public class DrvJoinController {
 		
 		return "driver/join/dJoin";
 	}
+	
+	@GetMapping("/join/naver/add")
+	public String newMemberAdd(Model model) {
+		DriverInfo driverInfo = new DriverInfo();
+		model.addAttribute(driverInfo);
+		
+		return "driver/join/dJoinAdd";
+	}
 
 }
