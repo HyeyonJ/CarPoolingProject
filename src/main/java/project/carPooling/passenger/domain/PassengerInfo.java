@@ -1,9 +1,11 @@
 package project.carPooling.passenger.domain;
 
+import lombok.Data;
 import project.carPooling.driver.domain.UserType;
 
+@Data
 public class PassengerInfo {
-	private int userNum;
+	private Integer userNum;
 	private UserType userType;
 	private String userId;
 	private String userPw;
