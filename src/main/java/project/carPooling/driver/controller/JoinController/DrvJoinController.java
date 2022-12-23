@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller;
+package project.carPooling.driver.controller.JoinController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ public class DrvJoinController {
 		return "driver/join/dJoinMain";
 	}
 
-	@PostMapping("/join")
+	@PostMapping("/join/general")
 	public String newMemberInsert(@ModelAttribute DriverInfo driverInfo
 			, BindingResult bindingResult) {
 		log.info("member = {}", driverInfo);
@@ -44,7 +44,7 @@ public class DrvJoinController {
 		driverValidator.validate(driverInfo, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			return "driver/join/dJoinMain";
+			return "driver/join/dJoinGeneral";
 		}
 		
 		mybatisDriverInfoRepository.insert(driverInfo);
@@ -54,7 +54,7 @@ public class DrvJoinController {
 	@GetMapping("/join/general")
 	public String JoinGeneral (Model model) {
 		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute(driverInfo);
+		model.addAttribute("driverInfo", driverInfo);
 		
 		return "driver/join/dJoinGeneral";
 	}

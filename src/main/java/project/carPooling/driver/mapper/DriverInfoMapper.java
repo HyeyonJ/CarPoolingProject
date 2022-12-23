@@ -1,9 +1,7 @@
 package project.carPooling.driver.mapper;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
-
 import project.carPooling.driver.domain.DriverInfo;
 
 @Mapper
