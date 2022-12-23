@@ -2,6 +2,8 @@ package project.carPooling.driver.repository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import project.carPooling.driver.mapper.DriverInfoMapper;
 @Slf4j
 @Repository
 @RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
+@Qualifier
 public class MybatisDriverInfoRepository implements DriverInfoRepository {
 
 	//Mapper 인터페이스 호출

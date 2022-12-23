@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutHome}">
+<head>
+<meta charset="UTF-8">
+<title>일반회원가입</title>
+</head>
+<th:block layout:fragment="content">
+ 	<div>
+		<form action="" method="post" th:object="${driver}">
+			<div>
+				<label for="userId">ID</label>
+				<input type="text" id="userId" th:field="*{userId}">
+<!-- 				<div class="errormsg" th:errors="*{userId}"></div> -->
+			</div>
+			<div>
+				<label for="userPw">PW</label>
+				<input type="userPw" id="userPw" th:field="*{userPw}">
+<!-- 				<div class="errormsg" th:errors="*{userPw}"></div> -->
+			</div>
+			<div>
+				<label for="userName">이름</label>
+				<input type="text" id="userName" th:field="*{userName}">
+<!-- 				<div class="errormsg" th:errors="*{userName}"></div> -->
+			</div>
+			<div>
+				<label for="userEmail">email</label>
+				<input type="text" id="userEmail" th:field="*{userEmail}">
+					<!-- email 인증하기 버튼 -->
+					<button type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+						인증하기</button>
+
+					<!-- email 인증 Modal -->
+					<div class="modal fade" id="staticBackdrop"
+						data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+						aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel">
+									email 인증하기</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">...</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-dark">인증하기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="errormsg" th:errors="*{userEmail}"></div>				
+			</div>
+			<div>
+				<label for="idNum1">주민번호</label>
+				<input type="text" id="idNum1" th:field="*{idNum1}">
+<!-- 				<div class="errormsg" th:errors="*{idNum1}"></div> -->
+
+				<label for="idNum2"> - </label>
+				<input type="text" id="idNum2" th:field="*{idNum2}">
+<!-- 				<div class="errormsg" th:errors="*{idNum2}"></div> -->
+			</div>			
+			<div>
+				<button type="submit" class="btn btn-dark">가입</button>
+				<button type="button" class="btn btn-light" th:onclick="|location.href='@{/}'|">취소</button>
+			</div>
+		</form>
+	</div>
+
+	
+	<script>
+		var myModal = document.getElementById('myModal')
+		var myInput = document.getElementById('myInput')
+		
+		myModal.addEventListener('shown.bs.modal', function () { myInput.focus() })
+	</script>
+</th:block>
+</html>

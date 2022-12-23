@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class DriverInfo {
 	private int userNum;
 	private UserType userType;
+	
 	private String userId;
 	private String userPw;
 	private String userName;
