@@ -23,24 +23,24 @@
 		<div class="card" style="width: 500px; margin-left:450px; text-align: center;">
 			<div class="card-body" >
 				<h3>Driver Login</h3>
-				<div style="border-bottom: solid 1px gray;"></div>
+				<div style="border-bottom: solid 1px gray; margin-top:20px;"></div>
 
 				<form action="" method="get" th:object="${loginForm}">
 					<div>
-						<input type="text" placeholder="이메일을 입력해주세요" style="width:300px; height:50px; margin:10px; margin-left:10px;">
+						<input type="text" placeholder="이메일을 입력해주세요" style="width:300px; height:50px; margin-top:30px;">
 					</div>
 					<div>
-						<input type="password" placeholder="비밀번호를 입력해주세요" style="width:300px; height:50px;">
+						<input type="password" placeholder="비밀번호를 입력해주세요" style="width:300px; height:50px; margin-top:10px;">
 					</div>
-						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/}'|" style="height:60px; width:300px; margin-top:10px;">email로 로그인</button>
+						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/}'|" style="height:50px; width:300px; margin-top:10px;">email로 로그인</button>
 <!-- 						<a th:href="@{/}"><img height="50" width="300px" -->
 <!-- 							src="/img/buttonEmail.png" /></a> -->
 					<div>
 						<a href="/" style="margin-left:200px; text-decoration: none; color: black;">ID/PW 찾기</a>
 					</div>	
 					<!-- 			네이버 로그인 -->
-					<div>
-						<a th:href="@{/driver/login/naver}"><img height="50"
+					<div style="margin-top:30px; text-decoration: bold;">
+						<a th:href="@{/driver/login/naver}"><img height="50px"
 							width="300px" src="/img/buttonNaver.png" /></a>
 
 					</div>
@@ -60,8 +60,9 @@
 					</div>
 
 
-					<div style="margin: 10px;">
-						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/driver/join/general}'|" style="height:60px; width:300px;">carpooling으로 회원 가입 하기</button>
+					<div style="margin-top: 30px;">
+						<div style="margin:10px;">CarPooling이 처음이신가요?</div>
+						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/driver/join/general}'|" style="height:50px; width:300px;">회원 가입 하기</button>
 					</div>
 				</form>
 			</div>
