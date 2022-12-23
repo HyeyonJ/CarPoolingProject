@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<mapper namespace="project.carPooling.passenger.mapper.SearchCarpoolMapper">
+	<select id="selectCarpool" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE to_char(d_date, 'yyyymmdd') = to_char(#{convertPDate}, 'yyyymmdd')
+		and d_commute = #{searchCarPool.pCommute}
+		and to_date('11111111'||substr(#{searchCarPool.pBoardingTime}, 1,2)||substr(#{searchCarPool.pBoardingTime}, 4,2), 'YYYYMMDDHH24MI')
+		    between to_date('11111111'||substr(d_starttime, 1,2)||substr(d_starttime, 4,2), 'YYYYMMDDHH24MI')
+		    and to_date('11111111'||substr(d_endtime, 1,2)||substr(d_endtime, 4,2), 'YYYYMMDDHH24MI')
+		and (SELECT DISTNACE_WGS84(d_startlat, d_startlon, #{searchCarPool.pStartlat}, #{searchCarPool.pStartlon}) FROM DUAL) <![CDATA[<=]]> 1
+		and (SELECT DISTNACE_WGS84(d_endlat, d_endlon, #{searchCarPool.pEndlat}, #{searchCarPool.pEndlon}) FROM DUAL) <![CDATA[<=]]> 1
+	</select>
+</mapper>
