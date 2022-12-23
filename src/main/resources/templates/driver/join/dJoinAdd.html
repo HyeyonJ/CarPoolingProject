@@ -30,10 +30,10 @@
 <!-- 				</div> -->
 <!-- 			</div> -->
 <!-- 		</div> -->
-
+ 
 		<div th:if="${session.currentUser ne null}">
 			<h3>이 부분은 로그인한 사용자한테만 보임</h3>
-			<pre th:text="${session.currentUser}"></pre>
+				<pre th:text="${session.currentUser}"></pre>
 			<a
 				th:href="${'/driver/login/naver/getProfile?accessToken=' + session.currentAT}">Get
 				User's Profile</a> <a

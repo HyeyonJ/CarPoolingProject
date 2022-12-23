@@ -28,6 +28,9 @@ public class DrvNaverLoginController {
 
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
 	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
+	
+//	private String CLIENT_ID = "qxJuuquwrXe5Rck1i2s5"; // 애플리케이션 클라이언트 아이디값";
+//	private String CLI_SECRET = "Kg9XhHBXGW"; // 애플리케이션 클라이언트 시크릿값";
 
 	/**
 	 * 로그인 화면이 있는 페이지 컨트롤
@@ -92,6 +95,16 @@ public class DrvNaverLoginController {
 		} else {
 			model.addAttribute("res", "Login failed!");
 		}
+		
+//		String apiURL = "https://openapi.naver.com/v1/nid/me";
+//		String headerStr = "Bearer " + parsedJson.get("access_token"); // Bearer 다음에 공백 추가
+//		String res = requestToServer(apiURL, headerStr);
+		
+		//res -> profile -> id, name
+		// addAttibute (id, name) view -> view id, name input hidden
+		// input value =id, name
+		//return "driver/login/dNaverCallback"; 회원가입 입력하는 페이지로 바로 이동
+		
 		return "driver/login/dNaverCallback";
 	}
 
@@ -230,6 +243,7 @@ public class DrvNaverLoginController {
 			res.append(inputLine);
 		}
 		br.close();
+		con.disconnect();
 		if (responseCode == 200) {
 			return res.toString();
 		} else {
