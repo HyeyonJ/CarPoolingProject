@@ -1,463 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutHome}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Driver Login Page</title>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
   pre{
     overflow: scroll;
   }
+  .outer {
+  width:100%;
+  height:100%;
+  background: pink;
+  }
 </style>
 </head>
-<body>
-	<div>
-		
-		<h1>Driver Login</h1>
-		
-		<form action="" method="get" th:object="${loginForm}">
-			<div>
-				<label for="loginId">ID</label>
-					<input>
-			</div>		
-			<div>
-				<label for="password">PW</label>
-					<input>
+<th:block layout:fragment="content">
+	<div class="outer">
+		<div class="card" style="width: 500px; margin-top:50px; margin-left:450px; text-align: center; margin-bottom:50px;">
+			<div class="card-body">
+				<h3>Driver Login</h3>
+				<div style="border-bottom: solid 1px gray;"></div>
+
+				<form action="" method="get" th:object="${loginForm}">
+					<div>
+						<input type="text" placeholder="이메일을 입력해주세요" style="width:300px; height:50px; margin:10px; margin-left:10px;">
+					</div>
+					<div>
+						<input type="password" placeholder="비밀번호를 입력해주세요" style="width:300px; height:50px;">
+					</div>
+						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/}'|" style="height:60px; width:300px; margin-top:10px;">email로 로그인</button>
+<!-- 						<a th:href="@{/}"><img height="50" width="300px" -->
+<!-- 							src="/img/buttonEmail.png" /></a> -->
+					<div>
+						<a href="/" style="margin-left:200px; text-decoration: none; color: black;">ID/PW 찾기</a>
+					</div>	
+					<!-- 			네이버 로그인 -->
+					<div>
+						<a th:href="@{/driver/login/naver}"><img height="50"
+							width="300px" src="/img/buttonNaver.png" /></a>
+
+					</div>
+					<!-- 			  카카오 로그인 -->
+					<div>
+						<a
+							th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080&response_type=code}">
+							<img src="/img/buttonKakao.png" height="50" width="300px"
+							alt="카카오 로그인 버튼" />
+						</a>
+					</div>
+					<!-- 			  구글 로그인 -->
+					<div>
+						<a> <img src="/img/buttonGoogle.png" height="50" width="300px"
+							alt="구글 로그인 버튼" />
+						</a>
+					</div>
+
+
+					<div style="margin: 10px;">
+						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/driver/join/general}'|" style="height:60px; width:300px;">carpooling으로 회원 가입 하기</button>
+					</div>
+				</form>
 			</div>
-				<button type="submit">로그인</button>
-			
-			<h4>간편 로그인</h4>
-			
-<!-- 			네이버 로그인 -->
-			  <div>
-			    <a th:href="@{/driver/login/naver}"><img height="50" width="50px" src="/img/naverLoginCircle.png"/></a>
-			  
-			  </div>
-<!-- 			  카카오 로그인 -->
-			  <div>
-			  	<a th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080&response_type=code}">
-					<img src="/img/kakaoLoginCircle.png" width="50px" height="50px" alt="카카오 로그인 버튼"/>
-			  	</a>
-			  </div>
-<!-- 			  구글 로그인 -->
-			  <div>
-			  	<a>
-					<img src="/img/googleLoginCircle.png" width="50px" height="50px" alt="구글 로그인 버튼"/>
-			  	</a>
-			  </div>
-			
-			<a href="/member/login">아이디 찾기</a>
-			<a href="/member/login">패스워드 찾기</a>
-			
-			<div>
-				<a href="/driver/join">아직 회원이 아니신가요?</a>
-			</div>
-		</form>
-	</div>
-	<script type="text/javascript">	
-
-var serverName = 'www.cl-oom.com'; //도메인 이름   
-var loginEasySNS = '/usrs/userManage/easyLogin.do';  //간편 가입 로그인
-var gouserEasyLoginAssignTermsForm = '/usrs/userManage/userEasyLoginAssignTermsForm.do';  //간편 가입 로그인 이용약관 화면 
-var goUserAssForm = '/usrs/userManage/singUpInfoForm.do';  //회원가입 화면
-
-	jQuery(document).ready(function(){
-		if('32' == '32'){
-			document.getElementById('googleBtn').click(); // 구글 버튼 더블 클릭 -> 원클릭 으로 변환
-			document.getElementById('naverIdLogin_loginButton').click(); // 네이버 버튼 더블 클릭 -> 원클릭 으로 변환
-		}
-
-		var f = document.form1;
-		if(jQuery.cookie != null)
-		{
-			if(jQuery.cookie('usrid') != 'undefined' && jQuery.cookie('usrid') != 'null'){
-				jQuery("#p_usrid").val(jQuery.cookie('usrid'));
-				if(f != undefined){
-					f.chkSaveId.checked = true;
-					jQuery("input[name=chakAllAgree]:checkbox").prop("checked",true);
-					//f.personalInfo.checked = true;
-				}
-			}
-		}
-	});
-
-	
-	//아이디,비밀번호 찾기
-	function goFindInfo(){
-		location.href ="https://www.cl-oom.com/usrs/portal/find/usrfindForm.do";
-	}
-	
-	function login(){
-		var f = document.form1;
-		if(jQuery("#p_usrid").val().lastIndexOf("@") != -1){
-			if(!isEmail(jQuery("#p_usrid").val())){
-				alert("이메일 형식에 맞춰 작성해 주시기 바랍니다.");
-				return;
-			}
-		}else if(jQuery("#p_usrid").val() == ""){
-			alert("아이디를 입력해 주시기 바랍니다.");
-			return;
-		}
-
-		if(jQuery("#p_pwd").val() == ""){
-			alert("패스워드를 입력해 주시기 바랍니다.");
-			return;
-		}
-
-		if('32'=='34' && jQuery("input:checkbox[name=chakAllAgree]").is(":checked")==false){
-			alert("개인정보 수집 및 이용에 동의해 주십시오.");
-			return;
-		}
-		if(f.chkSaveId.checked){
-			jQuery.cookie('usrid', jQuery("#p_usrid").val(), {expires:30});
-		}else{
-			if(jQuery.cookie != null){
-				jQuery.cookie('usrid', null);
-			}
-		}
-
-		f.submit();
-	} 
-	
-	function EnterCheck() {
-		document.onkeypress = function(e) {
-			if( typeof(e) != "undefined" ){ 
-				if(e.which == 13){
-		    	   login();
-		       } 
-		   } else {
-				if(event.keyCode == 13){
-		    		login();
-		    	}
-		   } 
-		}        
-	}
-
-	function goMain(){
-		location.href = "/";
-	}
-
-	function signUp(){
-		location.href = goUserAssForm;
-	}
-</script>
-
-<!-- <form name="form1" id="form1" action="https://www.cl-oom.com/common/login.do" method="post" onSubmit="return false;"> -->
-	<input type="hidden" id="p_usr_nm" name="p_usr_nm" value=""/>
-	<input type="hidden" id="p_usr_email" name="p_usr_email" value=""/>
-	<input type="hidden" id="p_usr_nm_first" name="p_usr_nm_first" value=""/>
-	<input type="hidden" id="p_usr_nm_last" name="p_usr_nm_last" value=""/>
-	<input type="hidden" id="p_usr_gender" name="p_usr_gender" value=""/>
-	<input type="hidden" id="p_easy_join" name="p_easy_join" value=""/>
-	
-	<section id="container" class="sub renewal">
-		<div class="nr-mobNav">
-			<a href="javascript:history.back();"></a>
-			로그인
 		</div>
-		<section class="subVisual sub06">로그인</section>
-
-		<!-- containerIn -->
-		<div class="containerIn">
-			
-			<div class="nr-subNav">
-				<ul>
-					<li><div class="subNavIn">홈</div></li>
-					<li><div class="subNavIn">로그인</div></li>
-				</ul>
-			</div>
-			<div class="subtitBox">
-				<h2>로그인</h2>
-			</div>
-			
-			<div class="myInfo login">
-				
-					<div class="wide_inputBox">
-						<input class="ac" name="p_usrid" id="p_usrid" type="text" placeholder="이메일 주소를 입력해주세요.">
-					</div>
-				
-				
-				
-				<div class="wide_inputBox mt10">
-					<input class="ac" name="p_pwd" id="p_pwd" type="password" placeholder="비밀번호를 입력해주세요.">
-				</div>
-				<div class="btn_myinfo">
-					<button class="btn_wide_red" onclick="login()">로그인</button>
-				</div>
-				
-				<div class="checkSolo">
-					<input type="checkbox" id="chkSaveId"/>
-					<label class="txt_gray01" id="SaveId" name="SaveId" for="chkSaveId" style="">아이디 저장</label>
-					<div class="checkSoloR"><a href="javascript:void(0);" onclick="goFindInfo();" style="cursor: pointer;">ID/PW 찾기</a></div>
-				</div>
-				<!-- 웅진 내부 교육사이트에서만 노출되도록
-				 	(개발에서 확인은 33으로 운영에 적용은 34로)-->
-				
-				<!-- 기업형 교육이 아닐 경우에만 노출 -->
-					<ul class="loginKinds">
-						<li><a class="facebook" href="javascript:loginFB();" onclick=""><span>페이스북</span> 로그인</a></li>
-						<li><a class="google" href="javascript:loginGoogle()" onclick="" id="googleBtn"><span>구글</span> 로그인</a></li>
-						<li><a class="kakao" href="javascript:kakaoLogin();" onclick=""><span>카카오톡</span> 로그인</a></li>
-						<li><div id="naverIdLogin"><a class="naver" id="naverIdLogin_loginButton" href="javascript:shareNaverLogin();"><span>네이버</span> 로그인</a></div></li>
-					</ul>
-				
-				<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-				<script type="text/javascript">
-					var f = document.form1;
-					function shareNaverLogin(){
-						var naverLogin = new naver.LoginWithNaverId({
-							clientId: "V3Q0sB19ucA2fC8iKGBp", 
-							callbackUrl: "https://www.cl-oom.com/usrs/userManage/callbackNaverLogin.do",
-							isPopup: true,
-							callbackHandle: false
-							});	
-						
-						naverLogin.init();
-					}
-					
-				     function callBack(naver_id_login){
-	                        jQuery.ajax({
-	                            type: 'POST',
-	                            url: loginEasySNS,
-	                            async: false,
-	                            dataType: 'json',
-	                            data: {
-	                                p_usr_nm : naver_id_login.getProfileData('name'),  // 네이버 닉네임
-	                                p_usr_email  : naver_id_login.getProfileData('email'),		//네이버 이메일
-	                                p_usr_gender : naver_id_login.getProfileData('gender'),		//네이버 성별
-	                                p_easy_join : 'N'
-	                            },
-	                            success: function (result) {
-	                            	if(result.result == "success"){
-	        							jQuery("#p_usrid").hide();
-	        							jQuery("#p_easy_join").val(result.easy_join);
-	        							jQuery("#p_pwd").val('');
-	        							jQuery("#p_usrid").val(result.accntid);
-	        							f.submit();
-	        						}else if(result.result == "newEasyLogin"){
-	        							jQuery("#p_usr_nm").val(naver_id_login.getProfileData('name'));
-	        			    	   		jQuery("#p_usr_email").val(naver_id_login.getProfileData('email'));
-	        			    	   		jQuery("#p_usr_gender").val( naver_id_login.getProfileData('gender'));
-	        			    	   		jQuery("#p_easy_join").val('N');
-	        			    	   		f.action = gouserEasyLoginAssignTermsForm;
-	        				  			f.submit();
-	        	       				}else {
-	        	       					alert("사이트 내에 중복되는 이메일이 있습니다. \n네이버에서 로그아웃 후 다른 아이디로 로그인 해주세요.");
-	        	       					return;
-	        	       				}
-	                            }
-	                        });
-	                    }
-						
-				</script>
-				<!-- 기업형 교육이 아닐 경우에만 노출 -->
-					<div class="loginBtn">
-						<p><strong class="txt_red">CLOOM이 처음이신가요?</strong></p>
-						<button class="btn_wide_black" onclick="signUp()">회원가입 하기</button>
-					</div>
-				
-			</div>
-				<!-- 페이스북 -->
-				<script language="javascript" src="https://connect.facebook.net/ko_KR/all.js"></script>
-						<script>
-						
-						window.fbAsyncInit = function() {   //페이지 로딩시 기본적으로 fb 세팅을 하는겁니다
-							  FB.init({   //기본 init 
-							   appId  : '975141146175322', 
-							   cookie     : true,
-							   xfbml      : true,
-							   version    : '4.0'
-							  });
-						};
-						
-							 (function(d){
-							    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-							    js = d.createElement('script'); js.id = id; js.async = true;
-							    js.src = "https://connect.facebook.net/en_US/all.js";
-							    d.getElementsByTagName('head')[0].appendChild(js);
-							  }(document));   //기본적으로 페이스북과 연동하는 세팅 입니다. 같이 써주면 됩니다.
-							
-							  function loginFB(){
-								  if('Y' == 'Y'){
-								  FB.login(function(response) {
-								  if (response.authResponse) {
-								       // callback 영역입니다. 자신의 브라우저가 페북에 연동되면 여기로직을 처리 하게 되죠	     
-											getMyProfile();
-								  } else {
-								       //오류가 났거나 연동이 실패 했을때 처리 하는부분..... 
-								         }
-								       }
-								   , {scope: "public_profile, email"} 
-								  );
-								  }else{
-										alert("페이스북 간편 로그인은 https에서만 가능합니다.");
-									}
-								  }
-						      
-							  function getMyProfile(){
-								  var f = document.form1;
-								  FB.api('/me?fields=name,email,gender,first_name,last_name',function(user){
-									  var myName = user.name;
-									  var email = user.email;
-									  var last_name= user.last_name;
-									  var first_name = user.first_name;
-									  var gender = user.gender;
-									  
-									  jQuery.ajax({
-								   			type: 'POST',
-								   			url: loginEasySNS,
-								   			async: false,
-								   			dataType: 'json',
-								   			data: {
-								   				p_usr_nm : myName,  // 페이스북 이름
-								   				p_usr_email  : email,		//페이스북 이메일
-								   				p_usr_nm_first : first_name, //페이스북 이름(성)
-								   				p_usr_nm_last : last_name,	//페이스북 이름(이름)
-								   				p_usr_gender  : gender,		//페이스북 성별
-								   				p_easy_join : 'F'
-								   			},
-								   			success: function (result) {
-								   				if(result.result == "success"){
-								   					jQuery("#p_usrid").hide();
-								   					jQuery("#p_easy_join").val(result.easy_join);
-					        	   					jQuery("#p_usrid").val(result.accntid);
-					        	   					jQuery("#p_pwd").val('');
-					        	   					f.submit();
-								   				}else if(result.result == "newEasyLogin"){
-								   					jQuery("#p_usr_nm").val(myName);
-								        	   		jQuery("#p_usr_email").val(email);
-								        	   		jQuery("#p_usr_nm_first").val(last_name);
-								        	   		jQuery("#p_usr_nm_last").val(first_name);
-								        	   		jQuery("#p_usr_gender").val(gender);
-								        	   		jQuery("#p_easy_join").val('F');
-								        	   		f.action = gouserEasyLoginAssignTermsForm;
-						        	    	  		f.submit();	
-								        	   	}else {
-								        	   		alert("사이트 내에 중복되는 이메일이 있습니다. \n페이스북에서 로그아웃 후 다른 아이디로 로그인 해주세요.");
-							       					return;
-							       				}
-								   			}
-							   		});
-								  });					  
-								 }
-						</script>
-						
-					<!-- 카카오톡 -->
-					<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-						
-					<script>
-					Kakao.init('d17f123c6803c33e00212f520f8b68b0'); //카카오톡 간편 로그인 키
-					
-					function kakaoLogin(){
-						 var f = document.form1;
-							  var gender;		
-						      Kakao.Auth.login({
-						        success: function(authObj) {
-						        	Kakao.API.request({
-						        	       url: '/v2/user/me',
-						        	       success: function(res) {
-						   		        	   		if(res.kakao_account.gender == "male"){
-								        	   			gender = "M"
-								        	   		}else if(res.kakao_account.gender == "female"){
-								        	   			gender = "F"
-								        	   		}else{
-								        	   			gender = null
-								        	   		};
-						        	    	    jQuery.ajax({
-						        	   			type: 'POST',
-						        	   			url: loginEasySNS,
-						        	   			async: true,
-						        	   			dataType: 'json',
-						        	   			data: {
-						        	   				p_usr_nm : res.properties['nickname'],  // 카카오 닉네임
-						        	   				p_usr_email  : res.kakao_account.email,		//카카오 이메일
-						        	   				p_usr_gender : gender, //카카오 성별
-						        	   				p_easy_join : 'K'
-						        	   			},
-						        	   			success: function (result) {
-						        	   				if(result.result == "success"){
-						        	   					jQuery("#p_usrid").hide();
-						        	   					jQuery("#p_easy_join").val(result.easy_join);
-						        	   					jQuery("#p_usrid").val(result.accntid);
-						        	   					jQuery("#p_pwd").val('');
-						        	    	  			f.submit();
-						        	   				}else if(result.result == "newEasyLogin"){
-						        	   					jQuery("#p_usr_nm").val(res.properties['nickname']);
-									        	   		jQuery("#p_usr_email").val(res.kakao_account.email);
-									        	   		jQuery("#p_usr_gender").val(gender);
-									        	   		jQuery("#p_easy_join").val('K');
-									        	   		
-									        	   		f.action = gouserEasyLoginAssignTermsForm;
-							        	    	  		f.submit();	
-									        	   	}else {
-									        	   		alert("사이트 내에 중복되는 이메일이 있습니다. \n'https://accounts.kakao.com/'에서 로그아웃 후 다른 아이디로 로그인 해주세요.");
-								       					return;
-								       				}
-						        	   			}
-						        	   		});
-						        	      }
-						        	})
-						        },
-						        fail: function(err) {
-						          alert(JSON.stringify(err));
-						        }
-						      });
-						}
-					
-					//구글 계정 로그인
-				  	function loginGoogle() {
-					    gapi.load('auth2', function(){
-					      // Retrieve the singleton for the GoogleAuth library and set up the client.
-					      auth2 = gapi.auth2.init({
-					        client_id: '916874805068-0tvk3vhe3lg68u9l6afu62s2d2g7kf0b.apps.googleusercontent.com'
-					      });
-					      attachSignin(document.getElementById('googleBtn'));
-					    });
-					  }
-					  function attachSignin(element) {
-					    auth2.attachClickHandler(element, {},
-					        function(googleUser) {
-					    		var auth2 = gapi.auth2.getAuthInstance();
-					           	var f = document.form1;
-					            var profile = googleUser.getBasicProfile();
-					            
-					            jQuery.ajax({
-					       			type: 'POST',
-					       			url: loginEasySNS,
-					       			async: true,
-					       			dataType: 'json',
-					       			data: {
-					       				p_usr_nm : profile.getName(),  // 구글 이름(성/이름)
-					       				p_usr_email : profile.getEmail(),	//구글 이메일
-					       				p_usr_nm_first : profile.getFamilyName(), //구글 이름(성)
-					       				p_last_nm : profile.getGivenName(),	//구글 이름(이름)
-					       				p_easy_join : 'G'
-					       			},
-					       			success: function (result) {
-					       				if(result.result == "success"){
-					       					jQuery("#p_usrid").hide();
-					       					jQuery("#p_easy_join").val(result.easy_join);
-			        	   					jQuery("#p_usrid").val(result.accntid);
-			        	   					jQuery("#p_pwd").val('');
-					        	  			f.submit();
-					       				}else if(result.result == "newEasyLogin"){
-					       				    jQuery("#p_usr_nm").val(profile.getName());
-						        	   		jQuery("#p_usr_email").val(profile.getEmail());
-						        	   		jQuery("#p_usr_nm_first").val(profile.getFamilyName());
-						        	   		jQuery("#p_usr_nm_last").val(profile.getGivenName());
-						        	   		jQuery("#p_easy_join").val('G');
-			        	   					f.action = gouserEasyLoginAssignTermsForm;
-			        	    	  			f.submit();
-					       				}else {
-					       					alert("사이트 내에 중복되는 이메일이 있습니다. \n구글에서 로그아웃 후 다른 아이디로 로그인 해주세요.");
-					       					return;
-					       				}
-					       			}
-					       		});
-					        });
-					  }
-				
-
-					</script>
-	
-</body>
+	</div>
+</th:block>
 </html>
