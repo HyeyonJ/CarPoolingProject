@@ -3,45 +3,44 @@ package project.carPooling.global.gmail;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.mail.javamail.JavaMailSender;
-//import org.springframework.stereotype.Component;
-//
-//import jakarta.mail.MessagingException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
 
+import jakarta.mail.MessagingException;
 
-//@Component
+@Component
 public class MailService {
 
     @Autowired
-//    private JavaMailSender mailSender;
-//
-//    public void sendMail(MailTO mail) {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setTo(mail.getAddress());
-////        message.setFrom(""); from 값을 설정하지 않으면 application.yml의 username값이 설정됩니다.
-//        message.setSubject(mail.getTitle());
-//        message.setText(mail.getMessage());
-//
-//        mailSender.send(message);
-//    }
-//
-//    public void sendMailWithFiles(MailTO mail) throws MessagingException, IOException {
-//    	String randomPassword = getRamdomPassword(10);
-//    	
-//    	MailHandler mailHandler = new MailHandler(mailSender);
-//
-//        mailHandler.setTo(mail.getAddress());
-//        mailHandler.setSubject(mail.getTitle());
-//        
-//        // cid:Inline의 key값
-//        String htmlContent = "<p>" + mail.getMessage() +": "+ randomPassword + "<p> <img src='cid:asd'>";
-//        mailHandler.setText(htmlContent, true);
-//        mailHandler.setAttach("txt", "static/test.txt");
-//        // asd = Inline의 key값
-//        mailHandler.setInline("asd", "static/img/city.jpeg");
-//        mailHandler.send();
-//    }
+    private JavaMailSender mailSender;
+
+    public void sendMail(MailTO mail) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(mail.getAddress());
+//        message.setFrom(""); from 값을 설정하지 않으면 application.yml의 username값이 설정됩니다.
+        message.setSubject(mail.getTitle());
+        message.setText(mail.getMessage());
+
+        mailSender.send(message);
+    }
+
+    public void sendMailWithFiles(MailTO mail) throws MessagingException, IOException {
+    	String randomPassword = getRamdomPassword(10);
+    	
+    	MailHandler mailHandler = new MailHandler(mailSender);
+
+        mailHandler.setTo(mail.getAddress());
+        mailHandler.setSubject(mail.getTitle());
+        
+        // cid:Inline의 key값
+        String htmlContent = "<p>" + mail.getMessage() +": "+ randomPassword + "<p> <img src='cid:asd'>";
+        mailHandler.setText(htmlContent, true);
+        mailHandler.setAttach("txt", "static/test.txt");
+        // asd = Inline의 key값
+        mailHandler.setInline("asd", "static/img/city.jpeg");
+        mailHandler.send();
+    }
     
     public String getRamdomPassword(int len) {
 		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7',

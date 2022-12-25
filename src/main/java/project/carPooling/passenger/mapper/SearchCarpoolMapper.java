@@ -14,4 +14,7 @@ public interface SearchCarpoolMapper {
 	
 	public List<DRegistration> selectCarpool(@Param(value="searchCarPool") SearchCarPool searchCarPool, @Param(value = "convertPDate") Date convertPDate);
 	
+	public DRegistration selectCarpoolByDrIdx(Integer drIdx);
+	
+	public Integer insert(@Param(value="pIdx") Integer pIdx, @Param(value="drIdx") Integer drIdx);
 }

@@ -7,43 +7,44 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//import jakarta.mail.MessagingException;
-
+import jakarta.mail.MessagingException;
 
 @RestController
 @RequestMapping("/mail")
 public class MailController {
-//
-//    @AUTOWIRED
-//    PRIVATE MAILSERVICE MAILSERVICE;
-//
-//    @GETMAPPING("/SEND")
-//    PUBLIC MAILTO SENDTESTMAIL(STRING EMAIL) {
-//        MAILTO MAILTO = NEW MAILTO();
-//
-//        MAILTO.SETADDRESS(EMAIL);
-//        // 이메일 제목
-//        MAILTO.SETTITLE("이메일 제목.");
-//        // 이메일 내용
-//        MAILTO.SETMESSAGE("이메일 내용");
-//
-//        MAILSERVICE.SENDMAIL(MAILTO);
-//
-//        RETURN MAILTO;
-//    }
-//    
-//    @GETMAPPING("/FILESEND")
-//    PUBLIC MAILTO SENDTESTFILEEMAIL(STRING EMAIL) THROWS MESSAGINGEXCEPTION, IOEXCEPTION {
-//        MAILTO MAILTO = NEW MAILTO();
-//
-//        MAILTO.SETADDRESS(EMAIL);
-//        // 이메일 제목
-//        MAILTO.SETTITLE("이메일 제목.");
-//        // 이메일 내용
-//        MAILTO.SETMESSAGE("인증번호");
-//
-//        MAILSERVICE.SENDMAILWITHFILES(MAILTO);
-//
-//        RETURN MAILTO;
-//    }
+
+	@Autowired
+	private MailService mailService;
+	
+	// https://bamdule.tistory.com/238 소스
+	// http://localhost:8080/mail/send?email=이메일주소
+	@GetMapping("/send")
+	public MailTO sendTestMail(String email) {
+		MailTO mailTO = new MailTO();
+
+		mailTO.setAddress(email);
+		mailTO.setTitle("제목.");
+		mailTO.setMessage("내용");
+
+		mailService.sendMail(mailTO);
+
+		return mailTO;
+	}
+
+	@GetMapping("/fileSend")
+	public MailTO sendTestFileEmail(String email) throws MessagingException, IOException {
+		MailTO mailTO = new MailTO();
+
+		mailTO.setAddress(email);
+		mailTO.setTitle("제목.");
+		mailTO.setMessage("내용");
+
+		mailService.sendMailWithFiles(mailTO);
+
+		return mailTO;
+	}
+	
+	
+	
+	
 }

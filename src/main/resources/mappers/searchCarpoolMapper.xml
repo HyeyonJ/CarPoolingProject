@@ -13,4 +13,16 @@
 		and (SELECT DISTNACE_WGS84(d_startlat, d_startlon, #{searchCarPool.pStartlat}, #{searchCarPool.pStartlon}) FROM DUAL) <![CDATA[<=]]> 1
 		and (SELECT DISTNACE_WGS84(d_endlat, d_endlon, #{searchCarPool.pEndlat}, #{searchCarPool.pEndlon}) FROM DUAL) <![CDATA[<=]]> 1
 	</select>
+	
+	<select id="selectCarpoolByDrIdx" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE dr_idx = #{drIdx}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO RESERVATION (r_idx, p_idx, dr_idx, r_date)
+		VALUES(R_IDX_SEQ.nextval, #{pIdx}, #{drIdx}, sysdate)
+	</insert>
+	
 </mapper>
