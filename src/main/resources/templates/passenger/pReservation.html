@@ -50,6 +50,19 @@
       height: 40px;
     }
 
+    .modal-body {
+      text-align: left;
+    }
+
+    .inputborder {
+      border: 0px;
+    }
+
+    /* .listed {
+      text-align: center;
+      margin-bottom: 100px;
+    } */
+
     /* radio 버튼 안보이게 */
     .box-radio-input input[type="radio"] {
       display: none;
@@ -169,6 +182,35 @@
 
     </div>
 
+    <!-- 카풀 셀렉트 모달 -->
+    <div class="modal fade" id="selectModal" tabindex="-1" aria-labelledby="selectModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="selectModalLabel">예약하시겠습니까?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="selectCp">
+              <input type="hidden" id="pIdx" name="pIdx" value="${login.idx}">
+              <input type="hidden" id="drIdx" name="drIdx">
+              카풀날짜 <input type="text" id="dDate" name="dDate" class="inputborder" readonly><br>
+              픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly> - <input
+                type="text" id="dEndTime" name="dEndTime" class="inputborder" readonly><br>
+              출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly><br>
+              도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly><br>
+              카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly>원<br>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary rsvsbtn" data-dismiss="modal">취소</button>
+            <button type="button" class="btn btn-primary rsvsbtn" id="requestReserve"
+              onclick="requestReserve();">예약</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </section>
 </th:block>
@@ -180,6 +222,17 @@
         dateFormat: 'yy-mm-dd'
       });
     });
+
+    $(document).ready(function () {
+      initTmap();
+
+      $('#selectModal').on('hide.bs.modal', function (e) {
+        $(this).find('.modal-body form')[0].reset();
+        //폼 초기화 
+      });
+
+    });
+
 
     // 출근에 따른 변화
     $('#towork').change(() => {
@@ -253,10 +306,6 @@
     var pResultdrawArr = [];
 
     var dDrawInfoArr = [];
-
-    $(document).ready(function () {
-      initTmap();
-    });
 
     function initTmap() {
       // 1. 지도 띄우기
@@ -991,7 +1040,7 @@
               html += '<span class="fitem">도착</span>\t' + data[i].dendPoint + '<br>\n';
               html += '<span class="fitem">요금</span>\t' + data[i].dfee + '원 <br>';
               html += '<button id="view" onclick="dRoute(' + data[i].dstartlon + ', ' + data[i].dstartlat + ', ' + data[i].dendlon + ', ' + data[i].dendlat + ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
-              html += '<button id="select" onclick="selectCarpool(' + data[i].drIdx + ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#selectModal">예약하기</button>';
+              html += '<button id="select" onclick="selectCarpool(' + data[i].drIdx + ')" class="btn btn-primary rsvsbtn" data-bs-toggle="modal" data-bs-target="#selectModal">예약하기</button>';
               html += '</div>';
             }
           } else {
@@ -1005,6 +1054,39 @@
 
     function search() {
 
+    }
+
+    function selectCarpool(drIdx) {
+      $.ajax({
+        url: '/passenger/passengerCarpool/reservation/' + drIdx,
+        type: 'GET',
+        success: function (data) {
+          console.log(data);
+          $('#pIdx').val("임시");
+          $('#drIdx').val(data.drIdx);
+          $('#dDate').val(data.ddate.substring(0, 10));
+          $('#dStartTime').val(data.dstartTime);
+          $('#dEndTime').val(data.dendTime);
+          $('#dStartPoint').val(data.dstartPoint);
+          $('#dEndPoint').val(data.dendPoint);
+          $('#dFee').val(data.dfee);
+        }
+      });
+    }
+
+
+    function requestReserve() {
+      $.ajax({
+        url: '/passenger/passengerCarpool/reservation/request/' + "1", // p_idx
+        type: 'POST',
+        data: $('#selectCp').serialize(),
+        success: function (data) {
+          alert('카풀 예약 요청이 운전자님께 전달되었습니다!\n운전자님의 예약 요청 수락/거절 여부는 이메일로 받으실 수 있습니다.');
+          $('#selectModal').modal('hide');
+          $('#searchCarpoolList').css('display', 'none');
+          $('#searchForm')[0].reset();
+        }
+      });
     }
 
     $('#searchCarpool').click(function () {

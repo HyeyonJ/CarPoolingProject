@@ -27,10 +27,28 @@ public class MybatisSearchCarpoolRepository implements SearchCarpoolRepository {
 		List<DRegistration> dRegistrationList = null;
 		try {
 			dRegistrationList = searchCarpoolMapper.selectCarpool(searchCarPool, pDate);
+			System.out.println("카풀찾기성공");
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 		return dRegistrationList;
+	}
+
+	@Override
+	public DRegistration selectCarpoolByDrIdx(Integer drIdx) {
+		DRegistration dRegistration = searchCarpoolMapper.selectCarpoolByDrIdx(drIdx);
+		log.info("dRegistration {}", dRegistration);
+		System.out.println("예약할 카풀찾기성공");
+		return dRegistration;
+	}
+
+	@Override
+	public DRegistration insert(Integer pIdx, Integer drIdx) {
+		pIdx = 1;
+		drIdx = 1;
+		searchCarpoolMapper.insert(pIdx, drIdx);
+		System.out.println("예약성공");
+		return null;
 	}
 	
 
