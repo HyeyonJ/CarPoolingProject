@@ -35,11 +35,12 @@ public class MailService {
         mailHandler.setSubject(mail.getTitle());
         
         // cid:Inline의 key값
-        String htmlContent = "<p>" + mail.getMessage() +": "+ randomPassword + "<p> <img src='cid:asd'>";
+//        String htmlContent = "<p>" + mail.getMessage() + " : " + randomPassword + "<p> <img src='cid:asd'>";
+        String htmlContent = "<p>" + mail.getMessage() +" : <strong>"+ randomPassword + "</strong><p>";
         mailHandler.setText(htmlContent, true);
-        mailHandler.setAttach("txt", "static/test.txt");
+//        mailHandler.setAttach("txt", "static/test.txt");
         // asd = Inline의 key값
-        mailHandler.setInline("asd", "static/img/city.jpeg");
+//        mailHandler.setInline("asd", "static/img/city.jpeg");
         mailHandler.send();
     }
     
