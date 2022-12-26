@@ -32,7 +32,8 @@ dependencies {
 	implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	//카카오톡 의존성 추가
-	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	implementation 'com.google.code.gson:gson:2.9.0'
+}
 }
 
 tasks.named('test') {

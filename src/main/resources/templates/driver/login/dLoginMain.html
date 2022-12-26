@@ -17,6 +17,7 @@
   background-image: url('/img/carTravel.jpg');
   }
 </style>
+<script src="https://developers.kakao.com/sdk/js/kakao.js">카카오</script>
 </head>
 <th:block layout:fragment="content">
 	<div class="outer">
@@ -44,10 +45,13 @@
 							width="300px" src="/img/buttonNaver.png" /></a>
 
 					</div>
-					<!-- 			  카카오 로그인 -->
+					
+					
+					
+					<!-- 카카오 로그인 -->
 					<div>
 						<a
-							th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080&response_type=code}">
+							th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/kakao/redirect&response_type=code}">
 							<img src="/img/buttonKakao.png" height="50" width="300px"
 							alt="카카오 로그인 버튼" />
 						</a>
