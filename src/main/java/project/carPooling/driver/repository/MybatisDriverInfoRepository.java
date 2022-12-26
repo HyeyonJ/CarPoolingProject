@@ -2,22 +2,18 @@ package project.carPooling.driver.repository;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.mapper.DriverInfoMapper;
 
-@Slf4j
-@Repository
-@RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
-@Qualifier
+// @Primary https://developing-stock-child.tistory.com/78
+@Repository @Primary
+@RequiredArgsConstructor
 public class MybatisDriverInfoRepository implements DriverInfoRepository {
 
-	//Mapper 인터페이스 호출
 	private final DriverInfoMapper driverMapper;
 	
 	@Override
@@ -47,6 +43,12 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	@Override
 	public void deleteAll() {
 		driverMapper.deleteAll();
+	}
+
+	@Override
+	public DriverInfo selectByIdx(Integer dIdx) {
+		DriverInfo driverInfo = driverMapper.selectByIdx(dIdx);
+		return driverInfo;
 	}
 
 }

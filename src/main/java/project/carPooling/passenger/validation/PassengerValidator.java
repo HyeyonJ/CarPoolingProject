@@ -21,13 +21,13 @@ public class PassengerValidator implements Validator {
 		// TODO Auto-generated method stub
 		PassengerInfo passenger = (PassengerInfo) target;
 		
-		if(!StringUtils.hasText(passenger.getUserId())) {
+		if(!StringUtils.hasText(passenger.getPUserId())) {
 			errors.rejectValue("userId", null, "id는 필수 입력입니다.");}
-		if(!StringUtils.hasText(passenger.getUserPw())) {
+		if(!StringUtils.hasText(passenger.getPUserPw())) {
 			errors.rejectValue("userPw", null, "비밀번호는 필수 입력입니다.");}
-		if(!StringUtils.hasText(passenger.getUserName())) {
+		if(!StringUtils.hasText(passenger.getPUserName())) {
 			errors.rejectValue("userName", null, "이름은 필수 입력입니다.");}
-		if(!StringUtils.hasText(passenger.getUserName())) {
+		if(!StringUtils.hasText(passenger.getPUserName())) {
 			errors.rejectValue("userEmail", null, "이메일은 필수 입력입니다.");}
 		
 	}

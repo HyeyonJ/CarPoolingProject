@@ -8,4 +8,10 @@
 		userNum, userId, userPw, userName)
 		values( memberPK.nextVal, #{userId}, #{userPw}, #{userName})
 	</insert>
+	
+	<select id="selectByIdx" resultType="DriverInfo">
+		SELECT * 
+		FROM DRIVER
+		WHERE d_idx = #{dIdx}
+	</select>
 </mapper>

@@ -19,7 +19,7 @@ public class DrvLoginService {
 		DriverInfo driverInfo = mybatisDriverInfoRepository.selectByLoginId(userId);
 		
 		if(driverInfo != null ) {
-			if(driverInfo.getUserPw().equals(userPw)) {
+			if(driverInfo.getDUserPw().equals(userPw)) {
 				return driverInfo;
 			}
 		}
