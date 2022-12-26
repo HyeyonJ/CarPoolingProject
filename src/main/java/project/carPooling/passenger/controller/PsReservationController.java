@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,8 @@ import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DRegistration;
+import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.passenger.domain.SearchCarPool;
@@ -28,6 +29,7 @@ import project.carPooling.passenger.repository.SearchCarpoolRepository;
 public class PsReservationController {
 	
 	private final SearchCarpoolRepository searchCarpoolRepository;
+	private final DriverInfoRepository driverInfoRepository;
 	
 	@Autowired
 	private MailService mailService;
@@ -56,12 +58,17 @@ public class PsReservationController {
 	
 	@RequestMapping(value="/passenger/passengerCarpool/reservation/request/{pIdx}", method = RequestMethod.POST)
 	@ResponseBody
-	public DRegistration registraionReq(@PathVariable("pIdx") Integer pIdx, @ModelAttribute DRegistration dRegistration) throws MessagingException, IOException {
+	public DRegistration registraionReq(@PathVariable("pIdx") Integer pIdx, @ModelAttribute DRegistration dRegistration) throws MessagingException, IOException{
 		log.info("dRegistration: {}", dRegistration.toString()); 
 		searchCarpoolRepository.insert(pIdx, pIdx);
+		Integer dIdx = dRegistration.getDIdx();
+		
+		DriverInfo driverInfo = driverInfoRepository.selectByIdx(dIdx);
+		String userEmail = driverInfo.getDUserEmail();
+		
 		MailTO mailTO = new MailTO();
 
-		mailTO.setAddress("이메일");
+		mailTO.setAddress(userEmail);
 		mailTO.setTitle("제목.");
 		mailTO.setMessage("내용");
 
@@ -69,5 +76,6 @@ public class PsReservationController {
 
 		return dRegistration;
 	}
+
 	
 }

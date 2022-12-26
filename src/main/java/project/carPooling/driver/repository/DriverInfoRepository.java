@@ -15,4 +15,6 @@ public interface DriverInfoRepository {
 	public List<DriverInfo> selectAll();
 	
 	public void deleteAll();
+	
+	public DriverInfo selectByIdx(Integer dIdx);
 }

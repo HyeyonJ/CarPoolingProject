@@ -23,6 +23,7 @@ public class DriverAppConfig {
 	public DriverInfoRepository driverRepository() {
 		return new MybatisDriverInfoRepository(driverMapper);
 	}
+	
 	@Bean
 	public RegistrationRepository registrationRepository() {
 		return new MybatisRegistrationRepository(registrationMapper);
