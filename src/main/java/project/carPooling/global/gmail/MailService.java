@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import jakarta.mail.MessagingException;
 
-
 @Component
 public class MailService {
 

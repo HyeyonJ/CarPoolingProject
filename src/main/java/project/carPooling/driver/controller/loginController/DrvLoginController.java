@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.driver.service.LoginService;
+import project.carPooling.driver.service.DrvLoginService;
 
 @Slf4j
 @Controller
@@ -36,6 +36,6 @@ public class DrvLoginController {
 	@GetMapping("/login")
 	public String login(Model model) {
 
-		return "driver/login/dLogin";
+		return "driver/login/dLoginMain";
 	}
 }
