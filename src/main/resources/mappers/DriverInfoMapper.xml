@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project.carPooling.driver.mapper.DriverInfoMapper">
 
-	<insert id="insert" parameterType="DriverInfo">
-		insert into driverInfo(
-		userNum, userId, userPw, userName)
-		values( memberPK.nextVal, #{userId}, #{userPw}, #{userName})
-	</insert>
-	
-	<select id="selectByIdx" resultType="DriverInfo">
-		SELECT * 
-		FROM DRIVER
-		WHERE d_idx = #{dIdx}
-	</select>
+  <insert id="insert" parameterType="DriverInfo">
+    insert into driverInfo(
+    userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum)
+    values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2}
+    , #{licenseNum}, #{licenseDate}, #{carNum})
+  </insert>
+
+  <select id="selectByIdx" resultType="DriverInfo">
+    SELECT *
+    FROM DRIVER
+    WHERE d_idx = #{dIdx}
+  </select>
 </mapper>
