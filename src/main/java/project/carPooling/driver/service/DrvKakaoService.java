@@ -16,11 +16,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.KakaoMemRepository;
 
 
+@Slf4j
 @Service
 public class DrvKakaoService {
 
+	
+	@Autowired
+	private KakaoMemRepository kakaoMemRepository;
+	
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
 		String refresh_Token = "";
@@ -79,14 +87,15 @@ public class DrvKakaoService {
 		return access_Token;
 	}
 	
-	// 클래스 주입 
-	@Autowired
-	private DrvKakaoService dks;
+//	public HashMap<String, Object> getKaKaoUserInfo(String access_Token) {
 	
-	public DriverInfo HashMap<String, Object> getKaKaoUserInfo(String access_Token) {
-
+	
+	
+	public DriverInfo getKaKaoUserInfo(String access_Token) {
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+		
+		DriverInfo driverInfo = new DriverInfo();
+		
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqURL);
@@ -108,22 +117,21 @@ public class DrvKakaoService {
 				result += line;
 			}
 			System.out.println("response body : " + result);
+			System.out.println(result.getClass().getName());
 
 			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
-
-			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-
-			userInfo.put("nickname", nickname);
-			userInfo.put("email", email);
-
+			JsonObject obj = (JsonObject)parser.parse(result);
+			JsonObject obj1 = (JsonObject) obj.get("kakao_account");
+			log.info("email: {}", obj1.get("email"));
+			log.info("gender: {}", obj1.get("gender"));
+			
+			driverInfo.setDUserEmail(obj1.get("email").getAsString());
+			driverInfo.setDUserGender(obj1.get("gender").getAsString());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return userInfo;
+		return driverInfo;
+
 	}
 }
