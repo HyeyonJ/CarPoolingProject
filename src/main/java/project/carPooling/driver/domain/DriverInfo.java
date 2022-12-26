@@ -7,23 +7,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DriverInfo {
 	
-	private int userNum;
-	private UserType userType;
+	private int dIdx;
+	private UserType dUserType;
 	
-	private String userId;
-	private String userPw;
-	private String userName;
-	private String userGender;
-	private String userEmail;
-	private Boolean userVerify;
-	private String userVcode;
-	private String idNum1;
-	private String idNum2;
+	private String dUserId;
+	private String dUserPw;
+	private String dUserName;
+	private String dUserTel;
+	private String dUserGender;
+	private String dUserEmail;
+	private Boolean dUserVerify;
+	private String dUserVcode;
+	private String dIdNum1;
+	private String dIdNum2;
 	
-	private Boolean signOut;
+	private Boolean dSignOut;
 	
-	private String licenseNum;
-	private String licenseDate;
-	private String carNum;
-	private CarType carType;
+	private String dLicenseNum;
+	private String dLicenseDate;
+	private String dCarNum;
+	private CarType dCarType;
+
 }

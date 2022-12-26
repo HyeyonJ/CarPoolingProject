@@ -30,6 +30,7 @@ public class DrvJoinController {
 	
 	private Map<String, DriverInfo> driverMap;
 	
+	
 	private final MybatisDriverInfoRepository mybatisDriverInfoRepository;
 	private final DriverValidator driverValidator;
 	
@@ -80,4 +81,18 @@ public class DrvJoinController {
 		return "driver/join/dJoinNaverAdd";
 	}
 	
+	@PostMapping("/joinAfter/Login")
+	public String joinAfterLogin(@ModelAttribute DriverInfo driverInfo
+			, BindingResult bindingResult) {
+		log.info("member = {}", driverInfo);
+		
+		driverValidator.validate(driverInfo, bindingResult);
+		
+		if(bindingResult.hasErrors()) {
+			return "driver/join/dJoinGeneral";
+		}
+		
+//		mybatisDriverInfoRepository.insert(driverInfo);
+		return "driver/login/dLoginMain";
+	}
 }

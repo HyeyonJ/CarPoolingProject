@@ -25,6 +25,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.MybatisDriverInfoRepository;
 import project.carPooling.driver.service.DrvLoginService;
 
 @Slf4j
@@ -33,9 +35,10 @@ import project.carPooling.driver.service.DrvLoginService;
 @RequestMapping("/driver")
 public class DrvLoginController {
 	
+	
 	@GetMapping("/login")
 	public String login(Model model) {
-
+		
 		return "driver/login/dLoginMain";
 	}
 }
