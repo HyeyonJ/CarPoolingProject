@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<li th:text="|인가코드 = ${code}|">code</li>
+<li th:text="|유효토큰 = ${access_token}|">code</li>
+<li th:text="|사용자정보 = ${userInfo}|">code</li>
+<li th:text="|동의정보 = ${agreementInfo}|">code</li>
+<a href="https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/dLoginMain">로그아웃</a>
+
+</body>
+</html>

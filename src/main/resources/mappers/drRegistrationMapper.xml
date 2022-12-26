@@ -9,4 +9,5 @@
 		VALUES(DR_IDX_SEQ.nextval, #{dRegistration.dIdx}, #{convertDDate}, #{dRegistration.dCommute}, #{dRegistration.dStartTime}, #{dRegistration.dEndTime}, #{dRegistration.dStartPoint}, #{dRegistration.dEndPoint},
 		#{dRegistration.dFee}, #{dRegistration.dDistance}, #{dRegistration.dTime}, #{dRegistration.dStartlon}, #{dRegistration.dStartlat}, #{dRegistration.dEndlon}, #{dRegistration.dEndlat})
 	</insert>
+	
 </mapper>

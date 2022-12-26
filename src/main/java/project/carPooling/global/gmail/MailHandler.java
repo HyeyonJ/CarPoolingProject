@@ -2,6 +2,7 @@ package project.carPooling.global.gmail;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
