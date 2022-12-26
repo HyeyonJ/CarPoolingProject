@@ -1,5 +1,8 @@
 package project.carPooling.driver.controller.JoinController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +27,8 @@ public class DrvJoinController {
 	// 나중에 할 일
 //	private final ListMemberRepository memberRepository;
 //	private final MybatisMemberRepository memberRepository;
+	
+	private Map<String, DriverInfo> driverMap;
 	
 	private final MybatisDriverInfoRepository mybatisDriverInfoRepository;
 	private final DriverValidator driverValidator;
@@ -59,8 +64,7 @@ public class DrvJoinController {
 		return "driver/join/dJoinGeneral";
 	}
 	
-	
-	@GetMapping("/join/naver/add")
+	@GetMapping("/join/add")
 	public String JoinAdd(Model model) {
 		DriverInfo driverInfo = new DriverInfo();
 		model.addAttribute(driverInfo);
@@ -68,14 +72,12 @@ public class DrvJoinController {
 		return "driver/join/dJoinAdd";
 	}
 	
-//	@PostConstruct
-//	public void init() {
-//		DriverInfo driverInfo = new DriverInfo();
-//		driverInfo.setUserId("admin");
-//		driverInfo.setUserPw("admin");
-//		driverInfo.setUserName("관리자");
-//
-//		mybatisDriverInfoRepository.insert(driverInfo);
-//	}
+	@GetMapping("/join/naver/add")
+	public String JoinNaverAdd(Model model) {
+		DriverInfo driverInfo = new DriverInfo();
+		model.addAttribute(driverInfo);
+		
+		return "driver/join/dJoinNaverAdd";
+	}
 	
 }

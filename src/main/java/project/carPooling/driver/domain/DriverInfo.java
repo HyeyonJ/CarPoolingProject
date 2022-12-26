@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class DriverInfo {
-	private int dIdx;
+	private Integer dIdx;
 	private UserType dUserType;
-	
+
 	private String dUserId;
 	private String dUserPw;
 	private String dUserName;
@@ -19,9 +19,9 @@ public class DriverInfo {
 	private String dUserVcode;
 	private String dIdNum1;
 	private String dIdNum2;
-	
+
 	private Boolean dSignOut;
-	
+
 	private String dLicenseNum;
 	private String dLicenseDate;
 	private String dCarNum;
