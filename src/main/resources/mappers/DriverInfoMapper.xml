@@ -10,5 +10,9 @@
 				, #{d_licenseNum}, #{d_licenseDate}, #{d_carNum})
 	</insert>
 
+	<insert id="kakaoInsert" parameterType="java.util.HashMap">
+		insert into driver(d_email, d_gender)
+			values(#{d_email}, #{d_gender})
+	</insert>
 		
 </mapper>

@@ -1,7 +1,10 @@
 package project.carPooling.driver.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -48,5 +51,4 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	public void deleteAll() {
 		driverMapper.deleteAll();
 	}
-
 }
