@@ -5,7 +5,10 @@
 
 	<insert id="insert" parameterType="DriverInfo">
 		insert into driverInfo(
-		userNum, userId, userPw, userName)
-		values( memberPK.nextVal, #{userId}, #{userPw}, #{userName})
+		userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum)
+		values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2}
+				, #{licenseNum}, #{licenseDate}, #{carNum})
 	</insert>
+
+		
 </mapper>

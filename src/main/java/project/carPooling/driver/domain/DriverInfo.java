@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class DriverInfo {
+	
 	private int userNum;
 	private UserType userType;
 	
