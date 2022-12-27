@@ -4,19 +4,19 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.passenger.domain.PassengerInfo;
-import project.carPooling.passenger.repository.MybatisPassengerInfoRepository;
+import project.carPooling.passenger.repository.PassengerInfoRepository;
 
 @Service
 @RequiredArgsConstructor
 public class PassengerLoginService {
 	
-	private final MybatisPassengerInfoRepository mybatisPassengerRepository;
+	private final PassengerInfoRepository passengerRepository;
 	
 	public PassengerInfo login(String loginId, String password) {
-		PassengerInfo passenger = mybatisPassengerRepository.selectByLoginId(loginId);
+		PassengerInfo passenger = passengerRepository.selectByLoginId(loginId);
 		
 		if (passenger != null) {
-			if (passenger.getUserPw().equals(password)) {
+			if (passenger.getPUserPw().equals(password)) {
 				return passenger;
 			}
 		} return null;

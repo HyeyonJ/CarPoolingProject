@@ -2,6 +2,7 @@ package project.carPooling.passenger.repository;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.mapper.PassengerInfoMapper;
 
 @Slf4j
-@Repository
+@Repository @Primary
 @RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
 public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 	
@@ -44,6 +45,12 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 	@Override
 	public void deleteAll() {
 		passengerMapper.deleteAll();		
+	}
+
+	@Override
+	public PassengerInfo update(PassengerInfo passenger) {
+		passengerMapper.update(passenger);
+		return passenger;
 	}
 
 }

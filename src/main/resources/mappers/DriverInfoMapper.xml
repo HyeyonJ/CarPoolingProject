@@ -5,7 +5,7 @@
 
 	<insert id="insert" parameterType="DriverInfo">
 		insert into driverInfo(
-		userNum, userId, userPw, userName)
-		values( memberPK.nextVal, #{userId}, #{userPw}, #{userName})
+		d_userNum, d_userId, d_userPw, d_userName)
+		values( d_idx_seq.nextVal, #{dUserId}, #{dUserPw}, #{dUserName})
 	</insert>
 </mapper>
