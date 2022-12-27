@@ -39,4 +39,10 @@
 <!--     WHERE d_idx = #{dIdx} -->
 <!--   </select> -->
 
+<select id="selectByEmail" resultType="DriverInfo">
+    SELECT *
+    FROM DRIVER
+    WHERE d_userEmail = #{dUserEmail}
+  </select>
+
 </mapper>
