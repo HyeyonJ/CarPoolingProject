@@ -62,9 +62,8 @@ public class DrvKaKaoLoginController {
     
 	@PostMapping("/kakao/registration")
 	public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
-		log.info("driverInfo = {}", driverInfo);
 		System.out.println("driverInfo : " + driverInfo);
-		System.out.println("어디서 오류가 납니까??");
+		System.out.println("---------------------------");
 		
 //		memberValidator.validate(member, bindingResult);
 		

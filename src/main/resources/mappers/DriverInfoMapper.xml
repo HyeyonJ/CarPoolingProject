@@ -4,16 +4,16 @@
 <mapper namespace="project.carPooling.driver.mapper.DriverInfoMapper">
 
 	<insert id="insert" parameterType="DriverInfo">
-		insert into driver(
+		INSERT INTO driver(
 		d_idx, d_userPw, d_userName, d_userEmail, d_idNum1, d_idNum2, d_licenseNum, d_licenseDate, d_carNum)
 		values( memberPK.nextVal, #{d_userPw}, #{d_userName}, #{d_userEmail}, #{d_idNum1}, #{d_idNum2}
 				, #{d_licenseNum}, #{d_licenseDate}, #{d_carNum})
 	</insert>
 
-	<insert id="kakaoInsert" parameterType="java.util.HashMap">
-		insert into driver(d_email, d_gender)
-			values(#{d_email}, #{d_gender})
-	</insert>
+<!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
+<!-- 		insert into driver(d_email, d_gender) -->
+<!-- 			values(#{d_email}, #{d_gender}) -->
+<!-- 	</insert> -->
 	
 <!-- 	업데이트 처리는 다음 -->
 <!-- 	<update id="kakaoupdate"> -->
