@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PassengerInfo {
 	private Integer pIdx;
-	private UserType pUserType;
+	private PUserType pUserType;
 	private String pUserId;
 	private String pUserPw;
 	private String pUserName;
