@@ -63,4 +63,10 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		return driverInfo;
 	}
 
+	@Override
+	public DriverInfo selectByEmail(String dUserEmail) {
+		DriverInfo driverInfo = driverMapper.selectByEmail(dUserEmail);
+		return driverInfo;
+	}
+
 }
