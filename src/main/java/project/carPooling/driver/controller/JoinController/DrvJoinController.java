@@ -15,7 +15,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
-import project.carPooling.driver.repository.MybatisDriverInfoRepository;
+import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.driver.validation.DriverValidator;
 
 @Slf4j
@@ -24,14 +24,9 @@ import project.carPooling.driver.validation.DriverValidator;
 @RequestMapping("/driver")
 public class DrvJoinController {
 	
-	// 나중에 할 일
-//	private final ListMemberRepository memberRepository;
-//	private final MybatisMemberRepository memberRepository;
-	
 	private Map<String, DriverInfo> driverMap;
 	
-	
-	private final MybatisDriverInfoRepository mybatisDriverInfoRepository;
+	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
 	
 	@GetMapping("/join")
@@ -53,8 +48,8 @@ public class DrvJoinController {
 			return "driver/join/dJoinGeneral";
 		}
 		
-		mybatisDriverInfoRepository.insert(driverInfo);
-		return "redirect:/";
+		driverInfoRepository.insert(driverInfo);
+		return "driver/join/dJoinMain";
 	}
 	
 	@GetMapping("/join/general")
@@ -95,4 +90,6 @@ public class DrvJoinController {
 //		mybatisDriverInfoRepository.insert(driverInfo);
 		return "driver/login/dLoginMain";
 	}
+	
+	
 }

@@ -11,6 +11,9 @@ public interface DriverInfoMapper {
 	
 	public DriverInfo selectById (int id);
 	
+	// 이건 다음에 처리
+//	public DriverInfo selectByEmail (String dUserEmail);
+	
 	public DriverInfo selectByLoginId (String loginId);
 	
 	public List<DriverInfo> selectAll();
