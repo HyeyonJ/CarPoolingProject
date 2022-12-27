@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project.carPooling.driver.mapper.DriverInfoMapper">
 
 	<insert id="insert" parameterType="DriverInfo">
-		insert into driverInfo(
-		d_userNum, d_userId, d_userPw, d_userName)
-		values( d_idx_seq.nextVal, #{dUserId}, #{dUserPw}, #{dUserName})
+		INSERT INTO driver(
+		d_idx, d_userPw, d_userName, d_userEmail, d_idNum1, d_idNum2, d_licenseNum, d_licenseDate, d_carNum)
+		values( memberPK.nextVal, #{dUserPw}, #{dUserName}, #{dUserEmail}, #{dIdNum1}, #{dIdNum2}
+				, #{dLicenseNum}, #{dLicenseDate}, #{dCarNum})
 	</insert>
+
+<!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
+<!-- 		insert into driver(d_email, d_gender) -->
+<!-- 			values(#{d_email}, #{d_gender}) -->
+<!-- 	</insert> -->
+	
+<!-- 	업데이트 처리는 다음 -->
+<!-- 	<update id="kakaoupdate"> -->
+<!-- 		update driver -->
+<!-- 		SET	  d_userPw = #{updateItem.itemName}, -->
+<!--  			  content = #{updateItem.content}, --> 
+<!--  			  price = #{updateItem.price}, --> 
+<!-- 			  soldout = #{updateItem.soldout}, --> 
+<!-- 			  foodType = #{updateItem.foodType}, --> 
+<!-- <			  shopCode = #{updateItem.shopCode} --> 
+<!-- 		WHERE d_email = #{d_email} -->
+<!-- 	</update> -->
+		
+<!--   <insert id="insert" parameterType="DriverInfo"> -->
+<!--     insert into driverInfo( -->
+<!--     userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum) -->
+<!--     values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2} -->
+<!--     , #{licenseNum}, #{licenseDate}, #{carNum}) -->
+<!--   </insert> -->
+
+<!--   <select id="selectByIdx" resultType="DriverInfo"> -->
+<!--     SELECT * -->
+<!--     FROM DRIVER -->
+<!--     WHERE d_idx = #{dIdx} -->
+<!--   </select> -->
+
 </mapper>

@@ -1,5 +1,8 @@
 package project.carPooling.driver.controller.JoinController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +15,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
-import project.carPooling.driver.repository.MybatisDriverInfoRepository;
+import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.driver.validation.DriverValidator;
 
 @Slf4j
@@ -21,20 +24,10 @@ import project.carPooling.driver.validation.DriverValidator;
 @RequestMapping("/driver")
 public class DrvJoinController {
 	
-	// 나중에 할 일
-//	private final ListMemberRepository memberRepository;
-//	private final MybatisMemberRepository memberRepository;
+	private Map<String, DriverInfo> driverMap;
 	
-	private final MybatisDriverInfoRepository mybatisDriverInfoRepository;
+	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
-	
-	@GetMapping("/join")
-	public String JoinMain (Model model) {
-		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute(driverInfo);
-		
-		return "driver/join/dJoinMain";
-	}
 
 	@PostMapping("/join/general")
 	public String newMemberInsert(@ModelAttribute DriverInfo driverInfo
@@ -44,11 +37,11 @@ public class DrvJoinController {
 		driverValidator.validate(driverInfo, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			return "driver/join/dJoinGeneral";
+			return "home";
 		}
 		
-		mybatisDriverInfoRepository.insert(driverInfo);
-		return "redirect:/";
+		driverInfoRepository.insert(driverInfo);
+		return "driver/join/dJoinGeneral";
 	}
 	
 	@GetMapping("/join/general")
@@ -59,23 +52,36 @@ public class DrvJoinController {
 		return "driver/join/dJoinGeneral";
 	}
 	
+//	@GetMapping("/join/add")
+//	public String JoinAdd(Model model) {
+//		DriverInfo driverInfo = new DriverInfo();
+//		model.addAttribute(driverInfo);
+//		
+//		return "driver/join/dJoinAdd";
+//	}
 	
 	@GetMapping("/join/naver/add")
-	public String JoinAdd(Model model) {
+	public String JoinNaverAdd(Model model) {
 		DriverInfo driverInfo = new DriverInfo();
 		model.addAttribute(driverInfo);
 		
-		return "driver/join/dJoinAdd";
+		return "driver/join/dJoinNaverAdd";
 	}
 	
-//	@PostConstruct
-//	public void init() {
-//		DriverInfo driverInfo = new DriverInfo();
-//		driverInfo.setUserId("admin");
-//		driverInfo.setUserPw("admin");
-//		driverInfo.setUserName("관리자");
-//
+	@PostMapping("/join/general/Login")
+	public String joinAfterLogin(@ModelAttribute DriverInfo driverInfo
+			, BindingResult bindingResult) {
+		log.info("member = {}", driverInfo);
+		
+		driverValidator.validate(driverInfo, bindingResult);
+		
+		if(bindingResult.hasErrors()) {
+			return "driver/join/dJoinGeneral";
+		}
+		
 //		mybatisDriverInfoRepository.insert(driverInfo);
-//	}
+		return "driver/login/dLoginMain";
+	}
+	
 	
 }

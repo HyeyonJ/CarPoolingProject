@@ -1,12 +1,15 @@
 package project.carPooling.driver.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class DriverInfo {
-	private int dIdx;
+	
+	private Integer dIdx;
 	private UserType dUserType;
 	
 	private String dUserId;

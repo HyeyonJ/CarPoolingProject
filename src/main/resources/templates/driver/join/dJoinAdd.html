@@ -4,11 +4,10 @@
 <!-- 	layout:decorate="~{layout/default}" -->
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>추가 정보 입력</title>
 </head>
 <body>
 
-<title>네이버 아이디로 로그인</title>
 <style>
   pre{
     overflow: scroll;
@@ -31,17 +30,7 @@
 <!-- 			</div> -->
 <!-- 		</div> -->
  
-		<div th:if="${session.currentUser ne null}">
-			<h3>이 부분은 로그인한 사용자한테만 보임</h3>
-				<pre th:text="${session.currentUser}"></pre>
-			<a
-				th:href="${'/driver/login/naver/getProfile?accessToken=' + session.currentAT}">Get
-				User's Profile</a> <a
-				th:href="${'/driver/login/naver/refreshToken?refreshToken=' + session.currentRT}">Refresh
-				Token</a> <a
-				th:href="${'/driver/login/naver/deleteToken?accessToken=' + session.currentAT}">Delete
-				Token</a> <a href="/naver/invalidate">로그아웃 (Invalidate Session)</a>
-		</div>
+
 
 		<h1>추가 정보 페이지</h1>
 	<th:block layout:fragment="customTitle">
@@ -51,35 +40,21 @@
 <!-- 		<form th:action="@{/member/addMember}" method="post"> -->
 		
 			<p>어떤 값들이 들어오는지 확인하고 싶음</p>
-<!-- 			<label for="loginId">ID</label> -->
-<!-- 			<input type="text" id="loginId" th:field="*{loginId}"> -->
 			
-<!-- 			<label for="password">PW</label> -->
-<!-- 			<input type="password" id="password" th:field="*{password}"> -->
+<!-- 			<label for="licenseNum">운전면허번호 12자리</label> -->
+<!-- <!-- 			<input type="text" id="licenseNum" th:field="*{licenseNum}"> --> -->
 			
-<!-- 			<label for="password">PW Check</label> -->
-<!-- 			<input type="password" id="password" th:field="*{password}"> -->
+<!-- 			<label for="userName">이름</label> -->
+<!-- <!-- 			<input type="text" id="userName" th:field="*{userName}"> --> -->
 			
-			<label for="licenseNum">운전면허번호 12자리</label>
-<!-- 			<input type="text" id="licenseNum" th:field="*{licenseNum}"> -->
+<!-- 			<label for="licenseDate">운전면허 취득일</label> -->
+<!-- <!-- 			<input type="text" id="licenseDate" th:field="licenseDate"> --> -->
 			
-			<label for="userName">이름</label>
-<!-- 			<input type="text" id="userName" th:field="*{userName}"> -->
+<!-- 			<label for="carNum">차량 번호</label> -->
+<!-- <!-- 			<input type="text" id="carNum" th:field="carNum"> --> -->
 			
-			<label for="idNum1">주민번호 앞 6자리</label>
-<!-- 			<input type="text" id="idNum1" th:field="*{idNum1}"> -->
-			
-			<label for="idNum2">주민번호 뒤 1자리</label>
-<!-- 			<input type="text" id="idNum2" th:field="*{idNum2}"> -->
-			
-			<label for="licenseDate">운전면허 취득일</label>
-<!-- 			<input type="text" id="licenseDate" th:field="licenseDate"> -->
-			
-			<label for="carNum">차량 번호</label>
-<!-- 			<input type="text" id="carNum" th:field="carNum"> -->
-			
-			<label for="carType">차 종류</label>
-<!-- 			<input type="text" id="carType" th:field="carType"> -->
+<!-- 			<label for="carType">차 종류</label> -->
+<!-- <!-- 			<input type="text" id="carType" th:field="carType"> --> -->
 			
 			<button >등록하기</button>
 		</form>
