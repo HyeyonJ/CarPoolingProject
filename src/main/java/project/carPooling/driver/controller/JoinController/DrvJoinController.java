@@ -28,14 +28,6 @@ public class DrvJoinController {
 	
 	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
-	
-	@GetMapping("/join")
-	public String JoinMain (Model model) {
-		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute(driverInfo);
-		
-		return "driver/join/dJoinMain";
-	}
 
 	@PostMapping("/join/general")
 	public String newMemberInsert(@ModelAttribute DriverInfo driverInfo
@@ -45,11 +37,11 @@ public class DrvJoinController {
 		driverValidator.validate(driverInfo, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			return "driver/join/dJoinGeneral";
+			return "home";
 		}
 		
 		driverInfoRepository.insert(driverInfo);
-		return "driver/join/dJoinMain";
+		return "driver/join/dJoinGeneral";
 	}
 	
 	@GetMapping("/join/general")
@@ -60,13 +52,13 @@ public class DrvJoinController {
 		return "driver/join/dJoinGeneral";
 	}
 	
-	@GetMapping("/join/add")
-	public String JoinAdd(Model model) {
-		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute(driverInfo);
-		
-		return "driver/join/dJoinAdd";
-	}
+//	@GetMapping("/join/add")
+//	public String JoinAdd(Model model) {
+//		DriverInfo driverInfo = new DriverInfo();
+//		model.addAttribute(driverInfo);
+//		
+//		return "driver/join/dJoinAdd";
+//	}
 	
 	@GetMapping("/join/naver/add")
 	public String JoinNaverAdd(Model model) {
@@ -76,7 +68,7 @@ public class DrvJoinController {
 		return "driver/join/dJoinNaverAdd";
 	}
 	
-	@PostMapping("/joinAfter/Login")
+	@PostMapping("/join/general/Login")
 	public String joinAfterLogin(@ModelAttribute DriverInfo driverInfo
 			, BindingResult bindingResult) {
 		log.info("member = {}", driverInfo);
