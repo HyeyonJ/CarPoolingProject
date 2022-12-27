@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DriverInfo {
 	
-	private int dIdx;
+	private Integer dIdx;
 	private UserType dUserType;
 	
 	private String dUserId;
@@ -29,5 +29,4 @@ public class DriverInfo {
 	private String dLicenseDate;
 	private String dCarNum;
 	private CarType dCarType;
-
 }
