@@ -16,7 +16,7 @@ public class PassengerLoginService {
 		PassengerInfo passenger = mybatisPassengerRepository.selectByLoginId(loginId);
 		
 		if (passenger != null) {
-			if (passenger.getUserPw().equals(password)) {
+			if (passenger.getPUserPw().equals(password)) {
 				return passenger;
 			}
 		} return null;

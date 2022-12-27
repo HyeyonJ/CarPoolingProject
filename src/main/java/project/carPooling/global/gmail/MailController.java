@@ -9,42 +9,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.mail.MessagingException;
 
+
 @RestController
 @RequestMapping("/mail")
 public class MailController {
 
-	@Autowired
-	private MailService mailService;
-	
-	// https://bamdule.tistory.com/238 소스
-	// http://localhost:8080/mail/send?email=이메일주소
-	@GetMapping("/send")
-	public MailTO sendTestMail(String email) {
-		MailTO mailTO = new MailTO();
+    @Autowired
+    private MailService mailService;
 
-		mailTO.setAddress(email);
-		mailTO.setTitle("제목.");
-		mailTO.setMessage("내용");
+    @GetMapping("/send")
+    public MailTO sendTestMail(String email) {
+        MailTO mailTO = new MailTO();
 
-		mailService.sendMail(mailTO);
+        mailTO.setAddress(email);
+        mailTO.setTitle("밤둘레 님이 발송한 이메일입니다.");
+        mailTO.setMessage("안녕하세요. 반가워요!");
 
-		return mailTO;
-	}
+        mailService.sendMail(mailTO);
 
-	@GetMapping("/fileSend")
-	public MailTO sendTestFileEmail(String email) throws MessagingException, IOException {
-		MailTO mailTO = new MailTO();
+        return mailTO;
+    }
+    
+    @GetMapping("/fileSend")
+    public MailTO sendTestFileEmail(String email) throws MessagingException, IOException {
+        MailTO mailTO = new MailTO();
 
-		mailTO.setAddress(email);
-		mailTO.setTitle("제목.");
-		mailTO.setMessage("내용");
+        mailTO.setAddress(email);
+        mailTO.setTitle("밤둘레 님이 발송한 이메일입니다.");
+        mailTO.setMessage("안녕하세요. 반가워요!");
 
-		mailService.sendMailWithFiles(mailTO);
+        mailService.sendMailWithFiles(mailTO);
 
-		return mailTO;
-	}
-	
-	
-	
-	
+        return mailTO;
+    }
 }
