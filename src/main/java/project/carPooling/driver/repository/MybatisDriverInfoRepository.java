@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.mapper.DriverInfoMapper;
 
-@Slf4j
 @Repository
 @RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
 @Qualifier

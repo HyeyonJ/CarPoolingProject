@@ -16,4 +16,7 @@ public interface PassengerInfoMapper {
 	public List<PassengerInfo> selectAll();
 	
 	public void deleteAll();
+	
+	public PassengerInfo update(PassengerInfo passenger);
+	
 }

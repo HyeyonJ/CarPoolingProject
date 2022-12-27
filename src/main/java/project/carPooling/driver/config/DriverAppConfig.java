@@ -15,8 +15,7 @@ import project.carPooling.driver.repository.RegistrationRepository;
 @RequiredArgsConstructor
 public class DriverAppConfig {
 	
-	private final DriverInfoMapper driverMapper;
-	
+	private final DriverInfoMapper driverMapper;	
 	private final RegistrationMapper registrationMapper;
 
 	@Bean

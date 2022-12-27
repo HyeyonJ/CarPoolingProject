@@ -1,13 +1,13 @@
 package project.carPooling.passenger.domain;
 
-public enum UserType {
+public enum PUserType {
 	 CARPOOLING("일반"), KAKAO("카카오"), NAVER("네이버"), GOOGLE("구글");
 	//UserType은 CARPOOLING, KAKAO, NAVER, GOOGLE;
 	//()안의 문자열은 memo
 	
 	private final String memo;
 	
-	UserType(String memo) {
+	PUserType(String memo) {
 		this.memo = memo;
 	}
 	
