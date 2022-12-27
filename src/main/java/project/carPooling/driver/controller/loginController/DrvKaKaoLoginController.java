@@ -48,18 +48,22 @@ public class DrvKaKaoLoginController {
 		DriverInfo driverInfo = drvKakaoService.getKaKaoUserInfo(access_Token);
 		DriverInfo userInfo = dks.getKaKaoUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
-		System.out.println("userinfo" + userInfo);
-		model.addAttribute("driverInfo", driverInfo);
 		System.out.println("------------------------------");
+		System.out.println("userinfo" + userInfo);
+		System.out.println("------------------------------");
+		model.addAttribute("driverInfo", driverInfo);
+		model.addAttribute("userinfo", userInfo);
+		model.addAttribute("code",code);
 //		System.out.println("###nickname#### : " + userInfo.get("nickname"));
 //		System.out.println("###email#### : " + userInfo.get("email"));
+		
     	return "driver/login/dKakaoCallback";
     }
     
 	@PostMapping("/kakao/registration")
-	public String newMemberInsert(@ModelAttribute DriverInfo driverInfo
-			, BindingResult bindingResult) {
+	public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
 		log.info("driverInfo = {}", driverInfo);
+		System.out.println("driverInfo : " + driverInfo);
 		System.out.println("어디서 오류가 납니까??");
 		
 //		memberValidator.validate(member, bindingResult);
