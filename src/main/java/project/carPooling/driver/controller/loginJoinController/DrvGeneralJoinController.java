@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller.JoinController;
+package project.carPooling.driver.controller.loginJoinController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ import project.carPooling.driver.validation.DriverValidator;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/driver")
-public class DrvJoinController {
+public class DrvGeneralJoinController {
 	
 	private Map<String, DriverInfo> driverMap;
 	

@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller.loginController;
+package project.carPooling.driver.controller.loginJoinController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
