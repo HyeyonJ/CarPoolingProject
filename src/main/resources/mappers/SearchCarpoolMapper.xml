@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.passenger.mapper.SearchCarpoolMapper">
 	<select id="selectCarpool" resultType="DRegistration">
-		SELECT *
+		SELECT * 
 		FROM D_REGISTRATION
 		WHERE to_char(d_date, 'yyyymmdd') = to_char(#{convertPDate}, 'yyyymmdd')
 		and d_commute = #{searchCarPool.pCommute}

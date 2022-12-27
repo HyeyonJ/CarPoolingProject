@@ -32,10 +32,15 @@ public class MailService {
         mailHandler.setTo(mail.getAddress());
         mailHandler.setSubject(mail.getTitle());
         
-        String htmlContent = "<p>" + mail.getMessage() + "<p> <img src='cid:google-logo'>";
+        String htmlContent = mail.getMessage() + 
+        		"<button style='"
+        		+ "	   background: thistle;"
+        		+ "    border-radius: 15px;"
+        		+ "    width: 100px;"
+        		+ "    height: 50px;"
+        		+ "    font-size: 20px;"
+        		+ "    font-weight: bold;'>이동하기</button>";
         mailHandler.setText(htmlContent, true);
-        mailHandler.setAttach("test.txt", "static/test.txt");
-        mailHandler.setInline("google-logo", "static/google-logo.png");
         mailHandler.send();
     }
 

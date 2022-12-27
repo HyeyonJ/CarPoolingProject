@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.mail.MessagingException;
@@ -50,7 +51,7 @@ public class PsReservationController {
 	
 	@RequestMapping(value="/passenger/passengerCarpool/reservation/{drIdx}", method = RequestMethod.GET)
 	@ResponseBody
-	public DRegistration registraionForm(@PathVariable("drIdx") Integer drIdx) {
+	public DRegistration reservationForm(@PathVariable("drIdx") Integer drIdx) {
 		DRegistration dRegistration = searchCarpoolRepository.selectCarpoolByDrIdx(drIdx);
 		log.info("dRegistration: {}", dRegistration.toString());
 		return dRegistration;
@@ -58,24 +59,23 @@ public class PsReservationController {
 	
 	@RequestMapping(value="/passenger/passengerCarpool/reservation/request/{pIdx}", method = RequestMethod.POST)
 	@ResponseBody
-	public DRegistration registraionReq(@PathVariable("pIdx") Integer pIdx, @ModelAttribute DRegistration dRegistration) throws MessagingException, IOException{
+	public String reservationReq(@PathVariable("pIdx") Integer pIdx, @ModelAttribute DRegistration dRegistration) throws MessagingException, IOException{
 		log.info("dRegistration: {}", dRegistration.toString()); 
-		searchCarpoolRepository.insert(pIdx, pIdx);
+//		searchCarpoolRepository.insert(pIdx, pIdx);
 		Integer dIdx = dRegistration.getDIdx();
 		
-		DriverInfo driverInfo = driverInfoRepository.selectByIdx(dIdx);
-		String userEmail = driverInfo.getDUserEmail();
+//		DriverInfo driverInfo = driverInfoRepository.selectByIdx(dIdx);
+//		String userEmail = driverInfo.getDUserEmail();
 		
 		MailTO mailTO = new MailTO();
 
-		mailTO.setAddress(userEmail);
-		mailTO.setTitle("제목.");
-		mailTO.setMessage("내용");
+//		mailTO.setAddress(userEmail);
+		mailTO.setAddress("ksh990913@naver.com");
+		mailTO.setTitle("고객님이 등록하신 카풀에 새로운 예약 요청이 도착했습니다!");
+        mailTO.setMessage("요청을 확인하시려면 이동하기를 눌러주세요.");
 
 		mailService.sendMailWithFiles(mailTO);
-
-		return dRegistration;
+//		return dRegistration;
+		return "ksh990913@naver.com";
 	}
-
-	
 }
