@@ -20,4 +20,6 @@ public interface DriverInfoMapper {
 	
 	public void deleteAll();
 	
+	public DriverInfo selectByIdx(Integer dIdx);
+	
 }
