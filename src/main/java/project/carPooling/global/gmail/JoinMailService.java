@@ -12,15 +12,17 @@ import org.springframework.stereotype.Component;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.global.gmail.MailHandler;
 import project.carPooling.global.gmail.MailTO;
+import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
-public class JoinMailService {	
-
+public class JoinMailService {
 	  
 	@Autowired    
     private JavaMailSender mailSender;
@@ -28,27 +30,31 @@ public class JoinMailService {
 	private PassengerInfoRepository passengerRepository;
     private DriverInfoRepository driverRepository;
     
-//    public void setDriverEmailVerifyByCode(String code) {
-//    	String email = redisUtil.getData(code);
-//    	if(email == null) {
-////    		throw new EmailCodeException();
-//    		log.error("EmailByCode is null");
-//    	}
-//    	DriverInfo driver = driverRepository.selectByLoginId(email);
-//    	driver.setDUserVerify(true);
-//    	log.info("운전자 가입 인증 완료");
-//    }
+    public void setDriverEmailVerifyByCode(String code) {
+    	ValueOperations<String, String> vop = redisTemplate.opsForValue();
+    	String email = vop.get(code);
+    	
+    	if(email == null) {
+//    		throw new EmailCodeException();
+    		log.error("EmailByCode is null");
+    	}
+    	DriverInfo driver = driverRepository.selectByLoginId(email);
+    	driver.setDUserVerify(true);
+    	log.info("운전자 가입 인증 완료");
+    }
 
-//    public void setPassengerEmailVerifyByCode(String code) {
-//    	
-//    	if(email == null) {
-////    		throw new EmailCodeException();
-//    		log.error("EmailByCode is null");
-//    	}
-//    	PassengerInfo passenger = passengerRepository.selectByLoginId(email);
-//    	passenger.setPUserVerify(true);
-//    	log.info("승객 가입 인증 완료");
-//    }
+    public void setPassengerEmailVerifyByCode(String code) {
+    	ValueOperations<String, String> vop = redisTemplate.opsForValue();
+    	String email = vop.get(code);
+    	
+    	if(email == null) {
+//    		throw new EmailCodeException();
+    		log.error("EmailByCode is null");
+    	}
+    	PassengerInfo passenger = passengerRepository.selectByLoginId(email);
+    	passenger.setPUserVerify(true);
+    	log.info("승객 가입 인증 완료");
+    }
 
     public void sendMailWithFiles(MailTO mail) throws MessagingException, IOException {
     	String randomPassword = getRamdomPassword(10);
@@ -68,9 +74,9 @@ public class JoinMailService {
 //        mailHandler.setInline("asd", "static/img/city.jpeg");
         mailHandler.send();
         
-//        ValueOperations<String, String> vop = redisTemplate.opsForValue();
-//        Duration expireDuration = Duration.ofSeconds(60*5L);
-//        vop.set(randomPassword, mail.getAddress(), expireDuration);        
+        ValueOperations<String, String> vop = redisTemplate.opsForValue();
+        Duration expireDuration = Duration.ofSeconds(60*5L);
+        vop.set(randomPassword, mail.getAddress(), expireDuration);
         
     }
     
