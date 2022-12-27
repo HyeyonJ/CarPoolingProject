@@ -15,9 +15,8 @@ import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.mapper.DriverInfoMapper;
 
 @Slf4j
-@Repository
+@Repository @Primary
 @RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
-@Qualifier
 public class MybatisDriverInfoRepository implements DriverInfoRepository {
 
 	//Mapper 인터페이스 호출
@@ -41,6 +40,13 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		return driverInfo;
 	}
 
+	// 여기에서 email로 값을 받아오는 것을 처리하는 것
+//	@Override
+//	public DriverInfo selectByEmail (String dUserEmail);
+//		DriverInfo driverInfo = driverMapper.selectByLoginId(loginId);
+//		return driverInfo;
+//}
+	
 	@Override
 	public List<DriverInfo> selectAll() {
 		List<DriverInfo> drivers = driverMapper.selectAll();

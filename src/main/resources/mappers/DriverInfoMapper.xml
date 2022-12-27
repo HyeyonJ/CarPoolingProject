@@ -5,8 +5,8 @@
 
 	<insert id="insert" parameterType="DriverInfo">
 		insert into driver(
-		d_idx, d_userId, d_userPw, d_userName, d_userEmail, d_idNum1, d_idNum2, d_licenseNum, d_licenseDate, d_carNum)
-		values( memberPK.nextVal, #{d_userId}, #{d_userPw}, #{d_userName}, #{d_userEmail}, #{d_idNum1}, #{d_idNum2}
+		d_idx, d_userPw, d_userName, d_userEmail, d_idNum1, d_idNum2, d_licenseNum, d_licenseDate, d_carNum)
+		values( memberPK.nextVal, #{d_userPw}, #{d_userName}, #{d_userEmail}, #{d_idNum1}, #{d_idNum2}
 				, #{d_licenseNum}, #{d_licenseDate}, #{d_carNum})
 	</insert>
 
@@ -14,5 +14,17 @@
 		insert into driver(d_email, d_gender)
 			values(#{d_email}, #{d_gender})
 	</insert>
+	
+<!-- 	업데이트 처리는 다음 -->
+<!-- 	<update id="kakaoupdate"> -->
+<!-- 		update driver -->
+<!-- 		SET	  d_userPw = #{updateItem.itemName}, -->
+<!--  			  content = #{updateItem.content}, --> 
+<!--  			  price = #{updateItem.price}, --> 
+<!-- 			  soldout = #{updateItem.soldout}, --> 
+<!-- 			  foodType = #{updateItem.foodType}, --> 
+<!-- <			  shopCode = #{updateItem.shopCode} --> 
+<!-- 		WHERE d_email = #{d_email} -->
+<!-- 	</update> -->
 		
 </mapper>
