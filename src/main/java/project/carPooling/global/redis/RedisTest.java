@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController; 
 
 @RestController
-public class RedisTest {     
+public class RedisTest {
+	
     @Autowired    
     private RedisTemplate<String, String> redisTemplate;     
     
@@ -21,8 +22,8 @@ public class RedisTest {
 //    	ValueOperations<String, String> vop = redisTemplate.opsForValue();
     	ValueOperations<String, String> vop = redisTemplate.opsForValue();
         Duration expireDuration = Duration.ofSeconds(1*5L);
-        vop.set("123", "45555555555567", expireDuration);
-        vop.set("yellow", "banana");        
+        vop.set("asdfg", "5567", expireDuration);
+        vop.set("asd", "asd");        
         vop.set("red", "apple");        
         vop.set("green", "watermelon");        
         return new ResponseEntity<>(HttpStatus.CREATED);    
