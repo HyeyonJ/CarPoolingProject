@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project.carPooling.driver.mapper.DriverInfoMapper">
 
-<<<<<<< HEAD
 	<insert id="insert" parameterType="DriverInfo">
 		INSERT INTO driver(
 		d_idx, d_userPw, d_userName, d_userEmail, d_idNum1, d_idNum2, d_licenseNum, d_licenseDate, d_carNum)
-		values( memberPK.nextVal, #{d_userPw}, #{d_userName}, #{d_userEmail}, #{d_idNum1}, #{d_idNum2}
-				, #{d_licenseNum}, #{d_licenseDate}, #{d_carNum})
+		values( memberPK.nextVal, #{dUserPw}, #{dUserName}, #{dUserEmail}, #{dIdNum1}, #{dIdNum2}
+				, #{dLicenseNum}, #{dLicenseDate}, #{dCarNum})
 	</insert>
 
 <!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
@@ -27,18 +26,17 @@
 <!-- 		WHERE d_email = #{d_email} -->
 <!-- 	</update> -->
 		
-=======
-  <insert id="insert" parameterType="DriverInfo">
-    insert into driverInfo(
-    userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum)
-    values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2}
-    , #{licenseNum}, #{licenseDate}, #{carNum})
-  </insert>
+<!--   <insert id="insert" parameterType="DriverInfo"> -->
+<!--     insert into driverInfo( -->
+<!--     userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum) -->
+<!--     values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2} -->
+<!--     , #{licenseNum}, #{licenseDate}, #{carNum}) -->
+<!--   </insert> -->
 
-  <select id="selectByIdx" resultType="DriverInfo">
-    SELECT *
-    FROM DRIVER
-    WHERE d_idx = #{dIdx}
-  </select>
->>>>>>> ff182bcc64c84c90163adb31c9eb3075dfb5dc7c
+<!--   <select id="selectByIdx" resultType="DriverInfo"> -->
+<!--     SELECT * -->
+<!--     FROM DRIVER -->
+<!--     WHERE d_idx = #{dIdx} -->
+<!--   </select> -->
+
 </mapper>
