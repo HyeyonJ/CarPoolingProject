@@ -17,7 +17,6 @@ import project.carPooling.global.gmail.MailHandler;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JoinMailService {	
@@ -69,9 +68,9 @@ public class JoinMailService {
 //        mailHandler.setInline("asd", "static/img/city.jpeg");
         mailHandler.send();
         
-        ValueOperations<String, String> vop = redisTemplate.opsForValue();
-        Duration expireDuration = Duration.ofSeconds(60*5L);
-        vop.set(randomPassword, mail.getAddress(), expireDuration);        
+//        ValueOperations<String, String> vop = redisTemplate.opsForValue();
+//        Duration expireDuration = Duration.ofSeconds(60*5L);
+//        vop.set(randomPassword, mail.getAddress(), expireDuration);        
         
     }
     

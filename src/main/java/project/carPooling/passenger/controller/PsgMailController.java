@@ -40,16 +40,15 @@ public class PsgMailController {
 
 	private final JoinMailService joinMailService;
 	private final PassengerJoinService pJoinService;
-	private final PassengerInfoRepository passengerRepository;
 
 	
 	//email 중복 체크
 	@ResponseBody
 	@GetMapping("/join/check")
-	public boolean checkJoinMail(@RequestParam String email) {		
+	public boolean checkJoinMail(@RequestParam String email) {
 		
 		boolean checkEmail = pJoinService.passengerEmailCheck(email);		
-		log.info("checkEmail", checkEmail);
+		log.info("checkEmail: {}", checkEmail);
 		
 		return checkEmail;
 	}
