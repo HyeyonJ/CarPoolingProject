@@ -1,7 +1,10 @@
 package project.carPooling.driver.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -11,12 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.mapper.DriverInfoMapper;
 
-@Repository
+@Slf4j
+@Repository @Primary
 @RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
-@Qualifier
 public class MybatisDriverInfoRepository implements DriverInfoRepository {
 
-	//Mapper 인터페이스 호출
 	private final DriverInfoMapper driverMapper;
 	
 	@Override
@@ -37,6 +39,13 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		return driverInfo;
 	}
 
+	// 여기에서 email로 값을 받아오는 것을 처리하는 것
+//	@Override
+//	public DriverInfo selectByEmail (String dUserEmail);
+//		DriverInfo driverInfo = driverMapper.selectByLoginId(loginId);
+//		return driverInfo;
+//}
+	
 	@Override
 	public List<DriverInfo> selectAll() {
 		List<DriverInfo> drivers = driverMapper.selectAll();
@@ -46,6 +55,12 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	@Override
 	public void deleteAll() {
 		driverMapper.deleteAll();
+	}
+
+	@Override
+	public DriverInfo selectByIdx(Integer dIdx) {
+		DriverInfo driverInfo = driverMapper.selectByIdx(dIdx);
+		return driverInfo;
 	}
 
 }

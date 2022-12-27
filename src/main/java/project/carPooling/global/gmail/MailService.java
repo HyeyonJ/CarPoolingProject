@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.mail.MessagingException;
 
+
 @Component
 public class MailService {
 
@@ -24,40 +25,39 @@ public class MailService {
 
         mailSender.send(message);
     }
-
+    
     public void sendMailWithFiles(MailTO mail) throws MessagingException, IOException {
-    	String randomPassword = getRamdomPassword(10);
-    	
-    	MailHandler mailHandler = new MailHandler(mailSender);
+        MailHandler mailHandler = new MailHandler(mailSender);
 
         mailHandler.setTo(mail.getAddress());
         mailHandler.setSubject(mail.getTitle());
         
-        // cid:Inline의 key값
-//        String htmlContent = "<p>" + mail.getMessage() + " : " + randomPassword + "<p> <img src='cid:asd'>";
-        String htmlContent = "<p>" + mail.getMessage() +" : <strong>"+ randomPassword + "</strong><p>";
+        String htmlContent = mail.getMessage() + 
+        		"<button style='"
+        		+ "	   background: thistle;"
+        		+ "    border-radius: 15px;"
+        		+ "    width: 100px;"
+        		+ "    height: 50px;"
+        		+ "    font-size: 20px;"
+        		+ "    font-weight: bold;'>이동하기</button>";
         mailHandler.setText(htmlContent, true);
-//        mailHandler.setAttach("txt", "static/test.txt");
-        // asd = Inline의 key값
-//        mailHandler.setInline("asd", "static/img/city.jpeg");
         mailHandler.send();
     }
-    
+
     public String getRamdomPassword(int len) {
-		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7',
-				'8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-				'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-				'U', 'V', 'W', 'X', 'Y', 'Z' };
-
-		int idx = 0;
-		StringBuffer sb = new StringBuffer();
-
-		for (int i = 0; i < len; i++) {
-
-			idx = (int) (charSet.length * Math.random()); // 36 * 생성된 난수를 Int로 추출 (소숫점제거)
-			sb.append(charSet[idx]);
-		}
-
-		return sb.toString();
-	}
+    	char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+    			'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+    	
+    	int idx = 0;
+    	StringBuffer sb = new StringBuffer();
+    	
+    	for (int i = 0; i < len; i++) {
+    		
+    		idx = (int) (charSet.length * Math.random()); // 36 * 생성된 난수를 Int로 추출 (소숫점제거)
+    		sb.append(charSet[idx]);
+    	}
+    	
+    	return sb.toString();
+    }
+    
 }
