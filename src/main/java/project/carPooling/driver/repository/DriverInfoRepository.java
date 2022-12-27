@@ -17,4 +17,6 @@ public interface DriverInfoRepository {
 	public void deleteAll();
 	
 	public DriverInfo selectByIdx(Integer dIdx);
+	
+	public DriverInfo selectByEmail(String dUserEmail);
 }

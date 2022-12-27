@@ -22,4 +22,6 @@ public interface DriverInfoMapper {
 	
 	public DriverInfo selectByIdx(Integer dIdx);
 	
+	public DriverInfo selectByEmail(String dUserEmail);
+	
 }
