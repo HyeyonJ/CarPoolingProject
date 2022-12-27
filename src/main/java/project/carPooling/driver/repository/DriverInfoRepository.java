@@ -2,11 +2,8 @@ package project.carPooling.driver.repository;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Primary;
-
 import project.carPooling.driver.domain.DriverInfo;
 
-@Primary
 public interface DriverInfoRepository {
 
 	public DriverInfo insert(DriverInfo driverInfo);

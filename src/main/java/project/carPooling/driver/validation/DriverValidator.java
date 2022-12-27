@@ -31,13 +31,9 @@ public class DriverValidator implements Validator {
 		if (!StringUtils.hasText(driverLogin.getDUserName())) {
 			errors.rejectValue("userName", null, "이름은 필수 입력입니다.");
 		}
-<<<<<<< HEAD
 		if (!StringUtils.hasText(driverLogin.getDUserEmail())) {
 			errors.rejectValue("userEmail", null, "이메일은 필수 입력입니다.");
 		}
-=======
->>>>>>> ff182bcc64c84c90163adb31c9eb3075dfb5dc7c
-
 	}
 
 }
