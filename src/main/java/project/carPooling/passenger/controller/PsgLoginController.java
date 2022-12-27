@@ -36,7 +36,7 @@ public class PsgLoginController {
 		PassengerLoginForm pLoginForm = new PassengerLoginForm();
 		model.addAttribute("pLoginForm", pLoginForm);
 		
-		return "passenger/login/pLogin";
+		return "passenger/login/pLoginMain";
 	}
 
 
@@ -51,7 +51,7 @@ public class PsgLoginController {
 		validateLoginForm(pLoginForm, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			return "passenger/login/pLogin";
+			return "passenger/login/pLoginMain";
 		}
 		
 		PassengerInfo passenger = passengerLoginService.login(pLoginForm.getLoginId(), pLoginForm.getPassword());
@@ -60,7 +60,7 @@ public class PsgLoginController {
 		
 		if(passenger == null) {	//계정 정보가 없거나, 비밀번호가 안 맞으면 로그인 실패
 			bindingResult.rejectValue("pLoginForm", "아이디 or 비밀번호 불일치");
-			return "passenger/login/pLogin";
+			return "passenger/login/pLoginMain";
 		}		
 		//정상 로그인 처리가 된 경우
 		//세션에 추가
@@ -73,7 +73,7 @@ public class PsgLoginController {
 	}
 	
 	
-	@PostMapping("/passenger/logout")
+	@PostMapping("/logout")
 	public String logout(HttpServletResponse resp, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		
