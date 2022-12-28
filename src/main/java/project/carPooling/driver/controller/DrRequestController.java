@@ -6,18 +6,20 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.repository.RequestRepository;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class DrRequestController {
@@ -45,5 +47,17 @@ public class DrRequestController {
 		
 		return reqList;
 	}
+	
+	@ResponseBody
+	@PutMapping("/driver/driverCarpooling/reqList/accept/{drIdx}/{pIdx}")
+	public boolean reqAccept(@PathVariable("drIdx") Integer drIdx, @PathVariable("pIdx") Integer pIdx){
+		log.info("여기 drIdx:{}, pIdx:{}", drIdx, pIdx);
+		boolean result = requestRepository.update(drIdx, pIdx);
+		
+		return result;
+	}
+	
+	
+	
 	
 }
