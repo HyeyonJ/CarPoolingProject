@@ -8,16 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.mail.MessagingException;
-import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DRegistration;
-import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
@@ -36,8 +35,8 @@ public class PsReservationController {
 	private MailService mailService;
 	
 //	@GetMapping("/passenger/passengerCarpool/search")
-	@RequestMapping(value="/passenger/passengerCarpool/search", method = RequestMethod.POST)
 	@ResponseBody
+	@PostMapping("/passenger/passengerCarpool/search")
 	public List<DRegistration> search(@ModelAttribute SearchCarPool searchCarPool) {
 		log.info("searchCarPool: {}", searchCarPool.toString());
 		List<DRegistration> dRegistrationList = searchCarpoolRepository.selectCarpool(searchCarPool);
@@ -49,20 +48,19 @@ public class PsReservationController {
 		return "passenger/pReservation";
 	}
 	
-	@RequestMapping(value="/passenger/passengerCarpool/reservation/{drIdx}", method = RequestMethod.GET)
 	@ResponseBody
+	@GetMapping("/passenger/passengerCarpool/reservation/{drIdx}")
 	public DRegistration reservationForm(@PathVariable("drIdx") Integer drIdx) {
 		DRegistration dRegistration = searchCarpoolRepository.selectCarpoolByDrIdx(drIdx);
 		log.info("dRegistration: {}", dRegistration.toString());
 		return dRegistration;
 	}
 	
-	@RequestMapping(value="/passenger/passengerCarpool/reservation/request/{pIdx}", method = RequestMethod.POST)
 	@ResponseBody
-	public String reservationReq(@PathVariable("pIdx") Integer pIdx, @ModelAttribute DRegistration dRegistration) throws MessagingException, IOException{
+	@PostMapping("/passenger/passengerCarpool/reservation/request/{pIdx}")
+	public void reservationReq(@PathVariable("pIdx") Integer pIdx, @ModelAttribute DRegistration dRegistration) throws MessagingException, IOException{
 		log.info("dRegistration: {}", dRegistration.toString()); 
-//		searchCarpoolRepository.insert(pIdx, pIdx);
-		Integer dIdx = dRegistration.getDIdx();
+		searchCarpoolRepository.insert(1, dRegistration.getDrIdx());
 		
 //		DriverInfo driverInfo = driverInfoRepository.selectByIdx(dIdx);
 //		String userEmail = driverInfo.getDUserEmail();
@@ -75,7 +73,5 @@ public class PsReservationController {
         mailTO.setMessage("요청을 확인하시려면 이동하기를 눌러주세요.");
 
 		mailService.sendMailWithFiles(mailTO);
-//		return dRegistration;
-		return "ksh990913@naver.com";
 	}
 }

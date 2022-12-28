@@ -8,7 +8,7 @@ import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.mapper.RegistrationMapper;
 
 @Repository
-@RequiredArgsConstructor	
+@RequiredArgsConstructor	 
 public class MybatisRegistrationRepository implements RegistrationRepository {
 
 	private final RegistrationMapper registrationMapper;

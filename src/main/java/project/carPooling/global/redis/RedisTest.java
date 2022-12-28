@@ -32,7 +32,7 @@ public class RedisTest {
     @GetMapping("/redisTest/{key}")    
     public ResponseEntity<?> getRedisKey(@PathVariable String key) {        
     	ValueOperations<String, String> vop = redisTemplate.opsForValue();        
-        String value = vop.get(key);  
+        String value = vop.get(key);
         System.out.println(value);
         return new ResponseEntity<>(value, HttpStatus.OK);
     }

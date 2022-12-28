@@ -80,7 +80,7 @@ public class PsgMailController {
 
         joinMailService.sendMailWithFiles(mailTO);
         
-		return "passenger/join";
+		return "passenger/join/general";
 	}
 	
 	@GetMapping("/members/email/send/{key}")
@@ -89,9 +89,8 @@ public class PsgMailController {
 		ValueOperations<String, String> vop = redisTemplate.opsForValue();        
         String value = vop.get(key);
 		log.info(value);
-		return "passenger/join";
+		return "passenger/join/general";
 	}
-
 
 	@ModelAttribute("pUserTypes")
 	public PUserType[] PUserTypes() {
