@@ -1,56 +1,66 @@
-/* modal 사용 */
-var myModal = document.getElementById('myModal')
-var myInput = document.getElementById('myInput')
-
-myModal.addEventListener('shown.bs.modal', function () { myInput.focus() })
-
-/* bootstrap 유효성 검사 */
-window.addEventListener('load', () => {
-    const forms = document.getElementsByClassName('validation-form');
-
-    Array.prototype.filter.call(forms, (form) => {
-	    form.addEventListener('submit', function (event) {
-	    	if (form.checkValidity() === false) {
-	        	event.preventDefault();
-	            event.stopPropagation();
-	        }
-	        form.classList.add('was-validated');
-	    }, false);
-    });
-}, false);
-
-window.onload = function () {
-	
-$("#checkEmail").click(function () {
-	let pUserEmail = $("#pUserEmail").val();
-
-$.ajax({
-	type: "GET",
-	url: "/join/check",
-	data: {
-		"email": pUserEmail
-	},
-	success: function (res) {
-		if(res['check']){
-			$('#checkMsg').html('<p style="color:red">이미 사용중인 이메일 입니다.</p>');
-		} else {
-			swal("발송 완료!", "입력하신 이메일로 인증코드가 발송되었습니다.", "success").then((OK)=>{
-				if(OK) {
-					$.ajax({
-						type: "POST",
-						url: "/join/mail",
-						data:{
-							"email": pUserEmail
-						}						
-					})
-					
-				}
-			})
-			$('#checkMsg').html('<p style="color:darkblue"></p>');
-		}
-	}
-})
-
-})
-
+var autoHypenPhone = function(tel){
+      tel = tel.replace(/[^0-9]/g, '');
+      var tmp = '';
+      if( tel.length < 4){
+          return tel;
+      }else if(tel.length < 7){
+          tmp += tel.substr(0, 3);
+          tmp += '-';
+          tmp += tel.substr(3);
+          return tmp;
+      }else if(tel.length < 11){
+          tmp += tel.substr(0, 3);
+          tmp += '-';
+          tmp += tel.substr(3, 3);
+          tmp += '-';
+          tmp += tel.substr(6);
+          return tmp;
+      }else{              
+          tmp += tel.substr(0, 3);
+          tmp += '-';
+          tmp += tel.substr(3, 4);
+          tmp += '-';
+          tmp += tel.substr(7);
+          return tmp;
+      }
+  
+      return tel;
 }
+
+
+var pUserTel = document.getElementById('pUserTel');
+
+pUserTel.onkeyup = function(){
+  console.log(this.value);
+  this.value = autoHypenPhone( this.value ) ;  
+}
+
+
+
+
+
+
+
+
+
+
+  $('#checkId').click(function(){
+    if( $(this).hasClass('btn-outline-success') ) $(this).removeClass('btn-outline-success');
+    if( !$(this).hasClass('btn-success') ) $(this).addClass('btn-success');
+    if( $('#checkEmail').hasClass('btn-success') ) $('#checkEmail').removeClass('btn-success');
+    if( !$('#checkEmail').hasClass('btn-outline-success') ) $('#checkEmail').addClass('btn-outline-success');
+  });
+  
+  $('#checkEmail').click(function(){
+    if( $(this).hasClass('btn-outline-success') ) $(this).removeClass('btn-outline-success');
+    if( !$(this).hasClass('btn-success') ) $(this).addClass('btn-success');
+    if( $('#checkId').hasClass('btn-success') ) $('#checkId').removeClass('btn-success');
+    if( !$('#checkId').hasClass('btn-outline-success') ) $('#checkId').addClass('btn-outline-success');
+  });
+
+
+$('#checkId').removeClass('btn-success');
+$('#checkId').addClass('btn-outline-success');
+
+$('#checkEmail').removeClass('btn-success');
+$('#checkEmail').addClass('btn-outline-success');

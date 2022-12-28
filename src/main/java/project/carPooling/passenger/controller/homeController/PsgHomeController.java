@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller;
+package project.carPooling.passenger.controller.homeController;
 
 import java.util.Enumeration;
 
@@ -20,7 +20,7 @@ import project.carPooling.passenger.domain.PassengerInfo;
 @RequestMapping("/passenger")
 public class PsgHomeController {
 	
-	@GetMapping("/main")
+	@GetMapping("/home")
 	public String passengerHome(Model model
 					, HttpServletRequest req) {
 		
