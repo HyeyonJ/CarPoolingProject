@@ -33,7 +33,7 @@ public class DriverAppConfig {
 	}
 	
 	@Bean
-	public RequestRepository acceptRepository() {
+	public RequestRepository requestRepository() {
 		return new MybatisRequestRepository(requestMapper);
 	}
 }

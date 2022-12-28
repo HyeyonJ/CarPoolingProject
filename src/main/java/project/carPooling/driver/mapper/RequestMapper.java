@@ -8,7 +8,10 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface RequestMapper {
-	public void update(@Param("rIdx")Integer rIdx);
-	
 	public List<Map<String, Object>> selectRequestByDIdx(@Param("dIdx") Integer dIdx);
+	
+	public void updateAcceptStatus(@Param("pIdx")Integer pIdx);
+	
+	public void updateConfirm(@Param("drIdx")Integer drIdx);
+	
 }
