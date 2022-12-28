@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutDriver}">
+
+<head>
+  <title>requestList</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  <style>
+    #today {
+      width: 100px;
+      height: 40px;
+    }
+
+    #future {
+      width: 100px;
+      height: 40px;
+    }
+
+    #listdiv {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    #list {
+      display: inline-block;
+      border: 1px solid #DDD;
+      margin-top: 20px;
+      overflow: scroll;
+      overflow-x: hidden;
+      width: 500px;
+      height: 600px;
+    }
+
+    /* 팝업 배경 css*/
+    #popup_mask {
+      position: fixed;
+      width: 100%;
+      height: 1000px;
+      top: 0px;
+      left: 0px;
+      display: none;
+      background-color: #000;
+      -moz-opacity: 0.8;
+      filter: alpha(opacity=80);
+      opacity: 0.8;
+    }
+
+    /*팝업창 css*/
+    #popupDiv {
+      top: 0px;
+      position: fixed;
+      background: white;
+      width: 500px;
+      height: 550px;
+      display: none;
+      padding-left: 10px;
+    }
+
+    #popCloseBtn {
+      margin-left: 330px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+</head>
+<th:block layout:fragment="content">
+  <section id="drSection">
+    <div id="container">
+
+      <div class="d-flex justify-content-center">
+        <h1 class="mb-4">카풀요청</h1>
+
+      </div>
+
+
+      <div id="year">
+
+        <button id="today" class="btn btn-primary"></button>
+        <button id="future" class="btn btn-primary"></button>
+      </div>
+      <div id="listdiv">
+        <div id="list">
+          <br>
+
+
+          <div id="todayList"></div>
+          <div id="futureList"></div>
+
+
+
+        </div>
+      </div>
+
+      <div id="popup_mask"></div>
+      <!-- 팝업 배경 DIV -->
+
+      <div id="popupDiv">
+        <!-- 팝업창 -->
+        <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+        <div id="map_div"></div>
+      </div>
+
+    </div>
+
+  </section>
+</th:block>
+<th:block layout:fragment="js">
+  <script>
+
+    var d = new Date();
+    var thisyear = d.getFullYear() + "년";
+    var today;
+    var future;
+
+
+    //날짜 비교 변수
+    //10월 미만, 10일 미만 은 0붙여주기
+    if (d.getMonth() + 1 < 10 && d.getDate() < 10) {
+      thisday = d.getFullYear() + "-" + "0" + (d.getMonth() + 1) + "-" + "0" + d.getDate();
+      //그냥 10월 미만
+    } else if (d.getMonth() + 1 < 10) {
+      thisday = d.getFullYear() + "-" + "0" + (d.getMonth() + 1) + "-" + d.getDate();
+      //10일 미만
+    } else if (d.getDate() < 10) {
+      thisday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + "0" + d.getDate();
+    } else if (d.getMonth() + 1 == 13) {
+      thisday = d.getFullYear() + "-" + "01" + "-" + d.getDate();
+    } else {
+      thisday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    }
+
+    //오늘
+    today = (d.getMonth() + 1) + "/" + d.getDate();
+
+
+    //미래
+    //32일이 되어버린다면..
+    if (d.getDate() + 1 == 32) {
+      future = (d.getMonth() + 2) + "/1" + "~";
+    } else {
+      future = (d.getMonth() + 1) + "/" + (d.getDate() + 1) + "~";
+    }
+
+    $(document).ready(() => {
+      // val로 하면 안먹힘
+      /*
+      element.insertAdjacentHTML(position, text);
+      postion에는 beforebegin, afterbegin, beforeend, afterend가 있다.
+      text(인자)는 HTML 또는 XML로 해석될 수 있는 문자열이다.
+      position의 예시
+      [beforebegin] : element 앞에
+      [afterbegin] : element 안에 가장 첫번째 child
+      [beforeend] : element 안에 가장 마지막 child
+      [afterend] : element 뒤에
+      */
+      // https://stackoverflow.com/questions/6588630/jquery-append-text 보안때문에 createTextNode or insertAdjacentHTML사용
+      $('#today').append(document.createTextNode(today));
+      $('#future').append(document.createTextNode(future));
+
+      // document.getElementById('today').insertAdjacentHTML("beforeend", today);
+      // document.getElementById('future').insertAdjacentHTML("beforeend", future);
+
+      list();
+
+      function list() {
+        $.ajax({
+          url: "/driver/driverCarpooling/reqList",
+          type: "POST",
+          success: (data) => {
+            console.log(data);
+
+            var todayhtml = '';
+            var futurehtml = '';
+
+            for (var i = 0; i < data.length; i++) {
+              console.log(data[i].D_FEE);
+
+              var fee = data[i].D_FEE.toString();
+              var feeCut = fee.substring(fee.length, fee.length - 3);
+              var split = fee.split(feeCut);
+              var feeSplit = split[0] + ',' + feeCut;
+
+              console.log(data[i].D_DATE.substring(0, 8));
+              var dDate;
+              var dDay = parseInt(data[i].D_DATE.substring(8, 10)) + 1;
+              if (dDay == 32) {
+                dDate = data[i].D_DATE.substring(0, 8) + "01";
+                console.log(dDate);
+              } else {
+                if (parseInt(data[i].D_DATE.substring(8, 10)) < 10) {
+                  dDate = data[i].D_DATE.substring(0, 8) + "0" + dDay;
+                  console.log(dDate);
+                } else {
+                  dDate = data[i].D_DATE.substring(0, 8) + dDay;
+                  console.log(dDate);
+                }
+              }
+
+              if (dDate == thisday) {
+                console.log("1번");
+
+
+                todayhtml += '<div class="pastDiv">';
+                todayhtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+
+
+
+                // todayhtml += '<span>탑승자 닉네임 : ' + data[i].nickname + '</span><br>\n';
+                todayhtml += '<span>탑승자 닉네임 : ' + data[i].P_IDX + '</span><br>\n';
+
+
+
+                todayhtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
+                todayhtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
+                todayhtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                todayhtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTTIME + '<br>\n';
+                todayhtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                todayhtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
+                todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
+                todayhtml += '<button class="btn btn-primary" id="todayYbtn" onclick="concent(' + data[i].R_IDX + ')">수락</button>';
+                todayhtml += '<button class="btn btn-primary" id="todayNbtn" onclick="refuse(' + data[i].R_IDX + ')">거절</button>' + '<br><br>\n';
+                todayhtml += '</div>';
+
+                //미래
+              } else if (dDate > thisday) {
+                console.log("2번");
+                futurehtml += '<div class="pastDiv">';
+                futurehtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+
+                // futurehtml += '<span>탑승자 닉네임 : ' + data[i].nickname + '</span><br>\n';
+                futurehtml += '<span>탑승자 닉네임 : ' + data[i].P_IDX + '</span><br>\n';
+
+
+                futurehtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
+                futurehtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
+                futurehtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                futurehtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTTIME + '<br>\n';
+                futurehtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                futurehtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
+                futurehtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
+                futurehtml += '<button class="btn btn-primary" id="futureYbtn" onclick="concent(' + data[i].R_IDX + ')">수락</button>';
+                futurehtml += '<button class="btn btn-primary" id="futureNbtn" onclick="refuse(' + data[i].R_IDX + ')">거절</button>' + '<br><br>\n';
+                futurehtml += '</div>';
+              }
+
+              $('#todayList').html(todayhtml);
+              $('#futureList').html(futurehtml);
+
+
+            }
+
+          }
+
+        })
+      }
+
+    })
+  </script>
+</th:block>
+
+</html>
