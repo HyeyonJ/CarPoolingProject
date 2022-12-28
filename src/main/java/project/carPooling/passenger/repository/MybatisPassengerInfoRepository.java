@@ -37,6 +37,31 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 	}
 
 	@Override
+	public PassengerInfo selectByEmail(String email) {
+		PassengerInfo passenger = passengerMapper.selectByEmail(email);
+		return passenger;
+	}
+	
+
+	@Override
+	public PassengerInfo selectByNameAndEmail(String name, String email) {
+		PassengerInfo passenger = passengerMapper.selectByNameAndEmail(name, email);
+		return passenger;
+	}
+
+	@Override
+	public PassengerInfo selectByNameAndTel(String name, String tel) {
+		PassengerInfo passenger = passengerMapper.selectByNameAndTel(name, tel);
+		return passenger;
+	}
+
+	@Override
+	public PassengerInfo selectByNameAndIdnum(String name, String idnum1, String idnum2) {
+		PassengerInfo passenger = passengerMapper.selectByNameAndIdnum(name, idnum1, idnum2);
+		return passenger;
+	}
+	
+	@Override
 	public List<PassengerInfo> selectAll() {
 		List<PassengerInfo> passengers = passengerMapper.selectAll();
 		return passengers;
@@ -52,5 +77,8 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 		passengerMapper.update(passenger);
 		return passenger;
 	}
+
+
+
 
 }
