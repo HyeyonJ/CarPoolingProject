@@ -33,7 +33,7 @@ public class PsReservationListController {
 	public List<Map<String, Object>> confirmedList(HttpServletRequest req){
 		
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> confirmedList = reservationListRepository.selectConfirmedReservationList(passengerInfo.getpIdx());
+		List<Map<String, Object>> confirmedList = reservationListRepository.selectConfirmedReservationList(passengerInfo.getPIdx());
 		System.out.println(confirmedList);
 		
 		return confirmedList;
@@ -44,7 +44,7 @@ public class PsReservationListController {
 	public List<Map<String, Object>> waitingList(HttpServletRequest req){
 		
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> waitingList = reservationListRepository.selectWaitingReservationList(passengerInfo.getpIdx());
+		List<Map<String, Object>> waitingList = reservationListRepository.selectWaitingReservationList(passengerInfo.getPIdx());
 		System.out.println(waitingList);
 		
 		return waitingList;
@@ -54,7 +54,7 @@ public class PsReservationListController {
 	@GetMapping("/passenger/passengerCarpool/reservation/pastList")
 	public List<Map<String, Object>> pastList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> pastList = reservationListRepository.selectPastReservationList(passengerInfo.getpIdx());
+		List<Map<String, Object>> pastList = reservationListRepository.selectPastReservationList(passengerInfo.getPIdx());
 		System.out.println(pastList);
 		
 		return pastList;

@@ -1,11 +1,7 @@
 package project.carPooling.driver.repository;
 
-import java.util.HashMap;
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -39,13 +35,6 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		DriverInfo driverInfo = driverMapper.selectByLoginId(loginId);
 		return driverInfo;
 	}
-
-	// 여기에서 email로 값을 받아오는 것을 처리하는 것
-//	@Override
-//	public DriverInfo selectByEmail (String dUserEmail);
-//		DriverInfo driverInfo = driverMapper.selectByLoginId(loginId);
-//		return driverInfo;
-//}
 	
 	@Override
 	public List<DriverInfo> selectAll() {
@@ -74,6 +63,30 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	public DRegistration selectByDrIdx(Integer drIdx) {
 		DRegistration dRegistration = driverMapper.selectByDrIdx(drIdx);
 		return dRegistration;
+	}
+
+	@Override
+	public DriverInfo selectByNameAndEmail(String name, String email) {
+		DriverInfo driver = driverMapper.selectByNameAndEmail(name, email);
+		return driver;
+	}
+
+	@Override
+	public DriverInfo selectByNameAndTel(String name, String tel) {
+		DriverInfo driver = driverMapper.selectByNameAndTel(name, tel);
+		return driver;
+	}
+
+	@Override
+	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2) {
+		DriverInfo driver = driverMapper.selectByNameAndIdnum(name, idnum1, idnum2);
+		return driver;
+	}
+
+	@Override
+	public DriverInfo update(DriverInfo driver) {
+		driverMapper.update(driver);
+		return driver;
 	}
 
 }

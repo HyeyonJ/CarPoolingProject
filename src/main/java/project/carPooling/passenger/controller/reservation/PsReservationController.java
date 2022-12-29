@@ -65,7 +65,7 @@ public class PsReservationController {
 		log.info("dRegistration: {}", dRegistration.toString()); 
 		HttpSession session = req.getSession(false);
 		PassengerInfo passengerInfo = (PassengerInfo) session.getAttribute(SessionVar.LOGIN_PASSENGER);
-		searchCarpoolRepository.insert(passengerInfo.getpIdx(), dRegistration.getDrIdx());
+		searchCarpoolRepository.insert(passengerInfo.getPIdx(), dRegistration.getDrIdx());
 		
 		DRegistration drRegistration = driverInfoRepository.selectByDrIdx(dRegistration.getDrIdx());
 		DriverInfo driverInfo = driverInfoRepository.selectByIdx(drRegistration.getDIdx());

@@ -29,28 +29,28 @@ public class DrvGeneralJoinController {
 	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
 
-	@PostMapping("/join/general")
-	public String newMemberInsert(@ModelAttribute DriverInfo driverInfo
-			, BindingResult bindingResult) {
-		log.info("member = {}", driverInfo);
-		
-		driverValidator.validate(driverInfo, bindingResult);
-		
-		if(bindingResult.hasErrors()) {
-			return "home";
-		}
-		
-		driverInfoRepository.insert(driverInfo);
-		return "driver/join/dJoinGeneral";
-	}
-	
-	@GetMapping("/join/general")
-	public String JoinGeneral (Model model) {
-		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute("driverInfo", driverInfo);
-		
-		return "driver/join/dJoinGeneral";
-	}
+//	@PostMapping("/join/general")
+//	public String newMemberInsert(@ModelAttribute DriverInfo driverInfo
+//			, BindingResult bindingResult) {
+//		log.info("member = {}", driverInfo);
+//		
+//		driverValidator.validate(driverInfo, bindingResult);
+//		
+//		if(bindingResult.hasErrors()) {
+//			return "home";
+//		}
+//		
+//		driverInfoRepository.insert(driverInfo);
+//		return "driver/join/dJoinGeneral";
+//	}
+//	
+//	@GetMapping("/join/general")
+//	public String JoinGeneral (Model model) {
+//		DriverInfo driverInfo = new DriverInfo();
+//		model.addAttribute("driverInfo", driverInfo);
+//		
+//		return "driver/join/dJoinGeneral";
+//	}
 	
 //	@GetMapping("/join/add")
 //	public String JoinAdd(Model model) {
