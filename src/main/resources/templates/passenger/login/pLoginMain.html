@@ -24,14 +24,14 @@
 				<h3>Passenger Login</h3>
 				<div style="border-bottom: solid 1px gray; margin-top:20px;"></div>
 
-				<form action="" method="get" th:object="${loginForm}">
+				<form action="/passenger/login" method="post" th:object="${pLoginForm}">
 					<div>
-						<input type="text" placeholder="이메일을 입력해주세요" style="width:300px; height:50px; margin-top:30px;">
+						<input type="text" th:field="*{loginId}" placeholder="아이디를 입력해주세요" style="width:300px; height:50px; margin-top:30px;">
 					</div>
 					<div>
-						<input type="password" placeholder="비밀번호를 입력해주세요" style="width:300px; height:50px; margin-top:10px;">
+						<input type="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요" style="width:300px; height:50px; margin-top:10px;">
 					</div>
-						<button type="button" class="btn btn-secondary"  th:onclick="|location.href='@{/passenger/login/general}'|" style="height:50px; width:300px; margin-top:10px;">email로 로그인</button>
+						<button type="submit" class="btn btn-secondary"  style="height:50px; width:300px; margin-top:10px;">로그인</button>
 <!-- 						<a th:href="@{/}"><img height="50" width="300px" -->
 <!-- 							src="/img/buttonEmail.png" /></a> -->
 					<div>
