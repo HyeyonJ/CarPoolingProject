@@ -21,26 +21,15 @@ public class PassengerValidator implements Validator {
 		// TODO Auto-generated method stub
 		PassengerInfo passenger = (PassengerInfo) target;
 		
-//		if(!StringUtils.hasText(passenger.getPUserId())) {
-//			errors.rejectValue("userId", null, "아이디 필수 입력입니다.");}
-//		if(!StringUtils.hasText(passenger.getPUserPw())) {
-//			errors.rejectValue("userPw", null, "패스워드 필수 입력입니다.");}
-//		if(!StringUtils.hasText(passenger.getPUserName())) {
-//			errors.rejectValue("userName", null, "이름 필수 입력입니다.");}
-//		if(!StringUtils.hasText(passenger.getPUserEmail())) {
-//			errors.rejectValue("userEmail", null, "이메일 필수 입력입니다.");}
-//		if(!StringUtils.hasText(passenger.getPUserTel())) {
-//			errors.rejectValue("userTel", null, "휴대폰번호 필수 입력입니다.");}
-		
-		if(!StringUtils.hasText(passenger.getpUserId())) {
+		if(!StringUtils.hasText(passenger.getPUserId())) {
 			errors.rejectValue("userId", null, "아이디 필수 입력입니다.");}
-		if(!StringUtils.hasText(passenger.getpUserPw())) {
+		if(!StringUtils.hasText(passenger.getPUserPw())) {
 			errors.rejectValue("userPw", null, "패스워드 필수 입력입니다.");}
-		if(!StringUtils.hasText(passenger.getpUserName())) {
+		if(!StringUtils.hasText(passenger.getPUserName())) {
 			errors.rejectValue("userName", null, "이름 필수 입력입니다.");}
-		if(!StringUtils.hasText(passenger.getpUserEmail())) {
+		if(!StringUtils.hasText(passenger.getPUserEmail())) {
 			errors.rejectValue("userEmail", null, "이메일 필수 입력입니다.");}
-//		if(!StringUtils.hasText(passenger.getpUserTel())) {
+//		if(!StringUtils.hasText(passenger.getPUserTel())) {
 //			errors.rejectValue("userTel", null, "휴대폰번호 필수 입력입니다.");}
 		
 	}

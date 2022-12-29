@@ -4,6 +4,7 @@ import java.util.List;
 
 import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.passenger.domain.PassengerInfo;
 
 public interface DriverInfoRepository {
 
@@ -22,4 +23,13 @@ public interface DriverInfoRepository {
 	public DriverInfo selectByEmail(String dUserEmail);
 
 	public DRegistration selectByDrIdx(Integer drIdx);
+	
+	public DriverInfo selectByNameAndEmail(String name, String email);
+	
+	public DriverInfo selectByNameAndTel(String name, String tel);
+	
+	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2);
+
+	public DriverInfo update(DriverInfo driver);
+	
 }

@@ -29,7 +29,6 @@ import project.carPooling.passenger.validation.form.PassengerLoginForm;
 public class PsgLoginController {
 	
 	private final PassengerLoginService passengerLoginService;
-//	private final SessionManager sessionManager;
 	
 	@GetMapping("/login")
 	public String login(Model model) {
