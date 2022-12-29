@@ -1,6 +1,4 @@
-package project.carPooling.passenger.controller.homeController;
-
-import java.util.Enumeration;
+package project.carPooling.passenger.controller.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +27,6 @@ public class PsgHomeController {
 		if(session == null || session.getAttribute(SessionVar.LOGIN_PASSENGER) == null) {
 			
 			return "redirect:/passenger/login"; }
-
 
 		//sessionManager에서 넘어온 Object가 driver 혹은 passenger인걸 알 수 있으므로 강제 형변환해주기
 		PassengerInfo passenger = (PassengerInfo)session.getAttribute(SessionVar.LOGIN_PASSENGER);

@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller;
+package project.carPooling.driver.controller.registration;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

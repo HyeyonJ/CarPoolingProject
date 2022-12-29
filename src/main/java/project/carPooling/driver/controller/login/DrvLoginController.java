@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller.loginController;
+package project.carPooling.driver.controller.login;
 
 import java.io.BufferedReader;
 
@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.MybatisDriverInfoRepository;
-import project.carPooling.driver.service.DrvLoginService;
+import project.carPooling.driver.service.DriverLoginService;
 
 @Slf4j
 @Controller
