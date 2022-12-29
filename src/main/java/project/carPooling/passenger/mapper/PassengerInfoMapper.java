@@ -1,13 +1,16 @@
 package project.carPooling.passenger.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
+
 import project.carPooling.passenger.domain.PassengerInfo;
 
 @Mapper
 public interface PassengerInfoMapper {
 	
-	public Integer insert(PassengerInfo passsenger);
+	public Integer insert(@Param("passenger") PassengerInfo passsenger);
 	
 	public PassengerInfo selectById(int id);
 	
