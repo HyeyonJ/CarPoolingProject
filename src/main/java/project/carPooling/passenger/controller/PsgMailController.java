@@ -50,7 +50,7 @@ public class PsgMailController {
 		return checkId;
 	}
 	
-	//이메일 중복 체크
+	//이메일 중복 체크(사용안함)
 	@GetMapping("/join/email/check")
 	public boolean passengerCheckJoinMail(@RequestParam String email) {		
 		boolean checkEmail = pUserService.passengerEmailCheck(email);		

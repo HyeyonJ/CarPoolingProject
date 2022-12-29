@@ -73,7 +73,7 @@ public class PsgLoginController {
 	}
 	
 	
-	@PostMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(HttpServletResponse resp, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		
