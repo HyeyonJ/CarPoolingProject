@@ -1,10 +1,23 @@
 package project.carPooling.passenger.validation.form;
 
-import lombok.Data;
+//import lombok.Data;
 
-@Data
+//@Data
 public class PassengerLoginForm {
-	private String loginId;
+	private String loginId;	
 	private String password;
 
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }

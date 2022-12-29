@@ -45,7 +45,7 @@ public class PsgLoginController {
 	public String doLogin(@ModelAttribute PassengerLoginForm pLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/") String redirectURL) {
+						, @RequestParam(name="redirectURL", defaultValue="/passenger/home") String redirectURL) {
 		log.info("pLoginForm {}", pLoginForm);
 		
 		validateLoginForm(pLoginForm, bindingResult);
@@ -61,7 +61,7 @@ public class PsgLoginController {
 		if(passenger == null) {	//계정 정보가 없거나, 비밀번호가 안 맞으면 로그인 실패
 			bindingResult.rejectValue("pLoginForm", "아이디 or 비밀번호 불일치");
 			return "passenger/login/pLoginMain";
-		}		
+		}
 		//정상 로그인 처리가 된 경우
 		//세션에 추가
 		HttpSession session = req.getSession();	//getSession(true) : session이 없으면 만들고 있으면 안 만든다.
@@ -83,8 +83,6 @@ public class PsgLoginController {
 		
 		return "redirect:/";
 	}
-	
-	
 	
 	public void validateLoginForm(PassengerLoginForm pLoginForm, Errors errors) {
 		if(!StringUtils.hasText(pLoginForm.getLoginId())) {
