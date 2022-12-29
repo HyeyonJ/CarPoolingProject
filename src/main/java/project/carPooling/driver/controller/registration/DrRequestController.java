@@ -28,13 +28,13 @@ public class DrRequestController {
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	@GetMapping("/driver/driverCarpooling/reqList")
+	@GetMapping("/driver/driverCarpool/reqList")
 	public String reqList(){
 		return "driver/dRequestList";
 	}
 	
 	@ResponseBody
-	@PostMapping("/driver/driverCarpooling/reqList")
+	@PostMapping("/driver/driverCarpool/reqList")
 	public List<Map<String, Object>> reqList1(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 //		HttpSession session = req.getSession(false);
@@ -49,7 +49,7 @@ public class DrRequestController {
 	}
 	
 	@ResponseBody
-	@PutMapping("/driver/driverCarpooling/reqList/accept/{drIdx}/{pIdx}")
+	@PutMapping("/driver/driverCarpool/reqList/accept/{drIdx}/{pIdx}")
 	public boolean reqAccept(@PathVariable("drIdx") Integer drIdx, @PathVariable("pIdx") Integer pIdx){
 		log.info("여기 drIdx:{}, pIdx:{}", drIdx, pIdx);
 		boolean result = requestRepository.update(drIdx, pIdx);
