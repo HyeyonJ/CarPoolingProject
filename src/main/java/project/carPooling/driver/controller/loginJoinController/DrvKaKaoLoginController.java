@@ -19,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.driver.service.DrvKakaoService;
-import project.carPooling.driver.validation.form.LoginForm;
-import project.carPooling.global.session.SessionManager;
 import project.carPooling.global.session.SessionVar;
 
 @Slf4j
@@ -31,7 +29,6 @@ public class DrvKaKaoLoginController {
 	
 //	 private KakaoLogin kakao_restapi = new KakaoLogin();
 	DrvKakaoService drvKakaoService = new DrvKakaoService();
-	private final SessionManager sessionManager;
 	
 	private final DriverInfoRepository driverInfoRepository;
 	
@@ -45,7 +42,7 @@ public class DrvKaKaoLoginController {
 //    		 BindingResult bindingResult, 
     		@RequestParam(value = "code", required = false) String code,
     		HttpServletResponse resp, HttpServletRequest req,
-    		@RequestParam(name="redirectURL", defaultValue="/driver/dRegistration") String redirectURL
+    		@RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL
     		) throws Exception {
 		
     	System.out.println("code=" + code);
@@ -168,7 +165,6 @@ public class DrvKaKaoLoginController {
 
 		@PostMapping("/logout_session")
 		public String kakao_logout_session(HttpServletRequest req) {
-			sessionManager.remove(req);
 
 			return "redirect:/";
 		}

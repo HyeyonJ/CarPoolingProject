@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
-import project.carPooling.global.session.SessionManager;
 import project.carPooling.global.session.SessionVar;
 
 @Slf4j
@@ -20,7 +19,6 @@ import project.carPooling.global.session.SessionVar;
 public class HomeController {
 
 	
-	private final SessionManager sessionManager;
 	
 	@GetMapping("/")
 	public String carPoolingHome(Model model, HttpServletRequest req) {

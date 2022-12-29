@@ -5,4 +5,8 @@ import java.util.Map;
 
 public interface ReservationListRepository {
 	public List<Map<String, Object>> selectConfirmedReservationList(Integer pIdx);
+	
+	public List<Map<String, Object>> selectWaitingReservationList(Integer pIdx);
+	
+	public List<Map<String, Object>> selectPastReservationList(Integer pIdx);
 }

@@ -1,137 +1,145 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutHome}">
-<head>
-<meta charset="UTF-8">
-<title>Passenger Join</title>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutHome}">
 
-<style>	
-.errormsg { color: red; }
-.emailButton { padding-top: 24px; }
-.formButton { margin: 0 12px; }
-</style>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Passenger Join</title>
 
-<th:block layout:fragment="content">
-	<div class="container mt-5">
-		<div class="input-form-backgroud row">
-			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-3">Passenger 회원가입</h4>
-				<form class="validation-form" novalidate action="" method="post" th:object="${passenger}">
-					<div class="row" id="inputUserType">
-						<!-- 가입유형지정 -->
-						<div class="col mb-3 form-check" th:each="pUserType : ${pUserTypes}">
-							<input class="form-check-input" type="radio" th:field="*{pUserType}"
-								name="pUserType" th:value="${pUserType.name}">
-							<label th:for="${#ids.prev('pUserType')}" th:text="${pUserType.memo}"></label>
-						</div>
-					</div>
-					<div class="row">
-						<!-- 아이디 입력 / 중복 체크 -->
-						<div class="col-md-6 mb-3">
-							<label for="pUserId">아이디(id)</label>
-							<span class="text-center small mt-2" id="checkIdMsg" style="color: red"></span>
-							<div class="input-group mb-3">							
-								<input type="text" class="form-control" id="pUserId" name="pUserId" placeholder="아이디"
-									pattern="[a-zA-Z0-9]{4,12}" aria-label="pUserId" aria-describedby="checkId"
-									th:field="*{pUserId}" title="영문, 숫자 포함 4자리에서 최대 12자리까지"
-									maxlength="12" required>								
-								<button class="btn btn-dark" type="button" id="checkId">중복확인</button>
+		<style>
+			.errormsg {
+				color: red;
+			}
+
+			.emailButton {
+				padding-top: 24px;
+			}
+
+			.formButton {
+				margin: 0 12px;
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="content">
+		<div class="container mt-5">
+			<div class="input-form-backgroud row">
+				<div class="input-form col-md-12 mx-auto">
+					<h4 class="mb-3">Passenger 회원가입</h4>
+					<form class="validation-form" novalidate action="" method="post" th:object="${passenger}">
+						<div class="row" id="inputUserType">
+							<!-- 가입유형지정 -->
+							<div class="col mb-3 form-check" th:each="pUserType : ${pUserTypes}">
+								<input class="form-check-input" type="radio" th:field="*{pUserType}" name="pUserType"
+									th:value="${pUserType.name}">
+								<label th:for="${#ids.prev('pUserType')}" th:text="${pUserType.memo}"></label>
 							</div>
-							<div class="invalid-feedback"><span>이메일을 입력해주세요.</span><span>(이메일 양식:example@sample.com)</span></div>
 						</div>
-					</div>
-					<div class="row">
-						<!-- 패스워드 입력 -->
-						<div class="col-md-4 mb-3">
-							<label for="pUserPw">패스워드(pw)</label>
-							<input type="password" class="form-control" id="pUserPw" name="pUserPw" placeholder="패스워드"
-								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
-								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
-								maxlength="16" th:field="*{pUserPw}" required>
-							<div class="invalid-feedback"><span>패스워드를 입력해주세요.</span>
-							<span>(영문대/소문자, 숫자, 특수문자 각 1개 이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span></div>
-						</div>
-					</div>
-					<div class="row">
-						<!-- 사용자 이름 입력 -->
-						<div class="col-md-4 mb-3">
-							<label for="pUserName">이름(name)</label>
-							<input type="text" class="form-control" id="pUserName" name="pUserName"
-							th:field="*{pUserName}" maxlength="10" placeholder="이름" required>
-							<div class="invalid-feedback">이름을 입력해주세요.</div>
-						</div>
-					</div>					
-					<div class="row">
-						<!-- 주민등록번호(앞) 입력 -->
-						<div class="col-md-4 mb-3">
-							<label for="pIdNum1">주민등록번호(앞)</label>
-							<input type="text" class="form-control" id="pIdNum1" name="pIdNum1" placeholder="앞 6자리"
-							pattern="\d{6}" maxlength="6" title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{pIdNum1}" required>
-							<div class="invalid-feedback">주민등록번호 앞 6자리를 입력해주세요.</div>
-						</div>
-						<!-- 주민등록번호(뒤) 입력 -->
-						<div class="col-md-4 mb-3">
-							<label for="pIdNum2">(뒤)</label>
-							<input type="password" class="form-control" id="pIdNum2" name="pIdNum2" placeholder="뒤 7자리"
-							pattern="[1-4]\d{6}" maxlength="7" title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{pIdNum2}" required>
-							<div class="invalid-feedback">주민등록번호 뒤 7자리를 입력해주세요.</div>
-						</div>
-					</div>
-					<div class="row">
-						<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
-						<div class="col-md-6 mb-3">
-							<label for="pUserEmail">이메일(email)</label>
-							<span class="text-center small mt-2" id="checkEmailMsg" style="color: red"></span>
-							<div class="input-group mb-3">							
-							<input type="email" class="form-control" id="pUserEmail" name="pUserEmail" placeholder="이메일(carpooling@example.com)"
-								pattern="[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" aria-label="pUserEmail" aria-describedby="checkEmail"
-								th:field="*{pUserEmail}" title="이메일 양식:carpooling@example.com"
-								maxlength="30" required>								
-							<button class="btn btn-dark" type="button" id="checkEmail">인증</button>
+						<div class="row">
+							<!-- 아이디 입력 / 중복 체크 -->
+							<div class="col-md-6 mb-3">
+								<label for="pUserId">아이디(id)</label>
+								<span class="text-center small mt-2" id="checkIdMsg" style="color: red"></span>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" id="pUserId" name="pUserId" placeholder="아이디"
+										pattern="[a-zA-Z0-9]{4,12}" aria-label="pUserId" aria-describedby="checkId" th:field="*{pUserId}"
+										title="영문, 숫자 포함 4자리에서 최대 12자리까지" maxlength="12" required>
+									<button class="btn btn-dark" type="button" id="checkId">중복확인</button>
+								</div>
+								<div class="invalid-feedback"><span>이메일을 입력해주세요.</span><span>(이메일 양식:example@sample.com)</span></div>
 							</div>
-							<div class="invalid-feedback"><span>이메일을 입력해주세요. </span><span>(이메일:example@sample.com)</span></div>
 						</div>
-					</div>
-					<div class="row">
-						<!-- 인증 번호 입력 -->
-						<div class="col-md-6 mb-3" id="inputVcode">
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" id="pUserVcode" name="pUserVcode" placeholder="인증코드"
-									aria-label="pUserVcode" aria-describedby="checkVcode"
-									title="이메일로 발송된 인증코드를 입력" required>
-								<button class="btn btn-dark" type="button" id="checkVcode">확인</button>
+						<div class="row">
+							<!-- 패스워드 입력 -->
+							<div class="col-md-4 mb-3">
+								<label for="pUserPw">패스워드(pw)</label>
+								<input type="password" class="form-control" id="pUserPw" name="pUserPw" placeholder="패스워드"
+									pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
+									title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지" maxlength="16" th:field="*{pUserPw}" required>
+								<div class="invalid-feedback"><span>패스워드를 입력해주세요.</span>
+									<span>(영문대/소문자, 숫자, 특수문자 각 1개 이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
+								</div>
 							</div>
-						</div>						
-					</div>
-					<div class="row">
-					<!-- 휴대폰번호 입력 -->
-						<div class="col-md-6 mb-3">
-							<label for="pUserTel">휴대폰번호</label>
-							<input type="text" class="form-control" id="pUserTel" name="pUserTel" placeholder="휴대폰번호: 010-0000-0000"
-							pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력" th:field="*{pUserTel}" default="010-" required>
-							<div class="invalid-feedback"><span>휴대폰번호를 입력해주세요. </span><span>(숫자만 입력가능)</span></div>
 						</div>
-					</div>
-					<!-- 개인정보활용동의 -->
-					<div class="custom-control custom-checkbox mb-3">
-						<input type="checkbox" class="custom-control-input" id="aggrement"
-							required> <label class="custom-control-label"
-							for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-					</div>
-					<div class="row">
-						<div class="col-md-4 mb-3">
-							<button type="submit" class="btn btn-dark formButton">가입완료</button>
-							<button type="button" class="btn btn-light formButton" th:onclick="|location.href='@{/}'|">취소</button>
+						<div class="row">
+							<!-- 사용자 이름 입력 -->
+							<div class="col-md-4 mb-3">
+								<label for="pUserName">이름(name)</label>
+								<input type="text" class="form-control" id="pUserName" name="pUserName" th:field="*{pUserName}"
+									maxlength="10" placeholder="이름" required>
+								<div class="invalid-feedback">이름을 입력해주세요.</div>
+							</div>
 						</div>
-					</div>
-				</form>
+						<div class="row">
+							<!-- 주민등록번호(앞) 입력 -->
+							<div class="col-md-4 mb-3">
+								<label for="pIdNum1">주민등록번호(앞)</label>
+								<input type="text" class="form-control" id="pIdNum1" name="pIdNum1" placeholder="앞 6자리" pattern="\d{6}"
+									maxlength="6" title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{pIdNum1}" required>
+								<div class="invalid-feedback">주민등록번호 앞 6자리를 입력해주세요.</div>
+							</div>
+							<!-- 주민등록번호(뒤) 입력 -->
+							<div class="col-md-4 mb-3">
+								<label for="pIdNum2">(뒤)</label>
+								<input type="password" class="form-control" id="pIdNum2" name="pIdNum2" placeholder="뒤 7자리"
+									pattern="[1-4]\d{6}" maxlength="7" title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{pIdNum2}" required>
+								<div class="invalid-feedback">주민등록번호 뒤 7자리를 입력해주세요.</div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
+							<div class="col-md-6 mb-3">
+								<label for="pUserEmail">이메일(email)</label>
+								<span class="text-center small mt-2" id="checkEmailMsg" style="color: red"></span>
+								<div class="input-group mb-3">
+									<input type="email" class="form-control" id="pUserEmail" name="pUserEmail"
+										placeholder="이메일(carpooling@example.com)"
+										pattern="[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" aria-label="pUserEmail"
+										aria-describedby="checkEmail" th:field="*{pUserEmail}" title="이메일 양식:carpooling@example.com"
+										maxlength="30" required>
+									<button class="btn btn-dark" type="button" id="checkEmail">인증</button>
+								</div>
+								<div class="invalid-feedback"><span>이메일을 입력해주세요. </span><span>(이메일:example@sample.com)</span></div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- 인증 번호 입력 -->
+							<div class="col-md-6 mb-3" id="inputVcode">
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" id="pUserVcode" name="pUserVcode" placeholder="인증코드"
+										aria-label="pUserVcode" aria-describedby="checkVcode" title="이메일로 발송된 인증코드를 입력" required>
+									<button class="btn btn-dark" type="button" id="checkVcode">확인</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- 휴대폰번호 입력 -->
+							<div class="col-md-6 mb-3">
+								<label for="pUserTel">휴대폰번호</label>
+								<input type="text" class="form-control" id="pUserTel" name="pUserTel" placeholder="휴대폰번호: 010-0000-0000"
+									pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력" th:field="*{pUserTel}" default="010-"
+									required>
+								<div class="invalid-feedback"><span>휴대폰번호를 입력해주세요. </span><span>(숫자만 입력가능)</span></div>
+							</div>
+						</div>
+						<!-- 개인정보활용동의 -->
+						<div class="custom-control custom-checkbox mb-3">
+							<input type="checkbox" class="custom-control-input" id="aggrement" required> <label
+								class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+						</div>
+						<div class="row">
+							<div class="col-md-4 mb-3">
+								<button type="submit" class="btn btn-dark formButton">가입완료</button>
+								<button type="button" class="btn btn-light formButton" th:onclick="|location.href='@{/}'|">취소</button>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-</th:block>
-<th:block layout:fragment="js">
-	<script src="/standard/js/pJoinGeneral.js"></script>
-</th:block>
+	</th:block>
+	<th:block layout:fragment="js">
+		<script src="/standard/js/pJoinGeneral.js"></script>
+	</th:block>
+
 </html>
