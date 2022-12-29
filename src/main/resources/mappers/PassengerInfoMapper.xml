@@ -2,19 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.passenger.mapper.PassengerInfoMapper">
-
+	<!-- <resultMap type="PassengerInfo" id="PassengerMap">
+		<id property="pIdx" column="p_Idx"></id>
+		<result property="pUserType" column="p_userType"></result>
+		<result property="pUserId" column="p_userId"></result>
+		<result property="pUserPw" column="p_userPw"></result>
+		<result property="pUserName" column="p_userName"></result>
+		<result property="pUserTel" column="p_userTel"></result>
+		<result property="pUserEmail" column="p_userEmail"></result>
+		<result property="pUserGender" column="p_userGender"></result>
+		<result property="pIdNum1" column="p_IdNum1"></result>
+		<result property="pIdNum2" column="p_IdNum2"></result>
+		<result property="pSignOut" column="p_signOut"></result>
+	</resultMap> -->
 	<!-- public Integer insert(PassengerInfo passsenger); -->
 	<insert id="insert" parameterType="PassengerInfo">
-		<selectKey keyProperty="pIdx, pUserGender" resultType="hashmap" order="BEFORE">
+		<!-- <selectKey keyProperty="pIdx,pUserGender" resultType="hashmap" order="BEFORE">
 			SELECT p_idx_seq.nextVal as pIdx,
 				(CASE WHEN SUBSTR(#{pIdNum2}, 1, 1) IN ('1', '3') THEN 'M'
 				 ELSE 'F'
 				 END) as pUserGender
 			FROM dual
+		</selectKey> -->
+		<selectKey keyProperty="pUserGender" resultType="String" order="BEFORE">
+			SELECT (CASE WHEN SUBSTR(#{pIdNum2}, 1, 1) IN ('1', '3') THEN 'M'
+				 ELSE 'F'
+				 END) as pUserGender
+			FROM dual
 		</selectKey>
 		INSERT INTO passenger
-		VALUES(#{pIdx}, #{pUserType}, #{pUserId}, #{pUserPw}, #{pUserName}, #{pUserTel}, #{pUserEmail}
-		, #{pUserGender}, #{pIdNum1}, #{pIdNum2}, 'false')
+		VALUES(p_idx_seq.nextVal, #{pUserType}, #{pUserId}, #{pUserPw}, #{pUserName}, #{pUserTel},
+		#{pUserEmail}, #{pUserGender}, #{pIdNum1}, #{pIdNum2}, 'false')
 	</insert>
 	
 	<!-- public PassengerInfo selectById(int id); -->

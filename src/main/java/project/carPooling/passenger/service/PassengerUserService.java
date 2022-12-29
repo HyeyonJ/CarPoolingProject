@@ -35,7 +35,7 @@ public class PassengerUserService {
         PassengerInfo passenger = passengerRepository.selectByNameAndEmail(name, email);
         
         if(passenger!=null) {
-        	String loginId = passenger.getPUserId();
+        	String loginId = passenger.getpUserId();
         	log.info("id : {}", loginId);
         	return loginId;
         } else {
