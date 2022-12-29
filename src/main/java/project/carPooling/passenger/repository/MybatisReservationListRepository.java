@@ -20,4 +20,16 @@ public class MybatisReservationListRepository implements ReservationListReposito
 		return confirmedList;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectWaitingReservationList(Integer pIdx) {
+		List<Map<String, Object>> waitingList = reservationListMapper.selectWaitingReservationList(pIdx);
+		return waitingList;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectPastReservationList(Integer pIdx) {
+		List<Map<String, Object>> pastList = reservationListMapper.selectPastReservationList(pIdx);
+		return pastList;
+	}
+
 }

@@ -2,6 +2,8 @@ package project.carPooling.driver.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+
+import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
 
 @Mapper
@@ -21,6 +23,8 @@ public interface DriverInfoMapper {
 	public void deleteAll();
 	
 	public DriverInfo selectByIdx(Integer dIdx);
+	
+	public DRegistration selectByDrIdx(Integer drIdx);
 	
 	public DriverInfo selectByEmail(String dUserEmail);
 	

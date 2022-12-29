@@ -44,8 +44,6 @@ public class MybatisSearchCarpoolRepository implements SearchCarpoolRepository {
 
 	@Override
 	public DRegistration insert(Integer pIdx, Integer drIdx) {
-		pIdx = 1;
-		drIdx = 1;
 		searchCarpoolMapper.insert(pIdx, drIdx);
 		System.out.println("예약성공");
 		return null;

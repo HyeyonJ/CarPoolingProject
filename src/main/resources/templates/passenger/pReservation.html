@@ -1081,7 +1081,7 @@
 
       function requestReserve() {
         $.ajax({
-          url: '/passenger/passengerCarpool/reservation/request/' + "1", // p_idx
+          url: '/passenger/passengerCarpool/reservation/request',
           type: 'POST',
           data: $('#selectCp').serialize(),
           success: function (data) {

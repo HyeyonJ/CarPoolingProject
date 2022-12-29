@@ -62,20 +62,13 @@
 
   <th:block layout:fragment="js">
     <script>
-      function waitingRsv() {
-
-      }
-
-      function pastRsv() {
-
-      }
 
       function confirmRsv() {
         $('#waitingList').css('display', 'none');
         $('#pastList').css('display', 'none');
         $('#confirmList').css('display', 'block');
         $.ajax({
-          url: '/passenger/passengerCarpool/reservation/list/' + 1,
+          url: '/passenger/passengerCarpool/reservation/confirmedList',
           type: 'GET',
           success: function (data) {
             console.log(data);
@@ -103,6 +96,84 @@
           }
         });
       }
+
+      function waitingRsv() {
+        $('#confirmList').css('display', 'none');
+        $('#pastList').css('display', 'none');
+        $('#waitingList').css('display', 'block');
+        $.ajax({
+          url: '/passenger/passengerCarpool/reservation/waitingList',
+          type: 'GET',
+          success: function (data) {
+            console.log(data);
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+              var dDate = data[i].D_DATE.substring(0, 10);
+              var rDate = data[i].R_DATE.substring(0, 10);
+
+              html += '<div class="rsv">\n';
+              // html += '<img src="<c:url value=' / static / images / logo_yeoncha.png'/>" id="matchimg">';
+              // html += '<span class="fitem">운전자</span>\t' + data[i].nickname + '<br>\n';
+              html += '<span class="fitem">운전자</span>\t' + data[i].D_IDX + '<br>\n';
+              html += '<span class="fitem">카풀일시</span>\t' + dDate + '\t' + data[i].D_STARTTIME + '\t -\t ' + data[i].D_ENDTIME + '<br>\n';
+              html += '<span class="fitem">출발지</span>\t' + data[i].D_STARTPOINT + '<br>\n';
+              html += '<span class="fitem">도착지</span>\t' + data[i].D_ENDPOINT + '<br>\n';
+              html += '<span class="fitem">요금</span>\t' + data[i].D_FEE + '원 <br>\n';
+              html += '<span id="frdate">예약일자 ' + rDate + '</span><br>\n';
+              html += '<button id="view" onclick="viewRoute(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+              html += '<button class="btn btn-primary rsvsbtn" onclick="drivingStart(' + data[i].R_IDX + ')" >탑승대기</button>\t';
+              // html += '<button id="delete" onclick="deleteRsv(' + P_IDX + ',' + data[i].R_IDX + ')" class="btn btn-primary rsvsbtn">카풀취소</button>';
+              html += '</div>'
+            }
+            $('#waitingList').html(html);
+          }
+        });
+      }
+
+      function pastRsv() {
+
+        $('#waitingList').css('display', 'none');
+        $('#confirmList').css('display', 'none');
+        $('#pastList').css('display', 'block');
+        $.ajax({
+          url: '/passenger/passengerCarpool/reservation/pastList',
+          type: 'GET',
+          success: function (data) {
+            console.log(data);
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+              var dDate = data[i].D_DATE.substring(0, 10);
+              var rDate = data[i].R_DATE.substring(0, 10);
+
+              html += '<div id="prsv">\n';
+              html += '<span class="fitem">카풀일시</span>\t' + dDate + '\t' + data[i].D_STARTTIME + '\t -\t ' + data[i].D_ENDTIME + '<br>\n';
+              html += '<span class="fitem">출도착지</span>\t' + data[i].D_STARTPOINT + '\t <span class="fitem"> ~ </span>' + data[i].D_ENDPOINT + '<br>\n';
+              html += '<span class="fitem">요금</span>\t' + data[i].D_FEE + '<span class="fitem">원 </span><br>\n';
+              html += '</div>'
+            }
+            $('#pastList').html(html);
+          }
+        });
+      }
+
+
+      function deleteReq(p_idx, r_idx) {
+        if (confirm('예약을 취소하시겠습니까?')) {
+          $.ajax({
+            url: 'http://13.125.252.85:8080/server/rsv/waitcarpool/' + p_idx + '/' + r_idx,
+            type: 'DELETE',
+            uccess: function (data) {
+              if (data == 'success') {
+                alert('취소되었습니다!');
+              } else {
+                alert('취소실패');
+              }
+            }
+          });
+        }
+      }
+
+
     </script>
   </th:block>
 
