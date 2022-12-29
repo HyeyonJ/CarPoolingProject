@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller;
+package project.carPooling.passenger.controller.reservation;
 
 import java.util.List;
 import java.util.Map;

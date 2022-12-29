@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller.loginController;
+package project.carPooling.passenger.controller.login;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

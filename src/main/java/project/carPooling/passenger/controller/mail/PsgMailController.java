@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller;
+package project.carPooling.passenger.controller.mail;
 
 
 import java.io.IOException;
@@ -74,8 +74,7 @@ public class PsgMailController {
 		boolean checkVcode = userMailService.checkVcode(code);
 		
 		return checkVcode;
-    }	
-	
+    }
 
 	// 테스트 메일 발송
 	@GetMapping("/members/email/{email}")

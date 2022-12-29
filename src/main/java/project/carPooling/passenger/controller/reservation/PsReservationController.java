@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller;
+package project.carPooling.passenger.controller.reservation;
 
 import java.io.IOException;
 import java.util.List;

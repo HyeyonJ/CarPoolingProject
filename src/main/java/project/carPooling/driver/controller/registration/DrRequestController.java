@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller;
+package project.carPooling.driver.controller.registration;
 
 import java.io.IOException;
 import java.util.List;

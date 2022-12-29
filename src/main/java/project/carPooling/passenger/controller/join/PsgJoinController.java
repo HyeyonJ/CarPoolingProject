@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller.joinController;
+package project.carPooling.passenger.controller.join;
 
 
 
