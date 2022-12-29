@@ -65,7 +65,7 @@ public class PsgMailController {
         mailTO.setAddress(email);    //입력받은 이메일 주소    
         mailTO.setTitle("카풀링 회원가입 인증 메일입니다.");	// 이메일 제목
         mailTO.setMessage("인증번호");		// 이메일 내용
-        userMailService.sendMailWithFiles(mailTO);        
+        userMailService.sendMailWithFiles(mailTO);
     }
 	
     //passenger 회원가입 인증코드 일치여부 확인
