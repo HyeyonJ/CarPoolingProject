@@ -14,4 +14,18 @@ public enum DUserType {
 	public String getMemo() {
 		return memo;
 	}
+	
+	public DUserType getDUserType (String memo) {
+		if(memo.equals("일반")) {
+			return DUserType.CARPOOLING;
+		} else if(memo.equals("카카오")) {
+			return DUserType.KAKAO;
+		} else if(memo.equals("네이버")) {
+			return DUserType.NAVER;
+		} else if(memo.equals("구글")) {
+			return DUserType.GOOGLE;
+		} else {
+			return null;
+		}
+	}
 }
