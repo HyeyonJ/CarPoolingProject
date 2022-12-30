@@ -36,6 +36,7 @@ public class DrvKaKaoLoginController {
 	private DrvKakaoService dks;
     
 // kakao 로그인 - 토큰을 이용해서 리다이렉트 후 로그인 처리
+// kakao 회원 가입 
     @GetMapping("/kakao/redirect")
     public String loginKakao(
     		Model model,
@@ -67,7 +68,7 @@ public class DrvKaKaoLoginController {
 		
 		if ( driverInfo2 == null ) {
 //			bindingResult.reject("loginForm", "이메일 or 비밀번호");
-			return "driver/login/dKakaoCallback";
+			return "driver/join/dKakaoCallback";
 			
 		}
 		

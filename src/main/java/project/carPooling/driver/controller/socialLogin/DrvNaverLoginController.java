@@ -14,49 +14,48 @@ import java.util.Map;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
 
+@Slf4j
 @Controller
 @RequestMapping("/driver/login")
 public class DrvNaverLoginController {
 
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
-	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
+	private String CLI_SECRET = "Y28XvSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
 	
-//	private String CLIENT_ID = "qxJuuquwrXe5Rck1i2s5"; // 애플리케이션 클라이언트 아이디값";
-//	private String CLI_SECRET = "Kg9XhHBXGW"; // 애플리케이션 클라이언트 시크릿값";
-
-	/**
-	 * 로그인 화면이 있는 페이지 컨트롤
-	 * 
-	 * @param session
-	 * @param model
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws UnknownHostException
-	 */
-	@RequestMapping("/naver")
-	public String Naver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
-
-		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
-
-		SecureRandom random = new SecureRandom();
-		String state = new BigInteger(130, random).toString();
-		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-		apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s", CLIENT_ID, redirectURI, state);
-		session.setAttribute("state", state);
-
-		model.addAttribute("apiURL", apiURL);
-		return "driver/login/dNaver";
-//		return "driver/login/dNaverCallback";
-	}
-
+//	  /**
+//	   * 로그인 화면이 있는 페이지 컨트롤
+//	   * @param session
+//	   * @param model
+//	   * @return
+//	   * @throws UnsupportedEncodingException
+//	   * @throws UnknownHostException 
+//	   */
+//	  @RequestMapping("/naver")
+//	  public String testNaver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
+//	    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/redirect", "UTF-8");
+//	    SecureRandom random = new SecureRandom();
+//	    String state = new BigInteger(130, random).toString();
+//	    System.out.println("state: " + state);
+//	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+//	    apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s",
+//	        CLIENT_ID, redirectURI, state);
+//	    session.setAttribute("state", state);
+//	    model.addAttribute("apiURL", apiURL);
+//	    return "driver/login/dNaver";
+//	  }
+	
 	/**
 	 * 콜백 페이지 컨트롤러
 	 * 
@@ -67,14 +66,18 @@ public class DrvNaverLoginController {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	@RequestMapping("/naver/callback")
-	public String naverCallback1(HttpSession session, HttpServletRequest request, Model model)
-			throws IOException, ParseException {
+	@RequestMapping("/naver/redirect")
+	public String naverCallback(HttpSession session
+								, HttpServletRequest request
+								, Model model)
+									throws IOException, ParseException {
 
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/redirect", "UTF-8");
 
+		System.out.println("code= " + code);
+		
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		apiURL += "client_id=" + CLIENT_ID;
@@ -82,15 +85,19 @@ public class DrvNaverLoginController {
 		apiURL += "&redirect_uri=" + redirectURI;
 		apiURL += "&code=" + code;
 		apiURL += "&state=" + state;
+		
 		System.out.println("apiURL=" + apiURL);
 
 		String res = requestToServer(apiURL);
+		
+//		String accessToken = null;
 		if (res != null && !res.equals("")) {
 			model.addAttribute("res", res);
 			Map<String, Object> parsedJson = new JSONParser(res).parseObject();
 			System.out.println(parsedJson);
 			session.setAttribute("currentUser", res);
 			session.setAttribute("currentAT", parsedJson.get("access_token"));
+//			accessToken = parsedJson.get("access_token").toString();
 			session.setAttribute("currentRT", parsedJson.get("refresh_token"));
 		} else {
 			model.addAttribute("res", "Login failed!");
@@ -105,7 +112,35 @@ public class DrvNaverLoginController {
 		// input value =id, name
 		//return "driver/login/dNaverCallback"; 회원가입 입력하는 페이지로 바로 이동
 		
-		return "driver/login/dNaverCallback";
+		//AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
+		//currentAT=AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
+//		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
+//		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
+//		String resProfile = requestToServer(getProfileApiURL, headerStr);
+//		log.info("resPofile {}", resProfile);
+		//사용자 아이디랑 닉네임 정보
+
+		//1. String JSON 파싱 원하는 정보 뽑아내기
+		//2. addInfo view 에 데이터 맵핑
+		// input 타입 -> email
+		// input 타입 -> 닉네임
+//		model.addAttribute("profile", resProfile);
+//
+//
+//		return "addInfo";
+//		// return "redirect:/naver";//
+//		// return "test-naver-callback";
+		
+		return "driver/join/dNaverCallback";
+	}
+	
+	
+	@GetMapping("/join/naver/add")
+	public String JoinNaverAdd(Model model) {
+		DriverInfo driverInfo = new DriverInfo();
+		model.addAttribute(driverInfo);
+		
+		return "driver/join/dJoinNaverAdd";
 	}
 
 	/**
@@ -135,7 +170,7 @@ public class DrvNaverLoginController {
 		String res = requestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
-		return "driver/login/dNaverCallback";
+		return "driver/join/dNaverCallback";
 	}
 
 	/**

@@ -60,13 +60,7 @@ public class DrvGeneralJoinController {
 //		return "driver/join/dJoinAdd";
 //	}
 	
-	@GetMapping("/join/naver/add")
-	public String JoinNaverAdd(Model model) {
-		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute(driverInfo);
-		
-		return "driver/join/dJoinNaverAdd";
-	}
+
 	
 	@PostMapping("/join/general/Login")
 	public String joinAfterLogin(@ModelAttribute DriverInfo driverInfo
