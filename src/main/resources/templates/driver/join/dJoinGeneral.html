@@ -124,11 +124,10 @@
 					<div class="row">
 						<!-- 휴대폰 번호 입력 -->
 						<div class="col-md-6 mb-3">
-							<label for="dUserTel">휴대폰번호</label> <input type="text"
-								class="form-control" id="dUserTel" name="dUserTel"
-								placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
-								maxlength="13" title="숫자만 입력" th:field="*{dUserTel}"
-								default="010-" required>
+							<label for="dUserTel">휴대폰번호</label>
+							<input type="text" class="form-control" id="dUserTel" name="dUserTel"
+								pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력"
+								th:field="*{dUserTel}" value="010" required>
 							<div class="invalid-feedback">
 								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
 							</div>
