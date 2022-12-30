@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller.loginJoinController;
+package project.carPooling.driver.controller.socialLogin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
