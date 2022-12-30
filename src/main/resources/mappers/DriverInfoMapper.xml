@@ -17,7 +17,7 @@
 	</insert>
 	
 	<!-- public DriverInfo selectByLoginId (String loginId); -->
-	<select id="selectByIdx" resultType="DriverInfo">
+	<select id="selectByLoginId" resultType="DriverInfo">
 	    SELECT * FROM DRIVER
 	    WHERE d_userId = #{dUserId}
   	</select>

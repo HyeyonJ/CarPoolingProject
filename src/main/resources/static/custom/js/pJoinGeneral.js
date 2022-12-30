@@ -117,6 +117,5 @@ var autoHypenPhone = function(tel){
 var pUserTel = document.getElementById('pUserTel');
 
 pUserTel.onkeyup = function(){
-  console.log(this.value);
   this.value = autoHypenPhone( this.value ) ;  
 }
