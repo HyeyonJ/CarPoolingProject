@@ -2,6 +2,7 @@ package project.carPooling.driver.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
@@ -9,7 +10,7 @@ import project.carPooling.driver.domain.DriverInfo;
 @Mapper
 public interface DriverInfoMapper {
 
-	public Integer insert(DriverInfo driverInfo);
+	public Integer insert(@Param("driver") DriverInfo driverInfo);
 	
 	public DriverInfo selectById (int id);
 	
