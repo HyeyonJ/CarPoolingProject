@@ -22,39 +22,21 @@
   }
 </style>
 </head>
-<body>
+<th:block layout:fragment="content">
+	<div style="margin-top:50px;"></div>
+		<div style="margin: auto; margin: center; text-align: center;">
+		현재<img src="/img/naver.png" style="width:160px; height: 40px; margin-bottom: 20px;">계정으로 인증되었습니다.</div>
+			<div style="margin:auto; margin:center; text-align: center;">
+				간편로그인을 한 경우
+				Carpooling 서비스를 이용하시기 위해서<br>
+				추가 정보가 필요합니다.
+				추가 정보를 기입해주시길 바랍니다.</div>
+			<div style="border-bottom: solid 1px black; margin-left: 200px; margin-right: 200px; margin-top:50px; margin-bottom: 50px;"></div>
+			<form th:action="|@{/driver/login/kakao/join}|" method="post" th:object="${driverInfo}">
   
-  <p>여기로 들어옴</p>
-<!-- 	  <div class="modal" tabindex="-1"> -->
-<!-- 	  <div class="modal-dialog"> -->
-<!-- 	    <div class="modal-content"> -->
-<!-- 	      <div class="modal-header"> -->
-<!-- 	        <h5 class="modal-title">네이버 간편 로그인</h5> -->
-<!-- <!-- 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --> -->
-<!-- 	      </div> -->
-<!-- 	      <div class="modal-body"> -->
-<!-- 	        <p>추가 정보 입력 시 회원가입 가능합니다.</p> -->
-<!-- 	      </div> -->
-<!-- 	      <div class="modal-footer"> -->
-<!-- 	        <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/driver/join/naver/add}'|">면허등록</button> -->
-<!-- 	      </div> -->
-<!-- 	    </div> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
-  
-</body>
+</th:block>
 
 <script>
-// 	window.onload = function(){
-// 		$(".modal").fadeIn();
-// 	}
-// 	$(function(){
-// 		$("button").click(function(){
-// 			$(".modal").fadeIn();
-// 		});
-// 	$(".modal_content").click(function(){
-// 			$(".modal").fadeOut();	
-// 		});
-// 	});
+
 </script>
 </html>

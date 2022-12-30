@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/jquery-latest.js"></script> 
 </head>
 <th:block layout:fragment="content">
-<!-- <li th:text="|성별 = ${driverInfo.dUserGender}|">gender</li> -->
 		<div style="margin-top:50px;"></div>
 		<div style="margin: auto; margin: center; text-align: center;">
 		현재<img src="/img/kakao.png" style="width:200px; height: 50px; margin-bottom: 20px;">계정으로 인증되었습니다.</div>
@@ -18,7 +17,7 @@
 				Carpooling 서비스를 이용하시기 위해서<br>
 				추가 정보가 필요합니다.
 				추가 정보를 기입해주시길 바랍니다.</div>
-		<form th:action="|@{/driver/login/kakao/registration}|" method="post" th:object="${driverInfo}">
+		<form th:action="|@{/driver/login/add}|" method="post" th:object="${driverInfo}">
 			<div>
 				<label for="dUserEmail">* email</label><br>
 				<input class="form-control" type="text" id="dUserEmail" th:field="*{dUserEmail}" style="width: 300px; height: 50px;" readonly>						

@@ -51,4 +51,22 @@ public class DrvJoinController {
 		return DUserType.values();
 	}
 
+	
+// 소셜 로그인 추가 정보 등록 시
+	@PostMapping("/add")
+	public String socialLoginInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
+		System.out.println("driverInfo : " + driverInfo);
+		System.out.println("---------------------------");
+		
+//		memberValidator.validate(member, bindingResult);
+		
+//		if(bindingResult.hasErrors()) {
+//			return "members/newMember";
+//		}
+		driverInfo.setDUserType(null);
+		
+//		driverInfoR epository.insert(driverInfo);
+		return "driver/dRegistration";
+	}
+
 }
