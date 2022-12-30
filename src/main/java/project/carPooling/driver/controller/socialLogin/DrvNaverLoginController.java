@@ -30,14 +30,22 @@ import com.google.gson.JsonParser;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DUserType;
 import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.DriverInfoRepository;
+import project.carPooling.driver.service.DrvKakaoService;
+import project.carPooling.global.session.SessionVar;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/driver/login")
 public class DrvNaverLoginController {
-
+	@Autowired
+	private final DriverInfoRepository driverInfoRepository;
+	
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
 	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
 									
@@ -122,9 +130,23 @@ public class DrvNaverLoginController {
 		DriverInfo driverInfo = new DriverInfo();
 		driverInfo.setDUserEmail(obj1.get("email").getAsString());
 		driverInfo.setDUserGender(obj1.get("gender").getAsString());
-		driverInfo.setDUserType(DUserType("NAVER"));
+//		driverInfo.setDUserType(DUserType.NAVER);
 		
 		model.addAttribute("driverInfo", driverInfo);
+		
+		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
+		
+//		if ( driverInfo2 == null ) {
+////			bindingResult.reject("loginForm", "이메일 or 비밀번호");
+//			return "driver/join/dKakaoCallback";
+//			
+//		}
+//		
+//		HttpSession session = req.getSession();
+//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
+//		session.setMaxInactiveInterval(540);
+//		
+//		return "redirect:" + redirectURL;
 		
 		return "driver/join/dNaverCallback";
 	}
@@ -141,7 +163,6 @@ public class DrvNaverLoginController {
 //			if(bindingResult.hasErrors()) {
 //				return "members/newMember";
 //			}
-			driverInfo.setDUserType(null);
 			
 //			driverInfoR epository.insert(driverInfo);
 			return "driver/dRegistration";

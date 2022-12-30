@@ -72,10 +72,27 @@ public class DrvKaKaoLoginController {
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
-		session.setMaxInactiveInterval(540);
+//		session.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;
     }
+    
+	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
+	@PostMapping("//join")
+	public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
+		System.out.println("driverInfo : " + driverInfo);
+		System.out.println("---------------------------");
+		
+//		memberValidator.validate(member, bindingResult);
+		
+//		if(bindingResult.hasErrors()) {
+//			return "members/newMember";
+//		}
+		driverInfo.setDUserType(null);
+		
+//		driverInfoR epository.insert(driverInfo);
+		return "driver/dRegistration";
+	}
 
 		@PostMapping("/logout_session")
 		public String kakao_logout_session(HttpServletRequest req) {

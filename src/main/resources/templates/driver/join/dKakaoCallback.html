@@ -11,13 +11,13 @@
 		<div style="margin-top:50px;"></div>
 		<div style="margin: auto; margin: center; text-align: center;">
 		현재<img src="/img/kakao.png" style="width:200px; height: 50px; margin-bottom: 20px;">계정으로 인증되었습니다.</div>
-			<div style="border-bottom: solid 1px black; margin-left: 250px; margin-right: 250px;"></div>
 			<div style="margin:auto; margin:center; text-align: center; margin-top:50px;">
 				카카오톡을 통해서 간편로그인을 한 경우
 				Carpooling 서비스를 이용하시기 위해서<br>
 				추가 정보가 필요합니다.
 				추가 정보를 기입해주시길 바랍니다.</div>
-		<form th:action="|@{/driver/login/add}|" method="post" th:object="${driverInfo}">
+		<div style="border-bottom: solid 1px black; margin-left: 200px; margin-right: 200px;"></div>
+		<form th:action="|@{/driver/login/kakao/join}|" method="post" th:object="${driverInfo}">
 			<div>
 				<label for="dUserEmail">* email</label><br>
 				<input class="form-control" type="text" id="dUserEmail" th:field="*{dUserEmail}" style="width: 300px; height: 50px;" readonly>						
