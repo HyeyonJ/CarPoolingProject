@@ -27,13 +27,11 @@ import project.carPooling.global.session.SessionVar;
 @RequestMapping("/driver/login")
 public class DrvKaKaoLoginController {
 	
-//	 private KakaoLogin kakao_restapi = new KakaoLogin();
-	DrvKakaoService drvKakaoService = new DrvKakaoService();
-	
-	private final DriverInfoRepository driverInfoRepository;
-	
 	@Autowired
-	private DrvKakaoService dks;
+	private final DrvKakaoService driverKakaoService;
+	private final DriverInfoRepository driverInfoRepository;
+//	 private KakaoLogin kakao_restapi = new KakaoLogin();	
+
     
 // kakao 로그인 - 토큰을 이용해서 리다이렉트 후 로그인 처리
 // kakao 회원 가입 
@@ -49,10 +47,10 @@ public class DrvKaKaoLoginController {
     	System.out.println("code=" + code);
 		
 		// 위에서 만든 코드 아래에 코드 추가
-		String access_Token = dks.getAccessToken(code);
+		String access_Token = driverKakaoService.getAccessToken(code);
 		System.out.println("access_Token : " + access_Token);
 		
-		DriverInfo driverInfo = drvKakaoService.getKaKaoUserInfo(access_Token);
+		DriverInfo driverInfo = driverKakaoService.getKaKaoUserInfo(access_Token);
 //		DriverInfo userInfo = dks.getKaKaoUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("------------------------------");
