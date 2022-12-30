@@ -17,91 +17,91 @@ public class PassengerInfo {
 	private Boolean pSignOut;
 	
 	//Mybatis insert 시 No setter ... 에러 발생 > getter, setter 수동 생성
-	public Integer getpIdx() {
+	public Integer getPIdx() {
 		return pIdx;
 	}
 
-	public void setpIdx(Integer pIdx) {
+	public void setPIdx(Integer pIdx) {
 		this.pIdx = pIdx;
 	}
 
-	public PUserType getpUserType() {
+	public PUserType getPUserType() {
 		return pUserType;
 	}
 
-	public void setpUserType(PUserType pUserType) {
+	public void setPUserType(PUserType pUserType) {
 		this.pUserType = pUserType;
 	}
 
-	public String getpUserId() {
+	public String getPUserId() {
 		return pUserId;
 	}
 
-	public void setpUserId(String pUserId) {
+	public void setPUserId(String pUserId) {
 		this.pUserId = pUserId;
 	}
 
-	public String getpUserPw() {
+	public String getPUserPw() {
 		return pUserPw;
 	}
 
-	public void setpUserPw(String pUserPw) {
+	public void setPUserPw(String pUserPw) {
 		this.pUserPw = pUserPw;
 	}
 
-	public String getpUserName() {
+	public String getPUserName() {
 		return pUserName;
 	}
 
-	public void setpUserName(String pUserName) {
+	public void setPUserName(String pUserName) {
 		this.pUserName = pUserName;
 	}
 
-	public String getpUserTel() {
+	public String getPUserTel() {
 		return pUserTel;
 	}
 
-	public void setpUserTel(String pUserTel) {
+	public void setPUserTel(String pUserTel) {
 		this.pUserTel = pUserTel;
 	}
 
-	public String getpUserEmail() {
+	public String getPUserEmail() {
 		return pUserEmail;
 	}
 
-	public void setpUserEmail(String pUserEmail) {
+	public void setPUserEmail(String pUserEmail) {
 		this.pUserEmail = pUserEmail;
 	}
 
-	public String getpUserGender() {
+	public String getPUserGender() {
 		return pUserGender;
 	}
 
-	public void setpUserGender(String pUserGender) {
+	public void setPUserGender(String pUserGender) {
 		this.pUserGender = pUserGender;
 	}
 
-	public String getpIdNum1() {
+	public String getPIdNum1() {
 		return pIdNum1;
 	}
 
-	public void setpIdNum1(String pIdNum1) {
+	public void setPIdNum1(String pIdNum1) {
 		this.pIdNum1 = pIdNum1;
 	}
 
-	public String getpIdNum2() {
+	public String getPIdNum2() {
 		return pIdNum2;
 	}
 
-	public void setpIdNum2(String pIdNum2) {
+	public void setPIdNum2(String pIdNum2) {
 		this.pIdNum2 = pIdNum2;
 	}
 
-	public Boolean getpSignOut() {
+	public Boolean getPSignOut() {
 		return pSignOut;
 	}
 
-	public void setpSignOut(Boolean pSignOut) {
+	public void setPSignOut(Boolean pSignOut) {
 		this.pSignOut = pSignOut;
 	}
 	

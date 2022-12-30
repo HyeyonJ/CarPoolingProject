@@ -35,16 +35,13 @@ public class PassengerUserService {
         PassengerInfo passenger = passengerRepository.selectByNameAndEmail(name, email);
         
         if(passenger!=null) {
-        	String loginId = passenger.getpUserId();
+        	String loginId = passenger.getPUserId();
         	log.info("id : {}", loginId);
         	return loginId;
         } else {
         	log.error("해당 유저를 찾을 수 없음");
         	return "일치하는 정보를 찾을 수 없습니다.";
-        }
-        
+        }        
     }
 	
-
-
 }

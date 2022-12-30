@@ -2,6 +2,8 @@ package project.carPooling.driver.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+
+import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
 
 @Mapper
@@ -11,9 +13,6 @@ public interface DriverInfoMapper {
 	
 	public DriverInfo selectById (int id);
 	
-	// 이건 다음에 처리
-//	public DriverInfo selectByEmail (String dUserEmail);
-	
 	public DriverInfo selectByLoginId (String loginId);
 	
 	public List<DriverInfo> selectAll();
@@ -22,6 +21,16 @@ public interface DriverInfoMapper {
 	
 	public DriverInfo selectByIdx(Integer dIdx);
 	
+	public DRegistration selectByDrIdx(Integer drIdx);
+	
 	public DriverInfo selectByEmail(String dUserEmail);
+
+	public DriverInfo selectByNameAndEmail(String name, String email);
+	
+	public DriverInfo selectByNameAndTel(String name, String tel);
+	
+	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2);
+
+	public DriverInfo update(DriverInfo driver);
 	
 }

@@ -5,7 +5,7 @@
 	<insert id="insert" parameterType="DriverInfo">
 		INSERT INTO driver(
 		d_idx, d_userPw, d_userName, d_userEmail, d_idNum1, d_idNum2, d_licenseNum, d_licenseDate, d_carNum)
-		values( memberPK.nextVal, #{dUserPw}, #{dUserName}, #{dUserEmail}, #{dIdNum1}, #{dIdNum2}
+		values(D_IDX_SEQ.nextVal, #{dUserPw}, #{dUserName}, #{dUserEmail}, #{dIdNum1}, #{dIdNum2}
 				, #{dLicenseNum}, #{dLicenseDate}, #{dCarNum})
 	</insert>
 
@@ -33,11 +33,17 @@
 <!--     , #{licenseNum}, #{licenseDate}, #{carNum}) -->
 <!--   </insert> -->
 
-<!--   <select id="selectByIdx" resultType="DriverInfo"> -->
-<!--     SELECT * -->
-<!--     FROM DRIVER -->
-<!--     WHERE d_idx = #{dIdx} -->
-<!--   </select> -->
+  <select id="selectByIdx" resultType="DriverInfo">
+    SELECT *
+    FROM DRIVER
+    WHERE d_idx = #{dIdx}
+  </select>
+  
+  <select id="selectByDrIdx" resultType="DRegistration">
+    SELECT *
+    FROM D_REGISTRATION
+    WHERE dr_idx = #{drIdx}
+  </select>
 
 <select id="selectByEmail" resultType="DriverInfo">
     SELECT *

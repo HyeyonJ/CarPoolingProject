@@ -16,7 +16,7 @@ public class PassengerLoginService {
 		PassengerInfo passenger = passengerRepository.selectByLoginId(loginId);
 		
 		if (passenger != null) {
-			if (passenger.getpUserPw().equals(password)) {
+			if (passenger.getPUserPw().equals(password)) {
 				return passenger;
 			}
 		} return null;

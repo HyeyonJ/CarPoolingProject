@@ -3,133 +3,186 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutHome}">
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-latest.js"></script> 
-<meta charset="UTF-8">
-<title>Driver 일반회원가입</title>
+<title>Driver Join</title>
+<style>	
+	.errormsg { color: red; }
+	.emailButton { padding-top: 24px; }
+	.formButton { margin: 0 12px; }
+</style>
 </head>
-<th:block layout:fragment="content">
- 	<div style="margin-top:50px;"></div>
- 		<div style="margin-left:200px; margin-right: 200px; margin-bottom: 50px;">
-	 		<h4 style="text-align: center;">Driver 일반회원가입</h4>
-	 		<div style="border-bottom: solid 1px gray; text-align: center; margin-top:50px;"></div>
- 		</div>
- 		<div class="card" style="width: 500px; margin: auto; margin: center; border: white;">
-			<form action="driver/join/general/Login" method="post" th:object="${driverInfo}" style="margin: auto; margin: center;" >
-				
-				<div>
-					<label for="dUserId">* ID</label>
-					 <input class="form-control" type="text" id="dUserId" th:field="*{dUserId}" placeholder="아이디를 입력해주세요" style="width:300px;">
-<!-- 					<div class="errormsg" th:errors="*{dUserId}" style="color: red"></div> -->
-				</div>
-				<div>
-					<label for="dUserPw">* PW</label>
-					<input class="form-control" type="password" id="dUserPw" th:field="*{dUserPw}" placeholder="비밀번호를 입력해주세요" style="width:300px;">
-<!-- 					<div class="errormsg" th:errors="*{dUserPw}" style="color: red"></div> -->
-				</div>
-				<div>
-					<label for="dUserName">* 이름</label>
-					<input  class="form-control" type="text" id="dUserName" th:field="*{dUserName}" placeholder="이름을 입력해주세요" style="width:300px;">
-<!-- 					<div class="errormsg" th:errors="*{dUserName}" style="color: red"></div> -->
-				</div>
-				<div>* 성별
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">남성</label>
-					</div>
-					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-					  <label class="form-check-label" for="inlineCheckbox2">여성</label>
-					</div>
-				</div>
-				<div>
-					<label for="dUserEmail">* email</label>
-					<input class="form-control" type="text" id="dUserEmail" th:field="*{dUserEmail}" style="width:300px;">
-<!-- 						* email 인증하기 버튼 -->
-						<button type="button" class="btn btn-primary"
-							data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-align: center">
-							인증하기</button>
-	
-	<!-- 					email 인증 Modal -->
-	<!-- 					<div class="modal fade" id="staticBackdrop" -->
-	<!-- 						data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" -->
-	<!-- 						aria-labelledby="staticBackdropLabel" aria-hidden="true"> -->
-	<!-- 						<div class="modal-dialog"> -->
-	<!-- 							<div class="modal-content"> -->
-	<!-- 								<div class="modal-header"> -->
-	<!-- 									<h5 class="modal-title" id="staticBackdropLabel"> -->
-	<!-- 									email 인증하기</h5> -->
-	<!-- 									<button type="button" class="btn-close" data-bs-dismiss="modal" -->
-	<!-- 										aria-label="Close"></button> -->
-	<!-- 								</div> -->
-	<!-- 								<div class="modal-body">...</div> -->
-	<!-- 								<div class="modal-footer"> -->
-	<!-- 									<button type="button" class="btn btn-secondary" -->
-	<!-- 										data-bs-dismiss="modal">취소</button> -->
-	<!-- 									<button type="button" class="btn btn-dark">인증하기</button> -->
-	<!-- 								</div> -->
-	<!-- 							</div> -->
-	<!-- 						</div> -->
-	<!-- 					</div> -->
-	<!-- 					<div class="errormsg" th:errors="*{dUserEmail}"></div>				 -->
-	<!-- 			</div> -->
-					<div class="row">
-						<div class="col">
-							<label for="dIdNum1"> * 주민번호</label>
-							<input  class="form-control" type="text" id="dIdNum1" th:field="*{dIdNum1}" style="width:100px;" placeholder="앞 6자리">
-						</div>
-						<div class="col">
-							<label for="dIdNum2"> </label>
-							- <input  class="form-control" type="text" id="dIdNum2" th:field="*{dIdNum2}" style="width:30px;">
-						</div>
-					</div>
-					<div>
-						<label for="dLicenseNum">* 운전면허번호</label>
-						<input class="form-control" type="text" id="dLicenseNum" th:field="*{dLicenseNum}" style="width:300px;" placeholder="운전면허 번호 12자리">
-					</div>
-					<div>
-						<label for="dLicenseDate">* 운전면허 취득일</label>
-						<input class="form-control" type="text" id="dLicenseDate" th:field="*{dLicenseDate}" style="width:300px;" placeholder="20221212">
-					</div>
-					<div>
-						<label for="dCarNum">차량 번호</label>
-						<input class="form-control" type="text" id="dCarNum" th:field="*{dCarNum}" style="width:300px;" placeholder="12가 3456나">
-					</div>
-<!-- 					<div> -->
-<!-- 						<label for="carType">차 종류</label> -->
-<!-- 						<input class="form-control" type="text" id="carType" th:field="carType"> -->
-<!-- 					</div> -->
-					<div style="margin-top:20px; text-align: center">
-						<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">회원가입</button>
-						<button type="button" class="btn btn-light" th:onclick="|location.href='@{/}'|">취소</button>
-					</div>
-						<div class="modal"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title">Carpooling 회원가입</h5>
-						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						      </div>
-						      <div class="modal-body">
-						        <p>Carpooling 회원가입을 환영합니다.</p>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="submit" class="btn btn-primary">확인</button>
-<!-- 						        <button type="submit" class="btn btn-primary" th:onclick="|location.href='@{/driver/joinAfter/Login}'|">확인</button> -->
-						      </div>
-						    </div>
-						  </div>
-						</div>
-			</form>
-		</div>
 
-	
-	<script>
-// 		var myModal = document.getElementById('myModal')
-// 		var myInput = document.getElementById('myInput')
-		
-// 		myModal.addEventListener('shown.bs.modal', function () { myInput.focus() })
-	
-	</script>
+<th:block layout:fragment="content">
+	<div class="container mt-5">
+		<div class="input-form-backgroud row">
+			<div class="input-form col-md-12 mx-auto">
+				<h4 class="mb-3">Driver 회원가입</h4>
+				<form class="validation-form" novalidate action="" method="post"
+					th:object="${driver}">
+					<div class="row" id="inputUserType">
+						<!-- 가입유형지정 -->
+						<div class="col mb-3 form-check"
+							th:each="dUserType : ${dUserTypes}">
+							<input class="form-check-input" type="radio"
+								th:field="*{dUserType}" name="dUserType"
+								th:value="${dUserType.name}"> <label
+								th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 아이디 입력 / 중복 체크 -->
+						<div class="col-md-6 mb-3">
+							<label for="dUserId">아이디(id)</label> <span
+								class="text-center small mt-2" id="checkIdMsg"
+								style="color: red"></span>
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" id="dUserId"
+									name="dUserId" placeholder="아이디" pattern="[a-zA-Z0-9]{4,12}"
+									aria-label="dUserId" aria-describedby="checkId"
+									th:field="*{dUserId}" title="영문, 숫자 포함 4자리에서 최대 12자리까지"
+									maxlength="12" required>
+								<button class="btn btn-dark" type="button" id="checkId">중복확인</button>
+							</div>
+							<div class="invalid-feedback">
+								<span>아이디를 확인해주세요.</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 패스워드 입력 -->
+						<div class="col-md-4 mb-3">
+							<label for="dUserPw">패스워드(pw)</label> <input type="password"
+								class="form-control" id="dUserPw" name="dUserPw"
+								placeholder="패스워드"
+								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
+								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
+								maxlength="16" th:field="*{dUserPw}" required>
+							<div class="invalid-feedback">
+								<span>패스워드를 확인해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개
+									이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 사용자 이름 입력 -->
+						<div class="col-md-4 mb-3">
+							<label for="dUserName">이름(name)</label> <input type="text"
+								class="form-control" id="dUserName" name="dUserName"
+								th:field="*{dUserName}" maxlength="10" placeholder="이름" required>
+							<div class="invalid-feedback">이름을 확인해주세요.</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 주민등록번호(앞) 입력 -->
+						<div class="col-md-4 mb-3">
+							<label for="dIdNum1">주민등록번호(앞)</label> <input type="text"
+								class="form-control" id="dIdNum1" name="dIdNum1"
+								placeholder="앞 6자리" pattern="\d{6}" maxlength="6"
+								title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{dIdNum1}" required>
+							<div class="invalid-feedback">주민등록번호 앞 6자리를 확인해주세요.</div>
+						</div>
+						<!-- 주민등록번호(뒤) 입력 -->
+						<div class="col-md-4 mb-3">
+							<label for="dIdNum2">(뒤)</label> <input type="password"
+								class="form-control" id="dIdNum2" name="dIdNum2"
+								placeholder="뒤 7자리" pattern="[1-4]\d{6}" maxlength="7"
+								title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{dIdNum2}" required>
+							<div class="invalid-feedback">주민등록번호 뒤 7자리를 확인해주세요.</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
+						<div class="col-md-6 mb-3">
+							<label for="dUserEmail">이메일(email)</label> <span
+								class="text-center small mt-2" id="checkEmailMsg"
+								style="color: red"></span>
+							<div class="input-group mb-3">
+								<input type="email" class="form-control" id="dUserEmail"
+									name="dUserEmail" placeholder="이메일(carpooling@example.com)"
+									pattern="[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*"
+									aria-label="dUserEmail" aria-describedby="checkEmail"
+									th:field="*{dUserEmail}" title="이메일 양식:carpooling@example.com"
+									maxlength="30" required>
+								<button class="btn btn-dark" type="button" id="checkEmail">인증</button>
+							</div>
+							<div class="invalid-feedback">
+								<span>이메일을 확인해주세요. </span><span>(이메일:example@sample.com)</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 인증 번호 입력 -->
+						<div class="col-md-6 mb-3" id="inputVcode">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" id="dUserVcode"
+									name="dUserVcode" placeholder="인증코드" aria-label="dUserVcode"
+									aria-describedby="checkVcode" title="이메일로 발송된 인증코드를 입력"
+									required>
+								<button class="btn btn-dark" type="button" id="checkVcode">확인</button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 휴대폰 번호 입력 -->
+						<div class="col-md-6 mb-3">
+							<label for="dUserTel">휴대폰번호</label> <input type="text"
+								class="form-control" id="dUserTel" name="dUserTel"
+								placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
+								maxlength="13" title="숫자만 입력" th:field="*{dUserTel}"
+								default="010-" required>
+							<div class="invalid-feedback">
+								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+							</div>
+						</div>
+					</div>
+					<!-- 면허 번호 입력 -->
+					<div class="col-md-6 mb-3">
+						<label for="dLicenseNum">휴대폰번호</label> <input type="text"
+							class="form-control" id="dLicenseNum" name="dLicenseNum"
+							placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
+							maxlength="13" title="숫자만 입력" th:field="*{dLicenseNum}" required>
+						<div class="invalid-feedback">
+							<span>면허번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+						</div>
+					</div>
+					<!-- 면허 발급일 입력 -->
+					<div class="col-md-6 mb-3">
+						<label for="dLicenseDate">면허발급일</label> <input type="text"
+							class="form-control" id="dLicenseDate" name="dLicenseDate"
+							placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
+							maxlength="13" title="숫자만 입력" th:field="*{dLicenseDate}" required>
+						<div class="invalid-feedback">
+							<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+						</div>
+					</div>
+					<!-- 자동차 번호 입력 -->
+					<div class="col-md-6 mb-3">
+						<label for="dCarNum">휴대폰번호</label> <input type="text"
+							class="form-control" id="dCarNum" name="dCarNum"
+							placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
+							maxlength="13" title="숫자만 입력" th:field="*{dCarNum}" required>
+						<div class="invalid-feedback">
+							<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+						</div>
+					</div>
+					<!-- 개인 정보 활용 동의 -->
+					<div class="custom-control custom-checkbox mb-3">
+						<input type="checkbox" class="custom-control-input" id="aggrement"
+							required> <label class="custom-control-label"
+							for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<button type="submit" class="btn btn-dark formButton">가입완료</button>
+							<button type="button" class="btn btn-light formButton"
+								th:onclick="|location.href='@{/}'|">취소</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</th:block>
+<th:block layout:fragment="js">
+	<script src="/custom/js/dJoinGeneral.js"></script>
 </th:block>
 </html>
