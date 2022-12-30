@@ -14,12 +14,19 @@ import java.util.Map;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,30 +39,8 @@ import project.carPooling.driver.domain.DriverInfo;
 public class DrvNaverLoginController {
 
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
-	private String CLI_SECRET = "Y28XvSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
-	
-//	  /**
-//	   * 로그인 화면이 있는 페이지 컨트롤
-//	   * @param session
-//	   * @param model
-//	   * @return
-//	   * @throws UnsupportedEncodingException
-//	   * @throws UnknownHostException 
-//	   */
-//	  @RequestMapping("/naver")
-//	  public String testNaver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
-//	    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/redirect", "UTF-8");
-//	    SecureRandom random = new SecureRandom();
-//	    String state = new BigInteger(130, random).toString();
-//	    System.out.println("state: " + state);
-//	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-//	    apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s",
-//	        CLIENT_ID, redirectURI, state);
-//	    session.setAttribute("state", state);
-//	    model.addAttribute("apiURL", apiURL);
-//	    return "driver/login/dNaver";
-//	  }
-	
+	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
+									
 	/**
 	 * 콜백 페이지 컨트롤러
 	 * 
@@ -87,15 +72,18 @@ public class DrvNaverLoginController {
 		apiURL += "&state=" + state;
 		
 		System.out.println("apiURL=" + apiURL);
+		System.out.println("----------------------------");
 
 		String res = requestToServer(apiURL);
+		System.out.println("res : " + res);
 		
-//		String accessToken = null;
+		String accessToken = null;
 		if (res != null && !res.equals("")) {
 			model.addAttribute("res", res);
 			Map<String, Object> parsedJson = new JSONParser(res).parseObject();
 			System.out.println(parsedJson);
 			session.setAttribute("currentUser", res);
+			accessToken = (String) parsedJson.get("access_token");
 			session.setAttribute("currentAT", parsedJson.get("access_token"));
 //			accessToken = parsedJson.get("access_token").toString();
 			session.setAttribute("currentRT", parsedJson.get("refresh_token"));
@@ -114,34 +102,50 @@ public class DrvNaverLoginController {
 		
 		//AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
 		//currentAT=AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
-//		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
-//		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-//		String resProfile = requestToServer(getProfileApiURL, headerStr);
-//		log.info("resPofile {}", resProfile);
+		log.info("accessToken: {}", accessToken);
+		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
+		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
+		String resProfile = requestToServer(getProfileApiURL, headerStr);
+		log.info("resPofile {}", resProfile);
 		//사용자 아이디랑 닉네임 정보
 
 		//1. String JSON 파싱 원하는 정보 뽑아내기
 		//2. addInfo view 에 데이터 맵핑
 		// input 타입 -> email
 		// input 타입 -> 닉네임
-//		model.addAttribute("profile", resProfile);
-//
-//
-//		return "addInfo";
-//		// return "redirect:/naver";//
-//		// return "test-naver-callback";
+		JsonParser parser = new JsonParser();
+		JsonObject obj = (JsonObject)parser.parse(resProfile);
+		JsonObject obj1 = (JsonObject) obj.get("response");
+		log.info("email: {}", obj1.get("email"));
+		log.info("gender: {}", obj1.get("gender"));
+		
+		DriverInfo driverInfo = new DriverInfo();
+		driverInfo.setDUserEmail(obj1.get("email").getAsString());
+		driverInfo.setDUserGender(obj1.get("gender").getAsString());
+		driverInfo.setDUserType(DUserType("NAVER"));
+		
+		model.addAttribute("driverInfo", driverInfo);
 		
 		return "driver/join/dNaverCallback";
 	}
 	
 	
-	@GetMapping("/join/naver/add")
-	public String JoinNaverAdd(Model model) {
-		DriverInfo driverInfo = new DriverInfo();
-		model.addAttribute(driverInfo);
-		
-		return "driver/join/dJoinNaverAdd";
-	}
+	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
+		@PostMapping("/naver/join")
+		public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
+			System.out.println("driverInfo : " + driverInfo);
+			System.out.println("---------------------------");
+			
+//			memberValidator.validate(member, bindingResult);
+			
+//			if(bindingResult.hasErrors()) {
+//				return "members/newMember";
+//			}
+			driverInfo.setDUserType(null);
+			
+//			driverInfoR epository.insert(driverInfo);
+			return "driver/dRegistration";
+		}
 
 	/**
 	 * 토큰 갱신 요청 페이지 컨트롤러
