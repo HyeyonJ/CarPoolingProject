@@ -126,7 +126,7 @@ var autoHypenLicenseNum = function(licenseNum){
       var tmp = '';
       if( licenseNum.length < 3){
           return licenseNum;
-      }else if(tel.length < 5){
+      }else if(licenseNum.length < 5){
           tmp += licenseNum.substr(0, 2);
           tmp += '-';
           tmp += licenseNum.substr(2);
@@ -145,7 +145,7 @@ var autoHypenLicenseNum = function(licenseNum){
           tmp += '-';
           tmp += licenseNum.substr(4, 6);
           tmp += '-';
-          tmp += licenseNum.substr(11);
+          tmp += licenseNum.substr(10);
           return tmp;
       }
       return licenseNum;
