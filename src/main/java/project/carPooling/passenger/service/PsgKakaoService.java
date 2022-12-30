@@ -1,4 +1,4 @@
-package project.carPooling.driver.service;
+package project.carPooling.passenger.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,13 +16,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.global.repository.KakaoMemRepository;
+import project.carPooling.passenger.domain.PassengerInfo;
 
 
 @Slf4j
 @Service
-public class DrvKakaoService {
+public class PsgKakaoService {
 	
 	@Autowired
 	private KakaoMemRepository kakaoMemRepository;
@@ -47,7 +47,7 @@ public class DrvKakaoService {
 			sb.append("grant_type=authorization_code");
             
 			sb.append("&client_id=5bd525c6358eefa90a044fcef6dec8a0"); //본인이 발급받은 key
-			sb.append("&redirect_uri=http://localhost:8080/driver/login/kakao/redirect"); // 본인이 설정한 주소
+			sb.append("&redirect_uri=http://localhost:8080/passenger/login/kakao/redirect"); // 본인이 설정한 주소
             
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
@@ -89,10 +89,10 @@ public class DrvKakaoService {
 	
 	
 	
-	public DriverInfo getKaKaoUserInfo(String access_Token) {
+	public PassengerInfo getKaKaoUserInfo(String access_Token) {
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 		
-		DriverInfo driverInfo = new DriverInfo();
+		PassengerInfo passengerInfo = new PassengerInfo();
 		
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
@@ -123,13 +123,13 @@ public class DrvKakaoService {
 			log.info("email: {}", obj1.get("email"));
 			log.info("gender: {}", obj1.get("gender"));
 			
-			driverInfo.setDUserEmail(obj1.get("email").getAsString());
-			driverInfo.setDUserGender(obj1.get("gender").getAsString());
+			passengerInfo.setPUserEmail(obj1.get("email").getAsString());
+			passengerInfo.setPUserGender(obj1.get("gender").getAsString());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return driverInfo;
+		return passengerInfo;
 
 	}
 }
