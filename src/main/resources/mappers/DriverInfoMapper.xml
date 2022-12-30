@@ -69,10 +69,10 @@
   	</select>
 	
 	<!-- public DriverInfo selectByNameAndTel(String name, String tel); -->
-	<select id="selectByNameAndEmail" resultType="DriverInfo">
+	<select id="selectByNameAndTel" resultType="DriverInfo">
 	    SELECT * FROM DRIVER
 	    WHERE d_userName = #{dUserName}
-	    AND d_userEmail = #{dUserEmail}
+	    AND d_userTel = #{dUserTel}
   	</select>
 	
 	<!-- public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2); -->
