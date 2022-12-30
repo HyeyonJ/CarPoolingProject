@@ -29,14 +29,14 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/passenger/passengerCarpool/reservation/confirmedList")
+	@GetMapping("/passenger/passengerCarpool/reservation/acceptedList")
 	public List<Map<String, Object>> confirmedList(HttpServletRequest req){
 		
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> confirmedList = reservationListRepository.selectConfirmedReservationList(passengerInfo.getPIdx());
-		System.out.println(confirmedList);
+		List<Map<String, Object>> acceptedList = reservationListRepository.selectAcceptedReservationList(passengerInfo.getPIdx());
+		System.out.println(acceptedList);
 		
-		return confirmedList;
+		return acceptedList;
 	}
 	
 	@ResponseBody
@@ -48,6 +48,17 @@ public class PsReservationListController {
 		System.out.println(waitingList);
 		
 		return waitingList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/passenger/passengerCarpool/reservation/refusedList")
+	public List<Map<String, Object>> refusedList(HttpServletRequest req){
+		
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<Map<String, Object>> refusedList = reservationListRepository.selectRefusedReservationList(passengerInfo.getPIdx());
+		System.out.println(refusedList);
+		
+		return refusedList;
 	}
 	
 	@ResponseBody

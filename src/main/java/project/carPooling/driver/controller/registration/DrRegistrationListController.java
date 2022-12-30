@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +23,7 @@ import project.carPooling.driver.repository.RequestRepository;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class DrRequestController {
+public class DrRegistrationListController {
 
 	private final RequestRepository requestRepository;
 	
@@ -49,12 +50,46 @@ public class DrRequestController {
 	}
 	
 	@ResponseBody
-	@PutMapping("/driver/driverCarpool/reqList/accept/{drIdx}/{pIdx}")
-	public boolean reqAccept(@PathVariable("drIdx") Integer drIdx, @PathVariable("pIdx") Integer pIdx){
-		log.info("여기 drIdx:{}, pIdx:{}", drIdx, pIdx);
-		boolean result = requestRepository.update(drIdx, pIdx);
+	@PutMapping("/driver/driverCarpool/reqList/accept")
+	public boolean reqAccept(@RequestParam Map<Integer, Object> param){
+		
+		Integer drIdx = Integer.parseInt((String) param.get("drIdx")); 
+		Integer pIdx = Integer.parseInt((String) param.get("pIdx")); 
+		
+		boolean result = requestRepository.updateAccepted(drIdx, pIdx);
 		
 		return result;
+	}
+	
+	@ResponseBody
+	@DeleteMapping("/driver/driverCarpool/reqList/refuse")
+	public boolean reqRefuse(@RequestParam Map<Integer, Object> param){
+		Integer drIdx = Integer.parseInt((String) param.get("drIdx")); 
+		Integer pIdx = Integer.parseInt((String) param.get("pIdx")); 
+		
+		boolean result = requestRepository.updateRefused(drIdx, pIdx);
+		
+		return result;
+	}
+	
+
+	@GetMapping("/driver/driverCarpool/registartion/list")
+	public String registraionList() {
+		return "driver/dRegistrationList";
+	}
+	
+	@ResponseBody
+	@PostMapping("/driver/driverCarpool/registartion/reservatedList")
+	public String registraionReservatedList() {
+		
+		return "driver/dRegistrationList";
+	}
+	
+	@ResponseBody
+	@PostMapping("/driver/driverCarpool/registartion/allList")
+	public String registraionAllList() {
+		
+		return "driver/dRegistrationList";
 	}
 	
 	

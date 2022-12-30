@@ -113,6 +113,17 @@
               <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
             </div>
 
+            <div id="genderField">
+              <label class="box-radio-input"><input type="radio" id="male" name="gender"
+                  value="M"><span>남성</span></label>
+              <label class="box-radio-input"><input type="radio" id="female" name="gender"
+                  value="F"><span>여성</span></label>
+              <label class="box-radio-input"><input type="radio" id="any" name="gender"
+                  value="A"><span>상관없음</span></label>
+              <!-- 선택안했을 때 -->
+              <span id="genderCheck" class="check">희망하시는 운전자의 성별을 선택해주세요.</span>
+            </div>
+
             <div id="datetime">
               <input type="text" class="form-control rsvform" placeholder="날짜를 선택해주세요" id="datepicker"
                 name="datepicker">
@@ -1009,6 +1020,7 @@
         const SearchCarPool = {
           pDate: $('#datepicker').val().toString(),
           pCommute: $("input:radio[name='work']:checked").val().toString(),
+          pGender: $("input:radio[name='gender']:checked").val().toString(),
           pBoardingTime: $('#boardingTime').val(),
           // pEndTime: $('#tocommutes').val(),
           // pStartPoint: $('#start').val().toString(),
@@ -1078,19 +1090,23 @@
         });
       }
 
-
       function requestReserve() {
         $.ajax({
           url: '/passenger/passengerCarpool/reservation/request',
           type: 'POST',
           data: $('#selectCp').serialize(),
           success: function (data) {
-            alert('카풀 예약 요청이 운전자님께 전달되었습니다!\n운전자님의 예약 요청 수락/거절 여부는 이메일로 받으실 수 있습니다.');
-            $('#selectModal').modal('hide');
-            $('#searchCarpoolList').css('display', 'none');
-            $('#searchForm')[0].reset();
-            console.log(data);
-            window.location.reload();
+            // true면 이미 db에 같은 내용으로 예약된 내역이 존재함
+            if (data === true) {
+              alert("이미 해당 카풀로 예약된 내역이 존재합니다.");
+            } else {
+              alert('카풀 예약 요청이 운전자님께 전달되었습니다!\n운전자님의 예약 요청 수락/거절 여부는 이메일로 받으실 수 있습니다.');
+              $('#selectModal').modal('hide');
+              $('#searchCarpoolList').css('display', 'none');
+              $('#searchForm')[0].reset();
+              console.log(data);
+              window.location.reload();
+            }
           }
         });
       }
@@ -1102,6 +1118,13 @@
           return false;
         } else {
           $('#workCheck').css('display', 'none');
+        }
+
+        if ($(':radio[name="gender"]:checked').length < 1) {
+          $('#genderCheck').css('display', 'block');
+          return false;
+        } else {
+          $('#genderCheck').css('display', 'none');
         }
 
         if ($('#datepicker').val() == "") {
