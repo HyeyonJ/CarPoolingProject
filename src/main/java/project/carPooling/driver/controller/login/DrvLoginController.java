@@ -43,7 +43,7 @@ public class DrvLoginController {
 	public String doLogin(@ModelAttribute DriverLoginForm dLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/passenger/home") String redirectURL) {
+						, @RequestParam(name="redirectURL", defaultValue="/driver/home") String redirectURL) {
 		log.info("dLoginForm {}", dLoginForm);
 		
 		validateLoginForm(dLoginForm, bindingResult);
