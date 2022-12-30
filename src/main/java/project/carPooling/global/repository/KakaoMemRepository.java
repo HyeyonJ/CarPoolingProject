@@ -1,4 +1,4 @@
-package project.carPooling.driver.repository;
+package project.carPooling.global.repository;
 
 import java.util.HashMap;
 
