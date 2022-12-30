@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/driver/login")
+@RequestMapping("/passenger/login")
 public class PsgNaverLoginController {
 
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
@@ -44,7 +44,7 @@ public class PsgNaverLoginController {
 	@RequestMapping("/naver")
 	public String Naver(HttpSession session, Model model) throws UnsupportedEncodingException, UnknownHostException {
 
-		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost:8080/passenger/login/naver/callback", "UTF-8");
 
 		SecureRandom random = new SecureRandom();
 		String state = new BigInteger(130, random).toString();
@@ -53,8 +53,8 @@ public class PsgNaverLoginController {
 		session.setAttribute("state", state);
 
 		model.addAttribute("apiURL", apiURL);
-		return "driver/login/dNaver";
-//		return "driver/login/dNaverCallback";
+		return "passenger/login/pNaver";
+//		return "passenger/login/pNaverCallback";
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class PsgNaverLoginController {
 
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/callback", "UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost:8080/passenger/login/naver/callback", "UTF-8");
 
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -105,7 +105,7 @@ public class PsgNaverLoginController {
 		// input value =id, name
 		//return "driver/login/dNaverCallback"; 회원가입 입력하는 페이지로 바로 이동
 		
-		return "driver/login/dNaverCallback";
+		return "passenger/login/pNaverCallback";
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class PsgNaverLoginController {
 		String res = requestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
-		return "driver/login/dNaverCallback";
+		return "passenger/login/pNaverCallback";
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class PsgNaverLoginController {
 		String res = requestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
-		return "driver/login/dNaverCallback";
+		return "passenger/login/pNaverCallback";
 	}
 
 	/**
