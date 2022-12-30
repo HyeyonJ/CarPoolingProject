@@ -21,6 +21,7 @@ import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
+import project.carPooling.global.session.SessionManager;
 import project.carPooling.global.session.SessionVar;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.SearchCarPool;
@@ -33,6 +34,7 @@ public class PsReservationController {
 	
 	private final SearchCarpoolRepository searchCarpoolRepository;
 	private final DriverInfoRepository driverInfoRepository;
+	private final SessionManager sessionManager;
 	
 	@Autowired
 	private MailService mailService;
@@ -61,11 +63,15 @@ public class PsReservationController {
 	
 	@ResponseBody
 	@PostMapping("/passenger/passengerCarpool/reservation/request")
-	public void reservationReq(@ModelAttribute DRegistration dRegistration, HttpServletRequest req) throws MessagingException, IOException{
+	public boolean reservationReq(@ModelAttribute DRegistration dRegistration, HttpServletRequest req) throws MessagingException, IOException{
 		log.info("dRegistration: {}", dRegistration.toString()); 
-		HttpSession session = req.getSession(false);
-		PassengerInfo passengerInfo = (PassengerInfo) session.getAttribute(SessionVar.LOGIN_PASSENGER);
-		searchCarpoolRepository.insert(passengerInfo.getPIdx(), dRegistration.getDrIdx());
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		boolean searchPsResult = searchCarpoolRepository.selectPassenger(passengerInfo.getPIdx(), dRegistration.getDrIdx());
+		// 찾은 결과가 false일 때 실행
+		if(searchPsResult == true) {
+			return searchPsResult;
+		}
+		searchCarpoolRepository.insert(passengerInfo.getPIdx(), dRegistration.getDrIdx());			
 		
 		DRegistration drRegistration = driverInfoRepository.selectByDrIdx(dRegistration.getDrIdx());
 		DriverInfo driverInfo = driverInfoRepository.selectByIdx(drRegistration.getDIdx());
@@ -78,5 +84,6 @@ public class PsReservationController {
         mailTO.setMessage("요청을 확인하시려면 이동하기를 눌러주세요.");
 
 		mailService.sendMailWithFiles(mailTO);
+		return false;
 	}
 }

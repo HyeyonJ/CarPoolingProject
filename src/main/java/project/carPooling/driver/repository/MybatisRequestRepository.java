@@ -25,16 +25,25 @@ public class MybatisRequestRepository implements RequestRepository{
 
 	@Transactional
 	@Override
-	public boolean update(Integer drIdx, Integer pIdx) {
-		System.out.println("1번");
+	public boolean updateAccepted(Integer drIdx, Integer pIdx) {
 		boolean result = false;
 		try {
-			requestMapper.updateAcceptStatus(pIdx);
+			requestMapper.updateAccepted(pIdx);
 			requestMapper.updateConfirm(drIdx);
 			result = true;
-			System.out.println("2번");
 		} catch (Exception e) {
-			System.out.println("3번");
+		}
+		return result;
+	}
+
+	@Transactional
+	@Override
+	public boolean updateRefused(Integer drIdx, Integer pIdx) {
+		boolean result = false;
+		try {
+			requestMapper.updateRefused(pIdx);
+			result = true;
+		} catch (Exception e) {
 		}
 		return result;
 	}

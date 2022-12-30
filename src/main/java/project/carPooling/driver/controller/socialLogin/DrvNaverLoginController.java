@@ -31,6 +31,7 @@ import com.google.gson.JsonParser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DUserType;
 import project.carPooling.driver.domain.DriverInfo;
 
 @Slf4j
@@ -122,7 +123,7 @@ public class DrvNaverLoginController {
 		DriverInfo driverInfo = new DriverInfo();
 		driverInfo.setDUserEmail(obj1.get("email").getAsString());
 		driverInfo.setDUserGender(obj1.get("gender").getAsString());
-		driverInfo.setDUserType(DUserType("NAVER"));
+//		driverInfo.setDUserType(DUserType("NAVER"));
 		
 		model.addAttribute("driverInfo", driverInfo);
 		

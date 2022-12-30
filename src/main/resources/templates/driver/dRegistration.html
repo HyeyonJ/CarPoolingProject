@@ -269,7 +269,7 @@
               <div class="col-lg align-self-end">
                 <div class="form-group">
                   <div class="form-field">
-                    <input type="submit" value="등  록" id="submit" class="btn btn-primary">
+                    <input type="button" value="등  록" id="submit" class="btn btn-primary">
                     <div id="footer">
 
                     </div>
@@ -837,39 +837,6 @@
       }
       // ------------TMAP API------------
 
-      $("#drForm").submit(() => {
-        const CarPoolRegistraion = {
-          dDate: $('#datepicker').val().toString(),
-          dCommute: $("input:radio[name='work']:checked").val().toString(),
-          dStartTime: $('#tocommute').val(),
-          dEndTime: $('#tocommutes').val(),
-          dStartPoint: $('#start').val().toString(),
-          dEndPoint: $('#end').val().toString(),
-          dFee: $('#fare').val(),
-          dDistance: $('#distance').val(),
-          dTime: $('#time').val(),
-          dStartlon: $('#startlon').val(),
-          dStartlat: $('#startlat').val(),
-          dEndlon: $('#endlon').val(),
-          dEndlat: $('#endlat').val()
-        }
-
-        $.ajax({
-          url: '/driver/driverCarpool/registration',
-          type: 'POST',
-          data: CarPoolRegistraion,
-          success: function (data, status) {
-            console.log(status);
-            if (status == 'success') {
-              alert('정상적으로 등록되었습니다.');
-            } else {
-              alert('등록에 실패했습니다.');
-            }
-          }
-        });
-      })
-
-
       $('#submit').click(function () {
 
         if ($(':radio[name="work"]:checked').length < 1) {
@@ -909,6 +876,37 @@
           $('#searchCheck').css('display', 'none');
         }
 
+        const CarPoolRegistraion = {
+          dDate: $('#datepicker').val().toString(),
+          dCommute: $("input:radio[name='work']:checked").val().toString(),
+          dStartTime: $('#tocommute').val(),
+          dEndTime: $('#tocommutes').val(),
+          dStartPoint: $('#start').val().toString(),
+          dEndPoint: $('#end').val().toString(),
+          dFee: $('#fare').val(),
+          dDistance: $('#distance').val(),
+          dTime: $('#time').val(),
+          dStartlon: $('#startlon').val(),
+          dStartlat: $('#startlat').val(),
+          dEndlon: $('#endlon').val(),
+          dEndlat: $('#endlat').val()
+        }
+
+        $.ajax({
+          url: '/driver/driverCarpool/registration',
+          type: 'POST',
+          data: CarPoolRegistraion,
+          success: function (data) {
+            console.log(data);
+            if (data == '등록성공') {
+              console.log(data);
+              alert('정상적으로 등록되었습니다.');
+              window.location.reload();
+            } else {
+              alert('등록에 실패했습니다.');
+            }
+          }
+        });
       });
 
     </script>
