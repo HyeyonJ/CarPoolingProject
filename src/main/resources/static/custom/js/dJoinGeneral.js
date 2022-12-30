@@ -117,6 +117,42 @@ var autoHypenPhone = function(tel){
 var dUserTel = document.getElementById('dUserTel');
 
 dUserTel.onkeyup = function(){
-  console.log(this.value);
   this.value = autoHypenPhone( this.value ) ;  
+}
+
+/* 면허 번호 '-' 자동 입력 */
+var autoHypenLicenseNum = function(licenseNum){
+      licenseNum = licenseNum.replace(/[^0-9]/g, '');
+      var tmp = '';
+      if( licenseNum.length < 3){
+          return licenseNum;
+      }else if(licenseNum.length < 5){
+          tmp += licenseNum.substr(0, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(2);
+          return tmp;
+      }else if(licenseNum.length < 11){
+          tmp += licenseNum.substr(0, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(2, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(4);
+          return tmp;
+      } else{              
+          tmp += licenseNum.substr(0, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(2, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(4, 6);
+          tmp += '-';
+          tmp += licenseNum.substr(10);
+          return tmp;
+      }
+      return licenseNum;
+}
+
+var dLicenseNum = document.getElementById('dLicenseNum');
+
+dLicenseNum.onkeyup = function(){
+  this.value = autoHypenLicenseNum( this.value ) ;  
 }

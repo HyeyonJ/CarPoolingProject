@@ -20,7 +20,8 @@ public class DriverLoginFilter implements Filter{
 
 	//whiteList는 OK인 케이스, blackList는 그 반대의 케이스
 	//Login 안 되어있어도 볼 수 있는 페이지 (홈화면, 회원가입페이지, 로그인페이지)
-	private static final String[] whiteList = {"/", "/driver", "/driver/join", "/driver/logout"};
+	private static final String[] whiteList = {"/", "/driver", "/driver/join",
+											"/driver/login", "/driver/logout"};
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
