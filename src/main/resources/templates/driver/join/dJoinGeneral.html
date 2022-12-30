@@ -76,7 +76,7 @@
 						<div class="col-md-4 mb-3">
 							<label for="dIdNum1">주민등록번호(앞)</label> <input type="text"
 								class="form-control" id="dIdNum1" name="dIdNum1"
-								placeholder="앞 6자리" pattern="\d{6}" maxlength="6"
+								placeholder="앞 6자리" pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$" maxlength="6"
 								title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{dIdNum1}" required>
 							<div class="invalid-feedback">주민등록번호 앞 6자리를 확인해주세요.</div>
 						</div>
@@ -84,7 +84,7 @@
 						<div class="col-md-4 mb-3">
 							<label for="dIdNum2">(뒤)</label> <input type="password"
 								class="form-control" id="dIdNum2" name="dIdNum2"
-								placeholder="뒤 7자리" pattern="[1-4]\d{6}" maxlength="7"
+								placeholder="뒤 7자리" pattern="^[1-4]\d{6}$" maxlength="7"
 								title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{dIdNum2}" required>
 							<div class="invalid-feedback">주민등록번호 뒤 7자리를 확인해주세요.</div>
 						</div>
@@ -98,14 +98,14 @@
 							<div class="input-group mb-3">
 								<input type="email" class="form-control" id="dUserEmail"
 									name="dUserEmail" placeholder="이메일(carpooling@example.com)"
-									pattern="[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*"
+									pattern="^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 									aria-label="dUserEmail" aria-describedby="checkEmail"
-									th:field="*{dUserEmail}" title="이메일 양식:carpooling@example.com"
-									maxlength="30" required>
+									th:field="*{dUserEmail}" title="이메일 양식:carpooling@sample.com"
+									maxlength="50" required>
 								<button class="btn btn-dark" type="button" id="checkEmail">인증</button>
 							</div>
 							<div class="invalid-feedback">
-								<span>이메일을 확인해주세요. </span><span>(이메일:example@sample.com)</span>
+								<span>이메일을 확인해주세요. </span><span>(carpooling@sample.com)</span>
 							</div>
 						</div>
 					</div>
@@ -126,41 +126,41 @@
 						<div class="col-md-6 mb-3">
 							<label for="dUserTel">휴대폰번호</label>
 							<input type="text" class="form-control" id="dUserTel" name="dUserTel"
-								pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력"
+								pattern="^(/010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 								th:field="*{dUserTel}" value="010" required>
 							<div class="invalid-feedback">
-								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력)</span>
 							</div>
 						</div>
 					</div>
 					<!-- 면허 번호 입력 -->
 					<div class="col-md-6 mb-3">
-						<label for="dLicenseNum">휴대폰번호</label> <input type="text"
+						<label for="dLicenseNum">면허번호</label> <input type="text"
 							class="form-control" id="dLicenseNum" name="dLicenseNum"
-							placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
-							maxlength="13" title="숫자만 입력" th:field="*{dLicenseNum}" required>
+							pattern="(\d{2}-\d{2}-\d{6}-\d{2})"
+							maxlength="15" title="숫자만 입력" th:field="*{dLicenseNum}" required>
 						<div class="invalid-feedback">
-							<span>면허번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+							<span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
 						</div>
 					</div>
 					<!-- 면허 발급일 입력 -->
 					<div class="col-md-6 mb-3">
-						<label for="dLicenseDate">면허발급일</label> <input type="text"
-							class="form-control" id="dLicenseDate" name="dLicenseDate"
-							placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
-							maxlength="13" title="숫자만 입력" th:field="*{dLicenseDate}" required>
+						<label for="dLicenseDate">면허발급일자</label> <input type="text"
+							class="form-control" id="dLicenseDate" name="dLicenseDate" placeholder="20230101"
+							pattern="^(20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$"
+							maxlength="8" title="숫자만 입력" th:field="*{dLicenseDate}" required>
 						<div class="invalid-feedback">
-							<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+							<span>면허발급일자를 확인해주세요. </span><span>(숫자만 입력)</span>
 						</div>
 					</div>
 					<!-- 자동차 번호 입력 -->
 					<div class="col-md-6 mb-3">
-						<label for="dCarNum">휴대폰번호</label> <input type="text"
+						<label for="dCarNum">자동차번호</label> <input type="text"
 							class="form-control" id="dCarNum" name="dCarNum"
-							placeholder="휴대폰번호: 010-0000-0000" pattern="(010)-\d{3,4}-\d{4}"
-							maxlength="13" title="숫자만 입력" th:field="*{dCarNum}" required>
+							placeholder="00땡0000, 000땡0000" pattern="(\d{2,3})([가-힣]{1})(\d{4})"
+							maxlength="8" title="자동차 번호 입력" th:field="*{dCarNum}" required>
 						<div class="invalid-feedback">
-							<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+							<span>자동차번호를 확인해주세요. </span>
 						</div>
 					</div>
 					<!-- 개인 정보 활용 동의 -->

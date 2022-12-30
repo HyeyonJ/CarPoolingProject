@@ -4,7 +4,6 @@ import java.util.List;
 
 import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
-import project.carPooling.passenger.domain.PassengerInfo;
 
 public interface DriverInfoRepository {
 

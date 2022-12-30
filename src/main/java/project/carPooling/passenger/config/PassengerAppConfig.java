@@ -4,10 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
-import project.carPooling.driver.mapper.DriverInfoMapper;
-import project.carPooling.driver.mapper.RegistrationMapper;
-import project.carPooling.driver.repository.DriverInfoRepository;
-import project.carPooling.driver.repository.MybatisDriverInfoRepository;
 import project.carPooling.passenger.mapper.PassengerInfoMapper;
 import project.carPooling.passenger.mapper.ReservationListMapper;
 import project.carPooling.passenger.mapper.SearchCarpoolMapper;
