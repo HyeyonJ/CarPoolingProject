@@ -126,7 +126,7 @@
 						<div class="col-md-6 mb-3">
 							<label for="dUserTel">휴대폰번호</label>
 							<input type="text" class="form-control" id="dUserTel" name="dUserTel"
-								pattern="^(/010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
+								pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 								th:field="*{dUserTel}" value="010" required>
 							<div class="invalid-feedback">
 								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력)</span>
@@ -137,8 +137,8 @@
 					<div class="col-md-6 mb-3">
 						<label for="dLicenseNum">면허번호</label> <input type="text"
 							class="form-control" id="dLicenseNum" name="dLicenseNum"
-							pattern="(\d{2}-\d{2}-\d{6}-\d{2})"
-							maxlength="15" title="숫자만 입력" th:field="*{dLicenseNum}" required>
+							pattern="(\d{2}-\d{2}-\d{6}-\d{2})" th:field="*{dLicenseNum}"
+							maxlength="15" title="숫자만 입력" required>
 						<div class="invalid-feedback">
 							<span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
 						</div>
@@ -147,7 +147,7 @@
 					<div class="col-md-6 mb-3">
 						<label for="dLicenseDate">면허발급일자</label> <input type="text"
 							class="form-control" id="dLicenseDate" name="dLicenseDate" placeholder="20230101"
-							pattern="^(20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$"
+							pattern="^(20)([1,2]{1}\d{1})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$"
 							maxlength="8" title="숫자만 입력" th:field="*{dLicenseDate}" required>
 						<div class="invalid-feedback">
 							<span>면허발급일자를 확인해주세요. </span><span>(숫자만 입력)</span>
