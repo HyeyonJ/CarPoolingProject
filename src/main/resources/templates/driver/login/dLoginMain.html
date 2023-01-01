@@ -41,7 +41,7 @@
 					
 					<!-- 			  구글 로그인 -->
 					<div>
-						<a> <img src="/img/buttonGoogle.png" height="50" width="300px"
+						<a th:href="@{https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/cloud-identity.devices.lookup&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8080/driver/login/google/redirect&response_type=code&client_id=763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com}"><img src="/img/buttonGoogle.png" height="50" width="300px"
 							alt="구글 로그인 버튼" />
 						</a>
 					</div>
