@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DUserType;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.global.repository.KakaoMemRepository;
 
