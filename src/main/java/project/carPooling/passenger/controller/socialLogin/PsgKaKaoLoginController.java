@@ -66,7 +66,7 @@ public class PsgKaKaoLoginController {
 		}
 
 		HttpSession session = req.getSession();
-		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
+//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
 		// session.setMaxInactiveInterval(540);
 
 		return "redirect:" + redirectURL;
@@ -83,10 +83,10 @@ public class PsgKaKaoLoginController {
 		// if(bindingResult.hasErrors()) {
 		// return "members/newMember";
 		// }
-		driverInfo.setDUserType(null);
+//		driverInfo.setDUserType(null);
 
-		HttpSession session = req.getSession();
-		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
+//		HttpSession session = req.getSession();
+//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 
 		passengerInfoRepository.insert(passenger);
 		return "passenger/pReservation";

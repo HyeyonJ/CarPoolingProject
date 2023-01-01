@@ -20,7 +20,8 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	
 	@Override
 	public DriverInfo insert(DriverInfo driverInfo) {
-		if(driverInfo.getDUserGender().equals("male")) {
+		String dUserGender = driverInfo.getDUserGender();
+		if(dUserGender != null && dUserGender.equals("male")) {
 			driverInfo.setDUserGender("M");
 		}else {
 			driverInfo.setDUserGender("F");
