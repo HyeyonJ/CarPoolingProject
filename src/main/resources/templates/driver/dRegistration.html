@@ -2,914 +2,1033 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutDriver}">
 
-  <head>
-    <title>registration</title>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
-    <style>
-      #drSection {
-        margin-top: 100px;
-      }
+<head>
+  <title>registration</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  <style>
+    #drSection {
+      margin-top: 100px;
+    }
 
-      /* 선택안했을 때 스타일 */
-      .check {
-        display: none;
-        color: red;
-        margin-left: 10px;
-        margin-top: 5px;
-      }
+    /* 선택안했을 때 스타일 */
+    .check {
+      display: none;
+      color: red;
+      margin-left: 10px;
+      margin-top: 5px;
+    }
 
-      .label {
-        color: black;
-        margin-bottom: 5px;
-        font-weight: bolder;
-        display: block;
-      }
+    .label {
+      color: black;
+      margin-bottom: 5px;
+      font-weight: bolder;
+      display: block;
+    }
 
-      .text {
-        border-radius: 5px;
-        border: 1px solid #DDD;
-        height: 40px;
-        width: 300px;
-        padding-left: 10px;
-        margin-left: 5px;
-        margin-right: 10px;
-      }
+    .text {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+      width: 300px;
+      padding-left: 10px;
+      margin-left: 5px;
+      margin-right: 10px;
+    }
 
-      .texts {
-        border-radius: 5px;
-        border: 1px solid #DDD;
-        height: 40px;
-        width: 182px;
-        padding-left: 10px;
-        color: #757575;
-      }
+    .texts {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+      width: 182px;
+      padding-left: 10px;
+      color: #757575;
+    }
 
-      .setext {
-        border-radius: 5px;
-        border: 1px solid #DDD;
-        height: 40px;
-        width: 300px;
-        padding-left: 10px;
-        color: #757575;
-      }
+    .setext {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+      width: 300px;
+      padding-left: 10px;
+      color: #757575;
+    }
 
-      .form-field {
-        width: 400px;
-      }
+    .form-field {
+      width: 400px;
+    }
 
-      /* radio 버튼 안보이게 */
-      .box-radio-input input[type="radio"] {
-        display: none;
-      }
+    /* radio 버튼 안보이게 */
+    .box-radio-input input[type="radio"] {
+      display: none;
+    }
 
-      /* 체크 안되어있을 때의 span태그 스타일 */
-      .box-radio-input input[type="radio"]+span {
-        display: inline-block;
-        background: none;
-        border: 1px solid #dfdfdf;
-        padding: 0px 10px;
-        text-align: center;
-        height: 35px;
-        line-height: 33px;
-        font-weight: 500;
-        cursor: pointer;
-        width: 102px;
-        border-radius: 5px;
-        margin-left: 5px;
-      }
+    /* 체크 안되어있을 때의 span태그 스타일 */
+    .box-radio-input input[type="radio"]+span {
+      display: inline-block;
+      background: none;
+      border: 1px solid #dfdfdf;
+      padding: 0px 10px;
+      text-align: center;
+      height: 35px;
+      line-height: 33px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 102px;
+      border-radius: 5px;
+      margin-left: 5px;
+    }
 
-      /* 체크 되었을 때의 변경되는 span태그 스타일 */
-      .box-radio-input input[type="radio"]:checked+span {
-        border: 1px solid #6258a4;
-        background: #6258a4;
-        color: #fff;
-      }
+    /* 체크 되었을 때의 변경되는 span태그 스타일 */
+    .box-radio-input input[type="radio"]:checked+span {
+      border: 1px solid #6258a4;
+      background: #6258a4;
+      color: #fff;
+    }
 
-      #tocommute {
-        background-color: white;
-        margin-right: 20px;
-        margin-left: 5px;
-      }
+    #tocommute {
+      background-color: white;
+      margin-right: 20px;
+      margin-left: 5px;
+    }
 
-      #tocommutess {
-        margin-right: 20px;
-      }
+    #tocommutess {
+      margin-right: 20px;
+    }
 
-      #startCSS {
-        margin-bottom: 10px;
-      }
+    #startCSS {
+      margin-bottom: 10px;
+    }
 
-      #searchSP {
-        width: 102px;
-      }
+    #searchSP {
+      width: 102px;
+    }
 
-      #searchEP {
-        width: 102px;
-      }
+    #searchEP {
+      width: 102px;
+    }
 
-      #start {
-        margin-left: 10px;
-        margin-bottom: 10px;
-      }
+    #start {
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
 
-      #end {
-        margin-left: 10px;
-        margin-right: 10px;
-      }
-    </style>
-  </head>
+    #end {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
 
-  <th:block layout:fragment="content">
-    <section id="drSection">
-      <div class="container">
+<th:block layout:fragment="content">
+  <section id="drSection">
+    <div class="container">
 
-        <div class="d-flex justify-content-center">
-          <h2 class="mb-4 fw-bold">카풀등록</h2>
-        </div>
+      <div class="d-flex justify-content-center">
+        <h2 class="mb-4 fw-bold">카풀등록</h2>
+      </div>
 
-        <div id="registration">
+      <div id="registration">
 
-          <form id="drForm">
+        <form id="drForm">
 
-            <div id="commuteField">
-              <label class="label">출퇴근</label>
-              <label class="box-radio-input"><input type="radio" id="towork" name="work"
-                  value="출근"><span>출근</span></label>
-              <label class="box-radio-input"><input type="radio" id="fromwork" name="work"
-                  value="퇴근"><span>퇴근</span></label>
+          <div id="commuteField">
+            <label class="label">출퇴근</label>
+            <label class="box-radio-input"><input type="radio" id="towork" name="work"
+                value="출근"><span>출근</span></label>
+            <label class="box-radio-input"><input type="radio" id="fromwork" name="work"
+                value="퇴근"><span>퇴근</span></label>
+            <!-- 선택안했을 때 -->
+            <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
+          </div>
+
+          <div id="dateField">
+            <label for="datepicker" class="label">Date</label>
+            <div class="form-field">
+              <input type="text" class="text" placeholder="날짜를 선택해주세요" id="datepicker" name="datepicker">
               <!-- 선택안했을 때 -->
-              <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
+              <span id="dateCheck" class="check">날짜를 선택해주세요.</span>
+              <span id="dateRecheck" class="check">날짜를 다시 선택해주세요.</span>
             </div>
+          </div>
 
-            <div id="dateField">
-              <label for="datepicker" class="label">Date</label>
-              <div class="form-field">
-                <input type="text" class="text" placeholder="날짜를 선택해주세요" id="datepicker" name="datepicker">
-                <!-- 선택안했을 때 -->
-                <span id="dateCheck" class="check">날짜를 선택해주세요.</span>
-                <span id="dateRecheck" class="check">날짜를 다시 선택해주세요.</span>
+          <div id="timeField">
+            <label class="label">픽업가능시간</label>
+
+            <!-- 출발시간 -->
+            <select name="tocommute" class="texts" id="tocommute">
+              <option class="toworktime" hidden>선택</option>
+              <!-- 출근할 때 출발시간 -->
+              <option value="06:00" class="toworktime">06:00</option>
+              <option value="07:00" class="toworktime">07:00</option>
+              <option value="07:15" class="toworktime">07:15</option>
+              <option value="07:30" class="toworktime">07:30</option>
+              <option value="07:45" class="toworktime">07:45</option>
+              <option value="08:00" class="toworktime">08:00</option>
+              <option value="08:15" class="toworktime">08:15</option>
+              <option value="08:30" class="toworktime">08:30</option>
+              <option value="08:45" class="toworktime">08:45</option>
+              <option value="09:00" class="toworktime">09:00</option>
+
+              <!-- 퇴근할 떄 출발시간 -->
+              <option value="18:00" class="fromworktime">18:00</option>
+              <option value="18:15" class="fromworktime">18:15</option>
+              <option value="18:30" class="fromworktime">18:30</option>
+              <option value="18:45" class="fromworktime">18:45</option>
+              <option value="19:00" class="fromworktime">19:00</option>
+              <option value="19:15" class="fromworktime">19:15</option>
+              <option value="19:30" class="fromworktime">19:30</option>
+              <option value="19:30" class="fromworktime">19:45</option>
+              <option value="20:00" class="fromworktime">20:00</option>
+            </select>
+            <label id="tocommutess">-</label>
+
+            <!-- 도착시간 -->
+            <select name="tocommutes" class="texts" id="tocommutes">
+              <option class="toworktimes" hidden>선택</option>
+              <!-- 출근할 때 도착시간 -->
+              <option value="07:15" class="toworktimes">07:15</option>
+              <option value="07:30" class="toworktimes">07:30</option>
+              <option value="07:45" class="toworktimes">07:45</option>
+              <option value="08:00" class="toworktimes">08:00</option>
+              <option value="08:15" class="toworktimes">08:15</option>
+              <option value="08:30" class="toworktimes">08:30</option>
+              <option value="08:45" class="toworktimes">08:45</option>
+              <option value="09:00" class="toworktimes">09:00</option>
+              <option value="09:15" class="toworktimes">09:15</option>
+              <option value="09:30" class="toworktimes">09:30</option>
+              <option value="09:45" class="toworktimes">09:45</option>
+              <option value="10:00" class="toworktimes">10:00</option>
+
+              <!-- 퇴근할 때 도착시간 -->
+              <option value="18:15" class="fromworktimes">18:15</option>
+              <option value="18:30" class="fromworktimes">18:30</option>
+              <option value="18:45" class="fromworktimes">18:45</option>
+              <option value="19:00" class="fromworktimes">19:00</option>
+              <option value="19:15" class="fromworktimes">19:15</option>
+              <option value="19:30" class="fromworktimes">19:30</option>
+              <option value="19:45" class="fromworktimes">19:45</option>
+              <option value="20:00" class="fromworktimes">20:00</option>
+              <option value="20:15" class="fromworktimes">20:15</option>
+              <option value="20:30" class="fromworktimes">20:30</option>
+              <option value="20:45" class="fromworktimes">20:45</option>
+              <option value="21:00" class="fromworktimes">21:00</option>
+            </select>
+
+            <!-- 선택안했을 때 -->
+            <span id="timeCheck" class="check">시간을 선택해주세요.</span>
+            <span id="timeRecheck3" class="check">시간을 다시 선택해주세요.</span>
+            <span id="timeRecheck" class="check">출발시간을 먼저 선택해주세요.</span>
+            <span id="timeRecheck2" class="check">출발시간을 다시 선택해주세요.</span>
+            <span id="timeRecheck1" class="check">도착시간을 다시 선택해주세요.</span>
+
+          </div>
+
+          <div id="map">
+            <label class="label">경로선택</label>
+            <div id="routeCSS">
+              <div id="startCSS">
+                <label for="startPoint" class="label">출발지</label>
+                <!--지도 div-->
+                <input type="text" class="text" id="startPoint" placeholder="검색어를 입력해주세요" value="">
+                <input type="button" class="btn btn-primary" id="searchSP" onclick="searchPOIS();" value="검색">
               </div>
-            </div>
-
-            <div id="timeField">
-              <label class="label">픽업가능시간</label>
-
-              <!-- 출발시간 -->
-              <select name="tocommute" class="texts" id="tocommute">
-                <option class="toworktime" hidden>선택</option>
-                <!-- 출근할 때 출발시간 -->
-                <option value="07:00" class="toworktime">07:00</option>
-                <option value="07:15" class="toworktime">07:15</option>
-                <option value="07:30" class="toworktime">07:30</option>
-                <option value="07:45" class="toworktime">07:45</option>
-                <option value="08:00" class="toworktime">08:00</option>
-                <option value="08:15" class="toworktime">08:15</option>
-                <option value="08:30" class="toworktime">08:30</option>
-                <option value="08:45" class="toworktime">08:45</option>
-                <option value="09:00" class="toworktime">09:00</option>
-
-                <!-- 퇴근할 떄 출발시간 -->
-                <option value="18:00" class="fromworktime">18:00</option>
-                <option value="18:15" class="fromworktime">18:15</option>
-                <option value="18:30" class="fromworktime">18:30</option>
-                <option value="18:45" class="fromworktime">18:45</option>
-                <option value="19:00" class="fromworktime">19:00</option>
-                <option value="19:15" class="fromworktime">19:15</option>
-                <option value="19:30" class="fromworktime">19:30</option>
-                <option value="19:30" class="fromworktime">19:45</option>
-                <option value="20:00" class="fromworktime">20:00</option>
-              </select>
-              <label id="tocommutess">-</label>
-
-              <!-- 도착시간 -->
-              <select name="tocommutes" class="texts" id="tocommutes">
-                <option class="toworktimes" hidden>선택</option>
-                <!-- 출근할 때 도착시간 -->
-                <option value="07:15" class="toworktimes">07:15</option>
-                <option value="07:30" class="toworktimes">07:30</option>
-                <option value="07:45" class="toworktimes">07:45</option>
-                <option value="08:00" class="toworktimes">08:00</option>
-                <option value="08:15" class="toworktimes">08:15</option>
-                <option value="08:30" class="toworktimes">08:30</option>
-                <option value="08:45" class="toworktimes">08:45</option>
-                <option value="09:00" class="toworktimes">09:00</option>
-                <option value="09:15" class="toworktimes">09:15</option>
-                <option value="09:30" class="toworktimes">09:30</option>
-                <option value="09:45" class="toworktimes">09:45</option>
-                <option value="10:00" class="toworktimes">10:00</option>
-
-                <!-- 퇴근할 때 도착시간 -->
-                <option value="18:15" class="fromworktimes">18:15</option>
-                <option value="18:30" class="fromworktimes">18:30</option>
-                <option value="18:45" class="fromworktimes">18:45</option>
-                <option value="19:00" class="fromworktimes">19:00</option>
-                <option value="19:15" class="fromworktimes">19:15</option>
-                <option value="19:30" class="fromworktimes">19:30</option>
-                <option value="19:45" class="fromworktimes">19:45</option>
-                <option value="20:00" class="fromworktimes">20:00</option>
-                <option value="20:15" class="fromworktimes">20:15</option>
-                <option value="20:30" class="fromworktimes">20:30</option>
-                <option value="20:45" class="fromworktimes">20:45</option>
-                <option value="21:00" class="fromworktimes">21:00</option>
-              </select>
-
-              <!-- 선택안했을 때 -->
-              <span id="timeCheck" class="check">시간을 선택해주세요.</span>
-              <span id="timeRecheck" class="check">도착시간을 다시 선택해주세요.</span>
-
-            </div>
-
-            <div id="map">
-              <label class="label">경로선택</label>
-              <div id="routeCSS">
-                <div id="startCSS">
-                  <label for="startPoint" class="label">출발지</label>
-                  <!--지도 div-->
-                  <input type="text" class="text" id="startPoint" placeholder="검색어를 입력해주세요" value="">
-                  <input type="button" class="btn btn-primary" id="searchSP" onclick="searchPOIS();" value="검색">
-                </div>
-                <div id="endCSS">
-                  <label for="endPoint" class="label">도착지</label>
-                  <input type="text" class="text" id="endPoint" placeholder="검색어를 입력해주세요" value="">
-                  <input type="button" class="btn btn-primary" id="searchEP" onclick="searchPOIE();" value="검색">
-                  <!-- 입력안했을 때 -->
-                  <span id="routeCheck" class="check">출발지와 도착지를 검색해주세요.</span>
-                </div>
-              </div>
-
-              <div id="map_div">
-              </div>
-
-              <div id="mapDIV">
-                <input type="text" class="setext" id="start" placeholder="출발지" readonly>
-                <input type="text" class="setext" id="end" placeholder="도착지" readonly>
-                <input type="button" class="btn btn-primary" id="routesearch" onclick="route();" value="경로검색">
-
+              <div id="endCSS">
+                <label for="endPoint" class="label">도착지</label>
+                <input type="text" class="text" id="endPoint" placeholder="검색어를 입력해주세요" value="">
+                <input type="button" class="btn btn-primary" id="searchEP" onclick="searchPOIE();" value="검색">
                 <!-- 입력안했을 때 -->
-                <span id="searchCheck" class="check">경로검색은 필수입니다.</span>
-                <br>
+                <span id="routeCheck" class="check">출발지와 도착지를 검색해주세요.</span>
               </div>
+            </div>
 
-              <input type="hidden" id="startlon" value="">
-              <input type="hidden" id="startlat" value="">
-              <input type="hidden" id="endlon" value="">
-              <input type="hidden" id="endlat" value="">
+            <div id="map_div">
+            </div>
 
-              <input type="hidden" id="distance" value="">
-              <input type="hidden" id="time" value="">
-              <input type="hidden" id="fare" value="">
+            <div id="mapDIV">
+              <input type="text" class="setext" id="start" placeholder="출발지" readonly>
+              <input type="text" class="setext" id="end" placeholder="도착지" readonly>
+              <input type="button" class="btn btn-primary" id="routesearch" onclick="route();" value="경로검색">
 
-              <p id="result"></p>
-              <!--지도 div끝-->
+              <!-- 입력안했을 때 -->
+              <span id="searchCheck" class="check">경로검색은 필수입니다.</span>
+              <br>
+            </div>
 
-              <div class="col-lg align-self-end">
-                <div class="form-group">
-                  <div class="form-field">
-                    <input type="button" value="등  록" id="submit" class="btn btn-primary">
-                    <div id="footer">
+            <input type="hidden" id="startlon" value="">
+            <input type="hidden" id="startlat" value="">
+            <input type="hidden" id="endlon" value="">
+            <input type="hidden" id="endlat" value="">
 
-                    </div>
+            <input type="hidden" id="distance" value="">
+            <input type="hidden" id="time" value="">
+            <input type="hidden" id="fare" value="">
+
+            <p id="result"></p>
+            <!--지도 div끝-->
+
+            <div class="col-lg align-self-end">
+              <div class="form-group">
+                <div class="form-field">
+                  <input type="button" value="등  록" id="submit" class="btn btn-primary">
+                  <div id="footer">
+
                   </div>
                 </div>
               </div>
-
             </div>
 
-          </form>
-        </div>
+          </div>
+
+        </form>
       </div>
-    </section>
-  </th:block>
+    </div>
+  </section>
+</th:block>
 
-  <th:block layout:fragment="js">
-    <script>
-      $(function () {
-        $("#datepicker").datepicker({
-          dateFormat: 'yy-mm-dd'
-        });
+<th:block layout:fragment="js">
+  <script>
+    $(function () {
+      $("#datepicker").datepicker({
+        dateFormat: 'yy-mm-dd'
       });
+    });
 
-      // 출근에 따른 변화
-      $('#towork').change(() => {
-        // prop('checked') = 만약 towork가 checked 상태이면 true값 반환
-        if ($('#towork').prop('checked') == true) {
-          $('.toworktime').css('display', 'block');
-          $('.fromworktime').css('display', 'none');
-          $('.toworktimes').css('display', 'block');
-          $('.fromworktimes').css('display', 'none');
-          $('#tocommute').val("선택");
-          $('#tocommutes').val("선택");
+    // 출근에 따른 변화
+    $('#towork').change(() => {
+      // prop('checked') = 만약 towork가 checked 상태이면 true값 반환
+      if ($('#towork').prop('checked') == true) {
+        $('.toworktime').css('display', 'block');
+        $('.fromworktime').css('display', 'none');
+        $('.toworktimes').css('display', 'block');
+        $('.fromworktimes').css('display', 'none');
+        $('#tocommute').val("선택");
+        $('#tocommutes').val("선택");
 
+      }
+    });
+
+    // 퇴근에 따른 변화
+    $('#fromwork').change(() => {
+      // prop('checked') = 만약 fromwork가 checked 상태이면 true값 반환
+      if ($('#fromwork').prop('checked') == true) {
+        $('.toworktime').css('display', 'none');
+        $('.fromworktime').css('display', 'block');
+        $('.toworktimes').css('display', 'none');
+        $('.fromworktimes').css('display', 'block');
+        $('#tocommute').val("선택");
+        $('#tocommutes').val("선택");
+
+      }
+    });
+
+    $("#datepicker").change(() => {
+
+      if ($("#tocommute").val() === "선택" || $("#tocommutes").val() === "선택") {
+        $('#timeRecheck3').css('display', 'none');
+      }
+      // 현재날짜
+      var today = new Date();
+      var year = today.getFullYear().toString(); // 년도
+      var month = (today.getMonth() + 1).toString();  // 월
+      var date = today.getDate().toString();  // 날짜
+      if (month < 10) {
+        month = "0" + month;
+      }
+      if (date < 10) {
+        date = "0" + date;
+      }
+      // 선택한날짜
+      const dateVal = $("#datepicker").val();
+      const drYear = dateVal.substring(0, 4);
+      const drMonth = dateVal.substring(5, 7);
+      const drDate = dateVal.substring(8, 10);
+
+      if (year + month + date > drYear + drMonth + drDate) {
+        $('#dateCheck').css('display', 'none');
+        $('#dateRecheck').css('display', 'block');
+        $("#datepicker").val("");
+        return false;
+      } else {
+        $('#dateRecheck').css('display', 'none');
+      }
+
+      const tocommuteVal = $("#tocommute").val();
+
+      if ((year + month + date === drYear + drMonth + drDate) && tocommuteVal !== "선택") {
+        var hours = today.getHours().toString();
+        var minutes = today.getMinutes().toString();
+        if (hours < 10) {
+          hours = "0" + hours;
         }
-      });
-
-      // 퇴근에 따른 변화
-      $('#fromwork').change(() => {
-        // prop('checked') = 만약 fromwork가 checked 상태이면 true값 반환
-        if ($('#fromwork').prop('checked') == true) {
-          $('.toworktime').css('display', 'none');
-          $('.fromworktime').css('display', 'block');
-          $('.toworktimes').css('display', 'none');
-          $('.fromworktimes').css('display', 'block');
-          $('#tocommute').val("선택");
-          $('#tocommutes').val("선택");
-
-        }
-      });
-
-      $("#datepicker").change(() => {
-        // 현재날짜
-        const today = new Date();
-        const year = today.getFullYear().toString(); // 년도
-        const month = (today.getMonth() + 1).toString();  // 월
-        const date = today.getDate().toString();  // 날짜
-
-        // 선택한날짜
-        const dateVal = $("#datepicker").val();
-        const drYear = dateVal.substring(0, 4);
-        const drMonth = dateVal.substring(5, 7);
-        const drDate = dateVal.substring(8, 10);
-
-        if (year + month + date > drYear + drMonth + drDate) {
-          $('#dateCheck').css('display', 'none');
-          $('#dateRecheck').css('display', 'block');
-          $("#datepicker").val("");
-          return false;
-        } else {
-          $('#dateRecheck').css('display', 'none');
-        }
-      })
-
-      $("#tocommute").click(() => {
-        if ($(':radio[name="work"]:checked').length < 1) {
-          $('#workCheck').css('display', 'block');
-          $("#tocommute").blur();
-          return false;
-        } else {
-          $('#workCheck').css('display', 'none');
-        }
-      })
-
-      $("#tocommutes").click(() => {
-        if ($(':radio[name="work"]:checked').length < 1) {
-          $('#workCheck').css('display', 'block');
-          $("#tocommutes").blur();
-          return false;
-        } else {
-          $('#workCheck').css('display', 'none');
+        if (minutes < 10) {
+          minutes = "0" + minutes;
         }
 
-        const tocommute = ($("#tocommute").val()).substring(0, 2) + ($("#tocommute").val()).substring(3, 5);
-        const tocommutes = ($("#tocommutes").val()).substring(0, 2) + ($("#tocommutes").val()).substring(3, 5);
+        const drHour = tocommuteVal.substring(0, 2);
+        const drMinute = tocommuteVal.substring(3, 5);
 
-        if (tocommute > tocommutes) {
-          $('#timeCheck').css('display', 'none');
-          $('#timeRecheck').css('display', 'block');
+        if (hours > drHour || (hours === drHour && minutes > drMinute)) {
+          console.log("5번들어옴");
+          $('#timeRecheck3').css('display', 'block');
+          $("#tocommute").val("선택");
           $("#tocommutes").val("선택");
           return false;
         } else {
-          $('#timeRecheck').css('display', 'none');
+          console.log("6번들어옴");
+          $('#timeRecheck3').css('display', 'none');
         }
-      })
+
+      }
+    })
+
+    $("#tocommute").change(() => {
+      if ($(':radio[name="work"]:checked').length < 1) {
+        $('#workCheck').css('display', 'block');
+        $("#tocommute").blur();
+        return false;
+      } else {
+        $('#workCheck').css('display', 'none');
+      }
+
+      const tocommute = ($("#tocommute").val()).substring(0, 2) + ($("#tocommute").val()).substring(3, 5);
+      const tocommutes = ($("#tocommutes").val()).substring(0, 2) + ($("#tocommutes").val()).substring(3, 5);
+
+      if (tocommute > tocommutes) {
+        console.log("1번");
+        $('#timeCheck').css('display', 'none');
+        $('#timeRecheck1').css('display', 'block');
+        $("#tocommutes").val("선택");
+        return false;
+      } else {
+        console.log("2번");
+        $('#timeRecheck').css('display', 'none');
+      }
+
+      var today = new Date();
+      var year = today.getFullYear().toString();
+      var month = (today.getMonth() + 1).toString();
+      var date = today.getDate().toString();
+      var hours = today.getHours().toString();
+      var minutes = today.getMinutes().toString();
+      if (month < 10) {
+        month = "0" + month;
+      }
+      if (date < 10) {
+        date = "0" + date;
+      }
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+
+      const dateVal = $("#datepicker").val();
+      const drYear = dateVal.substring(0, 4);
+      const drMonth = dateVal.substring(5, 7);
+      const drDate = dateVal.substring(8, 10);
+
+      if ($("#datepicker").val() !== null) {
+
+        if (year + month + date === drYear + drMonth + drDate) {
+
+          const tocommuteVal = $("#tocommute").val();
+          const drHour = tocommuteVal.substring(0, 2);
+          const drMinute = tocommuteVal.substring(3, 5);
+
+          if (hours > drHour || (hours === drHour && minutes > drMinute)) {
+            console.log("6번");
+            $('#timeRecheck3').css('display', 'block');
+            $("#tocommute").val("선택");
+            $("#tocommutes").val("선택");
+            return false;
+          } else {
+            console.log("7번");
+            $('#timeRecheck3').css('display', 'none');
+          }
+        }
+      }
 
 
 
-      // ------------TMAP API------------
-      var map, marker;
-      var markerArr = [];
-      var drawInfoArr = [];
-      var resultMarkerArr = [];
-      var resultdrawArr = [];
+    })
 
-      $(document).ready(function () {
-        initTmap();
+    $("#tocommutes").change(() => {
+      if ($(':radio[name="work"]:checked').length < 1) {
+        $('#workCheck').css('display', 'block');
+        $("#tocommutes").blur();
+        return false;
+      } else {
+        $('#workCheck').css('display', 'none');
+      }
+
+      const tocommute = ($("#tocommute").val()).substring(0, 2) + ($("#tocommute").val()).substring(3, 5);
+      const tocommutes = ($("#tocommutes").val()).substring(0, 2) + ($("#tocommutes").val()).substring(3, 5);
+
+      if (tocommute === "선택") {
+        $('#timeCheck').css('display', 'none');
+        $('#timeRecheck3').css('display', 'none');
+        $('#timeRecheck').css('display', 'block');
+        $("#tocommutes").val("선택");
+        return false;
+      } else {
+        $('#timeRecheck').css('display', 'none');
+      }
+
+      if (tocommute > tocommutes) {
+        console.log("3번");
+        $('#timeCheck').css('display', 'none');
+        $('#timeRecheck1').css('display', 'block');
+        $("#tocommutes").val("선택");
+        return false;
+      } else {
+        console.log("4번");
+        $('#timeRecheck').css('display', 'none');
+        $('#timeRecheck1').css('display', 'none');
+        $('#timeRecheck2').css('display', 'none');
+      }
+    })
+
+
+
+    // ------------TMAP API------------
+    var map, marker;
+    var markerArr = [];
+    var drawInfoArr = [];
+    var resultMarkerArr = [];
+    var resultdrawArr = [];
+
+    $(document).ready(function () {
+      initTmap();
+    });
+
+    function initTmap() {
+      // 1. 지도 띄우기
+      map = new Tmapv2.Map("map_div", {
+        center: new Tmapv2.LatLng(37.56520450, 126.98702028),
+        width: "70%",
+        height: "400px",
+        zoom: 17,
+        zoomControl: true,
+        scrollwheel: true
+
       });
+    }
 
-      function initTmap() {
-        // 1. 지도 띄우기
-        map = new Tmapv2.Map("map_div", {
-          center: new Tmapv2.LatLng(37.56520450, 126.98702028),
-          width: "70%",
-          height: "400px",
-          zoom: 17,
-          zoomControl: true,
-          scrollwheel: true
+    function searchPOIS() {
+      var startPoint = $('#startPoint').val();
 
-        });
+      if (startPoint == "") {
+        alert("출발할 장소를 입력해주세요.");
+        $('#startPoint').focus();
+        return;
       }
 
-      function searchPOIS() {
-        var startPoint = $('#startPoint').val();
+      $.ajax({
+        method: "GET",
+        url: "https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+        async: false,
+        data: {
+          "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
+          "searchKeyword": startPoint,
+          "resCoordType": "EPSG3857",
+          "reqCoordType": "WGS84GEO",
+          "count": 10
+        },
+        success: function (response) {
+          var resultpoisData = response.searchPoiInfo.pois.poi;
 
-        if (startPoint == "") {
-          alert("출발할 장소를 입력해주세요.");
-          $('#startPoint').focus();
-          return;
+          // ------ 초기화
+          if (markerArr.length > 0) {
+            for (var i in markerArr) {
+              markerArr[i].setMap(null);
+            }
+          }
+
+          if (resultMarkerArr.length > 0) {
+            for (var i = 0; i < resultMarkerArr.length; i++) {
+              resultMarkerArr[i].setMap(null);
+            }
+          }
+
+          if (resultdrawArr.length > 0) {
+            for (var i = 0; i < resultdrawArr.length; i++) {
+              resultdrawArr[i].setMap(null);
+            }
+          }
+
+          drawInfoArr = [];
+          resultMarkerArr = [];
+          resultdrawArr = [];
+
+          // 초기화 ------
+
+          // 맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
+          var positionBounds = new Tmapv2.LatLngBounds();
+
+          // 마커찍기
+          for (var k in resultpoisData) {
+
+            var noorLat = Number(resultpoisData[k].noorLat);
+            var noorLon = Number(resultpoisData[k].noorLon);
+            var name = resultpoisData[k].name;
+
+            var pointCng = new Tmapv2.Point(noorLon, noorLat);
+            var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+
+            var lat = projectionCng._lat;
+            var lon = projectionCng._lng;
+
+            var markerPosition = new Tmapv2.LatLng(lat, lon);
+            marker = new Tmapv2.Marker({
+              position: markerPosition,
+              icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
+              iconSize: new Tmapv2.Size(24, 38),
+              title: name,
+              map: map
+            });
+
+            markerArr.push(marker);
+            // LatLngBounds의 객체 확장
+            positionBounds.extend(markerPosition);
+          }
+
+          for (let i = 0; i < markerArr.length; i++) {
+            $(markerArr[i]._htmlElement).click(() => {
+              const slat = markerArr[i]._marker_data.options.position._lat;
+              const slng = markerArr[i]._marker_data.options.position._lng;
+              $("#start").val(markerArr[i]._marker_data.options.title);
+              $('#startlon').val(slng);
+              $('#startlat').val(slat);
+              // map.destroy();
+              // initTmap();
+            })
+          }
+
+          // 확장된 bounds의 중심으로 이동시키기
+          map.panToBounds(positionBounds);
+          map.zoomOut();
+        },
+        error: function (request, status, error) {
+          console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
         }
+      });
+    }
 
-        $.ajax({
-          method: "GET",
-          url: "https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+    function searchPOIE() {
+      var endPoint = $('#endPoint').val();
+
+      if (endPoint == "") {
+        alert("도착할 장소를 입력해주세요.");
+        $('#endPoint').focus();
+        return;
+      }
+
+      $.ajax({
+        method: "GET",
+        url: "https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+        async: false,
+        data: {
+          "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
+          "searchKeyword": endPoint,
+          "resCoordType": "EPSG3857",
+          "reqCoordType": "WGS84GEO",
+          "count": 10
+        },
+        success: function (response) {
+          var resultpoisData = response.searchPoiInfo.pois.poi;
+
+          // ------ 초기화
+          if (markerArr.length > 0) {
+            for (var i in markerArr) {
+              markerArr[i].setMap(null);
+            }
+          }
+
+          if (resultMarkerArr.length > 0) {
+            for (var i = 0; i < resultMarkerArr.length; i++) {
+              resultMarkerArr[i].setMap(null);
+            }
+          }
+
+          if (resultdrawArr.length > 0) {
+            for (var i = 0; i < resultdrawArr.length; i++) {
+              resultdrawArr[i].setMap(null);
+            }
+          }
+
+          drawInfoArr = [];
+          resultMarkerArr = [];
+          resultdrawArr = [];
+
+          // 초기화 ------
+
+          // 맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
+          var positionBounds = new Tmapv2.LatLngBounds();
+
+          // 마커찍기
+          for (var k in resultpoisData) {
+
+            var noorLat = Number(resultpoisData[k].noorLat);
+            var noorLon = Number(resultpoisData[k].noorLon);
+            var name = resultpoisData[k].name;
+
+            var pointCng = new Tmapv2.Point(noorLon, noorLat);
+            var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+
+            var lat = projectionCng._lat;
+            var lon = projectionCng._lng;
+
+            var markerPosition = new Tmapv2.LatLng(lat, lon);
+            marker = new Tmapv2.Marker({
+              position: markerPosition,
+              icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
+              iconSize: new Tmapv2.Size(24, 38),
+              title: name,
+              map: map
+            });
+
+            markerArr.push(marker);              // LatLngBounds의 객체 확장
+            positionBounds.extend(markerPosition);
+          }
+
+          for (let i = 0; i < markerArr.length; i++) {
+            $(markerArr[i]._htmlElement).click(() => {
+              const elat = markerArr[i]._marker_data.options.position._lat;
+              const elng = markerArr[i]._marker_data.options.position._lng;
+              $("#end").val(markerArr[i]._marker_data.options.title);
+              $('#endlon').val(elng);
+              $('#endlat').val(elat);
+              // map.destroy();
+              // initTmap();
+            })
+          }
+
+          // 확장된 bounds의 중심으로 이동시키기
+          map.panToBounds(positionBounds);
+          map.zoomOut();
+        },
+        error: function (request, status, error) {
+          console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+      });
+    }
+
+    function route() {
+
+      var start = $('#start').val();
+      if (start == "") {
+        alert("도착할 장소를 검색 후 선택해주세요.");
+        $('#startPoint').focus();
+        return;
+      }
+
+      var end = $('#end').val();
+      if (end == "") {
+        alert("도착할 장소를 검색 후 선택해주세요.");
+        $('#endPoint').focus();
+        return;
+      }
+
+      // ------ 초기화
+      if (markerArr.length > 0) {
+        for (var i in markerArr) {
+          markerArr[i].setMap(null);
+        }
+      }
+
+      if (resultMarkerArr.length > 0) {
+        for (var i = 0; i < resultMarkerArr.length; i++) {
+          resultMarkerArr[i].setMap(null);
+        }
+      }
+
+      if (resultdrawArr.length > 0) {
+        for (var i = 0; i < resultdrawArr.length; i++) {
+          resultdrawArr[i].setMap(null);
+        }
+      }
+
+      drawInfoArr = [];
+      resultMarkerArr = [];
+      resultdrawArr = [];
+
+      // 초기화 ------
+
+      var startX = $('#startlon').val();
+      var startY = $('#startlat').val();
+      var endX = $('#endlon').val();
+      var endY = $('#endlat').val();
+
+      $
+        .ajax({
+          type: "POST",
+          url: "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
           async: false,
           data: {
             "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
-            "searchKeyword": startPoint,
-            "resCoordType": "EPSG3857",
+            "startX": startX,
+            "startY": startY,
+            "endX": endX,
+            "endY": endY,
             "reqCoordType": "WGS84GEO",
-            "count": 10
+            "resCoordType": "EPSG3857",
           },
           success: function (response) {
-            var resultpoisData = response.searchPoiInfo.pois.poi;
 
-            // ------ 초기화
-            if (markerArr.length > 0) {
-              for (var i in markerArr) {
-                markerArr[i].setMap(null);
-              }
-            }
+            var positionBounds = new Tmapv2.LatLngBounds();		//맵에 결과물 확인 하기 
 
-            if (resultMarkerArr.length > 0) {
-              for (var i = 0; i < resultMarkerArr.length; i++) {
-                resultMarkerArr[i].setMap(null);
-              }
-            }
+            var x;
+            var y;
 
-            if (resultdrawArr.length > 0) {
-              for (var i = 0; i < resultdrawArr.length; i++) {
-                resultdrawArr[i].setMap(null);
-              }
-            }
+            var numberSX = parseFloat(startX);
+            var numberSY = parseFloat(startY);
+            var numberEX = parseFloat(endX);
+            var numberEY = parseFloat(endY);
 
-            drawInfoArr = [];
-            resultMarkerArr = [];
-            resultdrawArr = [];
-
-            // 초기화 ------
-
-            // 맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
-            var positionBounds = new Tmapv2.LatLngBounds();
-
-            // 마커찍기
-            for (var k in resultpoisData) {
-
-              var noorLat = Number(resultpoisData[k].noorLat);
-              var noorLon = Number(resultpoisData[k].noorLon);
-              var name = resultpoisData[k].name;
-
-              var pointCng = new Tmapv2.Point(noorLon, noorLat);
-              var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
-
-              var lat = projectionCng._lat;
-              var lon = projectionCng._lng;
-
-              var markerPosition = new Tmapv2.LatLng(lat, lon);
-              marker = new Tmapv2.Marker({
-                position: markerPosition,
-                icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
-                iconSize: new Tmapv2.Size(24, 38),
-                title: name,
-                map: map
-              });
-
-              markerArr.push(marker);
-              // LatLngBounds의 객체 확장
-              positionBounds.extend(markerPosition);
-            }
-
-            for (let i = 0; i < markerArr.length; i++) {
-              $(markerArr[i]._htmlElement).click(() => {
-                const slat = markerArr[i]._marker_data.options.position._lat;
-                const slng = markerArr[i]._marker_data.options.position._lng;
-                $("#start").val(markerArr[i]._marker_data.options.title);
-                $('#startlon').val(slng);
-                $('#startlat').val(slat);
-                // map.destroy();
-                // initTmap();
-              })
-            }
-
-            // 확장된 bounds의 중심으로 이동시키기
-            map.panToBounds(positionBounds);
-            map.zoomOut();
-          },
-          error: function (request, status, error) {
-            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-          }
-        });
-      }
-
-      function searchPOIE() {
-        var endPoint = $('#endPoint').val();
-
-        if (endPoint == "") {
-          alert("도착할 장소를 입력해주세요.");
-          $('#endPoint').focus();
-          return;
-        }
-
-        $.ajax({
-          method: "GET",
-          url: "https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
-          async: false,
-          data: {
-            "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
-            "searchKeyword": endPoint,
-            "resCoordType": "EPSG3857",
-            "reqCoordType": "WGS84GEO",
-            "count": 10
-          },
-          success: function (response) {
-            var resultpoisData = response.searchPoiInfo.pois.poi;
-
-            // ------ 초기화
-            if (markerArr.length > 0) {
-              for (var i in markerArr) {
-                markerArr[i].setMap(null);
-              }
-            }
-
-            if (resultMarkerArr.length > 0) {
-              for (var i = 0; i < resultMarkerArr.length; i++) {
-                resultMarkerArr[i].setMap(null);
-              }
-            }
-
-            if (resultdrawArr.length > 0) {
-              for (var i = 0; i < resultdrawArr.length; i++) {
-                resultdrawArr[i].setMap(null);
-              }
-            }
-
-            drawInfoArr = [];
-            resultMarkerArr = [];
-            resultdrawArr = [];
-
-            // 초기화 ------
-
-            // 맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
-            var positionBounds = new Tmapv2.LatLngBounds();
-
-            // 마커찍기
-            for (var k in resultpoisData) {
-
-              var noorLat = Number(resultpoisData[k].noorLat);
-              var noorLon = Number(resultpoisData[k].noorLon);
-              var name = resultpoisData[k].name;
-
-              var pointCng = new Tmapv2.Point(noorLon, noorLat);
-              var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
-
-              var lat = projectionCng._lat;
-              var lon = projectionCng._lng;
-
-              var markerPosition = new Tmapv2.LatLng(lat, lon);
-              marker = new Tmapv2.Marker({
-                position: markerPosition,
-                icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
-                iconSize: new Tmapv2.Size(24, 38),
-                title: name,
-                map: map
-              });
-
-              markerArr.push(marker);              // LatLngBounds의 객체 확장
-              positionBounds.extend(markerPosition);
-            }
-
-            for (let i = 0; i < markerArr.length; i++) {
-              $(markerArr[i]._htmlElement).click(() => {
-                const elat = markerArr[i]._marker_data.options.position._lat;
-                const elng = markerArr[i]._marker_data.options.position._lng;
-                $("#end").val(markerArr[i]._marker_data.options.title);
-                $('#endlon').val(elng);
-                $('#endlat').val(elat);
-                // map.destroy();
-                // initTmap();
-              })
-            }
-
-            // 확장된 bounds의 중심으로 이동시키기
-            map.panToBounds(positionBounds);
-            map.zoomOut();
-          },
-          error: function (request, status, error) {
-            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-          }
-        });
-      }
-
-      function route() {
-
-        var start = $('#start').val();
-        if (start == "") {
-          alert("도착할 장소를 검색 후 선택해주세요.");
-          $('#startPoint').focus();
-          return;
-        }
-
-        var end = $('#end').val();
-        if (end == "") {
-          alert("도착할 장소를 검색 후 선택해주세요.");
-          $('#endPoint').focus();
-          return;
-        }
-
-        // ------ 초기화
-        if (markerArr.length > 0) {
-          for (var i in markerArr) {
-            markerArr[i].setMap(null);
-          }
-        }
-
-        if (resultMarkerArr.length > 0) {
-          for (var i = 0; i < resultMarkerArr.length; i++) {
-            resultMarkerArr[i].setMap(null);
-          }
-        }
-
-        if (resultdrawArr.length > 0) {
-          for (var i = 0; i < resultdrawArr.length; i++) {
-            resultdrawArr[i].setMap(null);
-          }
-        }
-
-        drawInfoArr = [];
-        resultMarkerArr = [];
-        resultdrawArr = [];
-
-        // 초기화 ------
-
-        var startX = $('#startlon').val();
-        var startY = $('#startlat').val();
-        var endX = $('#endlon').val();
-        var endY = $('#endlat').val();
-
-        $
-          .ajax({
-            type: "POST",
-            url: "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
-            async: false,
-            data: {
-              "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
-              "startX": startX,
-              "startY": startY,
-              "endX": endX,
-              "endY": endY,
-              "reqCoordType": "WGS84GEO",
-              "resCoordType": "EPSG3857",
-            },
-            success: function (response) {
-
-              var positionBounds = new Tmapv2.LatLngBounds();		//맵에 결과물 확인 하기 
-
-              var x;
-              var y;
-
-              var numberSX = parseFloat(startX);
-              var numberSY = parseFloat(startY);
-              var numberEX = parseFloat(endX);
-              var numberEY = parseFloat(endY);
-
-              if (numberSX > numberEX) {
-                var x = numberEX + (numberSX - numberEX) / 2;
-              } else {
-                var x = numberSX + (numberEX - numberSX) / 2;
-              }
-
-              if (numberSY > numberEY) {
-                var y = numberEY + (numberSY - numberEY) / 2;
-              } else {
-                var y = numberSY + ((numberEY - numberSY) / 2);
-              }
-
-              var lonlat = new Tmapv2.LatLng(y, x);
-              map.setCenter(lonlat);
-
-              var resultData = response.features;
-              console.log(resultData);
-              var tDistance = (resultData[0].properties.totalDistance / 1000).toFixed(1);
-              if (tDistance < 10) {
-                console.log("10km미만");
-                map.zoomOut();
-              } else if (tDistance < 20) {
-                console.log("20km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else if (tDistance < 30) {
-                console.log("30km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else if (tDistance < 40) {
-                console.log("40km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else {
-                console.log("40km이상");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              }
-
-              var tTime = (resultData[0].properties.totalTime / 60).toFixed(0);
-              var tFare = resultData[0].properties.taxiFare;
-              console.log(parseFloat(tDistance));
-
-              // $('#routeTime').text('약 ' + tTime + '분 정도 걸리는 거리입니다.');
-              $('#distance').val(parseFloat(tDistance));
-              $('#time').val(parseInt(tTime));
-              //택시비의 60프로 저렴한 가격
-              $('#fare').val(parseInt(tFare) * 0.6);
-
-              console.log(parseInt(tTime));
-
-              for (var i in resultData) { //for문 [S]
-                var geometry = resultData[i].geometry;
-                var properties = resultData[i].properties;
-
-                if (geometry.type == "LineString") {
-                  for (var j in geometry.coordinates) {
-                    // 경로들의 결과값들을 포인트 객체로 변환 
-                    var latlng = new Tmapv2.Point(
-                      geometry.coordinates[j][0],
-                      geometry.coordinates[j][1]);
-                    // 포인트 객체를 받아 좌표값으로 변환
-                    var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-                      latlng);
-                    // 포인트객체의 정보로 좌표값 변환 객체로 저장
-                    var convertChange = new Tmapv2.LatLng(
-                      convertPoint._lat,
-                      convertPoint._lng);
-                    // 배열에 담기
-                    drawInfoArr
-                      .push(convertChange);
-                  }
-                  drawLine(drawInfoArr,
-                    "0");
-                } else {
-
-                  var markerImg = "";
-                  var pType = "";
-
-                  if (properties.pointType == "S") { //출발지 마커
-                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
-                    pType = "S";
-                  } else if (properties.pointType == "E") { //도착지 마커
-                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
-                    pType = "E";
-                  } else { //각 포인트 마커
-                    markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-                    pType = "P"
-                  }
-
-                  // 경로들의 결과값들을 포인트 객체로 변환 
-                  var latlon = new Tmapv2.Point(
-                    geometry.coordinates[0],
-                    geometry.coordinates[1]);
-                  // 포인트 객체를 받아 좌표값으로 다시 변환
-                  var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-                    latlon);
-
-                  var routeInfoObj = {
-                    markerImage: markerImg,
-                    lng: convertPoint._lng,
-                    lat: convertPoint._lat,
-                    pointType: pType
-                  };
-
-                  // Marker 추가
-                  addMarkers(routeInfoObj);
-                }
-              }//for문 [E]
-
-            },
-            error: function (request, status, error) {
-              console.log("code:"
-                + request.status + "\n"
-                + "message:"
-                + request.responseText
-                + "\n" + "error:" + error);
-            }
-          });
-
-        //마커 생성하기
-        function addMarkers(infoObj) {
-          var size = new Tmapv2.Size(24, 38);//아이콘 크기 설정합니다.
-
-          if (infoObj.pointType == "P") { //포인트점일때는 아이콘 크기를 줄입니다.
-            size = new Tmapv2.Size(8, 8);
-          }
-
-          marker_p = new Tmapv2.Marker({
-            position: new Tmapv2.LatLng(infoObj.lat, infoObj.lng),
-            icon: infoObj.markerImage,
-            iconSize: size,
-            map: map
-          });
-
-          resultMarkerArr.push(marker_p);
-        }
-
-        //라인그리기
-        function drawLine(arrPoint, traffic) {
-          var polyline_ = new Tmapv2.Polyline({
-            path: arrPoint,
-            strokeColor: "#DD0000",
-            strokeWeight: 6,
-            map: map
-          });
-          resultdrawArr.push(polyline_);
-        }
-      }
-      // ------------TMAP API------------
-
-      $('#submit').click(function () {
-
-        if ($(':radio[name="work"]:checked').length < 1) {
-          $('#workCheck').css('display', 'block');
-          return false;
-        } else {
-          $('#workCheck').css('display', 'none');
-        }
-
-        if ($('#datepicker').val() == "") {
-          $('#dateRecheck').css('display', 'none');
-          $('#dateCheck').css('display', 'block');
-          return false;
-        } else {
-          $('#dateCheck').css('display', 'none');
-        }
-
-        if ($('#tocommute').val() == "선택" || $('#tocommutes').val() == "선택") {
-          $('#timeRecheck').css('display', 'none');
-          $('#timeCheck').css('display', 'block');
-          return false;
-        } else {
-          $('#timeCheck').css('display', 'none');
-        }
-
-        if ($('#start').val() == "" || $('#end').val() == "") {
-          $('#routeCheck').css('display', 'block');
-          return false;
-        } else {
-          $('#routeCheck').css('display', 'none');
-        }
-
-        if ($('#fare').val() == "") {
-          $('#searchCheck').css('display', 'block');
-          return false;
-        } else {
-          $('#searchCheck').css('display', 'none');
-        }
-
-        const CarPoolRegistraion = {
-          dDate: $('#datepicker').val().toString(),
-          dCommute: $("input:radio[name='work']:checked").val().toString(),
-          dStartTime: $('#tocommute').val(),
-          dEndTime: $('#tocommutes').val(),
-          dStartPoint: $('#start').val().toString(),
-          dEndPoint: $('#end').val().toString(),
-          dFee: $('#fare').val(),
-          dDistance: $('#distance').val(),
-          dTime: $('#time').val(),
-          dStartlon: $('#startlon').val(),
-          dStartlat: $('#startlat').val(),
-          dEndlon: $('#endlon').val(),
-          dEndlat: $('#endlat').val()
-        }
-
-        $.ajax({
-          url: '/driver/driverCarpool/registration',
-          type: 'POST',
-          data: CarPoolRegistraion,
-          success: function (data) {
-            console.log(data);
-            if (data == '등록성공') {
-              console.log(data);
-              alert('정상적으로 등록되었습니다.');
-              window.location.reload();
+            if (numberSX > numberEX) {
+              var x = numberEX + (numberSX - numberEX) / 2;
             } else {
-              alert('등록에 실패했습니다.');
+              var x = numberSX + (numberEX - numberSX) / 2;
             }
+
+            if (numberSY > numberEY) {
+              var y = numberEY + (numberSY - numberEY) / 2;
+            } else {
+              var y = numberSY + ((numberEY - numberSY) / 2);
+            }
+
+            var lonlat = new Tmapv2.LatLng(y, x);
+            map.setCenter(lonlat);
+
+            var resultData = response.features;
+            console.log(resultData);
+            var tDistance = (resultData[0].properties.totalDistance / 1000).toFixed(1);
+            if (tDistance < 10) {
+              console.log("10km미만");
+              map.zoomOut();
+            } else if (tDistance < 20) {
+              console.log("20km미만");
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+            } else if (tDistance < 30) {
+              console.log("30km미만");
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+            } else if (tDistance < 40) {
+              console.log("40km미만");
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+            } else {
+              console.log("40km이상");
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+              map.zoomOut();
+            }
+
+            var tTime = (resultData[0].properties.totalTime / 60).toFixed(0);
+            var tFare = resultData[0].properties.taxiFare;
+            console.log(parseFloat(tDistance));
+
+            // $('#routeTime').text('약 ' + tTime + '분 정도 걸리는 거리입니다.');
+            $('#distance').val(parseFloat(tDistance));
+            $('#time').val(parseInt(tTime));
+            //택시비의 60프로 저렴한 가격
+            $('#fare').val(parseInt(tFare) * 0.6);
+
+            console.log(parseInt(tTime));
+
+            for (var i in resultData) { //for문 [S]
+              var geometry = resultData[i].geometry;
+              var properties = resultData[i].properties;
+
+              if (geometry.type == "LineString") {
+                for (var j in geometry.coordinates) {
+                  // 경로들의 결과값들을 포인트 객체로 변환 
+                  var latlng = new Tmapv2.Point(
+                    geometry.coordinates[j][0],
+                    geometry.coordinates[j][1]);
+                  // 포인트 객체를 받아 좌표값으로 변환
+                  var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+                    latlng);
+                  // 포인트객체의 정보로 좌표값 변환 객체로 저장
+                  var convertChange = new Tmapv2.LatLng(
+                    convertPoint._lat,
+                    convertPoint._lng);
+                  // 배열에 담기
+                  drawInfoArr
+                    .push(convertChange);
+                }
+                drawLine(drawInfoArr,
+                  "0");
+              } else {
+
+                var markerImg = "";
+                var pType = "";
+
+                if (properties.pointType == "S") { //출발지 마커
+                  markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+                  pType = "S";
+                } else if (properties.pointType == "E") { //도착지 마커
+                  markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+                  pType = "E";
+                } else { //각 포인트 마커
+                  markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+                  pType = "P"
+                }
+
+                // 경로들의 결과값들을 포인트 객체로 변환 
+                var latlon = new Tmapv2.Point(
+                  geometry.coordinates[0],
+                  geometry.coordinates[1]);
+                // 포인트 객체를 받아 좌표값으로 다시 변환
+                var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+                  latlon);
+
+                var routeInfoObj = {
+                  markerImage: markerImg,
+                  lng: convertPoint._lng,
+                  lat: convertPoint._lat,
+                  pointType: pType
+                };
+
+                // Marker 추가
+                addMarkers(routeInfoObj);
+              }
+            }//for문 [E]
+
+          },
+          error: function (request, status, error) {
+            console.log("code:"
+              + request.status + "\n"
+              + "message:"
+              + request.responseText
+              + "\n" + "error:" + error);
           }
         });
-      });
 
-    </script>
-  </th:block>
+      //마커 생성하기
+      function addMarkers(infoObj) {
+        var size = new Tmapv2.Size(24, 38);//아이콘 크기 설정합니다.
+
+        if (infoObj.pointType == "P") { //포인트점일때는 아이콘 크기를 줄입니다.
+          size = new Tmapv2.Size(8, 8);
+        }
+
+        marker_p = new Tmapv2.Marker({
+          position: new Tmapv2.LatLng(infoObj.lat, infoObj.lng),
+          icon: infoObj.markerImage,
+          iconSize: size,
+          map: map
+        });
+
+        resultMarkerArr.push(marker_p);
+      }
+
+      //라인그리기
+      function drawLine(arrPoint, traffic) {
+        var polyline_ = new Tmapv2.Polyline({
+          path: arrPoint,
+          strokeColor: "#DD0000",
+          strokeWeight: 6,
+          map: map
+        });
+        resultdrawArr.push(polyline_);
+      }
+    }
+    // ------------TMAP API------------
+
+    $('#submit').click(function () {
+
+      if ($(':radio[name="work"]:checked').length < 1) {
+        $('#workCheck').css('display', 'block');
+        return false;
+      } else {
+        $('#workCheck').css('display', 'none');
+      }
+
+      if ($('#datepicker').val() == "") {
+        $('#dateRecheck').css('display', 'none');
+        $('#dateCheck').css('display', 'block');
+        return false;
+      } else {
+        $('#dateCheck').css('display', 'none');
+      }
+
+      if ($('#tocommute').val() == "선택" || $('#tocommutes').val() == "선택") {
+        $('#timeRecheck').css('display', 'none');
+        $('#timeRecheck1').css('display', 'none');
+        $('#timeRecheck2').css('display', 'none');
+        $('#timeCheck').css('display', 'block');
+        return false;
+      } else {
+        $('#timeCheck').css('display', 'none');
+      }
+
+      if ($('#start').val() == "" || $('#end').val() == "") {
+        $('#routeCheck').css('display', 'block');
+        return false;
+      } else {
+        $('#routeCheck').css('display', 'none');
+      }
+
+      if ($('#fare').val() == "") {
+        $('#searchCheck').css('display', 'block');
+        return false;
+      } else {
+        $('#searchCheck').css('display', 'none');
+      }
+
+      const CarPoolRegistraion = {
+        dDate: $('#datepicker').val().toString(),
+        dCommute: $("input:radio[name='work']:checked").val().toString(),
+        dStartTime: $('#tocommute').val(),
+        dEndTime: $('#tocommutes').val(),
+        dStartPoint: $('#start').val().toString(),
+        dEndPoint: $('#end').val().toString(),
+        dFee: $('#fare').val(),
+        dDistance: $('#distance').val(),
+        dTime: $('#time').val(),
+        dStartlon: $('#startlon').val(),
+        dStartlat: $('#startlat').val(),
+        dEndlon: $('#endlon').val(),
+        dEndlat: $('#endlat').val()
+      }
+
+      $.ajax({
+        url: '/driver/driverCarpool/registration',
+        type: 'POST',
+        data: CarPoolRegistraion,
+        success: function (data) {
+          console.log(data);
+          if (data == '등록성공') {
+            console.log(data);
+            alert('정상적으로 등록되었습니다.');
+            window.location.reload();
+          } else {
+            alert('등록에 실패했습니다.');
+          }
+        }
+      });
+    });
+
+  </script>
+</th:block>
 
 </html>
