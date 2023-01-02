@@ -6,6 +6,7 @@
 		SELECT dr.dr_idx,dr.d_commute, dr.d_date, dr.d_startTime, dr.d_endTime, dr.d_startPoint, dr.d_endPoint, dr.d_startlon, dr.d_startlat, dr.d_endlon, dr.d_endlat, dr.d_fee, r.p_idx, r.r_idx
 		FROM d_registration dr, reservation r
 		WHERE dr.d_idx = #{dIdx} AND dr.dr_idx = r.dr_idx AND r.r_acceptStatus = 'waiting' AND r.r_confirm = 'false'
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_starttime, 0, 2)||substr(dr.d_endtime, 4,5), 'yymmddhh24mi') >= sysdate
 	</select>
 
 	<update id="updateAccepted">
