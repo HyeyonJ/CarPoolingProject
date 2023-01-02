@@ -11,6 +11,7 @@
 		<div class="card" style="width: 500px; margin-left:450px; text-align: center;">
 			<div class="card-body" >
 				<h3>Passenger Login</h3>
+				
 				<div style="border-bottom: solid 1px gray; margin-top:20px;"></div>
 				<form action="/passenger/login" method="post" th:object="${pLoginForm}">				
 					<!-- 일반 로그인 -->
@@ -25,16 +26,16 @@
 						<a href="/" style="margin-left:200px; text-decoration: none; color: black;">ID/PW 찾기</a>
 					</div>
 				
-					<!-- 			네이버 로그인 -->
+					<!-- 네이버 로그인 -->
 					<div style="margin-top:30px; text-decoration: bold;">
-						<a th:href="@{/driver/login/naver}"><img height="50px"
+						<a th:href="${apiURL}"><img height="50px"
 							width="300px" src="/img/buttonNaver.png" /></a>
 					</div>					
 					
 					<!-- 카카오 로그인 -->
 					<div>
 						<a
-							th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/kakao/redirect&response_type=code}">
+							th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/passenger/login/kakao/redirect&response_type=code}">
 							<img src="/img/buttonKakao.png" height="50" width="300px"
 							alt="카카오 로그인 버튼" />
 						</a>

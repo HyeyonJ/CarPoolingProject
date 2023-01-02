@@ -17,6 +17,9 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.global.session.SessionVar;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
@@ -43,8 +47,10 @@ public class PsgNaverLoginController {
 	
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
 	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
-	
 
+	
+//	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
+//	private String CLI_SECRET = "Y28XSEjKSi";
 	/**
 	 * 콜백 페이지 컨트롤러
 	 * 
@@ -56,15 +62,15 @@ public class PsgNaverLoginController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/naver/redirect")
-	public String naverCallback(HttpSession session
+	public String psgNaverCallback(HttpSession session
 			, HttpServletRequest request
 			, Model model, HttpServletRequest req
-			, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/registration") String redirectURL)
+			, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL)
 				throws IOException, ParseException {
 
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("http://localhost:8080/passener/login/naver/callback", "UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost:8080/passener/login/naver/redirect", "UTF-8");
 
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -77,7 +83,7 @@ public class PsgNaverLoginController {
 		System.out.println("apiURL=" + apiURL);
 		System.out.println("----------------------------");
 
-		String res = requestToServer(apiURL);
+		String res = psgRequestToServer(apiURL);
 		System.out.println("res : " + res);
 		
 		String accessToken = null;
@@ -106,7 +112,7 @@ public class PsgNaverLoginController {
 		log.info("accessToken: {}", accessToken);
 		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String resProfile = requestToServer(getProfileApiURL, headerStr);
+		String resProfile = psgRequestToServer(getProfileApiURL, headerStr);
 		log.info("resPofile {}", resProfile);
 		//사용자 아이디랑 닉네임 정보
 
@@ -130,7 +136,7 @@ public class PsgNaverLoginController {
 		
 		if ( passengerInfo2 == null ) {
 //			bindingResult.reject("loginForm", "이메일 or 비밀번호");
-			return "driver/join/dNaverCallback";
+			return "passenger/join/pNaverCallback";
 			
 		}
 		
@@ -139,6 +145,19 @@ public class PsgNaverLoginController {
 //		session1.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;
+	}
+	
+	// Naver 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
+	@PostMapping("/naver/join")
+	public String psgNaverInsert(@ModelAttribute PassengerInfo passengerInfo, BindingResult bindingResult, HttpServletRequest req) {
+		System.out.println("passengerInfo : " + passengerInfo);
+		System.out.println("---------------------------");
+		
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);
+		
+		passengerInfoRepository.insert(passengerInfo);
+		return "passenger/pReservation";
 	}
 
 	/**
@@ -153,7 +172,7 @@ public class PsgNaverLoginController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/naver/refreshToken")
-	public String refreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
+	public String psgRefreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
 			throws IOException, ParseException {
 
 		String apiURL;
@@ -165,7 +184,7 @@ public class PsgNaverLoginController {
 
 		System.out.println("apiURL=" + apiURL);
 
-		String res = requestToServer(apiURL);
+		String res = psgRequestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
 		return "passenger/login/pNaverCallback";
@@ -182,7 +201,7 @@ public class PsgNaverLoginController {
 	 * @throws IOException
 	 */
 	@RequestMapping("/naver/deleteToken")
-	public String deleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
+	public String psgDeleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
 			throws IOException {
 
 		String apiURL;
@@ -195,7 +214,7 @@ public class PsgNaverLoginController {
 
 		System.out.println("apiURL=" + apiURL);
 
-		String res = requestToServer(apiURL);
+		String res = psgRequestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
 		return "passenger/login/pNaverCallback";
@@ -210,11 +229,11 @@ public class PsgNaverLoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/naver/getProfile")
-	public String getProfileFromNaver(String accessToken) throws IOException {
+	public String psgGetProfileFromNaver(String accessToken) throws IOException {
 		// 네이버 로그인 접근 토큰;
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String res = requestToServer(apiURL, headerStr);
+		String res = psgRequestToServer(apiURL, headerStr);
 		return res;
 	}
 
@@ -225,7 +244,7 @@ public class PsgNaverLoginController {
 	 * @return
 	 */
 	@RequestMapping("/naver/invalidate")
-	public String invalidateSession(HttpSession session) {
+	public String psgInvalidateSession(HttpSession session) {
 		session.invalidate();
 		return "redirect:/naver";
 	}
@@ -237,8 +256,8 @@ public class PsgNaverLoginController {
 	 * @return
 	 * @throws IOException
 	 */
-	private String requestToServer(String apiURL) throws IOException {
-		return requestToServer(apiURL, "");
+	private String psgRequestToServer(String apiURL) throws IOException {
+		return psgRequestToServer(apiURL, "");
 	}
 
 	/**
@@ -249,7 +268,7 @@ public class PsgNaverLoginController {
 	 * @return
 	 * @throws IOException
 	 */
-	private String requestToServer(String apiURL, String headerStr) throws IOException {
+	private String psgRequestToServer(String apiURL, String headerStr) throws IOException {
 		URL url = new URL(apiURL);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");

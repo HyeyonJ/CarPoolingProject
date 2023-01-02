@@ -37,7 +37,7 @@ public class PsgLoginController {
 	private final PassengerLoginService passengerLoginService;
 	
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
-	private String CLI_SECRET = "Y28XvSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
+	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
 	
 	@GetMapping("/login")
 	public String loginMain(HttpSession session, Model model) 
@@ -46,7 +46,7 @@ public class PsgLoginController {
 		model.addAttribute("pLoginForm", pLoginForm);
 		
 	// 네이버		
-	    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/redirect", "UTF-8");
+	    String redirectURI = URLEncoder.encode("http://localhost:8080/passenger/login/naver/redirect", "UTF-8");
 	    
 	    SecureRandom random = new SecureRandom();
 	    String state = new BigInteger(130, random).toString();

@@ -44,6 +44,7 @@ import project.carPooling.global.session.SessionVar;
 @RequiredArgsConstructor
 @RequestMapping("/driver/login")
 public class DrvNaverLoginController {
+	
 	@Autowired
 	private final DriverInfoRepository driverInfoRepository;
 	
@@ -61,7 +62,7 @@ public class DrvNaverLoginController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/naver/redirect")
-	public String naverCallback(HttpSession session
+	public String drvNaverCallback(HttpSession session
 								, HttpServletRequest request
 								, Model model, HttpServletRequest req
 								, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL)
@@ -84,7 +85,7 @@ public class DrvNaverLoginController {
 		System.out.println("apiURL=" + apiURL);
 		System.out.println("----------------------------");
 
-		String res = requestToServer(apiURL);
+		String res = drvRequestToServer(apiURL);
 		System.out.println("res : " + res);
 		
 		String accessToken = null;
@@ -113,7 +114,7 @@ public class DrvNaverLoginController {
 		log.info("accessToken: {}", accessToken);
 		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String resProfile = requestToServer(getProfileApiURL, headerStr);
+		String resProfile = drvRequestToServer(getProfileApiURL, headerStr);
 		log.info("resPofile {}", resProfile);
 		//사용자 아이디랑 닉네임 정보
 
@@ -152,7 +153,7 @@ public class DrvNaverLoginController {
 	
 	// Naver 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
 		@PostMapping("/naver/join")
-		public String NaverInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult, HttpServletRequest req) {
+		public String drvNaverInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult, HttpServletRequest req) {
 			System.out.println("driverInfo : " + driverInfo);
 			System.out.println("---------------------------");
 			
@@ -175,7 +176,7 @@ public class DrvNaverLoginController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/naver/refreshToken")
-	public String refreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
+	public String drvRefreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
 			throws IOException, ParseException {
 
 		String apiURL;
@@ -187,7 +188,7 @@ public class DrvNaverLoginController {
 
 		System.out.println("apiURL=" + apiURL);
 
-		String res = requestToServer(apiURL);
+		String res = drvRequestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
 		return "driver/join/dNaverCallback";
@@ -204,7 +205,7 @@ public class DrvNaverLoginController {
 	 * @throws IOException
 	 */
 	@RequestMapping("/naver/deleteToken")
-	public String deleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
+	public String drvDeleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
 			throws IOException {
 
 		String apiURL;
@@ -217,7 +218,7 @@ public class DrvNaverLoginController {
 
 		System.out.println("apiURL=" + apiURL);
 
-		String res = requestToServer(apiURL);
+		String res = drvRequestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
 		return "driver/login/dNaverCallback";
@@ -232,11 +233,11 @@ public class DrvNaverLoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/naver/getProfile")
-	public String getProfileFromNaver(String accessToken) throws IOException {
+	public String drvGetProfileFromNaver(String accessToken) throws IOException {
 		// 네이버 로그인 접근 토큰;
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String res = requestToServer(apiURL, headerStr);
+		String res = drvRequestToServer(apiURL, headerStr);
 		return res;
 	}
 
@@ -247,9 +248,9 @@ public class DrvNaverLoginController {
 	 * @return
 	 */
 	@RequestMapping("/naver/invalidate")
-	public String invalidateSession(HttpSession session) {
+	public String drvInvalidateSession(HttpSession session) {
 		session.invalidate();
-		return "redirect:/naver";
+		return "redirect:/home";
 	}
 
 	/**
@@ -259,8 +260,8 @@ public class DrvNaverLoginController {
 	 * @return
 	 * @throws IOException
 	 */
-	private String requestToServer(String apiURL) throws IOException {
-		return requestToServer(apiURL, "");
+	private String drvRequestToServer(String apiURL) throws IOException {
+		return drvRequestToServer(apiURL, "");
 	}
 
 	/**
@@ -271,7 +272,7 @@ public class DrvNaverLoginController {
 	 * @return
 	 * @throws IOException
 	 */
-	private String requestToServer(String apiURL, String headerStr) throws IOException {
+	private String drvRequestToServer(String apiURL, String headerStr) throws IOException {
 		URL url = new URL(apiURL);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
