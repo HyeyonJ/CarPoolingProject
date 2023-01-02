@@ -5,11 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>네이버 아이디 로그인 추가 정보 입력</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <style>
 .errormsg { color: red; }
@@ -20,15 +16,15 @@
 <th:block layout:fragment="content">
 	<div style="margin-top: 50px;"></div>
 	<div style="margin: auto; margin: center; text-align: center;">
-		현재<img src="/img/naver.png"
-			style="width: 160px; height: 40px; margin-bottom: 20px;">계정으로
+		현재 <img src="/img/naver.png"
+			style="width: 160px; height: 40px; margin-bottom: 20px;"> 계정으로
 		인증되었습니다.
 	</div>
 	<div style="margin: auto; margin: center; text-align: center;">
-		네이버를 통해서 간편로그인을 한 경우 Carpooling 서비스를 이용하시기 위해서<br> 추가 정보가 필요합니다.
-		추가 정보를 기입해주시길 바랍니다.
+		네이버를 통해서 간편로그인을 한 경우 Carpooling 서비스를 이용하시기 위해서<br>
+		추가 정보가 필요합니다. 추가 정보를 기입해주시길 바랍니다.
 	</div>
-	<div style="border-bottom: solid 1px black; margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;"></div>
+	<div style="border-bottom: solid 1px silver; margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;"></div>
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
@@ -123,7 +119,7 @@
 						</div>
 					</div>
 
-						<!-- 운전 면허 관련 정보 -->
+				<!-- 운전 면허 관련 정보 -->
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="dLicenseNum">* 운전면허번호</label> <input
@@ -150,17 +146,14 @@
 						</div>
 					</div>
 				
-						<!-- 개인정보활용동의 -->
+				<!-- 개인정보활용동의 -->
 					<div class="custom-control custom-checkbox mb-3" style="margin-top:30px; text-align: center;">
 						<input type="checkbox" class="custom-control-input" id="aggrement"
 							required> <label class="custom-control-label"
 							for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
 					</div>
-					<!-- 			<div> -->
-					<!-- 				<label for="carType">차 종류</label> -->
-					<!-- 				<input class="form-control" type="text" id="carType" th:field="carType"> -->
-					<!-- 			</div> -->
-						<!-- 회원 가입 버튼 -->
+
+				<!-- 회원 가입 버튼 -->
 					<div class="row">
 							<div style="margin-top: 20px; text-align: center">
 								<button type="button" class="btn btn-dark" data-bs-toggle="modal"
@@ -169,7 +162,7 @@
 									th:onclick="|location.href='@{/}'|">취소</button>
 							</div>
 					</div>
-						<!-- 회원 가입 버튼 클릭 시 모달창 -->
+				<!-- 회원 가입 버튼 클릭 시 모달창 -->
 					<div class="modal" id="exampleModal" tabindex="-1"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">

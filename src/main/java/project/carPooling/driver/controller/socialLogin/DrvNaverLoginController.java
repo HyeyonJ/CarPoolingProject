@@ -110,8 +110,6 @@ public class DrvNaverLoginController {
 		// input value =id, name
 		//return "driver/login/dNaverCallback"; 회원가입 입력하는 페이지로 바로 이동
 		
-		//AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
-		//currentAT=AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
 		log.info("accessToken: {}", accessToken);
 		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
@@ -158,11 +156,8 @@ public class DrvNaverLoginController {
 			System.out.println("driverInfo : " + driverInfo);
 			System.out.println("---------------------------");
 			
-//			memberValidator.validate(member, bindingResult);
-			
-//			if(bindingResult.hasErrors()) {
-//				return "members/newMember";
-//			}
+			HttpSession session = req.getSession();
+			session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 			
 			driverInfoRepository.insert(driverInfo);
 			return "driver/dRegistration";
