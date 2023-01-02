@@ -38,4 +38,15 @@ public class MybatisReservationListRepository implements ReservationListReposito
 		return pastList;
 	}
 
+	@Override
+	public boolean deleteRsv(Integer drIdx, Integer pIdx) {
+		boolean result = false;
+		try {
+			reservationListMapper.deleteRsv(drIdx, pIdx);
+			result = true;
+		} catch (Exception e) {
+		}
+		return result;
+	}
+
 }

@@ -15,4 +15,6 @@ public interface ReservationListMapper {
 	public List<Map<String, Object>> selectRefusedReservationList(@Param("pIdx") Integer pIdx);
 	
 	public List<Map<String, Object>> selectPastReservationList(@Param("pIdx") Integer pIdx);
+
+	public void deleteRsv(@Param("drIdx") Integer drIdx, @Param("pIdx") Integer pIdx);
 }

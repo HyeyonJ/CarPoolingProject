@@ -179,14 +179,13 @@
           </div>
         </div>
 
-        <!-- <div id="popup_mask"></div> -->
-        <!-- 팝업 배경 DIV -->
+        <div id="popup_mask"></div>
 
-        <!-- <div id="popupDiv"> -->
-        <!-- 팝업창 -->
-        <!-- <button id="popCloseBtn" class="btn btn-primary">닫기</button> -->
-        <!-- <div id="map_div"></div> -->
-        <!-- </div> -->
+        <div id="popupDiv">
+
+          <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+          <div id="map_div"></div>
+        </div>
 
       </div>
 
@@ -266,19 +265,19 @@
         list();
 
         // 예약된 카풀 날짜 버튼 클릭시 디스플레이
-        $('#pastAllButton').click(function () {
+        $('#pastAllBtn').click(function () {
           $('#pastAllList').css('display', 'inline');
           $('#todayAllList').css('display', 'none');
           $('#futureAllList').css('display', 'none');
         });
 
-        $('#todayAllButton').click(function () {
+        $('#todayAllBtn').click(function () {
           $('#todayAllList').css('display', 'inline');
           $('#pastAllList').css('display', 'none');
           $('#futureAllList').css('display', 'none');
         });
 
-        $('#futureAllButton').click(function () {
+        $('#futureAllBtn').click(function () {
           $('#futureAllList').css('display', 'inline');
           $('#pastAllList').css('display', 'none');
           $('#todayAllList').css('display', 'none');
@@ -315,10 +314,28 @@
 
       });
 
+      /*거절*/
+      function deleteRegistration(dr_idx) {
+        confirm('등록을 취소하시겠습니까?');
+
+        $.ajax({
+          url: '/driver/driverCarpool/registration/delete',
+          type: 'DELETE',
+          data: { drIdx: dr_idx },
+          success: function (data) {
+            if (data != null) {
+              alert('취소되었습니다.');
+              window.location.reload();
+            }
+            waitingRsv();
+          }
+        });
+      }
+
       function list() {
         $.ajax({
-          url: "/driver/driverCarpool/reservatedList",
-          type: "POST",
+          url: "/driver/driverCarpool/registration/acceptedList",
+          type: "GET",
           success: (data) => {
             console.log(data);
 
@@ -357,8 +374,7 @@
                 todayhtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
                 todayhtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
                 todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-                todayhtml += '<button class="btn btn-primary" id="todayYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">수락</button>';
-                todayhtml += '<button class="btn btn-primary" id="todayNbtn" onclick="refuse(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">거절</button>' + '<br><br>\n';
+                todayhtml += '<button class="btn btn-primary" id="todayYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">운행시작</button>';
                 todayhtml += '</div>';
 
                 //미래
@@ -379,8 +395,7 @@
                 futurehtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
                 futurehtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
                 futurehtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-                futurehtml += '<button class="btn btn-primary" id="futureYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">수락</button>';
-                futurehtml += '<button class="btn btn-primary" id="futureNbtn" onclick="refuse(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">거절</button>' + '<br><br>\n';
+                futurehtml += '<button class="btn btn-primary" id="futureYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">운행시작</button>';
                 futurehtml += '</div>';
               }
 
@@ -397,8 +412,8 @@
 
       function allList() {
         $.ajax({
-          url: "/driver/driverCarpool/allList",
-          type: "POST",
+          url: "/driver/driverCarpool/registration/allList",
+          type: "GET",
           success: (data) => {
             console.log(data);
 
@@ -432,12 +447,12 @@
 
                 if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
 
-                  pasthtml += '<button class="btn btn-primary" onclick="notdel()" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
+                  pasthtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
                   pasthtml += '</div>';
 
                 } else {
 
-                  pasthtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteData(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
+                  pasthtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
                   pasthtml += '</div>';
 
                 }
@@ -457,10 +472,10 @@
                 todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
 
                 if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
-                  todayhtml += '<button class="btn btn-primary" onclick="notdel()" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
+                  todayhtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
                   todayhtml += '</div>';
                 } else {
-                  todayhtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteData(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
+                  todayhtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
                   todayhtml += '</div>';
 
                 }
@@ -481,11 +496,11 @@
 
                 if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
 
-                  futurehtml += '<button class="btn btn-primary" onclick="notdel()" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
+                  futurehtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
                   futurehtml += '</div>';
 
                 } else {
-                  futurehtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteData(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
+                  futurehtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
                   futurehtml += '</div>';
 
                 }
@@ -504,54 +519,8 @@
         })
       }
 
-      //삭제
-      function deleteData(dr_idx) {
 
 
-        confirm('정말 삭제하시겠습니까?');
-
-        $.ajax({
-          url: 'http://13.125.252.85:8080/server/carpool/' + dr_idx,
-          type: 'DELETE',
-          success: function (data) {
-            if (data != null) {
-              alert('정상적으로 삭제되었습니다.');
-              allList();
-              List();
-
-            } else {
-              alert('오류가 발생하였습니다.');
-            }
-
-          }
-        });
-
-
-      };
-
-
-      //카풀취소
-      function deleteCarpool(r_idx) {
-
-        confirm('정말 취소하시겠습니까?');
-
-        $.ajax({
-          url: 'http://13.125.252.85:8080/server/carpool/N/' + r_idx,
-          type: 'DELETE',
-          success: function (data) {
-            if (data != null) {
-              alert('정상적으로 취소되었습니다.');
-              allList();
-              List();
-
-            } else {
-              alert('오류가 발생하였습니다.');
-            }
-
-          }
-        })
-
-      };
 
 
 
