@@ -46,7 +46,7 @@ public class DrvLoginController {
 		DriverLoginForm dLoginForm = new DriverLoginForm();
 		model.addAttribute("dLoginForm", dLoginForm);
 		
-// 네이버		
+	// 네이버		
 	    String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/redirect", "UTF-8");
 	    
 	    SecureRandom random = new SecureRandom();
