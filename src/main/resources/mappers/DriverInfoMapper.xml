@@ -10,7 +10,8 @@
 				 END) as dUserGender
 			FROM dual
 		</selectKey>
-		INSERT INTO driver
+		INSERT INTO driver (d_idx, d_userType, d_userId, d_userPw, d_userName, d_userTel, 
+		d_userEmail, d_userGender, d_idNum1, d_idNum2, d_signOut, d_licenseNum, d_licenseDate, d_carNum)
 		VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
 		#{dUserEmail}, #{dUserGender}, #{dIdNum1}, #{dIdNum2}, 'false', #{dLicenseNum},
 		#{dLicenseDate}, #{dCarNum})

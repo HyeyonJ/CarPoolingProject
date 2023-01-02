@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
@@ -62,7 +63,8 @@ public class DrvNaverLoginController {
 	@RequestMapping("/naver/redirect")
 	public String naverCallback(HttpSession session
 								, HttpServletRequest request
-								, Model model)
+								, Model model, HttpServletRequest req
+								, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL)
 									throws IOException, ParseException {
 
 		String code = request.getParameter("code");
@@ -136,25 +138,23 @@ public class DrvNaverLoginController {
 		
 		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
 		
-//		if ( driverInfo2 == null ) {
-////			bindingResult.reject("loginForm", "이메일 or 비밀번호");
-//			return "driver/join/dKakaoCallback";
-//			
-//		}
-//		
-//		HttpSession session = req.getSession();
-//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
-//		session.setMaxInactiveInterval(540);
-//		
-//		return "redirect:" + redirectURL;
+		if ( driverInfo2 == null ) {
+//			bindingResult.reject("loginForm", "이메일 or 비밀번호");
+			return "driver/join/dNaverCallback";
+			
+		}
 		
-		return "driver/join/dNaverCallback";
+		HttpSession session1 = req.getSession();
+		session1.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
+//		session1.setMaxInactiveInterval(540);
+		
+		return "redirect:" + redirectURL;
 	}
 	
 	
-	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
+	// Naver 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
 		@PostMapping("/naver/join")
-		public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
+		public String NaverInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult, HttpServletRequest req) {
 			System.out.println("driverInfo : " + driverInfo);
 			System.out.println("---------------------------");
 			
@@ -164,7 +164,7 @@ public class DrvNaverLoginController {
 //				return "members/newMember";
 //			}
 			
-//			driverInfoR epository.insert(driverInfo);
+			driverInfoRepository.insert(driverInfo);
 			return "driver/dRegistration";
 		}
 

@@ -60,7 +60,6 @@ public class DrvKaKaoLoginController {
 		
 		
 		model.addAttribute("driverInfo", driverInfo);
-//		model.addAttribute("userinfo", userInfo);
 		
 		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
 		
@@ -78,8 +77,8 @@ public class DrvKaKaoLoginController {
     }
     
 	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
-	@PostMapping("//join")
-	public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
+	@PostMapping("kakao/join")
+	public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, HttpServletRequest req, BindingResult bindingResult) {
 		System.out.println("driverInfo : " + driverInfo);
 		System.out.println("---------------------------");
 		
@@ -88,9 +87,13 @@ public class DrvKaKaoLoginController {
 //		if(bindingResult.hasErrors()) {
 //			return "members/newMember";
 //		}
-		driverInfo.setDUserType(null);
 		
-//		driverInfoR epository.insert(driverInfo);
+		
+		driverInfoRepository.insert(driverInfo);
+		
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
+		
 		return "driver/dRegistration";
 	}
 
