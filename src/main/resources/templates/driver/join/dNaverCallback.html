@@ -1,114 +1,221 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutHome}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutHome}">
 <head>
 <meta charset="UTF-8">
 <title>네이버 아이디 로그인 추가 정보 입력</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-latest.js"></script> 
-<!-- <style> -->
-/*   pre{ */
-/*     overflow: scroll; */
-/*   } */
-/*   .modal{ */
-/*   position:absolute; /*기본 페이지와 분리*/ */
-/*   width:100%;		/*전체 화면에 배경을 깔아 모달을 잘 보이도록*/ */
-/*   height:100%;		 */
-/*   background: rgba(0,0,0,0.8); /*gba 투명도 활용*/ */
-/*   top:0; */
-/*   left:0; */
-/*   display:none; */
-/*   } */
-<!-- </style> -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<style>
+.errormsg {
+	color: red;
+}
+
+.emailButton {
+	padding-top: 24px;
+}
+
+.formButton {
+	margin: 0 12px;
+}
+</style>
 </head>
 <th:block layout:fragment="content">
-	<div style="margin-top:50px;"></div>
-		<div style="margin: auto; margin: center; text-align: center;">
-		현재<img src="/img/naver.png" style="width:160px; height: 40px; margin-bottom: 20px;">계정으로 인증되었습니다.</div>
-			<div style="margin:auto; margin:center; text-align: center;">
-				네이버를 통해서 간편로그인을 한 경우
-				Carpooling 서비스를 이용하시기 위해서<br>
-				추가 정보가 필요합니다.
-				추가 정보를 기입해주시길 바랍니다.</div>
-		<div style="border-bottom: solid 1px black; margin-left: 200px; margin-right: 200px; margin-top:50px; margin-bottom: 50px;"></div>
-		<form th:action="|@{/driver/login/naver/join}|" method="post" th:object="${driverInfo}">
-			<div>
-				<label for="dUserEmail">* email</label><br> <input
-					class="form-control" type="text" id="dUserEmail"
-					th:field="*{dUserEmail}" style="width: 300px; height: 50px;"
-					readonly>
-			</div>
-			<div>
-				<label for="dUserPw">* PW</label> 
-				<input class="form-control" type="password" id="dUserPw" th:field="*{dUserPw}"
-						placeholder="비밀번호를 입력해주세요" style="width: 300px;">
-				<div class="errormsg" th:errors="*{dUserPw}" style="color: red"></div>
-				</div>
-			<div>
-				<label for="dUserName">* 이름</label> <input class="form-control"
-					type="text" id="dUserName" th:field="*{dUserName}"
-					placeholder="이름을 입력해주세요" style="width: 300px;">
-					<div class="errormsg" th:errors="*{dUserName}" style="color: red"></div>
-			</div>
-			<div>
-				<label for="dUserGender">* gender</label><br>
-				<input class="form-control" type="text" id="dUserGender" name="dUserGender" th:field="*{dUserGender}" style="width: 300px; height: 50px;" readonly>
-			</div>
+	<div style="margin-top: 50px;"></div>
+	<div style="margin: auto; margin: center; text-align: center;">
+		현재<img src="/img/naver.png"
+			style="width: 160px; height: 40px; margin-bottom: 20px;">계정으로
+		인증되었습니다.
+	</div>
+	<div style="margin: auto; margin: center; text-align: center;">
+		네이버를 통해서 간편로그인을 한 경우 Carpooling 서비스를 이용하시기 위해서<br> 추가 정보가 필요합니다.
+		추가 정보를 기입해주시길 바랍니다.
+	</div>
+	<div style="border-bottom: solid 1px black; margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;"></div>
+	<div class="container">
+		<div class="input-form-backgroud row">
+			<div class="input-form col-md-12 mx-auto">
+				<h4 class="mb-3">Driver 회원가입</h4>
+				<form class="validation-form" novalidate
+					th:action="|@{/driver/login/naver/join}|" method="post"
+					th:object="${driverInfo}">
 
-			<div class="row">
-				<div class="col">
-					<label for="dIdNum1"> * 주민번호</label> <input class="form-control"
-						type="text" id="dIdNum1" th:field="*{dIdNum1}"
-						style="width: 100px;" placeholder="앞 6자리">
+					<!-- 		<div class="row" id="inputUserType"> -->
+					<!-- 			<!-- 가입유형지정 -->
+					<!-- 			<div class="col mb-3 form-check" th:each="dUserType : ${dUserTypes}"> -->
+					<!-- 				<input class="form-check-input" type="radio" th:field="*{dUserType}" -->
+					<!-- 					name= dUserType" th:value="${dUserType.name}"> <label -->
+					<!-- 					th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label> -->
+					<!-- 			</div> -->
+					<!-- 		</div> -->
+					
+						<!-- 이메일 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+						<label for="dUserEmail">* 이메일(email)</label><br> <input
+							class="form-control" type="text" id="dUserEmail"
+							th:field="*{dUserEmail}" style="width: 400px;" readonly>
+						</div>
+					</div>
+						<!-- 패스워드 입력 -->
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label for="dUserPw">* 비밀번호(pw)</label> <input type="password"
+								class="form-control" id="dUserPw" name="dUserPw"
+								placeholder="패스워드"
+								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
+								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
+								maxlength="16" th:field="*{dUserPw}" style="width: 400px;" required>
+							<div class="invalid-feedback">
+								<span>패스워드를 입력해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개
+									이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
+							</div>
+						</div>
+					</div>
+<!-- 					<div> -->
+<!-- 						<label for="dUserPw">* PW</label> <input class="form-control" -->
+<!-- 							type="password" id="dUserPw" th:field="*{dUserPw}" -->
+<!-- 							placeholder="비밀번호를 입력해주세요" style="width: 300px;"> -->
+<!-- 						<div class="errormsg" th:errors="*{dUserPw}" style="color: red"></div> -->
+<!-- 					</div> -->
+						<!-- 사용자 이름 입력 -->
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label for="dUserName">* 이름(name)</label> <input type="text"
+								class="form-control" id="dUserName" name="dUserName"
+								th:field="*{dUserName}" maxlength="10" placeholder="이름" style="width: 400px;" required>
+							<div class="invalid-feedback">이름을 입력해주세요.</div>
+						</div>
+					</div>
+<!-- 					<div> -->
+<!-- 						<label for="dUserName">* 이름</label> <input class="form-control" -->
+<!-- 							type="text" id="dUserName" th:field="*{dUserName}" -->
+<!-- 							placeholder="이름을 입력해주세요" style="width: 300px;"> -->
+<!-- 						<div class="errormsg" th:errors="*{dUserName}" style="color: red"></div> -->
+<!-- 					</div> -->
+						<!-- 성별 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+						<label for="dUserGender">* 성별(gender)</label><br> <input
+							class="form-control" type="text" id="dUserGender"
+							name="dUserGender" th:field="*{dUserGender}"
+							style="width: 400px;" readonly>
+						</div>
+					</div>
+						<!-- 휴대폰번호 입력 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="pUserTel">* 휴대폰번호</label>
+							<input type="text" class="form-control" id="dUserTel" name="dUserTel"
+							 		pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력"
+							 		th:field="*{dUserTel}" value="010" placeholder="숫자만 입력해주세요" style="width: 400px;" required>
+							<div class="invalid-feedback">
+								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+							</div>
+						</div>
+					</div>
+						<!-- 주민등록번호(앞) 입력 -->
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label for="dIdNum1">* 주민등록번호(앞)</label> 
+								<input type="text" class="form-control" id="dIdNum1" name="dIdNum1"
+									placeholder="앞 6자리" pattern="\d{6}" maxlength="6"
+									title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{dIdNum1}" style="width: 400px;" required>
+							<div class="invalid-feedback">주민등록번호 앞 6자리를 입력해주세요.</div>
+						</div>
+						<!-- 주민등록번호(뒤) 입력 -->
+						<div class="col-md-4 mb-3">
+							<label for="dIdNum2">(뒤)</label> 
+								<input type="password" class="form-control" id="dIdNum2" name="dIdNum2"
+									placeholder="뒤 7자리" pattern="[1-4]\d{6}" maxlength="7"
+									title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{dIdNum2}" style="width: 400px" required>
+							<div class="invalid-feedback">주민등록번호 뒤 7자리를 입력해주세요.</div>
+						</div>
+					</div>
+<!-- 					<div class="row"> -->
+<!-- 						<div class="col"> -->
+<!-- 							<label for="dIdNum1"> * 주민번호</label> <input class="form-control" -->
+<!-- 								type="text" id="dIdNum1" th:field="*{dIdNum1}" -->
+<!-- 								style="width: 100px;" placeholder="앞 6자리"> -->
+<!-- 						</div> -->
+<!-- 						<div class="col"> -->
+<!-- 							<label for="dIdNum2"> </label> - <input class="form-control" -->
+<!-- 								type="text" id="dIdNum2" th:field="*{dIdNum2}" -->
+<!-- 								style="width: 30px;"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+						<!-- 운전 면허 관련 정보 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="dLicenseNum">* 운전면허번호</label> <input
+								class="form-control" type="text" id="dLicenseNum"
+								th:field="*{dLicenseNum}" style="width: 400px;"
+								placeholder="운전면허 번호 12자리">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="dLicenseDate">* 운전면허 취득일</label> <input
+								class="form-control" type="text" id="dLicenseDate"
+								th:field="*{dLicenseDate}" style="width: 400px;"
+								placeholder="20221212">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="dCarNum">* 차량 번호</label> <input class="form-control"
+								type="text" id="dCarNum" th:field="*{dCarNum}"
+								style="width: 400px;" placeholder="12가 3456나">
+						</div>
+					</div>
 				</div>
-				<div class="col">
-					<label for="dIdNum2"> </label> - <input class="form-control"
-						type="text" id="dIdNum2" th:field="*{dIdNum2}" style="width: 30px;">
-				</div>
-			</div>
-			<div>
-					<label for="dLicenseNum">* 운전면허번호</label>
-					<input class="form-control" type="text" id="dLicenseNum" th:field="*{dLicenseNum}" style="width:300px;" placeholder="운전면허 번호 12자리">
-			</div>
-			<div>
-				<label for="dLicenseDate">* 운전면허 취득일</label>
-				<input class="form-control" type="text" id="dLicenseDate" th:field="*{dLicenseDate}" style="width:300px;" placeholder="20221212">
-			</div>
-			<div>
-				<label for="dCarNum">차량 번호</label>
-				<input class="form-control" type="text" id="dCarNum" th:field="*{dCarNum}" style="width:300px;" placeholder="12가 3456나">
-			</div>
-<!-- 			<div> -->
-<!-- 				<label for="carType">차 종류</label> -->
-<!-- 				<input class="form-control" type="text" id="carType" th:field="carType"> -->
-<!-- 			</div> -->
-			<div style="margin-top:20px; text-align: center">
-				<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">회원가입</button>
-				<button type="button" class="btn btn-light" th:onclick="|location.href='@{/}'|">취소</button>
-			</div>
-				<div class="modal"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title">Carpooling 회원가입</h5>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				        <p>Carpooling 회원가입을 환영합니다.</p>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-primary">확인</button>
-<!-- 						        <button type="submit" class="btn btn-primary" th:onclick="|location.href='@{/driver/joinAfter/Login}'|">확인</button> -->
-				      </div>
-				    </div>
-				  </div>
-				</div>
-		</form>
-		
+						<!-- 개인정보활용동의 -->
+					<div class="custom-control custom-checkbox mb-3" style="margin-top:30px; text-align: center;">
+						<input type="checkbox" class="custom-control-input" id="aggrement"
+							required> <label class="custom-control-label"
+							for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+					</div>
+					<!-- 			<div> -->
+					<!-- 				<label for="carType">차 종류</label> -->
+					<!-- 				<input class="form-control" type="text" id="carType" th:field="carType"> -->
+					<!-- 			</div> -->
+						<!-- 회원 가입 버튼 -->
+					<div class="row">
+							<div style="margin-top: 20px; text-align: center">
+								<button type="button" class="btn btn-dark" data-bs-toggle="modal"
+									data-bs-target="#exampleModal">회원가입</button>
+								<button type="button" class="btn btn-light"
+									th:onclick="|location.href='@{/}'|">취소</button>
+							</div>
+					</div>
+						<!-- 회원 가입 버튼 클릭 시 모달창 -->
+					<div class="modal" id="exampleModal" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Carpooling 회원가입</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>Carpooling 회원가입을 환영합니다.</p>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+		</div>
+	</div>
 </th:block>
-
-<script>
-
-</script>
+<!-- </th:block layout:fragment="js"> -->
+<!-- 	<script src="/custom/js/dJoinGeneral.js"></script> -->
 </html>
