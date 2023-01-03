@@ -23,6 +23,10 @@ public interface DriverInfoRepository {
 	
 	public DriverInfo selectByIdx(Integer dIdx);
 	
+	public DriverInfo selectByLicenseNum (String dLicenseNum);
+	
+	public DriverInfo selectByCarNum (String dCarNum);
+	
 	public List<DriverInfo> selectAll();
 	
 	public void deleteAll();
@@ -30,10 +34,5 @@ public interface DriverInfoRepository {
 	public DriverInfo update(DriverInfo driver);
 	
 	public DRegistration selectByDrIdx(Integer drIdx);
-	public DriverInfo update(DriverInfo driver);
-	
-	public DriverInfo selectByLicenseNum (String dLicenseNum);
-	
-	public DriverInfo selectByCarNum (String dCarNum);
 	
 }
