@@ -6,7 +6,7 @@ $('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>
 
 /* 가입유형 자동 선택 (일반), 숨김처리 */
 $("#dUserType2").attr("checked", true);
-//$("#inputUserType").css("display", "none");
+$("#inputUserType").css("display", "none");
 
 /* bootstrap 유효성 검사 */
 window.addEventListener('load', () => {
