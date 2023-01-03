@@ -28,7 +28,7 @@ public class MybatisRequestRepository implements RequestRepository{
 	public boolean updateAccepted(Integer drIdx, Integer pIdx) {
 		boolean result = false;
 		try {
-			requestMapper.updateAccepted(pIdx);
+			requestMapper.updateAccepted(drIdx, pIdx);
 			requestMapper.updateConfirm(drIdx);
 			result = true;
 		} catch (Exception e) {
@@ -41,7 +41,7 @@ public class MybatisRequestRepository implements RequestRepository{
 	public boolean updateRefused(Integer drIdx, Integer pIdx) {
 		boolean result = false;
 		try {
-			requestMapper.updateRefused(pIdx);
+			requestMapper.updateRefused(drIdx, pIdx);
 			result = true;
 		} catch (Exception e) {
 		}

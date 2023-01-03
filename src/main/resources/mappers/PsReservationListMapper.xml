@@ -5,26 +5,35 @@
 	<select id="selectAcceptedReservationList" resultType="map">
 		SELECT dr.dr_idx, dr.d_idx, dr.d_commute, dr.d_date, dr.d_startTime, dr.d_endTime, dr.d_startPoint, dr.d_endPoint, dr.d_startlon, dr.d_startlat, dr.d_endlon, dr.d_endlat, dr.d_fee, r.p_idx, r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND r.p_idx=#{pIdx} AND r.r_acceptStatus = 'accepted' AND dr.d_date >= sysdate
+		WHERE dr.dr_idx=r.dr_idx AND r.p_idx=#{pIdx} AND r.r_acceptStatus = 'accepted'
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_starttime, 0, 2)||substr(dr.d_endtime, 4,5), 'yymmddhh24mi') >= sysdate
 	</select>
 	
 	<select id="selectWaitingReservationList" resultType="map">
 		SELECT dr.dr_idx, dr.d_idx, dr.d_commute, dr.d_date, dr.d_startTime, dr.d_endTime, dr.d_startPoint, dr.d_endPoint, dr.d_startlon, dr.d_startlat, dr.d_endlon, dr.d_endlat, dr.d_fee, r.p_idx, r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND r.r_acceptStatus = 'waiting' AND dr.d_date >= sysdate
+		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND r.r_acceptStatus = 'waiting' 
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_starttime, 0, 2)||substr(dr.d_endtime, 4,5), 'yymmddhh24mi') >= sysdate
 	</select>
 	
 	<select id="selectRefusedReservationList" resultType="map">
 		SELECT dr.dr_idx, dr.d_idx, dr.d_commute, dr.d_date, dr.d_startTime, dr.d_endTime, dr.d_startPoint, dr.d_endPoint, dr.d_startlon, dr.d_startlat, dr.d_endlon, dr.d_endlat, dr.d_fee, r.p_idx, r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND r.r_acceptStatus = 'refused' AND dr.d_date >= sysdate
+		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND r.r_acceptStatus = 'refused' 
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_starttime, 0, 2)||substr(dr.d_endtime, 4,5), 'yymmddhh24mi') >= sysdate
 	</select>
 	
 	<select id="selectPastReservationList" resultType="map">
 		SELECT dr.dr_idx,dr.d_commute, dr.d_date, dr.d_startTime, dr.d_endTime, dr.d_startPoint, dr.d_endPoint, dr.d_startlon, dr.d_startlat, dr.d_endlon, dr.d_endlat, dr.d_fee, r.p_idx, r.p_idx, r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND dr.d_date <![CDATA[<]]> sysdate
+		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} 
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_starttime, 0, 2)||substr(dr.d_endtime, 4,5), 'yymmddhh24mi') <![CDATA[<]]> sysdate
 	</select>
+	
+	<delete id="deleteRsv">
+		DELETE FROM RESERVATION
+		WHERE dr_idx = #{drIdx} AND p_idx = #{pIdx}
+	</delete>
 	
 	
 </mapper>

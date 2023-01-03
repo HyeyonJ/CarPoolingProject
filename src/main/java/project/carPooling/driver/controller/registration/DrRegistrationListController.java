@@ -18,7 +18,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.RegistrationListRepository;
 import project.carPooling.driver.repository.RequestRepository;
+import project.carPooling.global.session.SessionManager;
+import project.carPooling.passenger.domain.PassengerInfo;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +30,8 @@ import project.carPooling.driver.repository.RequestRepository;
 public class DrRegistrationListController {
 
 	private final RequestRepository requestRepository;
+	private final RegistrationListRepository registrationListRepository;	
+	private final SessionManager sessionManager;
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
@@ -73,26 +79,34 @@ public class DrRegistrationListController {
 	}
 	
 
-	@GetMapping("/driver/driverCarpool/registartion/list")
+	@GetMapping("/driver/driverCarpool/registration/list")
 	public String registraionList() {
 		return "driver/dRegistrationList";
 	}
 	
 	@ResponseBody
-	@PostMapping("/driver/driverCarpool/registartion/reservatedList")
-	public String registraionReservatedList() {
-		
-		return "driver/dRegistrationList";
+	@GetMapping("/driver/driverCarpool/registration/acceptedList")
+	public List<Map<String, Object>> registraionAcceptedList(HttpServletRequest req) {
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		List<Map<String, Object>> acceptedList = registrationListRepository.selectAcceptedRegistrationList(driverInfo.getDIdx());
+		System.out.println(acceptedList);
+		return acceptedList;
 	}
 	
 	@ResponseBody
-	@PostMapping("/driver/driverCarpool/registartion/allList")
-	public String registraionAllList() {
-		
-		return "driver/dRegistrationList";
+	@GetMapping("/driver/driverCarpool/registration/allList")
+	public List<Map<String, Object>> registraionAllList(HttpServletRequest req) {
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		List<Map<String, Object>> allList = registrationListRepository.selectAllRegistrationList(driverInfo.getDIdx());
+		System.out.println(allList);
+		return allList;
 	}
 	
-	
-	
+	@ResponseBody
+	@DeleteMapping("/driver/driverCarpool/registration/delete")
+	public boolean deleteRegistration(@RequestParam Integer drIdx) {
+		boolean result = registrationListRepository.deleteRegistration(drIdx);
+		return result;
+	}
 	
 }
