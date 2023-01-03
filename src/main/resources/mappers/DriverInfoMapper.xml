@@ -4,17 +4,17 @@
 
 	<!-- public Integer insert(DriverInfo driverInfo); -->
 	<insert id="insert" parameterType="DriverInfo">
-<!-- 		<selectKey keyProperty="dUserGender" resultType="String" order="BEFORE"> -->
-<!-- 			SELECT (CASE WHEN SUBSTR(#{dIdNum2}, 1, 1) IN ('1', '3') THEN 'M' -->
-<!-- 				 ELSE 'F' -->
-<!-- 				 END) as dUserGender -->
-<!-- 			FROM dual -->
-<!-- 		</selectKey> -->
+		<selectKey keyProperty="dUserGender" resultType="String" order="BEFORE">
+			SELECT (CASE WHEN SUBSTR(#{dIdNum}, 7, 1) IN ('1', '3') THEN 'M'
+				 ELSE 'F'
+				 END) as dUserGender
+			FROM dual
+		</selectKey>
 		INSERT INTO driver (d_idx, d_userType, d_userId, d_userPw, d_userName, d_userTel, 
-		d_userEmail, d_userGender, d_idNum1, d_idNum2, d_signOut, d_licenseNum, d_licenseDate, d_carNum)
+		d_userEmail, d_userGender, d_idNum, d_licenseNum, d_licenseIdNum, d_carNum, d_signOut)
 		VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
-		#{dUserEmail}, #{dUserGender}, #{dIdNum1}, #{dIdNum2}, 'false', #{dLicenseNum},
-		#{dLicenseDate}, #{dCarNum})
+		#{dUserEmail}, #{dUserGender}, #{dIdNum1}, #{dIdNum2}, #{dLicenseNum}, #{dLicenseIdNum},
+		#{dCarNum}, 'false')
 	</insert>
 	
 	<!-- public DriverInfo selectByLoginId (String loginId); -->
@@ -22,12 +22,6 @@
 <!-- 	    SELECT * FROM DRIVER -->
 <!-- 	    WHERE d_userId = #{dUserId} -->
 <!--   	</select> -->
-
-  <!-- public DriverInfo selectByLoginId (String loginId); -->
-<!--   <select id="selectByLoginId" resultType="DriverInfo"> -->
-<!--     SELECT * FROM DRIVER -->
-<!--     WHERE d_userId = #{dUserId} -->
-<!--   </select> -->
 
   <!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
   <!-- 		insert into driver(d_email, d_gender) -->
@@ -82,18 +76,22 @@
 <!--     AND d_userTel = #{dUserTel} -->
 <!--   </select> -->
 
-<!--   public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2); -->
-  <select id="selectByNameAndIdnum" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_userName = #{dUserName}
-    AND d_idNum1 = #{dIdNum1}
-    AND d_idNum2 = #{dIdNum2}
-  </select>
-
   <!-- public List<DriverInfo> selectAll(); -->
 
   <!-- public void deleteAll(); -->
 
   <!-- public DriverInfo update(DriverInfo driver); -->
+  
+  <!-- public DriverInfo selectByLicenseNum(String dLicenseNum); -->
+  <select id="selectByLicenseNum" resultType="DriverInfo">
+    SELECT * FROM DRIVER
+    WHERE d_licenseNum = #{dLicenseNum}
+  </select>
+  
+  <!-- public DriverInfo selectByCarNum(String dCarNum); -->
+  <select id="selectByCarNum" resultType="DriverInfo">
+  	SELECT * FROM DRIVER
+    WHERE d_carNum = #{dCarNum}
+  </select>
 
 </mapper>

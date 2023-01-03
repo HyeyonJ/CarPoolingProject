@@ -30,5 +30,10 @@ public interface DriverInfoRepository {
 	public DriverInfo update(DriverInfo driver);
 	
 	public DRegistration selectByDrIdx(Integer drIdx);
+	public DriverInfo update(DriverInfo driver);
+	
+	public DriverInfo selectByLicenseNum (String dLicenseNum);
+	
+	public DriverInfo selectByCarNum (String dCarNum);
 	
 }

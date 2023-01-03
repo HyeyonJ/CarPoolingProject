@@ -13,21 +13,29 @@ import project.carPooling.driver.domain.DriverInfo;
 public class DriverUserService {
 	
 	private final DriverInfoRepository driverRepository;
-
+	
 	//driver 아이디 중복 체크
-	public boolean driverIdCheck(String id) {
+	public boolean driverCheckId(String id) {
 		boolean checkId = false;
-        DriverInfo driver = driverRepository.selectByLoginId(id);        
+        DriverInfo driver = driverRepository.selectByLoginId(id);
         if(driver!=null) { checkId = true; }        
         return checkId;
     }
 	
 	//driver 이메일 중복 체크
-	public boolean driverEmailCheck(String email) {
+	public boolean driverCheckEmail(String email) {
 		boolean checkEmail = false;
 		DriverInfo driver = driverRepository.selectByEmail(email);        
         if(driver!=null) { checkEmail = true; }        
         return checkEmail;        
+    }
+	
+	//driver 면허번호 중복 체크
+	public boolean driverCheckLicenseNum(String licenseNum) {
+		boolean checkLicenseNum = false;
+        DriverInfo driver = driverRepository.selectByLicenseNum(licenseNum);        
+        if(driver!=null) { checkLicenseNum = true; }        
+        return checkLicenseNum;
     }
 	
 	//driver 아이디 찾기 < 이름 + 이메일

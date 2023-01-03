@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller.join;
+package project.carPooling.driver.controller.userInfo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

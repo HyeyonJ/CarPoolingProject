@@ -12,9 +12,9 @@ public class PassengerInfo {
 	private String pUserTel;
 	private String pUserEmail;
 	private String pUserGender;
-	private String pIdNum1;
-	private String pIdNum2;	
+	private String pIdNum;
 	private Boolean pSignOut;
+
 	
 	//Mybatis insert 시 No setter ... 에러 발생 > getter, setter 수동 생성
 	public Integer getPIdx() {
@@ -81,20 +81,12 @@ public class PassengerInfo {
 		this.pUserGender = pUserGender;
 	}
 
-	public String getPIdNum1() {
-		return pIdNum1;
+	public String getPIdNum() {
+		return pIdNum;
 	}
 
-	public void setPIdNum1(String pIdNum1) {
-		this.pIdNum1 = pIdNum1;
-	}
-
-	public String getPIdNum2() {
-		return pIdNum2;
-	}
-
-	public void setPIdNum2(String pIdNum2) {
-		this.pIdNum2 = pIdNum2;
+	public void setPIdNum(String pIdNum) {
+		this.pIdNum = pIdNum;
 	}
 
 	public Boolean getPSignOut() {

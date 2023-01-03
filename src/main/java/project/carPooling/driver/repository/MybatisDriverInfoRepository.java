@@ -84,14 +84,20 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	}
 
 	@Override
-	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2) {
-		DriverInfo driver = driverMapper.selectByNameAndIdnum(name, idnum1, idnum2);
+	public DriverInfo update(DriverInfo driver) {
+		driverMapper.update(driver);
 		return driver;
 	}
 
 	@Override
-	public DriverInfo update(DriverInfo driver) {
-		driverMapper.update(driver);
+	public DriverInfo selectByLicenseNum(String dLicenseNum) {
+		DriverInfo driver = driverMapper.selectByLicenseNum(dLicenseNum);
+		return driver;
+	}
+
+	@Override
+	public DriverInfo selectByCarNum(String dCarNum) {
+		DriverInfo driver = driverMapper.selectByCarNum(dCarNum);
 		return driver;
 	}
 
