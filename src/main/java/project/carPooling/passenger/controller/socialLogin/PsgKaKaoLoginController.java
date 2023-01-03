@@ -51,7 +51,7 @@ public class PsgKaKaoLoginController {
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("------------------------------");
 		
-		model.addAttribute("passengerKakao", passengerKakao);
+		model.addAttribute("passenger", passengerKakao);
 		
 		PassengerInfo passenger = passengerInfoRepository.selectByEmail(passengerKakao.getPUserEmail());
 		
@@ -76,16 +76,11 @@ public class PsgKaKaoLoginController {
 		System.out.println("passenger : " + passenger);
 		System.out.println("---------------------------");
 		
-//		memberValidator.validate(member, bindingResult);
-		
-//		if(bindingResult.hasErrors()) {
-//			return "members/newMember";
-//		}
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
 		passenger.setPUserType(null);
 		
-//		passengerInfoRepository.insert(passenger);
+		passengerInfoRepository.insert(passenger);
 		return "passenger/pReservation";
 	}
 
