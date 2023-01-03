@@ -16,8 +16,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.global.repository.KakaoMemRepository;
 import project.carPooling.passenger.domain.PassengerInfo;
+import project.carPooling.passenger.repository.psgKakaoMemRepository;
 
 
 @Slf4j
@@ -25,7 +25,7 @@ import project.carPooling.passenger.domain.PassengerInfo;
 public class PsgKakaoService {
 	
 	@Autowired
-	private KakaoMemRepository kakaoMemRepository;
+	private psgKakaoMemRepository psgKakaoMemRepository;
 	
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
@@ -89,7 +89,7 @@ public class PsgKakaoService {
 	
 	
 	
-	public PassengerInfo getKaKaoUserInfo(String access_Token) {
+	public PassengerInfo getPsgKaKaoUserInfo(String access_Token) {
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 		
 		PassengerInfo passengerInfo = new PassengerInfo();

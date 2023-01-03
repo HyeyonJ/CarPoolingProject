@@ -63,28 +63,28 @@ $("#checkEmail").click(function () {
 	})
 })
 /* 인증 코드 입력 & 확인 버튼 */
-//$("#checkVcode").click(function () {
-//	$.ajax({
-//			type: "GET",
-//			url: "/driver/join/vCode/check",
-//			data: { "code": $("#dUserVcode").val() },
-//			success: function (res,status) {
-//				console.log(typeof res);
-//				console.log(status);
-//				if(res == true){
-//					swal("이메일 인증이 완료되었습니다.", "회원가입을 진행해주세요.", "success").then((OK)=>{
-//						if(OK) {
-//							/* 인증완료 후 입력폼 숨기기, 버튼색상/메세지 변경, 입력폼 숨기기 */
-//							$('#checkEmail').removeClass('btn-dark');
-//							$('#checkEmail').addClass('btn-outline-dark');
-//							$("#inputVcode").css("display", "none");
-//							$('#checkEmailMsg').html('<span style="color:darkblue">이메일 인증 완료</span>');
-//						}
-//					})
-//				}
-//			}
-//	})
-//})
+$("#checkVcode").click(function () {
+	$.ajax({
+			type: "GET",
+			url: "/driver/join/vCode/check",
+			data: { "code": $("#dUserVcode").val() },
+			success: function (res,status) {
+				console.log(typeof res);
+				console.log(status);
+				if(res == true){
+					swal("이메일 인증이 완료되었습니다.", "회원가입을 진행해주세요.", "success").then((OK)=>{
+						if(OK) {
+							/* 인증완료 후 입력폼 숨기기, 버튼색상/메세지 변경, 입력폼 숨기기 */
+							$('#checkEmail').removeClass('btn-dark');
+							$('#checkEmail').addClass('btn-outline-dark');
+							$("#inputVcode").css("display", "none");
+							$('#checkEmailMsg').html('<span style="color:darkblue">이메일 인증 완료</span>');
+						}
+					})
+				}
+			}
+	})
+})
 /* 휴대폰 번호 '-' 자동 입력 */
 var autoHypenPhone = function(tel){
       tel = tel.replace(/[^0-9]/g, '');

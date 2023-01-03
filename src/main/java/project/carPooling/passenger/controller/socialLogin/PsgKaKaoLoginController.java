@@ -47,7 +47,7 @@ public class PsgKaKaoLoginController {
 		String access_Token = psgKakaoService.getAccessToken(code);
 		System.out.println("access_Token : " + access_Token);
 		
-		PassengerInfo passengerKakao = psgKakaoService.getKaKaoUserInfo(access_Token);
+		PassengerInfo passengerKakao = psgKakaoService.getPsgKaKaoUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("------------------------------");
 		
