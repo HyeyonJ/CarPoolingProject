@@ -88,6 +88,7 @@ public class PsgKaKaoLoginController {
 	public PUserType[] PUserTypes() {
 		return PUserType.values();
 	}
+	
 // 카카오 cookie	
 //	@PostMapping("/kakao/login_cookie")
 //	public String KakaoCookie(@ModelAttribute LoginForm loginForm, 

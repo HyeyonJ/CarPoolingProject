@@ -20,6 +20,7 @@ import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.driver.service.DrvKakaoService;
 import project.carPooling.global.session.SessionVar;
+import project.carPooling.passenger.domain.PUserType;
 
 @Slf4j
 @Controller
@@ -58,13 +59,11 @@ public class DrvKaKaoLoginController {
 		System.out.println("------------------------------");
 		
 		
-		
 		model.addAttribute("driverInfo", driverInfo);
 		
 		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
 		
 		if ( driverInfo2 == null ) {
-//			bindingResult.reject("loginForm", "이메일 or 비밀번호");
 			return "driver/join/dKakaoCallback";
 			
 		}
@@ -88,6 +87,11 @@ public class DrvKaKaoLoginController {
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 		
 		return "driver/dRegistration";
+	}
+	
+	@ModelAttribute("pUserTypes")
+	public PUserType[] PUserTypes() {
+		return PUserType.values();
 	}
 
 		@PostMapping("/logout_session")
