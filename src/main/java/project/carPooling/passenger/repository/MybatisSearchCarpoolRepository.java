@@ -1,8 +1,10 @@
 package project.carPooling.passenger.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,21 +19,37 @@ public class MybatisSearchCarpoolRepository implements SearchCarpoolRepository {
 	
 	private final SearchCarpoolMapper searchCarpoolMapper;
 	
+	@Transactional
 	@Override
 	public List<DRegistration> selectCarpool(SearchCarPool searchCarPool) {
 		
+		List<DRegistration> dRegistrationList = null;
+
 		log.info("searchCarPool: {}", searchCarPool);
 		java.sql.Date pDate =  java.sql.Date.valueOf(searchCarPool.getPDate());
 		log.info("pDate: {}", pDate);
 		
-		List<DRegistration> dRegistrationList = null;
-		try {
-			dRegistrationList = searchCarpoolMapper.selectCarpool(searchCarPool, pDate);
-			System.out.println("카풀찾기성공");
-		} catch (Exception e) {
-			log.error(e.getMessage());
+		if(searchCarPool.getPGender().equals("A")) {
+			try {
+				dRegistrationList = searchCarpoolMapper.selectCarpoolByAny(searchCarPool, pDate);
+				System.out.println("카풀찾기성공");
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		} else {
+			List<Integer> dIdxList = searchCarpoolMapper.selectDIdxByGender(searchCarPool.getPGender());
+			
+			for(Integer dIdx : dIdxList) {
+				try {
+					dRegistrationList = searchCarpoolMapper.selectCarpoolByGender(searchCarPool, pDate, dIdx);
+					System.out.println("카풀찾기성공");
+				} catch (Exception e) {
+					log.error(e.getMessage());
+				}
+			}
 		}
 		return dRegistrationList;
+		
 	}
 
 	@Override
@@ -48,6 +66,16 @@ public class MybatisSearchCarpoolRepository implements SearchCarpoolRepository {
 		System.out.println("예약성공");
 		return null;
 	}
-	
+
+	@Override
+	public boolean selectPassenger(Integer pIdx, Integer drIdx) {
+		boolean result = false;
+		// 이미 예약된 내역이 있으면 true값 반환 
+		if(searchCarpoolMapper.selectPassenger(pIdx, drIdx) != null) {
+			return true;
+		}
+		// 첫 예약이면 false값 반환
+		return result;
+	}
 
 }

@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,14 +31,14 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/passenger/passengerCarpool/reservation/confirmedList")
-	public List<Map<String, Object>> confirmedList(HttpServletRequest req){
+	@GetMapping("/passenger/passengerCarpool/reservation/acceptedList")
+	public List<Map<String, Object>> acceptedList(HttpServletRequest req){
 		
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> confirmedList = reservationListRepository.selectConfirmedReservationList(passengerInfo.getPIdx());
-		System.out.println(confirmedList);
+		List<Map<String, Object>> acceptedList = reservationListRepository.selectAcceptedReservationList(passengerInfo.getPIdx());
+		System.out.println(acceptedList);
 		
-		return confirmedList;
+		return acceptedList;
 	}
 	
 	@ResponseBody
@@ -51,6 +53,17 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
+	@GetMapping("/passenger/passengerCarpool/reservation/refusedList")
+	public List<Map<String, Object>> refusedList(HttpServletRequest req){
+		
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<Map<String, Object>> refusedList = reservationListRepository.selectRefusedReservationList(passengerInfo.getPIdx());
+		System.out.println(refusedList);
+		
+		return refusedList;
+	}
+	
+	@ResponseBody
 	@GetMapping("/passenger/passengerCarpool/reservation/pastList")
 	public List<Map<String, Object>> pastList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
@@ -58,6 +71,16 @@ public class PsReservationListController {
 		System.out.println(pastList);
 		
 		return pastList;
+	}
+	
+	@ResponseBody
+	@DeleteMapping("/passenger/passengerCarpool/reservation/delete")
+	public boolean deleteRsv(@RequestParam Integer drIdx, HttpServletRequest req){
+		System.out.println(drIdx);
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		boolean result = reservationListRepository.deleteRsv(drIdx, passengerInfo.getPIdx());
+		
+		return result;
 	}
 
 }

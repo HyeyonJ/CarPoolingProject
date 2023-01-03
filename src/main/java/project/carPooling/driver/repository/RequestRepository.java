@@ -6,5 +6,7 @@ import java.util.Map;
 public interface RequestRepository {
 	public List<Map<String, Object>> selectRequestByDIdx(Integer dIdx);
 	
-	public boolean update(Integer drIdx, Integer pIdx);
+	public boolean updateAccepted(Integer drIdx, Integer pIdx);
+
+	public boolean updateRefused(Integer drIdx, Integer pIdx);
 }

@@ -1,11 +1,11 @@
-/* $("#pUserVcode").css("display", "none");
+/* $("#dUserVcode").css("display", "none");
 $("#sendVcode").css("display", "none"); */
 $("#inputVcode").css("display", "none");
 $('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
 $('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
 
 /* 가입유형 자동 선택 (일반), 숨김처리 */
-$("#pUserType1").attr("checked", true);
+$("#dUserType1").attr("checked", true);
 $("#inputUserType").css("display", "none");
 
 /* bootstrap 유효성 검사 */
@@ -23,20 +23,21 @@ window.addEventListener('load', () => {
     });
 }, false);
 
+
 /* 아이디 중복 체크 */
 $("#checkId").click(function() {
 	const regId = /^[a-zA-Z0-9]{4,12}$/;
-	if ( regId.test($("#pUserId").val()) ) {
+	if ( regId.test($("#dUserId").val()) ) {
 		$.ajax({
 			type: "GET",
-			url: "/passenger/join/id/check",
-			data: { "id": $("#pUserId").val() },
+			url: "/driver/join/id/check",
+			data: { "id": $("#dUserId").val() },
 			success: function (res,status) {
 				/* 아이디 중복 체크 */
 				if(res == true){
 					swal("이미 사용중인 아이디입니다.", "다른 아이디를 입력해주세요.", "error");
 				} else {
-					swal("사용 가능한 아이디입니다.", "회원가입을 진행해주세요.", "success").then((OK)=>{
+					swal("사용 가능한 아이디입니다.", "이메일 인증을 진행해주세요.", "success").then((OK)=>{
 						if(OK) {
 							/* 중복확인 후 버튼색상, 메세지 변경 */
 							$('#checkId').removeClass('btn-dark');
@@ -53,14 +54,14 @@ $("#checkId").click(function() {
 
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
 $("#checkEmail").click(function () {
-	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-	if( regEmail.test($("#pUserEmail").val()) ) {
+	const reg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+	if( reg.test($("#dUserEmail").val()) ) {
 		swal("사용 가능한 이메일입니다.", "입력하신 이메일로 인증코드가 발송됩니다.", "success").then((OK)=>{
 			if(OK) {
 				$.ajax({
 						type: "GET",
-						url: "/passenger/join/email/send",
-						data:{ "email": $("#pUserEmail").val() },
+						url: "/driver/join/email/send",
+						data:{ "email": $("#dUserEmail").val() },
 						success: ()=>{ /* 인증 메일 발송 후 인증 코드 입력 폼 출력 */
 						$("#inputVcode").css("display", "block"); }
 				})
@@ -79,10 +80,10 @@ $("#checkVcode").click(function () {
 	if ( regVcode.test($("#pUserVcode").val()) ){
 		$.ajax({
 				type: "GET",
-				url: "/passenger/join/vCode/check",
-				data: { "code": $("#pUserVcode").val() },
+				url: "/driver/join/vCode/check",
+				data: { "code": $("#dUserVcode").val() },
 				success: function (res,status) {
-					console.log(res);
+					console.log(typeof res);
 					console.log(status);
 					if(res == true){
 						swal("이메일 인증이 완료되었습니다.", "회원가입을 진행해주세요.", "success").then((OK)=>{
@@ -132,8 +133,46 @@ var autoHypenPhone = function(tel){
       return tel;
 }
 
-var pUserTel = document.getElementById('pUserTel');
+var dUserTel = document.getElementById('dUserTel');
 
-pUserTel.onkeyup = function(){
+dUserTel.onkeyup = function(){
   this.value = autoHypenPhone( this.value ) ;  
+}
+
+
+/* 면허 번호 '-' 자동 입력 */
+var autoHypenLicenseNum = function(licenseNum){
+      licenseNum = licenseNum.replace(/[^0-9]/g, '');
+      var tmp = '';
+      if( licenseNum.length < 3){
+          return licenseNum;
+      }else if(licenseNum.length < 5){
+          tmp += licenseNum.substr(0, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(2);
+          return tmp;
+      }else if(licenseNum.length < 11){
+          tmp += licenseNum.substr(0, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(2, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(4);
+          return tmp;
+      } else{              
+          tmp += licenseNum.substr(0, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(2, 2);
+          tmp += '-';
+          tmp += licenseNum.substr(4, 6);
+          tmp += '-';
+          tmp += licenseNum.substr(10);
+          return tmp;
+      }
+      return licenseNum;
+}
+
+var dLicenseNum = document.getElementById('dLicenseNum');
+
+dLicenseNum.onkeyup = function(){
+  this.value = autoHypenLicenseNum( this.value ) ;  
 }

@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
     });
 }, false);
 
+
 /* 아이디 중복 체크 */
 //$("#checkId").click(function() {
 //	$.ajax({
@@ -119,6 +120,7 @@ var dUserTel = document.getElementById('dUserTel');
 dUserTel.onkeyup = function(){
   this.value = autoHypenPhone( this.value ) ;  
 }
+
 
 /* 면허 번호 '-' 자동 입력 */
 var autoHypenLicenseNum = function(licenseNum){

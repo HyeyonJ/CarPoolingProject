@@ -219,7 +219,10 @@
 
               <!-- 선택안했을 때 -->
               <span id="timeCheck" class="check">시간을 선택해주세요.</span>
-              <span id="timeRecheck" class="check">도착시간을 다시 선택해주세요.</span>
+              <span id="timeRecheck3" class="check">시간을 다시 선택해주세요.</span>
+              <span id="timeRecheck" class="check">출발시간을 먼저 선택해주세요.</span>
+              <span id="timeRecheck2" class="check">출발시간을 다시 선택해주세요.</span>
+              <span id="timeRecheck1" class="check">도착시간을 다시 선택해주세요.</span>
 
             </div>
 
@@ -269,7 +272,7 @@
               <div class="col-lg align-self-end">
                 <div class="form-group">
                   <div class="form-field">
-                    <input type="submit" value="등  록" id="submit" class="btn btn-primary">
+                    <input type="button" value="등  록" id="submit" class="btn btn-primary">
                     <div id="footer">
 
                     </div>
@@ -322,12 +325,21 @@
       });
 
       $("#datepicker").change(() => {
-        // 현재날짜
-        const today = new Date();
-        const year = today.getFullYear().toString(); // 년도
-        const month = (today.getMonth() + 1).toString();  // 월
-        const date = today.getDate().toString();  // 날짜
 
+        if ($("#tocommute").val() === "선택" || $("#tocommutes").val() === "선택") {
+          $('#timeRecheck3').css('display', 'none');
+        }
+        // 현재날짜
+        var today = new Date();
+        var year = today.getFullYear().toString(); // 년도
+        var month = (today.getMonth() + 1).toString();  // 월
+        var date = today.getDate().toString();  // 날짜
+        if (month < 10) {
+          month = "0" + month;
+        }
+        if (date < 10) {
+          date = "0" + date;
+        }
         // 선택한날짜
         const dateVal = $("#datepicker").val();
         const drYear = dateVal.substring(0, 4);
@@ -342,9 +354,37 @@
         } else {
           $('#dateRecheck').css('display', 'none');
         }
+
+        const tocommuteVal = $("#tocommute").val();
+
+        if ((year + month + date === drYear + drMonth + drDate) && tocommuteVal !== "선택") {
+          var hours = today.getHours().toString();
+          var minutes = today.getMinutes().toString();
+          if (hours < 10) {
+            hours = "0" + hours;
+          }
+          if (minutes < 10) {
+            minutes = "0" + minutes;
+          }
+
+          const drHour = tocommuteVal.substring(0, 2);
+          const drMinute = tocommuteVal.substring(3, 5);
+
+          if (hours > drHour || (hours === drHour && minutes > drMinute)) {
+            console.log("5번들어옴");
+            $('#timeRecheck3').css('display', 'block');
+            $("#tocommute").val("선택");
+            $("#tocommutes").val("선택");
+            return false;
+          } else {
+            console.log("6번들어옴");
+            $('#timeRecheck3').css('display', 'none');
+          }
+
+        }
       })
 
-      $("#tocommute").click(() => {
+      $("#tocommute").change(() => {
         if ($(':radio[name="work"]:checked').length < 1) {
           $('#workCheck').css('display', 'block');
           $("#tocommute").blur();
@@ -352,9 +392,71 @@
         } else {
           $('#workCheck').css('display', 'none');
         }
+
+        const tocommute = ($("#tocommute").val()).substring(0, 2) + ($("#tocommute").val()).substring(3, 5);
+        const tocommutes = ($("#tocommutes").val()).substring(0, 2) + ($("#tocommutes").val()).substring(3, 5);
+
+        if (tocommute > tocommutes) {
+          console.log("1번");
+          $('#timeCheck').css('display', 'none');
+          $('#timeRecheck1').css('display', 'block');
+          $("#tocommutes").val("선택");
+          return false;
+        } else {
+          console.log("2번");
+          $('#timeRecheck').css('display', 'none');
+        }
+
+        var today = new Date();
+        var year = today.getFullYear().toString();
+        var month = (today.getMonth() + 1).toString();
+        var date = today.getDate().toString();
+        var hours = today.getHours().toString();
+        var minutes = today.getMinutes().toString();
+        if (month < 10) {
+          month = "0" + month;
+        }
+        if (date < 10) {
+          date = "0" + date;
+        }
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+
+        const dateVal = $("#datepicker").val();
+        const drYear = dateVal.substring(0, 4);
+        const drMonth = dateVal.substring(5, 7);
+        const drDate = dateVal.substring(8, 10);
+
+        if ($("#datepicker").val() !== null) {
+
+          if (year + month + date === drYear + drMonth + drDate) {
+
+            const tocommuteVal = $("#tocommute").val();
+            const drHour = tocommuteVal.substring(0, 2);
+            const drMinute = tocommuteVal.substring(3, 5);
+
+            if (hours > drHour || (hours === drHour && minutes > drMinute)) {
+              console.log("6번");
+              $('#timeRecheck3').css('display', 'block');
+              $("#tocommute").val("선택");
+              $("#tocommutes").val("선택");
+              return false;
+            } else {
+              console.log("7번");
+              $('#timeRecheck3').css('display', 'none');
+            }
+          }
+        }
+
+
+
       })
 
-      $("#tocommutes").click(() => {
+      $("#tocommutes").change(() => {
         if ($(':radio[name="work"]:checked').length < 1) {
           $('#workCheck').css('display', 'block');
           $("#tocommutes").blur();
@@ -366,13 +468,27 @@
         const tocommute = ($("#tocommute").val()).substring(0, 2) + ($("#tocommute").val()).substring(3, 5);
         const tocommutes = ($("#tocommutes").val()).substring(0, 2) + ($("#tocommutes").val()).substring(3, 5);
 
-        if (tocommute > tocommutes) {
+        if (tocommute === "선택") {
           $('#timeCheck').css('display', 'none');
+          $('#timeRecheck3').css('display', 'none');
           $('#timeRecheck').css('display', 'block');
           $("#tocommutes").val("선택");
           return false;
         } else {
           $('#timeRecheck').css('display', 'none');
+        }
+
+        if (tocommute > tocommutes) {
+          console.log("3번");
+          $('#timeCheck').css('display', 'none');
+          $('#timeRecheck1').css('display', 'block');
+          $("#tocommutes").val("선택");
+          return false;
+        } else {
+          console.log("4번");
+          $('#timeRecheck').css('display', 'none');
+          $('#timeRecheck1').css('display', 'none');
+          $('#timeRecheck2').css('display', 'none');
         }
       })
 
@@ -837,39 +953,6 @@
       }
       // ------------TMAP API------------
 
-      $("#drForm").submit(() => {
-        const CarPoolRegistraion = {
-          dDate: $('#datepicker').val().toString(),
-          dCommute: $("input:radio[name='work']:checked").val().toString(),
-          dStartTime: $('#tocommute').val(),
-          dEndTime: $('#tocommutes').val(),
-          dStartPoint: $('#start').val().toString(),
-          dEndPoint: $('#end').val().toString(),
-          dFee: $('#fare').val(),
-          dDistance: $('#distance').val(),
-          dTime: $('#time').val(),
-          dStartlon: $('#startlon').val(),
-          dStartlat: $('#startlat').val(),
-          dEndlon: $('#endlon').val(),
-          dEndlat: $('#endlat').val()
-        }
-
-        $.ajax({
-          url: '/driver/driverCarpool/registration',
-          type: 'POST',
-          data: CarPoolRegistraion,
-          success: function (data, status) {
-            console.log(status);
-            if (status == 'success') {
-              alert('정상적으로 등록되었습니다.');
-            } else {
-              alert('등록에 실패했습니다.');
-            }
-          }
-        });
-      })
-
-
       $('#submit').click(function () {
 
         if ($(':radio[name="work"]:checked').length < 1) {
@@ -889,6 +972,8 @@
 
         if ($('#tocommute').val() == "선택" || $('#tocommutes').val() == "선택") {
           $('#timeRecheck').css('display', 'none');
+          $('#timeRecheck1').css('display', 'none');
+          $('#timeRecheck2').css('display', 'none');
           $('#timeCheck').css('display', 'block');
           return false;
         } else {
@@ -909,6 +994,37 @@
           $('#searchCheck').css('display', 'none');
         }
 
+        const CarPoolRegistraion = {
+          dDate: $('#datepicker').val().toString(),
+          dCommute: $("input:radio[name='work']:checked").val().toString(),
+          dStartTime: $('#tocommute').val(),
+          dEndTime: $('#tocommutes').val(),
+          dStartPoint: $('#start').val().toString(),
+          dEndPoint: $('#end').val().toString(),
+          dFee: $('#fare').val(),
+          dDistance: $('#distance').val(),
+          dTime: $('#time').val(),
+          dStartlon: $('#startlon').val(),
+          dStartlat: $('#startlat').val(),
+          dEndlon: $('#endlon').val(),
+          dEndlat: $('#endlat').val()
+        }
+
+        $.ajax({
+          url: '/driver/driverCarpool/registration',
+          type: 'POST',
+          data: CarPoolRegistraion,
+          success: function (data) {
+            console.log(data);
+            if (data == '등록성공') {
+              console.log(data);
+              alert('정상적으로 등록되었습니다.');
+              window.location.reload();
+            } else {
+              alert('등록에 실패했습니다.');
+            }
+          }
+        });
       });
 
     </script>
