@@ -29,70 +29,102 @@ public class PsgKaKaoLoginController {
 	@Autowired
 	private final PsgKakaoService psgKakaoService;
 	private final PassengerInfoRepository passengerInfoRepository;
-	// private KakaoLogin kakao_restapi = new KakaoLogin();
-
-	// kakao 로그인 - 토큰을 이용해서 리다이렉트 후 로그인 처리
-	@GetMapping("/kakao/redirect")
-	public String loginKakao(
-			Model model,
-			// BindingResult bindingResult,
-			@RequestParam(value = "code", required = false) String code,
-			HttpServletResponse resp, HttpServletRequest req,
-			@RequestParam(name = "redirectURL", defaultValue = "/passenger/passengerCarpool/reservation") String redirectURL)
-			throws Exception {
-
-		System.out.println("code=" + code);
-
+//	 private KakaoLogin kakao_restapi = new KakaoLogin();
+	
+// kakao 로그인 - 토큰을 이용해서 리다이렉트 후 로그인 처리
+    @GetMapping("/kakao/redirect")
+    public String loginKakao(
+    		Model model,
+//    		 BindingResult bindingResult, 
+    		@RequestParam(value = "code", required = false) String code,
+    		HttpServletResponse resp, HttpServletRequest req,
+    		@RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL
+    		) throws Exception {
+		
+    	System.out.println("code=" + code);
+		
 		// 위에서 만든 코드 아래에 코드 추가
 		String access_Token = psgKakaoService.getAccessToken(code);
 		System.out.println("access_Token : " + access_Token);
-
-		PassengerInfo passengerKakao = psgKakaoService.getKaKaoUserInfo(access_Token);
-		// DriverInfo userInfo = dks.getKaKaoUserInfo(access_Token);
+		
+		PassengerInfo passengerKakao = psgKakaoService.getPsgKaKaoUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("------------------------------");
-		// System.out.println("userinfo" + userInfo);
-		System.out.println("------------------------------");
-
+		
 		model.addAttribute("passengerKakao", passengerKakao);
-		// model.addAttribute("userinfo", userInfo);
-
+		
 		PassengerInfo passenger = passengerInfoRepository.selectByEmail(passengerKakao.getPUserEmail());
-
-		if (passenger == null) {
-			// bindingResult.reject("loginForm", "이메일 or 비밀번호");
-			return "passenger/login/pKakaoCallback";
-
+		
+		if ( passenger == null ) {
+			return "passenger/join/pKakaoCallback";
+			
 		}
-
+		
 		HttpSession session = req.getSession();
-//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
-		// session.setMaxInactiveInterval(540);
-
+		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
+//		session.setMaxInactiveInterval(540);
+		
 		return "redirect:" + redirectURL;
-	}
+    }
+    
+    
 
-	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
-	@PostMapping("/kakao/registration")
-	public String KakaoInsert(@ModelAttribute PassengerInfo passenger, BindingResult bindingResult) {
+// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
+	@PostMapping("/kakao/join")
+	public String KakaoInsert(@ModelAttribute PassengerInfo passenger
+							, HttpServletRequest req, BindingResult bindingResult) {
 		System.out.println("passenger : " + passenger);
 		System.out.println("---------------------------");
-
-		// memberValidator.validate(member, bindingResult);
-
-		// if(bindingResult.hasErrors()) {
-		// return "members/newMember";
-		// }
-//		driverInfo.setDUserType(null);
-
-//		HttpSession session = req.getSession();
-//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
-
-		passengerInfoRepository.insert(passenger);
+		
+//		memberValidator.validate(member, bindingResult);
+		
+//		if(bindingResult.hasErrors()) {
+//			return "members/newMember";
+//		}
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
+		passenger.setPUserType(null);
+		
+//		passengerInfoRepository.insert(passenger);
 		return "passenger/pReservation";
 	}
 
-	// 카카오 세션
+// 카카오 cookie	
+//	@PostMapping("/kakao/login_cookie")
+//	public String KakaoCookie(@ModelAttribute LoginForm loginForm, 
+//									BindingResult bindingResult,
+////			 						HttpSession session,
+//									HttpServletResponse resp) {
+//
+//		log.info("loginForm {}", loginForm);
+//
+//		validateLoginForm(loginForm, bindingResult);
+//
+//		if (bindingResult.hasErrors()) {
+//			return "login/login";
+//		}
+//
+//		Member member = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+//
+//		log.info("login {}", member);
+//
+//		if (member == null) {
+//// 계정정보가 없거나 비밀번호가 안맞거나 로그인 실패
+//			bindingResult.reject("loginForm", "아이디 or 비밀번호");
+//			return "login/login";
+//		}
+//
+//
+//// 쿠키를 추가
+//		Cookie cookie = new Cookie("loginId", member.getLoginId());
+//		Cookie cookie2 = new Cookie("memberId", member.getId().toString());
+//		resp.addCookie(cookie);
+//		resp.addCookie(cookie2);
+//
+//// session.setAttribute("name", member.getName());
+//
+//		return "redirect:/";
+//	}
 
 	// 카카오 cookie
 	// @PostMapping("/kakao/login_cookie")

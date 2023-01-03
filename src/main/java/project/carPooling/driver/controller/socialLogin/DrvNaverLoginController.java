@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
@@ -30,15 +31,23 @@ import com.google.gson.JsonParser;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DUserType;
 import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.DriverInfoRepository;
+import project.carPooling.driver.service.DrvKakaoService;
+import project.carPooling.global.session.SessionVar;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/driver/login")
 public class DrvNaverLoginController {
-
+	
+	@Autowired
+	private final DriverInfoRepository driverInfoRepository;
+	
 	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
 	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
 									
@@ -53,9 +62,10 @@ public class DrvNaverLoginController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/naver/redirect")
-	public String naverCallback(HttpSession session
+	public String drvNaverCallback(HttpSession session
 								, HttpServletRequest request
-								, Model model)
+								, Model model, HttpServletRequest req
+								, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL)
 									throws IOException, ParseException {
 
 		String code = request.getParameter("code");
@@ -75,7 +85,7 @@ public class DrvNaverLoginController {
 		System.out.println("apiURL=" + apiURL);
 		System.out.println("----------------------------");
 
-		String res = requestToServer(apiURL);
+		String res = drvRequestToServer(apiURL);
 		System.out.println("res : " + res);
 		
 		String accessToken = null;
@@ -101,12 +111,10 @@ public class DrvNaverLoginController {
 		// input value =id, name
 		//return "driver/login/dNaverCallback"; 회원가입 입력하는 페이지로 바로 이동
 		
-		//AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
-		//currentAT=AAAAOZ8QHQBPvHAOThND7ZiQ3al3NX6DgeWzTCuaf3hwKRRXvv44ltVC0vejnmx42lgGF72N9yJ70D-yoEsVXUcPxV8
 		log.info("accessToken: {}", accessToken);
 		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String resProfile = requestToServer(getProfileApiURL, headerStr);
+		String resProfile = drvRequestToServer(getProfileApiURL, headerStr);
 		log.info("resPofile {}", resProfile);
 		//사용자 아이디랑 닉네임 정보
 
@@ -123,28 +131,36 @@ public class DrvNaverLoginController {
 		DriverInfo driverInfo = new DriverInfo();
 		driverInfo.setDUserEmail(obj1.get("email").getAsString());
 		driverInfo.setDUserGender(obj1.get("gender").getAsString());
-//		driverInfo.setDUserType(DUserType("NAVER"));
+//		driverInfo.setDUserType(DUserType.NAVER);
 		
 		model.addAttribute("driverInfo", driverInfo);
 		
-		return "driver/join/dNaverCallback";
+		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
+		
+		if ( driverInfo2 == null ) {
+//			bindingResult.reject("loginForm", "이메일 or 비밀번호");
+			return "driver/join/dNaverCallback";
+			
+		}
+		
+		HttpSession session1 = req.getSession();
+		session1.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
+//		session1.setMaxInactiveInterval(540);
+		
+		return "redirect:" + redirectURL;
 	}
 	
 	
-	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
+	// Naver 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
 		@PostMapping("/naver/join")
-		public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
+		public String drvNaverInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult, HttpServletRequest req) {
 			System.out.println("driverInfo : " + driverInfo);
 			System.out.println("---------------------------");
 			
-//			memberValidator.validate(member, bindingResult);
+			HttpSession session = req.getSession();
+			session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 			
-//			if(bindingResult.hasErrors()) {
-//				return "members/newMember";
-//			}
-			driverInfo.setDUserType(null);
-			
-//			driverInfoR epository.insert(driverInfo);
+			driverInfoRepository.insert(driverInfo);
 			return "driver/dRegistration";
 		}
 
@@ -160,7 +176,7 @@ public class DrvNaverLoginController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/naver/refreshToken")
-	public String refreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
+	public String drvRefreshToken(HttpSession session, HttpServletRequest request, Model model, String refreshToken)
 			throws IOException, ParseException {
 
 		String apiURL;
@@ -172,7 +188,7 @@ public class DrvNaverLoginController {
 
 		System.out.println("apiURL=" + apiURL);
 
-		String res = requestToServer(apiURL);
+		String res = drvRequestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
 		return "driver/join/dNaverCallback";
@@ -189,7 +205,7 @@ public class DrvNaverLoginController {
 	 * @throws IOException
 	 */
 	@RequestMapping("/naver/deleteToken")
-	public String deleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
+	public String drvDeleteToken(HttpSession session, HttpServletRequest request, Model model, String accessToken)
 			throws IOException {
 
 		String apiURL;
@@ -202,7 +218,7 @@ public class DrvNaverLoginController {
 
 		System.out.println("apiURL=" + apiURL);
 
-		String res = requestToServer(apiURL);
+		String res = drvRequestToServer(apiURL);
 		model.addAttribute("res", res);
 		session.invalidate();
 		return "driver/login/dNaverCallback";
@@ -217,11 +233,11 @@ public class DrvNaverLoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/naver/getProfile")
-	public String getProfileFromNaver(String accessToken) throws IOException {
+	public String drvGetProfileFromNaver(String accessToken) throws IOException {
 		// 네이버 로그인 접근 토큰;
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String res = requestToServer(apiURL, headerStr);
+		String res = drvRequestToServer(apiURL, headerStr);
 		return res;
 	}
 
@@ -232,9 +248,9 @@ public class DrvNaverLoginController {
 	 * @return
 	 */
 	@RequestMapping("/naver/invalidate")
-	public String invalidateSession(HttpSession session) {
+	public String drvInvalidateSession(HttpSession session) {
 		session.invalidate();
-		return "redirect:/naver";
+		return "redirect:/home";
 	}
 
 	/**
@@ -244,8 +260,8 @@ public class DrvNaverLoginController {
 	 * @return
 	 * @throws IOException
 	 */
-	private String requestToServer(String apiURL) throws IOException {
-		return requestToServer(apiURL, "");
+	private String drvRequestToServer(String apiURL) throws IOException {
+		return drvRequestToServer(apiURL, "");
 	}
 
 	/**
@@ -256,7 +272,7 @@ public class DrvNaverLoginController {
 	 * @return
 	 * @throws IOException
 	 */
-	private String requestToServer(String apiURL, String headerStr) throws IOException {
+	private String drvRequestToServer(String apiURL, String headerStr) throws IOException {
 		URL url = new URL(apiURL);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");

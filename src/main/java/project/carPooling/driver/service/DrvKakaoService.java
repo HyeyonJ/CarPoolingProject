@@ -17,7 +17,7 @@ import com.google.gson.JsonParser;
 
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
-import project.carPooling.global.repository.KakaoMemRepository;
+import project.carPooling.driver.repository.drvKakaoMemRepository;
 
 
 @Slf4j
@@ -25,7 +25,7 @@ import project.carPooling.global.repository.KakaoMemRepository;
 public class DrvKakaoService {
 	
 	@Autowired
-	private KakaoMemRepository kakaoMemRepository;
+	private drvKakaoMemRepository drvKakaoMemRepository;
 	
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
