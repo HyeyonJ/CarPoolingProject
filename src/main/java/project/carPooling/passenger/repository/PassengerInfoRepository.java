@@ -17,7 +17,7 @@ public interface PassengerInfoRepository {
 	
 	public PassengerInfo selectByNameAndTel(String name, String tel);
 	
-	public PassengerInfo selectByNameAndIdnum(String name, String idnum1, String idnum2);
+	public PassengerInfo selectByNameAndIdnum(String name, String idnum);
 	
 	public List<PassengerInfo> selectAll();
 	

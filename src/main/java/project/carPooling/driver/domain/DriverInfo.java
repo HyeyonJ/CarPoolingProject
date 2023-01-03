@@ -16,12 +16,12 @@ public class DriverInfo {
 	private String dUserTel;
 	private String dUserEmail;
 	private String dUserGender;
-	private Boolean dSignOut;
-
-	private String dBirth;
+	private String dIdNum;
 	private String dLicenseNum;
 	private String dLicenseIdNum;
 	private String dCarNum;
+	private Boolean dSignOut;
+
 	
 	public Integer getDIdx() {
 		return dIdx;
@@ -71,11 +71,11 @@ public class DriverInfo {
 	public void setDUserEmail(String dUserEmail) {
 		this.dUserEmail = dUserEmail;
 	}
-	public String getDBirth() {
-		return dBirth;
+	public String getDIdNum() {
+		return dIdNum;
 	}
-	public void setDBirth(String dBirth) {
-		this.dBirth = dBirth;
+	public void setDIdNum(String dIdNum) {
+		this.dIdNum = dIdNum;
 	}
 	public Boolean getDSignOut() {
 		return dSignOut;
@@ -92,7 +92,7 @@ public class DriverInfo {
 	public String getDLicenseIdNum() {
 		return dLicenseIdNum;
 	}
-	public void setDLicenseDate(String dLicenseIdNum) {
+	public void setDLicenseIdNum(String dLicenseIdNum) {
 		this.dLicenseIdNum = dLicenseIdNum;
 	}
 	public String getDCarNum() {

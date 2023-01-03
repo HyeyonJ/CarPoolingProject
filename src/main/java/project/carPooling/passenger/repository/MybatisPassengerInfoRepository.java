@@ -56,8 +56,8 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 	}
 
 	@Override
-	public PassengerInfo selectByNameAndIdnum(String name, String idnum1, String idnum2) {
-		PassengerInfo passenger = passengerMapper.selectByNameAndIdnum(name, idnum1, idnum2);
+	public PassengerInfo selectByNameAndIdnum(String name, String idnum) {
+		PassengerInfo passenger = passengerMapper.selectByNameAndIdnum(name, idnum);
 		return passenger;
 	}
 	
