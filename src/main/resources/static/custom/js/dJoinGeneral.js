@@ -25,7 +25,7 @@ window.addEventListener('load', () => {
 
 /* 아이디 중복 체크 */
 const regId = /^[a-zA-Z0-9]{4,12}$/;
-if ( reg.test($("#dUserId").val()) ) {
+if ( regId.test($("#dUserId").val()) ) {
 	$("#checkId").click(function() {
 		$.ajax({
 			type: "GET",
