@@ -23,8 +23,8 @@ window.addEventListener('load', () => {
     });
 }, false);
 
-/* 아이디 중복 체크 */
 
+/* 아이디 중복 체크 */
 $("#checkId").click(function() {
 	const regId = /^[a-zA-Z0-9]{4,12}$/;
 	if ( regId.test($("#dUserId").val()) ) {
@@ -72,16 +72,18 @@ $("#checkEmail").click(function () {
 		swal("이메일을 확인해주세요.", "다시 입력하시고 인증 버튼을 눌러주세요.", "error")
 	}
 })
+
+
 /* 인증 코드 입력 & 확인 버튼 */
 $("#checkVcode").click(function () {
 	const regVcode = /^[A-Z0-9]{10}$/;
-	if ( regVcode.test($("#pUserVcode").val()) ){
+	if ( regVcode.test($("#dUserVcode").val()) ){
 		$.ajax({
 				type: "GET",
 				url: "/driver/join/vCode/check",
 				data: { "code": $("#dUserVcode").val() },
 				success: function (res,status) {
-					console.log(typeof res);
+					console.log(res);
 					console.log(status);
 					if(res == true){
 						swal("이메일 인증이 완료되었습니다.", "회원가입을 진행해주세요.", "success").then((OK)=>{
@@ -100,6 +102,8 @@ $("#checkVcode").click(function () {
 		})
 	} else { swal("잘못 입력하셨습니다.", "인증코드를 다시 확인해주세요.", "error") }
 })
+
+
 /* 휴대폰 번호 '-' 자동 입력 */
 var autoHypenPhone = function(tel){
       tel = tel.replace(/[^0-9]/g, '');
@@ -134,6 +138,7 @@ var dUserTel = document.getElementById('dUserTel');
 dUserTel.onkeyup = function(){
   this.value = autoHypenPhone( this.value ) ;  
 }
+
 
 /* 면허 번호 '-' 자동 입력 */
 var autoHypenLicenseNum = function(licenseNum){
