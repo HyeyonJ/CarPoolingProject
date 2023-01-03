@@ -1,11 +1,11 @@
 /* $("#dUserVcode").css("display", "none");
 $("#sendVcode").css("display", "none"); */
 $("#inputVcode").css("display", "none");
-//$('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
-//$('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
+$('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
+$('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
 
 /* 가입유형 자동 선택 (일반), 숨김처리 */
-$("#dUserType3").attr("checked", true);
+$("#dUserType1").attr("checked", true);
 $("#inputUserType").css("display", "none");
 
 /* bootstrap 유효성 검사 */
@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
     const forms = document.getElementsByClassName('validation-form');
 
     Array.prototype.filter.call(forms, (form) => {
-	    form.addEventListener('button', function (event) {
+	    form.addEventListener('submit', function (event) {
 	    	if (form.checkValidity() === false) {
 	        	event.preventDefault();
 	            event.stopPropagation();

@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller.mail;
+package project.carPooling.passenger.controller.userInfo;
 
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ import project.carPooling.passenger.validation.PassengerValidator;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/passenger")
-public class PsgMailController {
+public class PsgVerifyController {
 	
 	@Autowired    
     private RedisTemplate<String, String> redisTemplate; 
@@ -43,23 +43,23 @@ public class PsgMailController {
 	private final PassengerUserService pUserService;
 
 	//아이디 중복 체크
-	@GetMapping("/join/id/check")
+	@GetMapping("/check/id")
 	public boolean passengerCheckJoinId(@RequestParam String id) {		
-		boolean checkId = pUserService.passengerIdCheck(id);		
+		boolean checkId = pUserService.passengerCheckId(id);		
 		log.info("아이디 중복 체크 : {}", checkId);
 		return checkId;
 	}
 	
 	//이메일 중복 체크(사용안함)
-	@GetMapping("/join/email/check")
+	@GetMapping("/check/email")
 	public boolean passengerCheckJoinMail(@RequestParam String email) {		
-		boolean checkEmail = pUserService.passengerEmailCheck(email);		
+		boolean checkEmail = pUserService.passengerCheckEmail(email);		
 		log.info("이메일 중복 체크 : {}", checkEmail);
 		return checkEmail;
 	}
 	
 	//회원가입 인증 메일 발송
-	@GetMapping("/join/email/send")
+	@GetMapping("/send/email")
 	public void passengerSendJoinMail(@RequestParam String email) throws MessagingException, IOException {
         MailTO mailTO = new MailTO();
         mailTO.setAddress(email);    //입력받은 이메일 주소    
@@ -69,7 +69,7 @@ public class PsgMailController {
     }
 	
     //passenger 회원가입 인증코드 일치여부 확인
-	@GetMapping("/join/vCode/check")
+	@GetMapping("/check/vCode")
     public boolean checkPassengerVcode(@RequestParam String code) {
 		boolean checkVcode = userMailService.checkVcode(code);
 		
