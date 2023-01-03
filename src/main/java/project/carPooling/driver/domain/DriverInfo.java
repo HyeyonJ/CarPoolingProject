@@ -14,14 +14,13 @@ public class DriverInfo {
 	private String dUserPw;
 	private String dUserName;
 	private String dUserTel;
-	private String dUserGender;
 	private String dUserEmail;
-	private String dIdNum1;
-	private String dIdNum2;	
+	private String dUserGender;
 	private Boolean dSignOut;
-	
+
+	private String dBirth;
 	private String dLicenseNum;
-	private String dLicenseDate;
+	private String dLicenseIdNum;
 	private String dCarNum;
 	
 	public Integer getDIdx() {
@@ -72,17 +71,11 @@ public class DriverInfo {
 	public void setDUserEmail(String dUserEmail) {
 		this.dUserEmail = dUserEmail;
 	}
-	public String getDIdNum1() {
-		return dIdNum1;
+	public String getDBirth() {
+		return dBirth;
 	}
-	public void setDIdNum1(String dIdNum1) {
-		this.dIdNum1 = dIdNum1;
-	}
-	public String getDIdNum2() {
-		return dIdNum2;
-	}
-	public void setDIdNum2(String dIdNum2) {
-		this.dIdNum2 = dIdNum2;
+	public void setDBirth(String dBirth) {
+		this.dBirth = dBirth;
 	}
 	public Boolean getDSignOut() {
 		return dSignOut;
@@ -96,11 +89,11 @@ public class DriverInfo {
 	public void setDLicenseNum(String dLicenseNum) {
 		this.dLicenseNum = dLicenseNum;
 	}
-	public String getDLicenseDate() {
-		return dLicenseDate;
+	public String getDLicenseIdNum() {
+		return dLicenseIdNum;
 	}
-	public void setDLicenseDate(String dLicenseDate) {
-		this.dLicenseDate = dLicenseDate;
+	public void setDLicenseDate(String dLicenseIdNum) {
+		this.dLicenseIdNum = dLicenseIdNum;
 	}
 	public String getDCarNum() {
 		return dCarNum;

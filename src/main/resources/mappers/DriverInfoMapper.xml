@@ -82,18 +82,22 @@
     AND d_userTel = #{dUserTel}
   </select>
 
-  <!-- public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2); -->
-  <select id="selectByNameAndIdnum" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_userName = #{dUserName}
-    AND d_idNum1 = #{dIdNum1}
-    AND d_idNum2 = #{dIdNum2}
-  </select>
-
   <!-- public List<DriverInfo> selectAll(); -->
 
   <!-- public void deleteAll(); -->
 
   <!-- public DriverInfo update(DriverInfo driver); -->
+  
+  <!-- public DriverInfo selectByLicenseNum(String dLicenseNum); -->
+  <select id="selectByLicenseNum" resultType="DriverInfo">
+    SELECT * FROM DRIVER
+    WHERE d_licenseNum = #{dLicenseNum}
+  </select>
+  
+  <!-- public DriverInfo selectByCarNum(String dCarNum); -->
+  <select id="selectByCarNum" resultType="DriverInfo">
+  	SELECT * FROM DRIVER
+    WHERE d_carNum = #{dCarNum}
+  </select>
 
 </mapper>

@@ -27,8 +27,10 @@ public interface DriverInfoRepository {
 	
 	public DriverInfo selectByNameAndTel(String name, String tel);
 	
-	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2);
-
 	public DriverInfo update(DriverInfo driver);
+	
+	public DriverInfo selectByLicenseNum (String dLicenseNum);
+	
+	public DriverInfo selectByCarNum (String dCarNum);
 	
 }
