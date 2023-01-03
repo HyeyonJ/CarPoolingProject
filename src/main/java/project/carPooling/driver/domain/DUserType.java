@@ -14,4 +14,5 @@ public enum DUserType {
 	public String getMemo() {
 		return memo;
 	}
+
 }

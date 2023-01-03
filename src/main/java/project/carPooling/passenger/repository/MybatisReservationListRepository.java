@@ -15,9 +15,9 @@ public class MybatisReservationListRepository implements ReservationListReposito
 	private final ReservationListMapper reservationListMapper;
 	
 	@Override
-	public List<Map<String, Object>> selectConfirmedReservationList(Integer pIdx) {
-		List<Map<String, Object>> confirmedList = reservationListMapper.selectConfirmedReservationList(pIdx);
-		return confirmedList;
+	public List<Map<String, Object>> selectAcceptedReservationList(Integer pIdx) {
+		List<Map<String, Object>> acceptedList = reservationListMapper.selectAcceptedReservationList(pIdx);
+		return acceptedList;
 	}
 
 	@Override
@@ -27,9 +27,26 @@ public class MybatisReservationListRepository implements ReservationListReposito
 	}
 
 	@Override
+	public List<Map<String, Object>> selectRefusedReservationList(Integer pIdx) {
+		List<Map<String, Object>> refusedList = reservationListMapper.selectRefusedReservationList(pIdx);
+		return refusedList;
+	}
+
+	@Override
 	public List<Map<String, Object>> selectPastReservationList(Integer pIdx) {
 		List<Map<String, Object>> pastList = reservationListMapper.selectPastReservationList(pIdx);
 		return pastList;
+	}
+
+	@Override
+	public boolean deleteRsv(Integer drIdx, Integer pIdx) {
+		boolean result = false;
+		try {
+			reservationListMapper.deleteRsv(drIdx, pIdx);
+			result = true;
+		} catch (Exception e) {
+		}
+		return result;
 	}
 
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 public class SearchCarPool {
 	private String pDate;
 	private String pCommute;
+	private String pGender;
 	private String pBoardingTime;
 	private String pStartlon;
 	private String pStartlat;

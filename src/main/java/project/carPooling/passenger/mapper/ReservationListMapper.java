@@ -8,9 +8,13 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ReservationListMapper {
-	public List<Map<String, Object>> selectConfirmedReservationList(@Param("pIdx") Integer pIdx);
+	public List<Map<String, Object>> selectAcceptedReservationList(@Param("pIdx") Integer pIdx);
 	
 	public List<Map<String, Object>> selectWaitingReservationList(@Param("pIdx") Integer pIdx);
+
+	public List<Map<String, Object>> selectRefusedReservationList(@Param("pIdx") Integer pIdx);
 	
 	public List<Map<String, Object>> selectPastReservationList(@Param("pIdx") Integer pIdx);
+
+	public void deleteRsv(@Param("drIdx") Integer drIdx, @Param("pIdx") Integer pIdx);
 }

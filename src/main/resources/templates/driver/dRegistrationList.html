@@ -3,7 +3,7 @@
   layout:decorate="~{layouts/layoutDriver}">
 
   <head>
-    <title>requestList</title>
+    <title>registrationList</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
     <style>
@@ -119,10 +119,10 @@
   </head>
   <th:block layout:fragment="content">
     <section id="drSection">
-      <div id="container">
+      <div class="container">
 
         <div class="d-flex justify-content-center">
-          <h1 class="mb-4">카풀요청</h1>
+          <h1 class="mb-4">예약된카풀</h1>
 
         </div>
 
@@ -156,6 +156,39 @@
 
       </div>
 
+      <div class="container">
+
+        <div class="d-flex justify-content-center">
+          <h1 class="mb-4">등록한카풀</h1>
+
+        </div>
+
+
+        <div id="yearAllList">
+
+          <button id="pastAllBtn" class="btn btn-primary"></button>
+          <button id="todayAllBtn" class="btn btn-primary"></button>
+          <button id="futureAllBtn" class="btn btn-primary"></button>
+        </div>
+
+        <div id="allListdiv">
+          <div id="allList">
+            <div id="pastAllList"></div>
+            <div id="todayAllList"></div>
+            <div id="futureAllList"></div>
+          </div>
+        </div>
+
+        <div id="popup_mask"></div>
+
+        <div id="popupDiv">
+
+          <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+          <div id="map_div"></div>
+        </div>
+
+      </div>
+
     </section>
   </th:block>
   <th:block layout:fragment="js">
@@ -169,6 +202,7 @@
 
       var d = new Date();
       var thisyear = d.getFullYear() + "년";
+      var past;
       var today;
       var future;
 
@@ -214,27 +248,47 @@
         [afterend] : element 뒤에
         */
         // https://stackoverflow.com/questions/6588630/jquery-append-text 보안때문에 createTextNode or insertAdjacentHTML사용
+
+        // 예약 된 카풀에 날짜 추가
         $('#today').append(document.createTextNode(today));
         $('#future').append(document.createTextNode(future));
+
+        //등록 한 카풀에 날짜 추가
+        $('#pastAllBtn').append("과거");
+        $('#todayAllBtn').append(today);
+        $('#futureAllBtn').append(future);
 
         // document.getElementById('today').insertAdjacentHTML("beforeend", today);
         // document.getElementById('future').insertAdjacentHTML("beforeend", future);
 
+        allList();
         list();
 
-        //리스트 none
-        /*$('#todayList').css('display','none');*/
-        $('#futureList').css('display', 'none');
+        // 예약된 카풀 날짜 버튼 클릭시 디스플레이
+        $('#pastAllBtn').click(function () {
+          $('#pastAllList').css('display', 'inline');
+          $('#todayAllList').css('display', 'none');
+          $('#futureAllList').css('display', 'none');
+        });
+
+        $('#todayAllBtn').click(function () {
+          $('#todayAllList').css('display', 'inline');
+          $('#pastAllList').css('display', 'none');
+          $('#futureAllList').css('display', 'none');
+        });
+
+        $('#futureAllBtn').click(function () {
+          $('#futureAllList').css('display', 'inline');
+          $('#pastAllList').css('display', 'none');
+          $('#todayAllList').css('display', 'none');
+        });
+
 
         //날짜 버튼 클릭시 디스플레이
         $('#past').click(function () {
           $('#pastList').css('display', 'inline');
           $('#todayList').css('display', 'none');
           $('#futureList').css('display', 'none');
-          //버튼활성
-          $('#pastbutton').css('display', 'block');
-          $('#todaybutton').css('display', 'block');
-          $('#futurebutton').css('display', 'block');
 
         });
 
@@ -242,27 +296,46 @@
           $('#todayList').css('display', 'inline');
           $('#pastList').css('display', 'none');
           $('#futureList').css('display', 'none');
-          //버튼활성
-          $('#pastbutton').css('display', 'block');
-          $('#todaybutton').css('display', 'block');
-          $('#futurebutton').css('display', 'block');
         });
 
         $('#future').click(function () {
           $('#futureList').css('display', 'inline');
           $('#pastList').css('display', 'none');
           $('#todayList').css('display', 'none');
-          //버튼활성
-          $('#pastbutton').css('display', 'block');
-          $('#todaybutton').css('display', 'block');
-          $('#futurebutton').css('display', 'block');
         });
+
+
+        //리스트 none
+        $('#futureList').css('display', 'none');
+        $('#pastList').css('display', 'none');
+
+        $('#futureAllList').css('display', 'none');
+        $('#pastAllList').css('display', 'none');
+
       });
+
+      /*거절*/
+      function deleteRegistration(dr_idx) {
+        confirm('등록을 취소하시겠습니까?');
+
+        $.ajax({
+          url: '/driver/driverCarpool/registration/delete',
+          type: 'DELETE',
+          data: { drIdx: dr_idx },
+          success: function (data) {
+            if (data != null) {
+              alert('취소되었습니다.');
+              window.location.reload();
+            }
+            waitingRsv();
+          }
+        });
+      }
 
       function list() {
         $.ajax({
-          url: "/driver/driverCarpool/reqList",
-          type: "POST",
+          url: "/driver/driverCarpool/registration/acceptedList",
+          type: "GET",
           success: (data) => {
             console.log(data);
 
@@ -301,8 +374,7 @@
                 todayhtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
                 todayhtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
                 todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-                todayhtml += '<button class="btn btn-primary" id="todayYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">수락</button>';
-                todayhtml += '<button class="btn btn-primary" id="todayNbtn" onclick="refuse(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">거절</button>' + '<br><br>\n';
+                todayhtml += '<button class="btn btn-primary" id="todayYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">운행시작</button>';
                 todayhtml += '</div>';
 
                 //미래
@@ -323,17 +395,125 @@
                 futurehtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
                 futurehtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
                 futurehtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-                futurehtml += '<button class="btn btn-primary" id="futureYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">수락</button>';
-                futurehtml += '<button class="btn btn-primary" id="futureNbtn" onclick="refuse(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">거절</button>' + '<br><br>\n';
+                futurehtml += '<button class="btn btn-primary" id="futureYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">운행시작</button>';
                 futurehtml += '</div>';
               }
 
 
 
             }
-
             $('#todayList').html(todayhtml);
             $('#futureList').html(futurehtml);
+
+          }
+
+        })
+      }
+
+      function allList() {
+        $.ajax({
+          url: "/driver/driverCarpool/registration/allList",
+          type: "GET",
+          success: (data) => {
+            console.log(data);
+
+            var pasthtml = '';
+            var todayhtml = '';
+            var futurehtml = '';
+
+            for (var i = 0; i < data.length; i++) {
+              console.log(data[i].D_FEE);
+
+              var fee = data[i].D_FEE.toString();
+              var feeCut = fee.substring(fee.length, fee.length - 3);
+              var split = fee.split(feeCut);
+              var feeSplit = split[0] + ',' + feeCut;
+
+              var dDate = data[i].D_DATE.substring(0, 10)
+
+              if (dDate < thisday) {
+
+
+
+                pasthtml += '<div class="pastDiv">';
+                pasthtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+                pasthtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
+                pasthtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
+                pasthtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                pasthtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
+                pasthtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
+                pasthtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
+                pasthtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
+
+                if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
+
+                  pasthtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
+                  pasthtml += '</div>';
+
+                } else {
+
+                  pasthtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
+                  pasthtml += '</div>';
+
+                }
+
+
+                //오늘
+              } else if (dDate == thisday) {
+
+                todayhtml += '<div class="pastDiv">';
+                todayhtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+                todayhtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
+                todayhtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
+                todayhtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                todayhtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
+                todayhtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
+                todayhtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
+                todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
+
+                if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
+                  todayhtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
+                  todayhtml += '</div>';
+                } else {
+                  todayhtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
+                  todayhtml += '</div>';
+
+                }
+
+
+                //미래
+              } else if (dDate > thisday) {
+
+                futurehtml += '<div class="pastDiv">';
+                futurehtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+                futurehtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
+                futurehtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
+                futurehtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
+                futurehtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
+                futurehtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
+                futurehtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
+                futurehtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
+
+                if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
+
+                  futurehtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
+                  futurehtml += '</div>';
+
+                } else {
+                  futurehtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
+                  futurehtml += '</div>';
+
+                }
+
+              }
+
+
+
+            }
+            $('#pastAllList').html(pasthtml);
+            $('#todayAllList').html(todayhtml);
+            $('#futureAllList').html(futurehtml);
+
           }
 
         })
@@ -341,49 +521,7 @@
 
 
 
-      /*수락*/
-      function concent(dr_idx, p_idx) {
-        confirm('수락 하시겠습니까?');
 
-        $.ajax({
-          url: '/driver/driverCarpool/reqList/accept',
-          type: 'PUT',
-          data: {
-            drIdx: dr_idx,
-            pIdx: p_idx
-          },
-          success: function (data) {
-            if (data === "true") {
-              alert('수락 되었습니다.');
-              window.location.reload();
-            }
-            list();
-
-          }
-        });
-      };
-
-
-      /*거절*/
-      function refuse(dr_idx, p_idx) {
-        confirm('거절 하시겠습니까?');
-
-        $.ajax({
-          url: '/driver/driverCarpool/reqList/refuse',
-          type: 'DELETE',
-          data: {
-            drIdx: dr_idx,
-            pIdx: p_idx
-          },
-          success: function (data) {
-            if (data != null) {
-              alert('거절되었습니다.');
-              window.location.reload();
-            }
-            list();
-          }
-        });
-      }
 
 
       function pastMapClose(count) {
@@ -407,7 +545,7 @@
         $('#closebutton').css('display', 'none');
       };
 
-      function map(d_startlon, d_startlat, d_endlon, d_endlat) {
+      function map(D_STARTLON, D_STARTLAT, D_ENDLON, D_ENDLAT) {
 
         $("#popupDiv").css({
           "top": (($(window).height() - $("#popupDiv").outerHeight()) / 2) + "px",
@@ -463,10 +601,10 @@
             async: false,
             data: {
               "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
-              "startX": d_startlon,
-              "startY": d_startlat,
-              "endX": d_endlon,
-              "endY": d_endlat,
+              "startX": D_STARTLON,
+              "startY": D_STARTLAT,
+              "endX": D_ENDLON,
+              "endY": D_ENDLAT,
               "reqCoordType": "WGS84GEO",
               "resCoordType": "EPSG3857",
             },
@@ -477,10 +615,10 @@
               var x;
               var y;
 
-              var numberSX = parseFloat(d_startlon);
-              var numberSY = parseFloat(d_startlat);
-              var numberEX = parseFloat(d_endlon);
-              var numberEY = parseFloat(d_endlat);
+              var numberSX = parseFloat(D_STARTLON);
+              var numberSY = parseFloat(D_STARTLAT);
+              var numberEX = parseFloat(D_ENDLON);
+              var numberEY = parseFloat(D_ENDLAT);
 
               if (numberSX > numberEX) {
                 var x = numberEX + (numberSX - numberEX) / 2;
