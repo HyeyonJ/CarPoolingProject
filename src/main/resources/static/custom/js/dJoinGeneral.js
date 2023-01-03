@@ -24,9 +24,10 @@ window.addEventListener('load', () => {
 }, false);
 
 /* 아이디 중복 체크 */
-const regId = /^[a-zA-Z0-9]{4,12}$/;
-if ( regId.test($("#dUserId").val()) ) {
-	$("#checkId").click(function() {
+
+$("#checkId").click(function() {
+	const regId = /^[a-zA-Z0-9]{4,12}$/;
+	if ( regId.test($("#dUserId").val()) ) {
 		$.ajax({
 			type: "GET",
 			url: "/driver/join/id/check",
@@ -47,8 +48,9 @@ if ( regId.test($("#dUserId").val()) ) {
 				}
 			}
 		})
-	})
-} else { swal("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error"); }
+	} else { swal("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error"); }
+})
+
 
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
 $("#checkEmail").click(function () {

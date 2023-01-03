@@ -24,9 +24,10 @@ window.addEventListener('load', () => {
 }, false);
 
 /* 아이디 중복 체크 */
-const regId = /^[a-zA-Z0-9]{4,12}$/;
-if ( regId.test($("#pUserId").val()) ) {
-	$("#checkId").click(function() {
+
+$("#checkId").click(function() {
+	const regId = /^[a-zA-Z0-9]{4,12}$/;
+	if ( regId.test($("#pUserId").val()) ) {
 		$.ajax({
 			type: "GET",
 			url: "/passenger/join/id/check",
@@ -47,13 +48,13 @@ if ( regId.test($("#pUserId").val()) ) {
 				}
 			}
 		})
-	})
-} else { swal("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error"); }
+	} else { swal("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error"); }
+})
+
 
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
 $("#checkEmail").click(function () {
 	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
 	if( regEmail.test($("#pUserEmail").val()) ) {
 		swal("사용 가능한 이메일입니다.", "입력하신 이메일로 인증코드가 발송됩니다.", "success").then((OK)=>{
 			if(OK) {
