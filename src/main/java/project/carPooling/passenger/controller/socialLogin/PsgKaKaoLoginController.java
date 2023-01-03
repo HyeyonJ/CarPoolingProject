@@ -31,8 +31,6 @@ public class PsgKaKaoLoginController {
 	private final PassengerInfoRepository passengerInfoRepository;
 //	 private KakaoLogin kakao_restapi = new KakaoLogin();
 	
-	
-    
 // kakao 로그인 - 토큰을 이용해서 리다이렉트 후 로그인 처리
     @GetMapping("/kakao/redirect")
     public String loginKakao(
@@ -50,28 +48,21 @@ public class PsgKaKaoLoginController {
 		System.out.println("access_Token : " + access_Token);
 		
 		PassengerInfo passengerKakao = psgKakaoService.getKaKaoUserInfo(access_Token);
-//		DriverInfo userInfo = dks.getKaKaoUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("------------------------------");
-//		System.out.println("userinfo" + userInfo);
-		System.out.println("------------------------------");
-		
-		
 		
 		model.addAttribute("passengerKakao", passengerKakao);
-//		model.addAttribute("userinfo", userInfo);
 		
 		PassengerInfo passenger = passengerInfoRepository.selectByEmail(passengerKakao.getPUserEmail());
 		
 		if ( passenger == null ) {
-//			bindingResult.reject("loginForm", "이메일 or 비밀번호");
-			return "passenger/login/pKakaoCallback";
+			return "passenger/join/pKakaoCallback";
 			
 		}
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
-		session.setMaxInactiveInterval(540);
+//		session.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;
     }
@@ -79,8 +70,9 @@ public class PsgKaKaoLoginController {
     
 
 // kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
-	@PostMapping("/kakao/registration")
-	public String KakaoInsert(@ModelAttribute PassengerInfo passenger, BindingResult bindingResult) {
+	@PostMapping("/kakao/join")
+	public String KakaoInsert(@ModelAttribute PassengerInfo passenger
+							, HttpServletRequest req, BindingResult bindingResult) {
 		System.out.println("passenger : " + passenger);
 		System.out.println("---------------------------");
 		
@@ -89,9 +81,11 @@ public class PsgKaKaoLoginController {
 //		if(bindingResult.hasErrors()) {
 //			return "members/newMember";
 //		}
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
 		passenger.setPUserType(null);
 		
-		passengerInfoRepository.insert(passenger);
+//		passengerInfoRepository.insert(passenger);
 		return "passenger/pReservation";
 	}
 	
