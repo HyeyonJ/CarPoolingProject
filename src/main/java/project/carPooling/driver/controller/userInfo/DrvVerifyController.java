@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller.mail;
+package project.carPooling.driver.controller.userInfo;
 
 import java.io.IOException;
 
@@ -22,32 +22,41 @@ import project.carPooling.global.gmail.UserMailService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/driver")
-public class DrvMailController {
+public class DrvVerifyController {
 	
 	@Autowired    
     private RedisTemplate<String, String> redisTemplate; 
 
 	private final UserMailService userMailService;
 	private final DriverUserService dUserService;
+	
 
+	//면허번호 중복 체크
+	@GetMapping("/check/license")
+	public boolean driverCheckLicenseNum(@RequestParam String licenseNum) {		
+		boolean checkLicenseNum = dUserService.driverCheckLicenseNum(licenseNum);		
+		log.info("면허번호 중복 체크 : {}", checkLicenseNum);
+		return checkLicenseNum;
+	}
+	
 	//아이디 중복 체크
-	@GetMapping("/join/id/check")
-	public boolean driverCheckJoinId(@RequestParam String id) {		
-		boolean checkId = dUserService.driverIdCheck(id);		
+	@GetMapping("/check/id")
+	public boolean driverCheckJoinId(@RequestParam String id) {
+		boolean checkId = dUserService.driverCheckId(id);		
 		log.info("아이디 중복 체크 : {}", checkId);
 		return checkId;
 	}
 	
 	//이메일 중복 체크(사용안함)
-	@GetMapping("/join/email/check")
+	@GetMapping("/check/email")
 	public boolean driverCheckJoinMail(@RequestParam String email) {		
-		boolean checkEmail = dUserService.driverEmailCheck(email);		
+		boolean checkEmail = dUserService.driverCheckEmail(email);		
 		log.info("이메일 중복 체크 : {}", checkEmail);
 		return checkEmail;
 	}
 	
 	//회원가입 인증 메일 발송
-	@GetMapping("/join/email/send")
+	@GetMapping("/send/email")
 	public void driverSendJoinMail(@RequestParam String email) throws MessagingException, IOException {
         MailTO mailTO = new MailTO();
         mailTO.setAddress(email);    //입력받은 이메일 주소    
@@ -57,13 +66,13 @@ public class DrvMailController {
     }
 	
     //driver 회원가입 인증코드 일치여부 확인
-	@GetMapping("/join/vCode/check")
-    public boolean checkdriverVcode(@RequestParam String code) {
+	@GetMapping("/check/vCode")
+    public boolean driverCheckVcode(@RequestParam String code) {
 		boolean checkVcode = userMailService.checkVcode(code);
 		
 		return checkVcode;
     }
-
+	
 	// 테스트 메일 발송
 	@GetMapping("/members/email/{email}")
 	public String authEmail(@PathVariable String email) throws MessagingException, IOException {

@@ -30,7 +30,7 @@ $("#checkId").click(function() {
 	if ( regId.test($("#dUserId").val()) ) {
 		$.ajax({
 			type: "GET",
-			url: "/driver/join/id/check",
+			url: "/driver/check/id",
 			data: { "id": $("#dUserId").val() },
 			success: function (res,status) {
 				/* 아이디 중복 체크 */
@@ -60,7 +60,7 @@ $("#checkEmail").click(function () {
 			if(OK) {
 				$.ajax({
 						type: "GET",
-						url: "/driver/join/email/send",
+						url: "/driver/send/email",
 						data:{ "email": $("#dUserEmail").val() },
 						success: ()=>{ /* 인증 메일 발송 후 인증 코드 입력 폼 출력 */
 						$("#inputVcode").css("display", "block"); }
@@ -80,7 +80,7 @@ $("#checkVcode").click(function () {
 	if ( regVcode.test($("#dUserVcode").val()) ){
 		$.ajax({
 				type: "GET",
-				url: "/driver/join/vCode/check",
+				url: "/driver/check/vCode",
 				data: { "code": $("#dUserVcode").val() },
 				success: function (res,status) {
 					console.log(res);
@@ -174,5 +174,5 @@ var autoHypenLicenseNum = function(licenseNum){
 var dLicenseNum = document.getElementById('dLicenseNum');
 
 dLicenseNum.onkeyup = function(){
-  this.value = autoHypenLicenseNum( this.value ) ;  
+  this.value = autoHypenLicenseNum( this.value ) ;
 }
