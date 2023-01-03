@@ -90,10 +90,6 @@ public class PsgKaKaoLoginController {
 	}
 	
 
-	
-// 카카오 세션
-	
-	
 // 카카오 cookie	
 //	@PostMapping("/kakao/login_cookie")
 //	public String KakaoCookie(@ModelAttribute LoginForm loginForm, 
@@ -130,30 +126,6 @@ public class PsgKaKaoLoginController {
 //
 //		return "redirect:/";
 //	}
-	
-	
-//	public void validateLoginForm(LoginForm loginForm, Errors errors) {
-//
-//		if (!StringUtils.hasText(loginForm.getDUserEmail())) {
-//			errors.rejectValue("dUserEmail", null, "이메일은 필수 입력입니다.");
-//		}
-//
-//		if (!StringUtils.hasText(loginForm.getDUserPw())) {
-//			errors.rejectValue("dUserPw", null, "비밀번호 필수 입력입니다.");
-//		}
-//	}
-	
-	
-// 로그아웃
-//		@PostMapping("/logout_cookie")
-//		public String kakao_logout_cookie(HttpServletResponse resp) {
-//			Cookie cookie = new Cookie("memberId", null);
-//	// 쿠키 죽이기
-//			cookie.setMaxAge(0);
-//			resp.addCookie(cookie);
-//
-//			return "redirect:/";
-//		}
 
 		@PostMapping("/logout_session")
 		public String kakao_logout_session(HttpServletRequest req) {
