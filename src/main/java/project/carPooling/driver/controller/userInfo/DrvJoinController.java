@@ -21,7 +21,7 @@ import project.carPooling.driver.validation.DriverValidator;
 @RequestMapping("/driver/join")
 public class DrvJoinController {
 	
-	private final DriverInfoRepository driverRepository;
+	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
 	
 	@GetMapping("/general")
@@ -41,7 +41,7 @@ public class DrvJoinController {
 			return "driver/join/dJoinGeneral";
 		}
 		//error 없으면, insert() 수행 후 로그인 페이지
-		driverRepository.insert(driver);
+		driverInfoRepository.insert(driver);
 
 		return "redirect:/driver/login";
 	}
@@ -49,24 +49,6 @@ public class DrvJoinController {
 	@ModelAttribute("dUserTypes")
 	public DUserType[] DUserTypes() {
 		return DUserType.values();
-	}
-
-	
-// 소셜 로그인 추가 정보 등록 시
-	@PostMapping("/add")
-	public String socialLoginInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult) {
-		System.out.println("driverInfo : " + driverInfo);
-		System.out.println("---------------------------");
-		
-//		memberValidator.validate(member, bindingResult);
-		
-//		if(bindingResult.hasErrors()) {
-//			return "members/newMember";
-//		}
-		driverInfo.setDUserType(null);
-		
-//		driverInfoR epository.insert(driverInfo);
-		return "driver/dRegistration";
 	}
 
 }

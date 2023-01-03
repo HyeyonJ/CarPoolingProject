@@ -1,4 +1,4 @@
-package project.carPooling.global.repository;
+package project.carPooling.driver.repository;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import project.carPooling.driver.domain.DriverInfo;
 
 @Repository
-public class KakaoMemRepository {
+public class drvKakaoMemRepository {
 
 	// mapper를 호출하기 위한 클래스 주입.
 		@Autowired

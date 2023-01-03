@@ -1,5 +1,11 @@
 package project.carPooling.passenger.controller.login;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.net.UnknownHostException;
+import java.security.SecureRandom;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,10 +36,26 @@ public class PsgLoginController {
 	
 	private final PassengerLoginService passengerLoginService;
 	
+	private String CLIENT_ID = "80RTTYkxaQQE_nLlnxlk"; // 애플리케이션 클라이언트 아이디값";
+	private String CLI_SECRET = "Y28XSEjKSi"; // 애플리케이션 클라이언트 시크릿값";
+	
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String loginMain(HttpSession session, Model model) 
+			throws UnsupportedEncodingException, UnknownHostException {
 		PassengerLoginForm pLoginForm = new PassengerLoginForm();
 		model.addAttribute("pLoginForm", pLoginForm);
+		
+	// 네이버		
+	    String redirectURI = URLEncoder.encode("http://localhost:8080/passenger/login/naver/redirect", "UTF-8");
+	    
+	    SecureRandom random = new SecureRandom();
+	    String state = new BigInteger(130, random).toString();
+	    System.out.println("state: " + state);
+	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	    apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s",
+	        CLIENT_ID, redirectURI, state);
+	    session.setAttribute("state", state);
+	    model.addAttribute("apiURL", apiURL);
 		
 		return "passenger/login/pLoginMain";
 	}

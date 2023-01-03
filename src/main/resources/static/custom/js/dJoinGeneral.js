@@ -1,11 +1,11 @@
 /* $("#dUserVcode").css("display", "none");
 $("#sendVcode").css("display", "none"); */
 $("#inputVcode").css("display", "none");
-$('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
-$('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
+//$('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
+//$('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
 
 /* 가입유형 자동 선택 (일반), 숨김처리 */
-$("#dUserType1").attr("checked", true);
+$("#dUserType3").attr("checked", true);
 $("#inputUserType").css("display", "none");
 
 /* bootstrap 유효성 검사 */
@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
     const forms = document.getElementsByClassName('validation-form');
 
     Array.prototype.filter.call(forms, (form) => {
-	    form.addEventListener('submit', function (event) {
+	    form.addEventListener('button', function (event) {
 	    	if (form.checkValidity() === false) {
 	        	event.preventDefault();
 	            event.stopPropagation();
@@ -54,8 +54,8 @@ $("#checkId").click(function() {
 
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
 $("#checkEmail").click(function () {
-	const reg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-	if( reg.test($("#dUserEmail").val()) ) {
+	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+	if( regEmail.test($("#dUserEmail").val()) ) {
 		swal("사용 가능한 이메일입니다.", "입력하신 이메일로 인증코드가 발송됩니다.", "success").then((OK)=>{
 			if(OK) {
 				$.ajax({

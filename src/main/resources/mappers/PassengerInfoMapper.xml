@@ -30,7 +30,8 @@
 				 END) as pUserGender
 			FROM dual
 		</selectKey>
-		INSERT INTO passenger
+		INSERT INTO passenger (p_idx, p_userType, p_userId, p_userPw, p_userName, p_userTel,
+		p_userEmail, p_userGender, p_idNum1, p_idNum2, p_signOut)
 		VALUES(p_idx_seq.nextVal, #{pUserType}, #{pUserId}, #{pUserPw}, #{pUserName}, #{pUserTel},
 		#{pUserEmail}, #{pUserGender}, #{pIdNum1}, #{pIdNum2}, 'false')
 	</insert>
