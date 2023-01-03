@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.global.session.SessionVar;
+import project.carPooling.passenger.domain.PUserType;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
 import project.carPooling.passenger.service.PsgKakaoService;
@@ -78,12 +79,15 @@ public class PsgKaKaoLoginController {
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
-		passenger.setPUserType(null);
 		
 		passengerInfoRepository.insert(passenger);
 		return "passenger/pReservation";
 	}
 
+	@ModelAttribute("pUserTypes")
+	public PUserType[] PUserTypes() {
+		return PUserType.values();
+	}
 // 카카오 cookie	
 //	@PostMapping("/kakao/login_cookie")
 //	public String KakaoCookie(@ModelAttribute LoginForm loginForm, 
