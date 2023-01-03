@@ -19,7 +19,7 @@ public interface DriverInfoRepository {
 	
 	public DriverInfo selectByNameAndTel(String name, String tel);
 	
-	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2);
+	public DriverInfo selectByNameAndIdnum(String name, String idnum);
 	
 	public DriverInfo selectByIdx(Integer dIdx);
 	

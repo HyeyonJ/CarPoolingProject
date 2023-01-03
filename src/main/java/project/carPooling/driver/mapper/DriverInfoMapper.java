@@ -22,7 +22,7 @@ public interface DriverInfoMapper {
 	
 	public DriverInfo selectByNameAndTel(String name, String tel);
 	
-	public DriverInfo selectByNameAndIdnum(String name, String idnum1, String idnum2);
+	public DriverInfo selectByNameAndIdnum(String name, String idnum);
 	
 	public DriverInfo selectByIdx(Integer dIdx);
 	
@@ -34,7 +34,7 @@ public interface DriverInfoMapper {
 
 	public void deleteAll();
 	
-	public DriverInfo update(DriverInfo driver);
+	public DriverInfo update(DriverInfo driverInfo);
 	
 	public DRegistration selectByDrIdx(Integer drIdx);
 
