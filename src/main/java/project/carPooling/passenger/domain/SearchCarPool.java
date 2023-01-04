@@ -10,8 +10,8 @@ public class SearchCarPool {
 	private String pCommute;
 	private String pGender;
 	private String pBoardingTime;
-	private String pStartlon;
-	private String pStartlat;
-	private String pEndlon;
-	private String pEndlat;
+	private String pStartLon;
+	private String pStartLat;
+	private String pEndLon;
+	private String pEndLat;
 }

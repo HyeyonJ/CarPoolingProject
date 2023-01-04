@@ -31,7 +31,7 @@ public interface DriverInfoRepository {
 	
 	public void deleteAll();
 	
-	public DriverInfo update(DriverInfo driver);
+	public DriverInfo update(DriverInfo driverInfo);
 	
 	public DRegistration selectByDrIdx(Integer drIdx);
 	
