@@ -13,7 +13,7 @@
 		INSERT INTO driver (d_idx, d_userType, d_userId, d_userPw, d_userName, d_userTel, 
 		d_userEmail, d_userGender, d_idNum, d_licenseNum, d_licenseIdNum, d_carNum, d_signOut)
 		VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
-		#{dUserEmail}, #{dUserGender}, #{dIdNum1}, #{dIdNum2}, #{dLicenseNum}, #{dLicenseIdNum},
+		#{dUserEmail}, #{dUserGender}, #{dIdNum}}, #{dLicenseNum}, #{dLicenseIdNum},
 		#{dCarNum}, 'false')
 	</insert>
 	
@@ -27,18 +27,6 @@
   <!-- 		insert into driver(d_email, d_gender) -->
   <!-- 			values(#{d_email}, #{d_gender}) -->
   <!-- 	</insert> -->
-
-  <!-- 	업데이트 처리는 다음 -->
-  <!-- 	<update id="kakaoupdate"> -->
-  <!-- 		update driver -->
-  <!-- 		SET	  d_userPw = #{updateItem.itemName}, -->
-  <!--  			  content = #{updateItem.content}, -->
-  <!--  			  price = #{updateItem.price}, -->
-  <!-- 			  soldout = #{updateItem.soldout}, -->
-  <!-- 			  foodType = #{updateItem.foodType}, -->
-  <!-- <			  shopCode = #{updateItem.shopCode} -->
-  <!-- 		WHERE d_email = #{d_email} -->
-  <!-- 	</update> -->
 
   <!--   <insert id="insert" parameterType="DriverInfo"> -->
   <!--     insert into driverInfo( -->
