@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DUserType;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.driver.service.DrvKakaoService;
@@ -44,7 +45,7 @@ public class DrvKaKaoLoginController {
     		@RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL
     		) throws Exception {
 		
-    	System.out.println("code=" + code);
+    	System.out.println("controller/code=" + code);
 		
 		// 위에서 만든 코드 아래에 코드 추가
 		String access_Token = driverKakaoService.getAccessToken(code);
@@ -58,13 +59,11 @@ public class DrvKaKaoLoginController {
 		System.out.println("------------------------------");
 		
 		
-		
 		model.addAttribute("driverInfo", driverInfo);
 		
 		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
 		
 		if ( driverInfo2 == null ) {
-//			bindingResult.reject("loginForm", "이메일 or 비밀번호");
 			return "driver/join/dKakaoCallback";
 			
 		}
@@ -88,6 +87,11 @@ public class DrvKaKaoLoginController {
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 		
 		return "driver/dRegistration";
+	}
+	
+	@ModelAttribute("dUserTypes")
+	public DUserType[] DUserTypes() {
+		return DUserType.values();
 	}
 
 		@PostMapping("/logout_session")

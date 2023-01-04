@@ -37,14 +37,14 @@
 						</div>
 					</div>
 
-				이메일
-<!-- 					<div class="row"> -->
-<!-- 						<div class="col-md-6 mb-3"> -->
-<!-- 						<label for="pUserEmail">* 이메일(email)</label><br> <input -->
-<!-- 							class="form-control" type="text" id="pUserEmail" -->
-<!-- 							th:field="*{pUserEmail}" style="width: 400px;" readonly> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+<!-- 이메일 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+						<label for="pUserEmail">* 이메일(email)</label><br> <input
+							class="form-control" type="text" id="pUserEmail"
+							th:field="*{pUserEmail}" style="width: 400px;" readonly>
+						</div>
+					</div>
 					
 <!-- 패스워드 입력 -->
 					<div class="row">
@@ -54,8 +54,7 @@
 								placeholder="패스워드"
 								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
-								maxlength="16"  style="width: 400px;" required>
-<!-- 								th:field="*{pUserPw}" -->
+								th:field="*{pUserPw}" maxlength="16"  style="width: 400px;" required>
 							<div class="invalid-feedback">
 								<span>패스워드를 입력해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개
 									이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
@@ -64,56 +63,56 @@
 					</div>
 					
 <!-- 사용자 이름 입력 -->
-<!-- 					<div class="row"> -->
-<!-- 						<div class="col-md-4 mb-3"> -->
-<!-- 							<label for="pUserName">* 이름(name)</label> <input type="text" -->
-<!-- 								class="form-control" id="pUserName" name="pUserName" -->
-<!-- 								th:field="*{pUserName}" maxlength="10" placeholder="이름" style="width: 400px;" required> -->
-<!-- 							<div class="invalid-feedback">이름을 입력해주세요.</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label for="pUserName">* 이름(name)</label> <input type="text"
+								class="form-control" id="pUserName" name="pUserName"
+								th:field="*{pUserName}" maxlength="10" placeholder="이름" style="width: 400px;" required>
+							<div class="invalid-feedback">이름을 입력해주세요.</div>
+						</div>
+					</div>
 
-<!-- 				성별 -->
-<!-- <!-- 					<div class="row"> --> -->
-<!-- <!-- 						<div class="col-md-6 mb-3"> --> -->
-<!-- <!-- 						<label for="pUserGender">* 성별(gender)</label><br> <input --> -->
-<!-- <!-- 							class="form-control" type="text" id="pUserGender" --> -->
-<!-- <!-- 							name="pUserGender" th:field="*{pUserGender}" --> -->
-<!-- <!-- 							style="width: 400px;" readonly> --> -->
-<!-- <!-- 						</div> --> -->
-<!-- <!-- 					</div> --> -->
+<!-- 성별 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+						<label for="pUserGender">* 성별(gender)</label><br> <input
+							class="form-control" type="text" id="pUserGender"
+							name="pUserGender" th:field="*{pUserGender}"
+							style="width: 400px;" readonly>
+						</div>
+					</div>
 					
-<!-- 				휴대폰번호 입력 -->
-<!-- 					<div class="row"> -->
-<!-- 						<div class="col-md-6 mb-3"> -->
-<!-- 							<label for="pUserTel">* 휴대폰번호</label> -->
-<!-- 							<input type="text" class="form-control" id="pUserTel" name="pUserTel" -->
-<!-- 							 		pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력" -->
-<!-- 							 		th:field="*{pUserTel}" value="010" placeholder="숫자만 입력해주세요" style="width: 400px;" required> -->
-<!-- 							<div class="invalid-feedback"> -->
-<!-- 								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+<!-- 휴대폰번호 입력 -->
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="pUserTel">* 휴대폰번호</label>
+							<input type="text" class="form-control" id="pUserTel" name="pUserTel"
+							 		pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력"
+							 		th:field="*{pUserTel}" value="010" placeholder="숫자만 입력해주세요" style="width: 400px;" required>
+							<div class="invalid-feedback">
+								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+							</div>
+						</div>
+					</div>
 					
-<!-- 				주민등록번호(앞) 입력 -->
-<!-- 					<div class="row"> -->
-<!-- 						<div class="col-md-4 mb-3"> -->
-<!-- 							<label for="pIdNum1">* 주민등록번호(앞)</label>  -->
-<!-- 								<input type="text" class="form-control" id="pIdNum1" name="pIdNum1" -->
-<!-- 									placeholder="앞 6자리" pattern="\d{6}" maxlength="6" -->
-<!-- 									title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{pIdNum1}" style="width: 400px;" required> -->
-<!-- 							<div class="invalid-feedback">주민등록번호 앞 6자리를 입력해주세요.</div> -->
-<!-- 						</div> -->
-<!-- 				주민등록번호(뒤) 입력 -->
-<!-- 						<div class="col-md-4 mb-3"> -->
-<!-- 							<label for="pIdNum2">(뒤)</label>  -->
-<!-- 								<input type="password" class="form-control" id="pIdNum2" name="pIdNum2" -->
-<!-- 									placeholder="뒤 7자리" pattern="[1-4]\d{6}" maxlength="7" -->
-<!-- 									title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{pIdNum2}" style="width: 400px" required> -->
-<!-- 							<div class="invalid-feedback">주민등록번호 뒤 7자리를 입력해주세요.</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+<!-- 주민등록번호(앞) 입력 -->
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label for="pIdNum1">* 주민등록번호(앞)</label> 
+								<input type="text" class="form-control" id="pIdNum1" name="pIdNum1"
+									placeholder="앞 6자리" pattern="\d{6}" maxlength="6"
+									title="주민등록번호 앞자리 숫자 6개 입력" th:field="*{pIdNum1}" style="width: 400px;" required>
+							<div class="invalid-feedback">주민등록번호 앞 6자리를 입력해주세요.</div>
+						</div>
+<!-- 주민등록번호(뒤) 입력 -->
+						<div class="col-md-4 mb-3">
+							<label for="pIdNum2">(뒤)</label> 
+								<input type="password" class="form-control" id="pIdNum2" name="pIdNum2"
+									placeholder="뒤 7자리" pattern="[1-4]\d{6}" maxlength="7"
+									title="주민등록번호 뒷자리 숫자 7개 입력" th:field="*{pIdNum2}" style="width: 400px" required>
+							<div class="invalid-feedback">주민등록번호 뒤 7자리를 입력해주세요.</div>
+						</div>
+					</div>
 				
 <!-- 개인정보활용동의 -->
 					<div class="custom-control custom-checkbox mb-3" style="margin-top:30px; text-align: center;">
@@ -155,8 +154,8 @@
 		</div>
 	</div>
 <th:block layout:fragment="js">
-	<script src="/custom/js/dJoinKakao.js"></script>
+	<script src="/custom/js/passenger/pJoinKakao.js"></script>
 </th:block>
 </html>
-				<!-- 카카오톡 로그아웃 -->
-				<!-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/dLoginMain">로그아웃</a> -->
+	<!-- 카카오톡 로그아웃 -->
+	<!-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/dLoginMain">로그아웃</a> -->

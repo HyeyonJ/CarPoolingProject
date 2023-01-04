@@ -15,7 +15,7 @@ public class PassengerUserService {
 	private final PassengerInfoRepository passengerRepository;
 	
 	//passenger 아이디 중복 체크
-	public boolean passengerIdCheck(String id) {
+	public boolean passengerCheckId(String id) {
 		boolean checkId = false;
         PassengerInfo passenger = passengerRepository.selectByLoginId(id);        
         if(passenger!=null) { checkId = true; }        
@@ -23,7 +23,7 @@ public class PassengerUserService {
     }
 	
 	//passenger 이메일 중복 체크
-	public boolean passengerEmailCheck(String email) {
+	public boolean passengerCheckEmail(String email) {
 		boolean checkEmail = false;
         PassengerInfo passenger = passengerRepository.selectByEmail(email);        
         if(passenger!=null) { checkEmail = true; }        

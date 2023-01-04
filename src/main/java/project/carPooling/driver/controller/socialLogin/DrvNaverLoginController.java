@@ -38,6 +38,7 @@ import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.driver.service.DrvKakaoService;
 import project.carPooling.global.session.SessionVar;
+import project.carPooling.passenger.domain.PUserType;
 
 @Slf4j
 @Controller
@@ -72,7 +73,7 @@ public class DrvNaverLoginController {
 		String state = request.getParameter("state");
 		String redirectURI = URLEncoder.encode("http://localhost:8080/driver/login/naver/redirect", "UTF-8");
 
-		System.out.println("code= " + code);
+		System.out.println("NaverController code= " + code);
 		
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -134,17 +135,16 @@ public class DrvNaverLoginController {
 //		driverInfo.setDUserType(DUserType.NAVER);
 		
 		model.addAttribute("driverInfo", driverInfo);
+		System.out.println("naverDriverinfo: " + driverInfo);
 		
-		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
+		driverInfo = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
 		
-		if ( driverInfo2 == null ) {
-//			bindingResult.reject("loginForm", "이메일 or 비밀번호");
+		if ( driverInfo == null ) {
 			return "driver/join/dNaverCallback";
-			
 		}
 		
 		HttpSession session1 = req.getSession();
-		session1.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
+		session1.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 //		session1.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;
@@ -162,6 +162,11 @@ public class DrvNaverLoginController {
 			
 			driverInfoRepository.insert(driverInfo);
 			return "driver/dRegistration";
+		}
+		
+		@ModelAttribute("dUserTypes")
+		public DUserType[] DUserTypes() {
+			return DUserType.values();
 		}
 
 	/**

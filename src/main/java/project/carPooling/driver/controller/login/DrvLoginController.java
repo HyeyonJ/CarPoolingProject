@@ -51,9 +51,9 @@ public class DrvLoginController {
 	    
 	    SecureRandom random = new SecureRandom();
 	    String state = new BigInteger(130, random).toString();
-	    System.out.println("state: " + state);
+	    System.out.println("dLoginMain-naver-state: " + state);
 	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-	    apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s",
+	    		apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s",
 	        CLIENT_ID, redirectURI, state);
 	    session.setAttribute("state", state);
 	    model.addAttribute("apiURL", apiURL);

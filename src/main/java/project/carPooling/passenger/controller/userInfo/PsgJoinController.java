@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller.join;
+package project.carPooling.passenger.controller.userInfo;
 
 
 

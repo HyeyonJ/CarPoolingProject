@@ -43,14 +43,27 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	}
 	
 	@Override
-	public List<DriverInfo> selectAll() {
-		List<DriverInfo> drivers = driverMapper.selectAll();
-		return drivers;
+	public DriverInfo selectByEmail(String dUserEmail) {
+		DriverInfo driverInfo = driverMapper.selectByEmail(dUserEmail);
+		return driverInfo;
 	}
-
+	
 	@Override
-	public void deleteAll() {
-		driverMapper.deleteAll();
+	public DriverInfo selectByNameAndEmail(String name, String email) {
+		DriverInfo driverInfo = driverMapper.selectByNameAndEmail(name, email);
+		return driverInfo;
+	}
+	
+	@Override
+	public DriverInfo selectByNameAndTel(String name, String tel) {
+		DriverInfo driverInfo = driverMapper.selectByNameAndTel(name, tel);
+		return driverInfo;
+	}
+	
+	@Override
+	public DriverInfo selectByNameAndIdnum(String name, String idnum) {
+		DriverInfo driverInfo = driverMapper.selectByNameAndIdnum(name, idnum);
+		return driverInfo;
 	}
 
 	@Override
@@ -60,8 +73,31 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	}
 
 	@Override
-	public DriverInfo selectByEmail(String dUserEmail) {
-		DriverInfo driverInfo = driverMapper.selectByEmail(dUserEmail);
+	public DriverInfo selectByLicenseNum(String dLicenseNum) {
+		DriverInfo driverInfo = driverMapper.selectByLicenseNum(dLicenseNum);
+		return driverInfo;
+	}
+	
+	@Override
+	public DriverInfo selectByCarNum(String dCarNum) {
+		DriverInfo driverInfo = driverMapper.selectByCarNum(dCarNum);
+		return driverInfo;
+	}
+	
+	@Override
+	public List<DriverInfo> selectAll() {
+		List<DriverInfo> drivers = driverMapper.selectAll();
+		return drivers;
+	}
+	
+	@Override
+	public void deleteAll() {
+		driverMapper.deleteAll();
+	}
+	
+	@Override
+	public DriverInfo update(DriverInfo driverInfo) {
+		driverMapper.update(driverInfo);
 		return driverInfo;
 	}
 
@@ -69,36 +105,6 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	public DRegistration selectByDrIdx(Integer drIdx) {
 		DRegistration dRegistration = driverMapper.selectByDrIdx(drIdx);
 		return dRegistration;
-	}
-
-	@Override
-	public DriverInfo selectByNameAndEmail(String name, String email) {
-		DriverInfo driver = driverMapper.selectByNameAndEmail(name, email);
-		return driver;
-	}
-
-	@Override
-	public DriverInfo selectByNameAndTel(String name, String tel) {
-		DriverInfo driver = driverMapper.selectByNameAndTel(name, tel);
-		return driver;
-	}
-
-	@Override
-	public DriverInfo update(DriverInfo driver) {
-		driverMapper.update(driver);
-		return driver;
-	}
-
-	@Override
-	public DriverInfo selectByLicenseNum(String dLicenseNum) {
-		DriverInfo driver = driverMapper.selectByLicenseNum(dLicenseNum);
-		return driver;
-	}
-
-	@Override
-	public DriverInfo selectByCarNum(String dCarNum) {
-		DriverInfo driver = driverMapper.selectByCarNum(dCarNum);
-		return driver;
 	}
 
 }

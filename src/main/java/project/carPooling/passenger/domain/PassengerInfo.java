@@ -12,9 +12,9 @@ public class PassengerInfo {
 	private String pUserTel;
 	private String pUserEmail;
 	private String pUserGender;
+	private String pIdNum;
 	private Boolean pSignOut;
 
-	private String pIdNum;
 	
 	//Mybatis insert 시 No setter ... 에러 발생 > getter, setter 수동 생성
 	public Integer getPIdx() {

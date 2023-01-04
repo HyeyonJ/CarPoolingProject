@@ -29,7 +29,7 @@ $("#checkId").click(function() {
 	if ( regId.test($("#pUserId").val()) ) {
 		$.ajax({
 			type: "GET",
-			url: "/passenger/join/id/check",
+			url: "/passenger/check/id",
 			data: { "id": $("#pUserId").val() },
 			success: function (res,status) {
 				/* 아이디 중복 체크 */
@@ -59,7 +59,7 @@ $("#checkEmail").click(function () {
 			if(OK) {
 				$.ajax({
 						type: "GET",
-						url: "/passenger/join/email/send",
+						url: "/passenger/send/email",
 						data:{ "email": $("#pUserEmail").val() },
 						success: ()=>{ /* 인증 메일 발송 후 인증 코드 입력 폼 출력 */
 						$("#inputVcode").css("display", "block"); }
@@ -79,7 +79,7 @@ $("#checkVcode").click(function () {
 	if ( regVcode.test($("#pUserVcode").val()) ){
 		$.ajax({
 				type: "GET",
-				url: "/passenger/join/vCode/check",
+				url: "/passenger/check/vCode",
 				data: { "code": $("#pUserVcode").val() },
 				success: function (res,status) {
 					console.log(res);

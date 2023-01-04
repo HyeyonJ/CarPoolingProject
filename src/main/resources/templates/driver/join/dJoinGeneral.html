@@ -111,20 +111,19 @@
 								pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 								th:field="*{dUserTel}" value="010" required>
 							<div class="invalid-feedback">
-								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+								<span>휴대폰번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<!-- 생년월일(8자리) 입력 -->
+						<!-- 주민등록번호 입력 -->
 						<div class="col-md-4 mb-3">
-							<label for="dIdNum1">생년월일(8자리)</label>
-							<input type="text" class="form-control" id="dBirth" name="dBirth"
-								th:field="*{dBirth}" title="생년월일 8자리 숫자만 입력"
-								pattern="^((19[0-9]{2}|200[0-3])(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$"								
-								placeholder="생년월일 8자리 숫자만 입력" maxlength="8" required>
+							<label for="dIdNum">주민등록번호</label>
+							<input type="text" class="form-control" id="dIdNum" name="dIdNum" th:field="*{dIdNum}"
+								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))([1-4]\d{6})$"
+								title="주민등록번호 13자리 숫자만 입력" maxlength="14" required>
 							<div class="invalid-feedback">
-								<span>생년월일을 확인해주세요.</span><span>(숫자만 입력)</span>
+								<span>주민등록번호를 확인해주세요.</span>
 							</div>
 						</div>
 					</div>
@@ -188,6 +187,6 @@
 	</div>
 </th:block>
 <th:block layout:fragment="js">
-	<script src="/custom/js/dJoinGeneral.js"></script>
+	<script src="/custom/js/driver/dJoinGeneral.js"></script>
 </th:block>
 </html>

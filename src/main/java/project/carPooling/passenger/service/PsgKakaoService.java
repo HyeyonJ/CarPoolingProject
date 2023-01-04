@@ -92,7 +92,7 @@ public class PsgKakaoService {
 	public PassengerInfo getPsgKaKaoUserInfo(String access_Token) {
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 		
-		PassengerInfo passengerInfo = new PassengerInfo();
+		PassengerInfo passenger = new PassengerInfo();
 		
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
@@ -123,13 +123,13 @@ public class PsgKakaoService {
 			log.info("email: {}", obj1.get("email"));
 			log.info("gender: {}", obj1.get("gender"));
 			
-			passengerInfo.setPUserEmail(obj1.get("email").getAsString());
-			passengerInfo.setPUserGender(obj1.get("gender").getAsString());
+			passenger.setPUserEmail(obj1.get("email").getAsString());
+			passenger.setPUserGender(obj1.get("gender").getAsString());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return passengerInfo;
+		return passenger;
 
 	}
 }
