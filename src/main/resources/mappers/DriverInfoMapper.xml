@@ -18,10 +18,10 @@
 	</insert>
 	
 	<!-- public DriverInfo selectByLoginId (String loginId); -->
-	<select id="selectByLoginId" resultType="DriverInfo">
-	    SELECT * FROM DRIVER
-	    WHERE d_userId = #{dUserId}
-  	</select>
+<!-- 	<select id="selectByLoginId" resultType="DriverInfo"> -->
+<!-- 	    SELECT * FROM DRIVER -->
+<!-- 	    WHERE d_userId = #{dUserId} -->
+<!--   	</select> -->
 
   <!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
   <!-- 		insert into driver(d_email, d_gender) -->
@@ -47,34 +47,34 @@
   <!--     , #{licenseNum}, #{licenseDate}, #{carNum}) -->
   <!--   </insert> -->
 
-  <select id="selectByIdx" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_idx = #{dIdx}
-  </select>
+<!--   <select id="selectByIdx" resultType="DriverInfo"> -->
+<!--     SELECT * FROM DRIVER -->
+<!--     WHERE d_idx = #{dIdx} -->
+<!--   </select> -->
 
-  <select id="selectByDrIdx" resultType="DRegistration">
-    SELECT * FROM D_REGISTRATION
-    WHERE dr_idx = #{drIdx}
-  </select>
+<!--   <select id="selectByDrIdx" resultType="DRegistration"> -->
+<!--     SELECT * FROM D_REGISTRATION -->
+<!--     WHERE dr_idx = #{drIdx} -->
+<!--   </select> -->
 
   <select id="selectByEmail" resultType="DriverInfo">
     SELECT * FROM DRIVER
     WHERE d_userEmail = #{dUserEmail}
   </select>
 
-  <!-- public DriverInfo selectByNameAndEmail(String name, String email); -->
-  <select id="selectByNameAndEmail" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_userName = #{dUserName}
-    AND d_userEmail = #{dUserEmail}
-  </select>
+<!--   public DriverInfo selectByNameAndEmail(String name, String email); -->
+<!--   <select id="selectByNameAndEmail" resultType="DriverInfo"> -->
+<!--     SELECT * FROM DRIVER -->
+<!--     WHERE d_userName = #{dUserName} -->
+<!--     AND d_userEmail = #{dUserEmail} -->
+<!--   </select> -->
 
-  <!-- public DriverInfo selectByNameAndTel(String name, String tel); -->
-  <select id="selectByNameAndTel" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_userName = #{dUserName}
-    AND d_userTel = #{dUserTel}
-  </select>
+<!--  public DriverInfo selectByNameAndTel(String name, String tel); -->
+<!--   <select id="selectByNameAndTel" resultType="DriverInfo"> -->
+<!--     SELECT * FROM DRIVER -->
+<!--     WHERE d_userName = #{dUserName} -->
+<!--     AND d_userTel = #{dUserTel} -->
+<!--   </select> -->
 
   <!-- public List<DriverInfo> selectAll(); -->
 

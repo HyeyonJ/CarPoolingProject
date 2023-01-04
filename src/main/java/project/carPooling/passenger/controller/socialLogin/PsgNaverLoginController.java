@@ -33,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.global.session.SessionVar;
+import project.carPooling.passenger.domain.PUserType;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
 
@@ -158,6 +159,11 @@ public class PsgNaverLoginController {
 		
 		passengerInfoRepository.insert(passengerInfo);
 		return "passenger/pReservation";
+	}
+	
+	@ModelAttribute("pUserTypes")
+	public PUserType[] PUserTypes() {
+		return PUserType.values();
 	}
 
 	/**
