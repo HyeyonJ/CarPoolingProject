@@ -17,8 +17,8 @@ public class DRegistration {
 	private int	dFee;
 	private float dDistance;
 	private int	dTime;
-	private String dStartlon;
-	private String dStartlat;
-	private String dEndlon;
-	private String dEndlat;
+	private String dStartLon;
+	private String dStartLat;
+	private String dEndLon;
+	private String dEndLat;
 }

@@ -11,8 +11,8 @@
 				 END) as pUserGender
 			FROM dual
 		</selectKey>
-		INSERT INTO passenger (p_idx, p_userType, p_userId, p_userPw, p_userName, p_userTel,
-		p_userEmail, p_userGender, p_idNum, p_signOut)
+		INSERT INTO passenger (p_idx, p_user_type, p_user_id, p_user_pw, p_user_name, p_user_tel,
+		p_user_email, p_user_gender, p_id_num, p_sign_out)
 		VALUES(p_idx_seq.nextVal, #{pUserType}, #{pUserId}, #{pUserPw}, #{pUserName}, #{pUserTel},
 		#{pUserEmail}, #{pUserGender}, #{pIdNum}, 'false')
 	</insert>
@@ -22,34 +22,34 @@
 	<!-- public PassengerInfo selectByLoginId(String loginId); -->
 	<select id="selectByLoginId" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_userId = #{pUserId}
+		WHERE p_user_id = #{pUserId}
 	</select>
 	
 	<!-- public PassengerInfo selectByEmail(String email); -->
 	<select id="selectByEmail" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_userEmail = #{pUserEmail}
+		WHERE p_user_email = #{pUserEmail}
 	</select>
 	
 	<!-- public PassengerInfo selectByNameAndEmail(String name, String email); -->
 	<select id="selectByNameAndEmail" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_userName = #{pUserName}
-		AND p_userEmail = #{pUserEmail}
+		WHERE p_user_name = #{pUserName}
+		AND p_user_email = #{pUserEmail}
 	</select>
 
 	<!-- public PassengerInfo selectByNameAndTel(String name, String tel); -->
 	<select id="selectByNameAndTel" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_userName = #{pUserName}
-		AND p_userTel = #{pUserTel}
+		WHERE p_user_name = #{pUserName}
+		AND p_user_tel = #{pUserTel}
 	</select>
 	
 	<!-- public PassengerInfo selectByNameAndIdnum(String name, String idnum1, String idnum2); -->
 	<select id="selectByNameAndIdnum" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_userName = #{pUserName}
-		AND p_idNum = #{p_idNum}
+		WHERE p_user_name = #{pUserName}
+		AND p_id_num = #{p_idNum}
 	</select>
 	
 	<!-- public List<PassengerInfo> selectAll(); -->
