@@ -11,9 +11,9 @@
       FROM dual
     </selectKey>
     INSERT INTO driver (d_idx, d_user_type, d_user_id, d_user_pw, d_user_name, d_user_tel,
-    d_user_email, d_user_gender, d_id_num, d_license_num, d_license_id_num, d_car_num, d_sign_out)
+    d_user_email, d_user_gender, d_id_num, d_license_num, d_license_id_num, d_car_num, d_penalty, d_sign_out)
     VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
-    #{dUserEmail}, #{dUserGender}, #{dIdNum1}, #{dIdNum2}, #{dLicenseNum}, #{dLicenseIdNum},
+    #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dLicenseNum}, #{dLicenseIdNum},
     #{dCarNum}, 3,'false')
   </insert>
 
@@ -28,7 +28,7 @@
   <!-- 			values(#{d_email}, #{d_gender}) -->
   <!-- 	</insert> -->
 
-  <<<<<<< Updated upstream=======<!-- 업데이트 처리는 다음 -->
+    <!-- 업데이트 처리는 다음 -->
     <!-- 	<update id="kakaoupdate"> -->
     <!-- 		update driver -->
     <!-- 		SET	  d_user_pw = #{updateItem.itemName}, -->
@@ -39,14 +39,6 @@
     <!-- <			  shopCode = #{updateItem.shopCode} -->
     <!-- 		WHERE d_email = #{d_email} -->
     <!-- 	</update> -->
-
-    >>>>>>> Stashed changes
-    <!--   <insert id="insert" parameterType="DriverInfo"> -->
-    <!--     insert into driverInfo( -->
-    <!--     userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum) -->
-    <!--     values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2} -->
-    <!--     , #{licenseNum}, #{licenseDate}, #{carNum}) -->
-    <!--   </insert> -->
 
     <!--   <select id="selectByIdx" resultType="DriverInfo"> -->
     <!--     SELECT * FROM DRIVER -->

@@ -20,6 +20,7 @@ public class DriverInfo {
 	private String dLicenseNum;
 	private String dLicenseIdNum;
 	private String dCarNum;
+	private String dPenalty;
 	private Boolean dSignOut;
 
 	
@@ -101,5 +102,12 @@ public class DriverInfo {
 	public void setDCarNum(String dCarNum) {
 		this.dCarNum = dCarNum;
 	}
+	public String getDPenalty() {
+		return dPenalty;
+	}
+	public void setDPenalty(String dPenalty) {
+		this.dPenalty = dPenalty;
+	}
+
 	
 }
