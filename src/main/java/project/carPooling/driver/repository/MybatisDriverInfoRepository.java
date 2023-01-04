@@ -21,12 +21,10 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	@Override
 	public DriverInfo insert(DriverInfo driverInfo) {
 		String dUserGender = driverInfo.getDUserGender();
-		if(dUserGender != null && dUserGender.equals("male")) {
-			driverInfo.setDUserGender("M");
-		}else {
-			driverInfo.setDUserGender("F");
-		}
-		driverMapper.insert(driverInfo);
+		if(dUserGender != null) {
+			if(dUserGender.equals("male")) { driverInfo.setDUserGender("M"); }
+			else { driverInfo.setDUserGender("F"); } 
+		} driverMapper.insert(driverInfo);
 		return driverInfo;
 	}
 

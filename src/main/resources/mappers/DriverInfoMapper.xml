@@ -2,96 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project.carPooling.driver.mapper.DriverInfoMapper">
 
-	<!-- public Integer insert(DriverInfo driverInfo); -->
-	<insert id="insert" parameterType="DriverInfo">
-		<selectKey keyProperty="dUserGender" resultType="String" order="BEFORE">
-			SELECT (CASE WHEN SUBSTR(#{dIdNum}, 7, 1) IN ('1', '3') THEN 'M'
-				 ELSE 'F'
-				 END) as dUserGender
-			FROM dual
-		</selectKey>
-		INSERT INTO driver (d_idx, d_userType, d_userId, d_userPw, d_userName, d_userTel, 
-		d_userEmail, d_userGender, d_idNum, d_licenseNum, d_licenseIdNum, d_carNum, d_signOut)
-		VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
-		#{dUserEmail}, #{dUserGender}, #{dIdNum1}, #{dIdNum2}, #{dLicenseNum}, #{dLicenseIdNum},
-		#{dCarNum}, 'false')
-	</insert>
-	
-	<!-- public DriverInfo selectByLoginId (String loginId); -->
-<!-- 	<select id="selectByLoginId" resultType="DriverInfo"> -->
-<!-- 	    SELECT * FROM DRIVER -->
-<!-- 	    WHERE d_userId = #{dUserId} -->
-<!--   	</select> -->
+  <!-- public Integer insert(DriverInfo driverInfo); -->
+  <insert id="insert" parameterType="DriverInfo">
+    <selectKey keyProperty="dUserGender" resultType="String" order="BEFORE">
+      SELECT (CASE WHEN SUBSTR(#{dIdNum}, 7, 1) IN ('1', '3') THEN 'M'
+      ELSE 'F'
+      END) as dUserGender
+      FROM dual
+    </selectKey>
+    INSERT INTO driver (d_idx, d_user_type, d_user_id, d_user_pw, d_user_name, d_user_tel,
+    d_user_email, d_user_gender, d_id_num, d_license_num, d_license_id_num, d_car_num, d_penalty, d_sign_out)
+    VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
+    #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dLicenseNum}, #{dLicenseIdNum},
+    #{dCarNum}, 3,'false')
+  </insert>
+
+  <!-- public DriverInfo selectByLoginId (String loginId); -->
+  <!-- 	<select id="selectByLoginId" resultType="DriverInfo"> -->
+  <!-- 	    SELECT * FROM DRIVER -->
+  <!-- 	    WHERE d_user_id = #{dUserId} -->
+  <!--   	</select> -->
 
   <!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
   <!-- 		insert into driver(d_email, d_gender) -->
   <!-- 			values(#{d_email}, #{d_gender}) -->
   <!-- 	</insert> -->
 
-  <!-- 	업데이트 처리는 다음 -->
-  <!-- 	<update id="kakaoupdate"> -->
-  <!-- 		update driver -->
-  <!-- 		SET	  d_userPw = #{updateItem.itemName}, -->
-  <!--  			  content = #{updateItem.content}, -->
-  <!--  			  price = #{updateItem.price}, -->
-  <!-- 			  soldout = #{updateItem.soldout}, -->
-  <!-- 			  foodType = #{updateItem.foodType}, -->
-  <!-- <			  shopCode = #{updateItem.shopCode} -->
-  <!-- 		WHERE d_email = #{d_email} -->
-  <!-- 	</update> -->
+    <!-- 업데이트 처리는 다음 -->
+    <!-- 	<update id="kakaoupdate"> -->
+    <!-- 		update driver -->
+    <!-- 		SET	  d_user_pw = #{updateItem.itemName}, -->
+    <!--  			  content = #{updateItem.content}, -->
+    <!--  			  price = #{updateItem.price}, -->
+    <!-- 			  soldout = #{updateItem.soldout}, -->
+    <!-- 			  foodType = #{updateItem.foodType}, -->
+    <!-- <			  shopCode = #{updateItem.shopCode} -->
+    <!-- 		WHERE d_email = #{d_email} -->
+    <!-- 	</update> -->
 
-  <!--   <insert id="insert" parameterType="DriverInfo"> -->
-  <!--     insert into driverInfo( -->
-  <!--     userNum, userId, userPw, userName, userEmail, idNum1, idNum2, licenseNum, licenseDate, carNum) -->
-  <!--     values( memberPK.nextVal, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{idNum1}, #{idNum2} -->
-  <!--     , #{licenseNum}, #{licenseDate}, #{carNum}) -->
-  <!--   </insert> -->
+    <!--   <select id="selectByIdx" resultType="DriverInfo"> -->
+    <!--     SELECT * FROM DRIVER -->
+    <!--     WHERE d_idx = #{dIdx} -->
+    <!--   </select> -->
 
-<!--   <select id="selectByIdx" resultType="DriverInfo"> -->
-<!--     SELECT * FROM DRIVER -->
-<!--     WHERE d_idx = #{dIdx} -->
-<!--   </select> -->
+    <!--   <select id="selectByDrIdx" resultType="DRegistration"> -->
+    <!--     SELECT * FROM D_REGISTRATION -->
+    <!--     WHERE dr_idx = #{drIdx} -->
+    <!--   </select> -->
 
-<!--   <select id="selectByDrIdx" resultType="DRegistration"> -->
-<!--     SELECT * FROM D_REGISTRATION -->
-<!--     WHERE dr_idx = #{drIdx} -->
-<!--   </select> -->
+    <select id="selectByEmail" resultType="DriverInfo">
+      SELECT * FROM DRIVER
+      WHERE d_user_email = #{dUserEmail}
+    </select>
 
-  <select id="selectByEmail" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_userEmail = #{dUserEmail}
-  </select>
+    <!--   public DriverInfo selectByNameAndEmail(String name, String email); -->
+    <!--   <select id="selectByNameAndEmail" resultType="DriverInfo"> -->
+    <!--     SELECT * FROM DRIVER -->
+    <!--     WHERE d_userName = #{dUserName} -->
+    <!--     AND d_userEmail = #{dUserEmail} -->
+    <!--   </select> -->
 
-<!--   public DriverInfo selectByNameAndEmail(String name, String email); -->
-<!--   <select id="selectByNameAndEmail" resultType="DriverInfo"> -->
-<!--     SELECT * FROM DRIVER -->
-<!--     WHERE d_userName = #{dUserName} -->
-<!--     AND d_userEmail = #{dUserEmail} -->
-<!--   </select> -->
+    <!--  public DriverInfo selectByNameAndTel(String name, String tel); -->
+    <!--   <select id="selectByNameAndTel" resultType="DriverInfo"> -->
+    <!--     SELECT * FROM DRIVER -->
+    <!--     WHERE d_userName = #{dUserName} -->
+    <!--     AND d_userTel = #{dUserTel} -->
+    <!--   </select> -->
 
-<!--  public DriverInfo selectByNameAndTel(String name, String tel); -->
-<!--   <select id="selectByNameAndTel" resultType="DriverInfo"> -->
-<!--     SELECT * FROM DRIVER -->
-<!--     WHERE d_userName = #{dUserName} -->
-<!--     AND d_userTel = #{dUserTel} -->
-<!--   </select> -->
+    <!-- public List<DriverInfo> selectAll(); -->
 
-  <!-- public List<DriverInfo> selectAll(); -->
+    <!-- public void deleteAll(); -->
 
-  <!-- public void deleteAll(); -->
+    <!-- public DriverInfo update(DriverInfo driver); -->
 
-  <!-- public DriverInfo update(DriverInfo driver); -->
-  
-  <!-- public DriverInfo selectByLicenseNum(String dLicenseNum); -->
-  <select id="selectByLicenseNum" resultType="DriverInfo">
-    SELECT * FROM DRIVER
-    WHERE d_licenseNum = #{dLicenseNum}
-  </select>
-  
-  <!-- public DriverInfo selectByCarNum(String dCarNum); -->
-  <select id="selectByCarNum" resultType="DriverInfo">
-  	SELECT * FROM DRIVER
-    WHERE d_carNum = #{dCarNum}
-  </select>
+    <!-- public DriverInfo selectByLicenseNum(String dLicenseNum); -->
+    <select id="selectByLicenseNum" resultType="DriverInfo">
+      SELECT * FROM DRIVER
+      WHERE d_license_num = #{dLicenseNum}
+    </select>
+
+    <!-- public DriverInfo selectByCarNum(String dCarNum); -->
+    <select id="selectByCarNum" resultType="DriverInfo">
+      SELECT * FROM DRIVER
+      WHERE d_car_num = #{dCarNum}
+    </select>
 
 </mapper>

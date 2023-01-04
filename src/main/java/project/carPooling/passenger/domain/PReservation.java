@@ -12,9 +12,9 @@ public class PReservation {
 	private String pBoardingTime;
 	private String pStartPoint;
 	private String pEndPoint;
-	private String pStartlon;
-	private String pStartlat;
-	private String pEndlon;
-	private String pEndlat;
+	private String pStartLon;
+	private String pStartLat;
+	private String pEndLon;
+	private String pEndLat;
 	private String pConfirm;
 }
