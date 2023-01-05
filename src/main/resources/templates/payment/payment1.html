@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+</head>
+
+<body>
+  <div>
+    <p>아임 서포트 결제 모듈 테스트 해보기</p>
+    <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button>
+  </div>
+  <script>
+
+    const corsErr = "http://cors-anywhere.herokuapp.com/";
+
+    const data = {
+      pg: 'html5_inicis',
+      pay_method: 'card',
+      merchant_uid: 'merchant_' + new Date().getTime(),
+      name: '주문명:결제테스트',
+      amount: 1000,
+      buyer_email: 'iamport@siot.do',
+      buyer_name: '구매자이름',
+      buyer_tel: '010-1234-5678',
+      buyer_addr: '서울특별시 강남구 삼성동',
+      buyer_postcode: '123-456',
+      m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+    }
+
+    $("#check_module").click(function () {
+      IMP.init('imp05316473');
+      IMP.request_pay(data, response => {
+        alert("callback!: " + JSON.stringify(response));
+
+        jQuery.ajax({
+          url: "http://localhost:8080/test",
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          data: JSON.stringify(response)
+        }).done(function (data) {
+          alert("please, Check your payment result page!!");
+          console.log(data);
+          var imp_uid = data.imp_uid;
+          console.log(imp_uid);
+
+          jQuery.ajax({
+            url: corsErr + "https://api.iamport.kr/users/getToken",
+            method: "POST",
+            data: {
+              imp_key: "6140627762686581",
+              imp_secret: "axklrNzeeVI3dOW96XgRX7cAw0ZMsien53R8VCbXTZpqMSdvFbuHj7jCtZBefMdSKSfVY630UT68yxsL"
+            }
+          }).done(function (data) {
+            console.log(data.response.access_token);
+
+            var access_token = data.response.access_token;
+
+            jQuery.ajax({
+              url: corsErr + "https://api.iamport.kr/payments?imp_uid[]=" + imp_uid,
+              method: "GET",
+              headers: { "Authorization": access_token },
+            }).done(function (data) {
+              console.log(data);
+
+            })
+          })
+
+        })
+
+      });
+
+    });
+  </script>
+</body>
+
+</html>
