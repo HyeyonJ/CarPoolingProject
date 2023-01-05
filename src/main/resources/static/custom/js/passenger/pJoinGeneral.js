@@ -1,12 +1,14 @@
-/* $("#pUserVcode").css("display", "none");
-$("#sendVcode").css("display", "none"); */
-$("#inputVcode").css("display", "none");
+
 $('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
 $('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
 
-/* 가입유형 자동 선택 (일반), 숨김처리 */
-$("#pUserType1").attr("checked", true);
+/* 가입유형/성별/인증번호 입력폼 숨김처리 */
 $("#inputUserType").css("display", "none");
+$("#inputUserGender").css("display", "none");
+$("#inputVcode").css("display", "none");
+
+/* 가입유형(일반) 자동 선택 */
+$("#pUserType1").attr("checked", true);
 
 /* bootstrap 유효성 검사 */
 window.addEventListener('load', () => {
@@ -109,19 +111,19 @@ var autoHypenPhone = function(tel){
       var tmp = '';
       if( tel.length < 4){
           return tel;
-      }else if(tel.length < 7){
+      } else if(tel.length < 7){
           tmp += tel.substr(0, 3);
           tmp += '-';
           tmp += tel.substr(3);
           return tmp;
-      }else if(tel.length < 11){
+      } else if(tel.length < 11){
           tmp += tel.substr(0, 3);
           tmp += '-';
           tmp += tel.substr(3, 3);
           tmp += '-';
           tmp += tel.substr(6);
           return tmp;
-      }else{              
+      } else {              
           tmp += tel.substr(0, 3);
           tmp += '-';
           tmp += tel.substr(3, 4);
@@ -132,8 +134,47 @@ var autoHypenPhone = function(tel){
       return tel;
 }
 
-var pUserTel = document.getElementById('pUserTel');
+var userTel = document.getElementById('pUserTel');
 
-pUserTel.onkeyup = function(){
+userTel.onkeyup = function(){
   this.value = autoHypenPhone( this.value ) ;  
 }
+
+/* 주민등록번호 '-' 자동 입력 */
+var autoHypenIdNum = function(idNum){
+	idNum = idNum.replace(/[^0-9]/g, '');
+      var tmp = '';
+      if( idNum.length < 7 ) {		  
+          return idNum;
+      } else {
+          tmp += idNum.substr(0, 6);
+          tmp += '-';
+          tmp += idNum.substr(6);
+          $("#pIdNum").val(tmp);
+          return tmp;          
+      }
+      return idNum;
+}
+
+var autoMaskingIdNum = function(idNum){
+	tmp = idNum.replaceAll(/([0-9]{6})-([1-4]{1})([0-9]{6})/g, "$1-$2******");
+	return tmp;
+}
+
+var idNum = document.getElementById('pIdNumM');
+
+idNum.onkeyup = function(){
+	this.value = autoHypenIdNum( this.value );
+}
+
+idNum.onblur = function(){
+	this.value = autoMaskingIdNum (this.value);
+/* 성별 자동 선택*/
+	if (($("#pIdNum").val()).substr(7,1) === "1" || ($("#pIdNum").val()).substr(7,1) === "3" ){
+		$("#pUserGender1").attr("checked", true);
+	} else {
+		$("#pUserGender2").attr("checked", true);
+	};
+}
+
+

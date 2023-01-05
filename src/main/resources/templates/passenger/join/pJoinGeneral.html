@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutHome}">
+      layout:decorate="~{layouts/layoutPassenger}">
 <head>
 <title>Passenger Join</title>
 <style>	
@@ -24,9 +24,20 @@
 							<label th:for="${#ids.prev('pUserType')}" th:text="${pUserType.memo}"></label>
 						</div>
 					</div>
+					<div class="row" id="inputUserGender">
+						<!-- 가입자 성별 -->
+						<div class="col mb-3 form-check">
+							<input class="form-check-input" type="radio"
+								th:field="*{pUserGender}" id="pUserGender1" name="pUserGender"
+								th:value="M"><label th:text="남성"></label>
+							<input class="form-check-input" type="radio"
+								th:field="*{pUserGender}" id="pUserGender2" name="pUserGender"
+								th:value="F"><label th:text="여성"></label>							
+						</div>
+					</div>
 					<div class="row">
 						<!-- 아이디 입력 / 중복 체크 -->
-						<div class="col-md-6 mb-3">
+						<div class="col-md-4 mb-3">
 							<label for="pUserId">아이디(id)</label>
 							<span class="text-center small mt-2" id="checkIdMsg" style="color: red"></span>
 							<div class="input-group mb-3">
@@ -61,7 +72,7 @@
 					</div>
 					<div class="row">
 						<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
-						<div class="col-md-6 mb-3">
+						<div class="col-md-4 mb-3">
 							<label for="pUserEmail">이메일(email)</label>
 							<span class="text-center small mt-2" id="checkEmailMsg" style="color: red"></span>
 							<div class="input-group mb-3">
@@ -79,7 +90,7 @@
 					</div>
 					<div class="row">
 						<!-- 인증 번호 입력 -->
-						<div class="col-md-6 mb-3" id="inputVcode">
+						<div class="col-md-4 mb-3" id="inputVcode">
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" id="pUserVcode" name="pUserVcode" placeholder="인증코드"
 									aria-label="pUserVcode" aria-describedby="checkVcode" title="이메일로 발송된 인증코드를 입력" required>
@@ -89,25 +100,30 @@
 					</div>
 					<div class="row">
 						<!-- 휴대폰번호 입력 -->
-						<div class="col-md-6 mb-3">
+						<div class="col-md-4 mb-3">
 							<label for="pUserTel">휴대폰번호</label>
 							<input type="text" class="form-control" id="pUserTel" name="pUserTel"
 							 		pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 							 		th:field="*{pUserTel}" value="010" required>
 							<div class="invalid-feedback">
-								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력가능)</span>
+								<span>휴대폰번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<!-- 주민등록번호 입력 -->
 						<div class="col-md-4 mb-3">
-							<label for="pIdNum">주민등록번호</label>
-							<input type="text" class="form-control" id="pIdNum" name="pIdNum" th:field="*{pIdNum}"
-								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))([1-4]\d{6})$"
-								title="주민등록번호 13자리 숫자만 입력" maxlength="14" required>
-							<div class="invalid-feedback">주민등록번호를 확인해주세요.</div>
-						</div>						
+							<label for="pIdNumM">주민등록번호</label>
+							<input type="text" class="form-control" id="pIdNumM" name="pIdNumM"
+								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
+								placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력" maxlength="14" required>
+							<input type="hidden" class="form-control" id="pIdNum" name="pIdNum" th:field="*{pIdNum}"
+								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9]{6})$"
+								maxlength="14">
+							<div class="invalid-feedback">
+								<span>주민등록번호를 확인해주세요.</span>
+							</div>
+						</div>
 					</div>
 					<!-- 개인정보활용동의 -->
 					<div class="custom-control custom-checkbox mb-3">

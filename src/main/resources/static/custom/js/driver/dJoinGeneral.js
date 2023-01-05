@@ -1,12 +1,17 @@
-/* $("#dUserVcode").css("display", "none");
-$("#sendVcode").css("display", "none"); */
-$("#inputVcode").css("display", "none");
+
 $('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
 $('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
+$('#checkIdNumMsg').html('<span style="color:red">주민등록번호 확인 필요</span>');
+$('#checkLicenseNumMsg').html('<span style="color:red">운전자정보 확인 필요</span>');
+$('#checkCarNumMsg').html('<span style="color:red">자동차정보 확인 필요</span>');
 
-/* 가입유형 자동 선택 (일반), 숨김처리 */
-$("#dUserType1").attr("checked", true);
+/* 가입유형/성별/인증번호 입력폼 숨김처리 */
 $("#inputUserType").css("display", "none");
+$("#inputUserGender").css("display", "none");
+$("#inputVcode").css("display", "none");
+
+/* 가입유형(일반) 자동 선택 */
+$("#dUserType1").attr("checked", true);
 
 /* bootstrap 유효성 검사 */
 window.addEventListener('load', () => {
@@ -23,7 +28,6 @@ window.addEventListener('load', () => {
     });
 }, false);
 
-
 /* 아이디 중복 체크 */
 $("#checkId").click(function() {
 	const regId = /^[a-zA-Z0-9]{4,12}$/;
@@ -37,7 +41,7 @@ $("#checkId").click(function() {
 				if(res == true){
 					swal("이미 사용중인 아이디입니다.", "다른 아이디를 입력해주세요.", "error");
 				} else {
-					swal("사용 가능한 아이디입니다.", "이메일 인증을 진행해주세요.", "success").then((OK)=>{
+					swal("사용 가능한 아이디입니다.", "회원가입을 진행해주세요.", "success").then((OK)=>{
 						if(OK) {
 							/* 중복확인 후 버튼색상, 메세지 변경 */
 							$('#checkId').removeClass('btn-dark');
@@ -110,19 +114,19 @@ var autoHypenPhone = function(tel){
       var tmp = '';
       if( tel.length < 4){
           return tel;
-      }else if(tel.length < 7){
+      } else if(tel.length < 7){
           tmp += tel.substr(0, 3);
           tmp += '-';
           tmp += tel.substr(3);
           return tmp;
-      }else if(tel.length < 11){
+      } else if(tel.length < 11){
           tmp += tel.substr(0, 3);
           tmp += '-';
           tmp += tel.substr(3, 3);
           tmp += '-';
           tmp += tel.substr(6);
           return tmp;
-      }else{              
+      } else {
           tmp += tel.substr(0, 3);
           tmp += '-';
           tmp += tel.substr(3, 4);
@@ -133,11 +137,49 @@ var autoHypenPhone = function(tel){
       return tel;
 }
 
-var dUserTel = document.getElementById('dUserTel');
+var userTel = document.getElementById('dUserTel');
 
-dUserTel.onkeyup = function(){
+userTel.onkeyup = function(){
   this.value = autoHypenPhone( this.value ) ;  
 }
+
+/* 주민등록번호 '-' 자동 입력 */
+var autoHypenIdNum = function(idNum){
+	idNum = idNum.replace(/[^0-9]/g, '');
+      var tmp = '';
+      if( idNum.length < 7 ) {		  
+          return idNum;
+      } else {
+          tmp += idNum.substr(0, 6);
+          tmp += '-';
+          tmp += idNum.substr(6);
+          $("#dIdNum").val(tmp);
+          return tmp;          
+      }
+      return idNum;
+}
+
+var autoMaskingIdNum = function(idNum){
+	tmp = idNum.replaceAll(/([0-9]{6})-([1-4]{1})([0-9]{6})/g, "$1-$2******");
+	return tmp;
+}
+
+var idNum = document.getElementById('dIdNumM');
+
+idNum.onkeyup = function(){
+	this.value = autoHypenIdNum( this.value );
+}
+
+idNum.onblur = function(){
+	this.value = autoMaskingIdNum (this.value);
+/* 성별 자동 선택*/
+	if ( ($("#dIdNum").val()).substr(7,1) === "1" || ($("#dIdNum").val()).substr(7,1) === "3" ){
+		$("#dUserGender1").attr("checked", true);
+	} else {
+		$("#dUserGender2").attr("checked", true);
+	};
+}
+
 
 
 /* 면허 번호 '-' 자동 입력 */
@@ -158,7 +200,7 @@ var autoHypenLicenseNum = function(licenseNum){
           tmp += '-';
           tmp += licenseNum.substr(4);
           return tmp;
-      } else{              
+      } else{
           tmp += licenseNum.substr(0, 2);
           tmp += '-';
           tmp += licenseNum.substr(2, 2);
@@ -171,8 +213,8 @@ var autoHypenLicenseNum = function(licenseNum){
       return licenseNum;
 }
 
-var dLicenseNum = document.getElementById('dLicenseNum');
+var licenseNum = document.getElementById('dLicenseNum');
 
-dLicenseNum.onkeyup = function(){
+licenseNum.onkeyup = function(){
   this.value = autoHypenLicenseNum( this.value ) ;
 }
