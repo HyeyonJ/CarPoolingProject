@@ -5,4 +5,6 @@ import project.carPooling.driver.domain.DRegistration;
 public interface RegistrationRepository {
 	
 	public DRegistration insert(DRegistration dRegistration);
+	public DRegistration selectRegistrationByTime(DRegistration dRegistration);
+	
 }
