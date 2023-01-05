@@ -5,11 +5,13 @@
 
 	<!-- public Integer insert(PassengerInfo passsenger); -->
 	<insert id="insert" parameterType="PassengerInfo">
-		<selectKey keyProperty="pUserGender" resultType="String" order="BEFORE">
-			SELECT (CASE WHEN SUBSTR(#{pIdNum}, 7, 1) IN ('1', '3') THEN 'M'
-				 ELSE 'F'
-				 END) as pUserGender
-			FROM dual
+		<selectKey keyProperty="pUserId" resultType="String" order="BEFORE">
+			SELECT (CASE WHEN #{pUserType} like 'KAKAO' THEN 'k@ps'||TO_CHAR(SYSDATE, 'YYMMDD')||P_SOCIAL_ID_SEQ.nextVal
+						WHEN  #{pUserType} like 'NAVER' THEN 'n@ps'||TO_CHAR(SYSDATE, 'YYMMDD')||P_SOCIAL_ID_SEQ.nextVal
+						WHEN  #{pUserType} like 'GOOGLE' THEN 'g@ps'||TO_CHAR(SYSDATE, 'YYMMDD')||P_SOCIAL_ID_SEQ.nextVal
+						ELSE #{pUserId}
+						END) as pUserId
+						FROM dual
 		</selectKey>
 		INSERT INTO passenger (p_idx, p_user_type, p_user_id, p_user_pw, p_user_name, p_user_tel,
 		p_user_email, p_user_gender, p_id_num, p_sign_out)

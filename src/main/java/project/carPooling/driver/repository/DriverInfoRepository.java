@@ -9,7 +9,7 @@ public interface DriverInfoRepository {
 
 	public DriverInfo insert(DriverInfo driverInfo);
 	
-	public DriverInfo selectById (int id);
+	public DriverInfo selectByIdx(Integer dIdx);
 	
 	public DriverInfo selectByLoginId (String loginId);
 	
@@ -20,8 +20,6 @@ public interface DriverInfoRepository {
 	public DriverInfo selectByNameAndTel(String name, String tel);
 	
 	public DriverInfo selectByNameAndIdnum(String name, String idnum);
-	
-	public DriverInfo selectByIdx(Integer dIdx);
 	
 	public DriverInfo selectByLicenseNum (String dLicenseNum);
 	
