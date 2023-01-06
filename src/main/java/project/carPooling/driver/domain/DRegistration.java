@@ -9,6 +9,7 @@ public class DRegistration {
 	private Integer drIdx;
 	private Integer dIdx;
 	private String dDate;
+	private String dHopeGender;
 	private String dCommute;
 	private String dStartTime;
 	private String dEndTime;

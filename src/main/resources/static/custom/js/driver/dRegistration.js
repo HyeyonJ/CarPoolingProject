@@ -255,6 +255,7 @@ $('#rgsBtn').click(function () {
 
   const dRegistraion = {
     dDate: $('#datepicker').val().toString(),
+    dHopeGender: $("input:radio[name='gender']:checked").val().toString(),
     dCommute: $("input:radio[name='work']:checked").val().toString(),
     dStartTime: $('#selectStartTime').val(),
     dEndTime: $('#selectEndTime').val(),

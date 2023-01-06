@@ -42,9 +42,10 @@ public class PsReservationController {
 //	@GetMapping("/passenger/passengerCarpool/search")
 	@ResponseBody
 	@PostMapping("/passenger/passengerCarpool/search")
-	public List<DRegistration> search(@ModelAttribute SearchCarPool searchCarPool) {
+	public List<DRegistration> search(@ModelAttribute SearchCarPool searchCarPool, HttpServletRequest req) {
 		log.info("searchCarPool: {}", searchCarPool.toString());
-		List<DRegistration> dRegistrationList = searchCarpoolRepository.selectCarpool(searchCarPool);
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<DRegistration> dRegistrationList = searchCarpoolRepository.selectCarpool(searchCarPool, passengerInfo.getPIdx());
 		return dRegistrationList;
 	}
 

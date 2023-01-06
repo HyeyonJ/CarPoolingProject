@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<nav th:fragment="navFragment" style="background-color: #025955;" class="navbar navbar-dark sticky-top bg-dark">
+	<nav th:fragment="navFragment" style="background-color: #025955; height:10vh;" class="navbar navbar-dark sticky-top">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" th:onclick="|location.href='@{/passenger/home}'|" href="#"
 	    	style="font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
@@ -15,7 +15,7 @@
 	      <div class="offcanvas-body">
 	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 	          <li class="nav-item">
-	            <a class="nav-link active" aria-current="page" href="#">카풀 찾기</a>
+	            <a class="nav-link active" aria-current="page" th:href="@{/passenger/passengerCarpool/reservation}">카풀 예약</a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link" aria-current="page" href="#">카풀톡</a>

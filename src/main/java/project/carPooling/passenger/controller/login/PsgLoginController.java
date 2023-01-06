@@ -66,7 +66,7 @@ public class PsgLoginController {
 	public String doLogin(@ModelAttribute PassengerLoginForm pLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/passenger/home") String redirectURL) {
+						, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL) {
 		log.info("pLoginForm {}", pLoginForm);
 		
 		validateLoginForm(pLoginForm, bindingResult);

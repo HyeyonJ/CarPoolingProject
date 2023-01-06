@@ -174,8 +174,8 @@ function initTmap() {
   // 1. 지도 띄우기
   map = new Tmapv2.Map("map_div", {
     center: new Tmapv2.LatLng(37.56520450, 126.98702028),
-    width: "70%",
-    height: "400px",
+    width: "600px",
+    height: "550px",
     zoom: 17,
     zoomControl: true,
     scrollwheel: true
@@ -868,7 +868,7 @@ $("#searchForm").submit((e) => {
   const SearchCarPool = {
     pDate: $('#datepicker').val().toString(),
     pCommute: $("input:radio[name='work']:checked").val().toString(),
-    pGender: $("input:radio[name='gender']:checked").val().toString(),
+    pHopeGender: $("input:radio[name='gender']:checked").val().toString(),
     pBoardingTime: $('#boardingTime').val(),
     // pEndTime: $('#tocommutes').val(),
     // pStartPoint: $('#start').val().toString(),

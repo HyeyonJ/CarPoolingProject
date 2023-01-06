@@ -2,11 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.passenger.mapper.SearchCarpoolMapper">
+	<insert id="insert">
+		INSERT INTO RESERVATION (r_idx, p_idx, dr_idx, r_date)
+		VALUES(R_IDX_SEQ.nextval, #{pIdx}, #{drIdx}, sysdate)
+	</insert>
+
 	<select id="selectCarpoolByGender" resultType="DRegistration">
 		SELECT *
 		FROM D_REGISTRATION
-		WHERE to_char(d_date, 'yyyymmdd') = to_char(#{convertPDate}, 'yyyymmdd')
-		and d_idx = #{dIdx}
+		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A')
+		and d_idx = #{dIdx} 
+		and to_char(d_date, 'yyyymmdd') = to_char(#{pDate}, 'yyyymmdd')
 		and d_commute = #{searchCarPool.pCommute}
 		and to_date('11111111'||substr(#{searchCarPool.pBoardingTime}, 1,2)||substr(#{searchCarPool.pBoardingTime}, 4,2), 'YYYYMMDDHH24MI')
 		    between to_date('11111111'||substr(d_start_time, 1,2)||substr(d_start_time, 4,2), 'YYYYMMDDHH24MI')
@@ -15,28 +21,17 @@
 		and (SELECT DISTNACE_WGS84(d_end_lat, d_end_lon, #{searchCarPool.pEndLat}, #{searchCarPool.pEndLon}) FROM DUAL) <![CDATA[<=]]> 1
 	</select>
 	
-	<select id="selectCarpoolByAny" resultType="DRegistration">
+	<select id="selectCarpoolByAny" resultType="dRegistration">
 		SELECT *
 		FROM D_REGISTRATION
-		WHERE to_char(d_date, 'yyyymmdd') = to_char(#{convertPDate}, 'yyyymmdd')
+		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A') 
+		and to_char(d_date, 'yyyymmdd') = to_char(#{pDate}, 'yyyymmdd')
 		and d_commute = #{searchCarPool.pCommute}
 		and to_date('11111111'||substr(#{searchCarPool.pBoardingTime}, 1,2)||substr(#{searchCarPool.pBoardingTime}, 4,2), 'YYYYMMDDHH24MI')
 		    between to_date('11111111'||substr(d_start_time, 1,2)||substr(d_start_time, 4,2), 'YYYYMMDDHH24MI')
 		    and to_date('11111111'||substr(d_end_time, 1,2)||substr(d_end_time, 4,2), 'YYYYMMDDHH24MI')
 		and (SELECT DISTNACE_WGS84(d_start_lat, d_start_lon, #{searchCarPool.pStartLat}, #{searchCarPool.pStartLon}) FROM DUAL) <![CDATA[<=]]> 1
 		and (SELECT DISTNACE_WGS84(d_end_lat, d_end_lon, #{searchCarPool.pEndLat}, #{searchCarPool.pEndLon}) FROM DUAL) <![CDATA[<=]]> 1
-	</select>
-	
-	<select id="selectDIdxByGender" resultType="Integer">
-		SELECT d_idx
-		FROM DRIVER
-		WHERE d_user_gender = #{pUserGender}
-	</select>
-	
-	<select id="selectPassenger" resultType="String">
-		SELECT p_idx
-		FROM RESERVATION
-		WHERE p_idx = #{pIdx} AND dr_idx = #{drIdx}
 	</select>
 	
 	<select id="selectCarpoolByDrIdx" resultType="DRegistration">
@@ -45,9 +40,22 @@
 		WHERE dr_idx = #{drIdx}
 	</select>
 	
-	<insert id="insert">
-		INSERT INTO RESERVATION (r_idx, p_idx, dr_idx, r_date)
-		VALUES(R_IDX_SEQ.nextval, #{pIdx}, #{drIdx}, sysdate)
-	</insert>
+	<select id="selectPassenger" resultType="String">
+		SELECT p_idx
+		FROM RESERVATION
+		WHERE p_idx = #{pIdx} AND dr_idx = #{drIdx}
+	</select>
+	
+	<select id="selectDIdxByGender" resultType="Integer">
+		SELECT d_idx
+		FROM DRIVER
+		WHERE d_user_gender = #{pHopeGender}
+	</select>
+	
+	<select id="selectPUserGenderByPIdx" resultType="String">
+		SELECT p_user_gender
+		FROM PASSENGER
+		WHERE p_idx = #{p_idx}
+	</select>
 	
 </mapper>

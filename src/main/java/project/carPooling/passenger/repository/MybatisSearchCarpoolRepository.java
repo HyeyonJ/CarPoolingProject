@@ -21,27 +21,25 @@ public class MybatisSearchCarpoolRepository implements SearchCarpoolRepository {
 	
 	@Transactional
 	@Override
-	public List<DRegistration> selectCarpool(SearchCarPool searchCarPool) {
+	public List<DRegistration> selectCarpool(SearchCarPool searchCarPool, Integer pIdx) {
 		
 		List<DRegistration> dRegistrationList = null;
-
-		log.info("searchCarPool: {}", searchCarPool);
 		java.sql.Date pDate =  java.sql.Date.valueOf(searchCarPool.getPDate());
-		log.info("pDate: {}", pDate);
-		
-		if(searchCarPool.getPGender().equals("A")) {
+		String pUserGender = searchCarpoolMapper.selectPUserGenderByPIdx(pIdx);
+
+		if(searchCarPool.getPHopeGender().equals("A")) {
 			try {
-				dRegistrationList = searchCarpoolMapper.selectCarpoolByAny(searchCarPool, pDate);
+				dRegistrationList = searchCarpoolMapper.selectCarpoolByAny(searchCarPool, pDate, pUserGender);
 				System.out.println("카풀찾기성공");
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			}
 		} else {
-			List<Integer> dIdxList = searchCarpoolMapper.selectDIdxByGender(searchCarPool.getPGender());
+			List<Integer> dIdxList = searchCarpoolMapper.selectDIdxByGender(searchCarPool.getPHopeGender());
 			
 			for(Integer dIdx : dIdxList) {
 				try {
-					dRegistrationList = searchCarpoolMapper.selectCarpoolByGender(searchCarPool, pDate, dIdx);
+					dRegistrationList = searchCarpoolMapper.selectCarpoolByGender(searchCarPool, pDate, pUserGender, dIdx);
 					System.out.println("카풀찾기성공");
 				} catch (Exception e) {
 					log.error(e.getMessage());

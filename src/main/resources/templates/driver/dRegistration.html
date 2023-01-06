@@ -4,10 +4,10 @@
 
   <head>
     <title>운전자 카풀등록</title>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/custom/css/driver/dRegistration.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
   </head>
 
@@ -35,6 +35,18 @@
                 </label>
                 <!-- 선택안했을 때 -->
                 <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
+              </div>
+
+              <div id="genderField">
+                <label class="label">희망탑승객성별</label>
+                <label class="box-radio-input"><input type="radio" id="male" name="gender"
+                    value="M"><span>남성</span></label>
+                <label class="box-radio-input"><input type="radio" id="female" name="gender"
+                    value="F"><span>여성</span></label>
+                <label class="box-radio-input"><input type="radio" id="any" name="gender"
+                    value="A"><span>상관없음</span></label>
+                <!-- 선택안했을 때 -->
+                <span id="genderCheck" class="check">희망하시는 탑승객의 성별을 선택해주세요.</span>
               </div>
 
               <div id="dateField">
@@ -150,7 +162,6 @@
                   <span id="startPointSearchCheck" class="check">출발할 장소를 검색 후 선택해주세요.</span>
                   <span id="endPointSearhCheck" class="check">도착할 장소를 검색 후 선택해주세요.</span>
                   <span id="searchCheck" class="check">경로검색은 필수입니다.</span>
-                  <br>
                 </div>
 
                 <input type="hidden" id="startlon" value="">
@@ -168,7 +179,7 @@
                 <div class="col-lg align-self-end">
                   <div class="form-group">
                     <div class="form-field d-flex justify-content-center">
-                      <input type="button" value="등  록" id="rgsBtn" class="btn">
+                      <input type="button" value="카풀등록" id="rgsBtn" class="btn">
                       <div id="footer">
 
                       </div>

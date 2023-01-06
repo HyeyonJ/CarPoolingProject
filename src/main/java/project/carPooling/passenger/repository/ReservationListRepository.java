@@ -15,4 +15,5 @@ public interface ReservationListRepository {
 	public List<Map<String, Object>> selectPastReservationList(Integer pIdx);
 	
 	public boolean deleteRsv(Integer drIdx, Integer pIdx);
+	
 }
