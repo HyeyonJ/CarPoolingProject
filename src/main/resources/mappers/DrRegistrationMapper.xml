@@ -3,11 +3,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.driver.mapper.RegistrationMapper">
 	<insert id="insert">
-		INSERT INTO D_REGISTRATION (dr_idx, d_idx, d_date, d_commute, d_startTime,
-		d_endTime, d_startPoint, d_endPoint, d_fee, d_distance, d_time,d_startlon, d_startlat,
-		d_endlon, d_endlat)
+		INSERT INTO D_REGISTRATION (dr_idx, d_idx, d_date, d_commute, d_start_time,
+		d_end_time, d_start_point, d_end_point, d_fee, d_distance, d_time,d_start_lon, d_start_lat,
+		d_end_lon, d_end_lat)
 		VALUES(DR_IDX_SEQ.nextval, #{dRegistration.dIdx}, #{convertDDate}, #{dRegistration.dCommute}, #{dRegistration.dStartTime}, #{dRegistration.dEndTime}, #{dRegistration.dStartPoint}, #{dRegistration.dEndPoint},
-		#{dRegistration.dFee}, #{dRegistration.dDistance}, #{dRegistration.dTime}, #{dRegistration.dStartlon}, #{dRegistration.dStartlat}, #{dRegistration.dEndlon}, #{dRegistration.dEndlat})
+		#{dRegistration.dFee}, #{dRegistration.dDistance}, #{dRegistration.dTime}, #{dRegistration.dStartLon}, #{dRegistration.dStartLat}, #{dRegistration.dEndLon}, #{dRegistration.dEndLat})
 	</insert>
-	
+<!-- 	<select id="selectRegistrationByTime" resultType="map"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM D_REGISTRATION -->
+<!-- 		WHERE to_char(d_date, 'yyyymmdd') = to_char(#{convertDDate}, 'yyyymmdd') -->
+<!-- 		AND d_idx = #{dRegistration.dIdx} -->
+<!-- 		AND ( -->
+<!-- 			to_date(to_char(#{convertDDate}, 'yyyymmdd')||substr(#{dRegistration.dStartTime}, 1, 2)||substr(#{dRegistration.dStartTime}, 4, 2), 'YYYYMMDDHH24MI') -->
+<!-- 			BETWEEN to_date(to_char(d_date, 'yyyymmdd')||substr(d_start_time, 1, 2)||substr(d_start_time, 4, 2), 'YYYYMMDDHH24MI') -->
+<!-- 			AND to_date(to_char(d_date, 'yyyymmdd')||substr(d_end_time, 1, 2)||substr(d_end_time, 4, 2), 'YYYYMMDDHH24MI') -->
+<!-- 			OR -->
+<!-- 			to_date(to_char(#{convertDDate}, 'yyyymmdd')||substr(#{dRegistration.dEndTime}, 1, 2)||substr(#{dRegistration.dEndTime}, 4, 2), 'YYYYMMDDHH24MI') -->
+<!-- 			BETWEEN to_date(to_char(d_date, 'yyyymmdd')||substr(d_start_time, 1, 2)||substr(d_start_time, 4, 2), 'YYYYMMDDHH24MI') -->
+<!-- 			AND to_date(to_char(d_date, 'yyyymmdd')||substr(d_end_time, 1, 2)||substr(d_end_time, 4, 2), 'YYYYMMDDHH24MI') -->
+<!-- 			) -->
+<!-- 	</select> -->
+	<select id="selectRegistrationByTime" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE to_char(d_date, 'yyyymmdd') = to_char(#{convertDDate}, 'yyyymmdd')
+		AND d_idx = #{dRegistration.dIdx}
+		AND d_commute = #{dRegistration.dCommute}
+	</select>
 </mapper>

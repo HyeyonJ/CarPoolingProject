@@ -21,6 +21,13 @@ public class MybatisRegistrationRepository implements RegistrationRepository {
 		return dRegistration;
 	}
 
+	@Override
+	public DRegistration selectRegistrationByTime(DRegistration dRegistration) {
+		java.sql.Date dDate =  java.sql.Date.valueOf(dRegistration.getDDate());
+		DRegistration dr = registrationMapper.selectRegistrationByTime(dRegistration, dDate);
+		return dr;
+	}
+
 
 	
 

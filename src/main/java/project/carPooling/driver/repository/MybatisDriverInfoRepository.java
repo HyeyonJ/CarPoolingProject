@@ -21,18 +21,16 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	@Override
 	public DriverInfo insert(DriverInfo driverInfo) {
 		String dUserGender = driverInfo.getDUserGender();
-		if(dUserGender != null && dUserGender.equals("male")) {
-			driverInfo.setDUserGender("M");
-		}else {
-			driverInfo.setDUserGender("F");
-		}
-		driverMapper.insert(driverInfo);
+		if(dUserGender != null) {
+			if(dUserGender.equals("male")) { driverInfo.setDUserGender("M"); }
+			else { driverInfo.setDUserGender("F"); } 
+		} driverMapper.insert(driverInfo);
 		return driverInfo;
 	}
 
 	@Override
-	public DriverInfo selectById(int id) {
-		DriverInfo driverInfo = driverMapper.selectById(id);
+	public DriverInfo selectByIdx(Integer dIdx) {
+		DriverInfo driverInfo = driverMapper.selectByIdx(dIdx);
 		return driverInfo;
 	}
 
@@ -63,12 +61,6 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	@Override
 	public DriverInfo selectByNameAndIdnum(String name, String idnum) {
 		DriverInfo driverInfo = driverMapper.selectByNameAndIdnum(name, idnum);
-		return driverInfo;
-	}
-
-	@Override
-	public DriverInfo selectByIdx(Integer dIdx) {
-		DriverInfo driverInfo = driverMapper.selectByIdx(dIdx);
 		return driverInfo;
 	}
 

@@ -2,232 +2,236 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutPassenger}">
 
-<head>
-  <title>reservation</title>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
-  <style>
-    #prSection {
-      margin-top: 100px;
-    }
+  <head>
+    <title>reservation</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+    <style>
+      #prSection {
+        margin-top: 100px;
+      }
 
-    /* 선택안했을 때 스타일 */
-    .check {
-      display: none;
-      color: red;
-      margin-left: 10px;
-      margin-top: 5px;
-    }
+      /* 선택안했을 때 스타일 */
+      .check {
+        display: none;
+        color: red;
+        margin-left: 10px;
+        margin-top: 5px;
+      }
 
-    /* 출발지 도착지 form */
-    .rsvform {
-      display: inline-block !important;
-      width: 230px !important;
-      border: 1px solid #6258A4 !important;
-      background: transparent !important;
-    }
+      /* 출발지 도착지 form */
+      .rsvform {
+        display: inline-block !important;
+        width: 230px !important;
+        border: 1px solid #6258A4 !important;
+        background: transparent !important;
+      }
 
-    /* 출발지 도착지 찾기 btn */
-    .rsvbtn {
-      display: inline-block !important;
-      width: 230px !important;
-      height: 50px;
-    }
+      /* 출발지 도착지 찾기 btn */
+      .rsvbtn {
+        display: inline-block !important;
+        width: 230px !important;
+        height: 50px;
+      }
 
-    /* 경로확인 카풀검색 btn */
-    .rsbbtn {
-      display: inline-block !important;
-      width: 470px !important;
-      height: 50px;
-    }
+      /* 경로확인 카풀검색 btn */
+      .rsbbtn {
+        display: inline-block !important;
+        width: 470px !important;
+        height: 50px;
+      }
 
-    .rsvsbtn {
-      display: inline-block !important;
-      width: 217px !important;
-      height: 40px;
-    }
+      .rsvsbtn {
+        display: inline-block !important;
+        width: 217px !important;
+        height: 40px;
+      }
 
-    .modal-body {
-      text-align: left;
-    }
+      .modal-body {
+        text-align: left;
+      }
 
-    .inputborder {
-      border: 0px;
-    }
+      .inputborder {
+        border: 0px;
+      }
 
-    /* .listed {
+      /* .listed {
       text-align: center;
       margin-bottom: 100px;
     } */
 
-    /* radio 버튼 안보이게 */
-    .box-radio-input input[type="radio"] {
-      display: none;
-    }
+      /* radio 버튼 안보이게 */
+      .box-radio-input input[type="radio"] {
+        display: none;
+      }
 
-    /* 체크 안되어있을 때의 span태그 스타일 */
-    .box-radio-input input[type="radio"]+span {
-      display: inline-block;
-      background: none;
-      border: 1px solid #dfdfdf;
-      padding: 0px 10px;
-      text-align: center;
-      height: 35px;
-      line-height: 33px;
-      font-weight: 500;
-      cursor: pointer;
-      width: 102px;
-      border-radius: 5px;
-      margin-left: 5px;
-    }
+      /* 체크 안되어있을 때의 span태그 스타일 */
+      .box-radio-input input[type="radio"]+span {
+        display: inline-block;
+        background: none;
+        border: 1px solid #dfdfdf;
+        padding: 0px 10px;
+        text-align: center;
+        height: 35px;
+        line-height: 33px;
+        font-weight: 500;
+        cursor: pointer;
+        width: 102px;
+        border-radius: 5px;
+        margin-left: 5px;
+      }
 
-    /* 체크 되었을 때의 변경되는 span태그 스타일 */
-    .box-radio-input input[type="radio"]:checked+span {
-      border: 1px solid #6258a4;
-      background: #6258a4;
-      color: #fff;
-    }
-  </style>
-</head>
+      /* 체크 되었을 때의 변경되는 span태그 스타일 */
+      .box-radio-input input[type="radio"]:checked+span {
+        border: 1px solid #6258a4;
+        background: #6258a4;
+        color: #fff;
+      }
+    </style>
+  </head>
 
-<th:block layout:fragment="content">
-  <section id="prSection">
-    <div class="container">
+  <th:block layout:fragment="content">
+    <section id="prSection">
+      <div class="container">
 
-      <div class="d-flex justify-content-center">
-        <h2 class="mb-4 fw-bold">카풀찾기</h2>
-      </div>
+        <div class="d-flex justify-content-center">
+          <h2 class="mb-4 fw-bold">카풀찾기</h2>
+        </div>
 
-      <div id="search">
+        <div id="search">
 
-        <form id="searchForm">
-          <div id="commute">
-            <label class="box-radio-input"><input type="radio" id="towork" name="work"
-                value="출근"><span>출근</span></label>
-            <label class="box-radio-input"><input type="radio" id="fromwork" name="work"
-                value="퇴근"><span>퇴근</span></label>
-            <!-- 선택안했을 때 -->
-            <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
-          </div>
-
-          <div id="genderField">
-            <label class="box-radio-input"><input type="radio" id="male" name="gender" value="M"><span>남성</span></label>
-            <label class="box-radio-input"><input type="radio" id="female" name="gender"
-                value="F"><span>여성</span></label>
-            <label class="box-radio-input"><input type="radio" id="any" name="gender"
-                value="A"><span>상관없음</span></label>
-            <!-- 선택안했을 때 -->
-            <span id="genderCheck" class="check">희망하시는 운전자의 성별을 선택해주세요.</span>
-          </div>
-
-          <div id="datetime">
-            <input type="text" class="form-control rsvform" placeholder="날짜를 선택해주세요" id="datepicker" name="datepicker">
-            <!-- 선택안했을 때 -->
-            <span id="dateCheck" class="check">날짜를 선택해주세요.</span>
-            <span id="dateRecheck" class="check">날짜를 다시 선택해주세요.</span>
-
-            <select name="boardingTime" id="boardingTime" class="form-control rsvform">
-              <option hidden>선택</option>
-              <option value="07:00" class="toworktime">07:00</option>
-              <option value="07:15" class="toworktime">07:15</option>
-              <option value="07:30" class="toworktime">07:30</option>
-              <option value="07:45" class="toworktime">07:45</option>
-              <option value="08:00" class="toworktime">08:00</option>
-              <option value="08:15" class="toworktime">08:15</option>
-              <option value="08:30" class="toworktime">08:30</option>
-              <option value="08:45" class="toworktime">08:45</option>
-              <option value="09:00" class="toworktime">09:00</option>
-              <option value="18:00" class="fromworktime">18:00</option>
-              <option value="18:15" class="fromworktime">18:15</option>
-              <option value="18:30" class="fromworktime">18:30</option>
-              <option value="18:45" class="fromworktime">18:45</option>
-              <option value="19:00" class="fromworktime">19:00</option>
-              <option value="19:15" class="fromworktime">19:15</option>
-              <option value="19:30" class="fromworktime">19:30</option>
-              <option value="19:45" class="fromworktime">19:45</option>
-              <option value="20:00" class="fromworktime">20:00</option>
-            </select>
-            <span id="timeCheck" class="check">시간을 선택해주세요.</span>
-            <span id="timeRecheck" class="check">시간을 다시 선택해주세요.</span>
-          </div>
-
-          <div id="showroute">
-            <div id="searchmap">
-              <div>
-                <input type="text" id="startPoint" name="startPoint" placeholder="출발지찾기" class="form-control rsvform">
-                <input type="button" id="searchSP" onclick="searchPOIS();" value="출발지찾기" class="btn btn-primary rsvbtn">
-              </div>
-              <div>
-                <input type="text" id="endPoint" name="endPoint" placeholder="도착지찾기" class="form-control rsvform">
-                <input type="button" id="searchEP" onclick="searchPOIE();" value="도착지찾기" class="btn btn-primary rsvbtn">
-              </div>
-
-              <input type="text" id="start" readonly class="form-control rsvform" placeholder="출발지">
-              <input type="text" id="end" readonly class="form-control rsvform" placeholder="도착지">
-              <!-- 입력안했을 때 -->
-              <span id="routeCheck" class="check">출발지와 도착지를 검색해주세요.</span>
-
-              <input type="button" id="routesearch" onclick="route();" value="경로확인" class="btn btn-primary rsbbtn">
-              <!-- 입력안했을 때 -->
-              <span id="searchCheck" class="check">경로확인은 필수입니다.</span>
-              <div id="map_div" class="bg-white"></div>
-              <input type="hidden" id="startlon" name="startlon">
-              <input type="hidden" id="startlat" name="startlat">
-              <input type="hidden" id="endlon" name="endlon">
-              <input type="hidden" id="endlat" name="endlat">
-              <input type="hidden" id="fare" value="">
-              <input type="submit" id="searchCarpool" value="카풀검색" class="btn btn-primary rsbbtn">
+          <form id="searchForm">
+            <div id="commute">
+              <label class="box-radio-input"><input type="radio" id="towork" name="work"
+                  value="출근"><span>출근</span></label>
+              <label class="box-radio-input"><input type="radio" id="fromwork" name="work"
+                  value="퇴근"><span>퇴근</span></label>
+              <!-- 선택안했을 때 -->
+              <span id="workCheck" class="check">출근 또는 퇴근을 선택해주세요.</span>
             </div>
-          </div>
 
-        </form>
+            <div id="genderField">
+              <label class="box-radio-input"><input type="radio" id="male" name="gender"
+                  value="M"><span>남성</span></label>
+              <label class="box-radio-input"><input type="radio" id="female" name="gender"
+                  value="F"><span>여성</span></label>
+              <label class="box-radio-input"><input type="radio" id="any" name="gender"
+                  value="A"><span>상관없음</span></label>
+              <!-- 선택안했을 때 -->
+              <span id="genderCheck" class="check">희망하시는 운전자의 성별을 선택해주세요.</span>
+            </div>
+
+            <div id="datetime">
+              <input type="text" class="form-control rsvform" placeholder="날짜를 선택해주세요" id="datepicker"
+                name="datepicker">
+              <!-- 선택안했을 때 -->
+              <span id="dateCheck" class="check">날짜를 선택해주세요.</span>
+              <span id="dateRecheck" class="check">날짜를 다시 선택해주세요.</span>
+
+              <select name="boardingTime" id="boardingTime" class="form-control rsvform">
+                <option hidden>선택</option>
+                <option value="07:00" class="toworktime">07:00</option>
+                <option value="07:15" class="toworktime">07:15</option>
+                <option value="07:30" class="toworktime">07:30</option>
+                <option value="07:45" class="toworktime">07:45</option>
+                <option value="08:00" class="toworktime">08:00</option>
+                <option value="08:15" class="toworktime">08:15</option>
+                <option value="08:30" class="toworktime">08:30</option>
+                <option value="08:45" class="toworktime">08:45</option>
+                <option value="09:00" class="toworktime">09:00</option>
+                <option value="18:00" class="fromworktime">18:00</option>
+                <option value="18:15" class="fromworktime">18:15</option>
+                <option value="18:30" class="fromworktime">18:30</option>
+                <option value="18:45" class="fromworktime">18:45</option>
+                <option value="19:00" class="fromworktime">19:00</option>
+                <option value="19:15" class="fromworktime">19:15</option>
+                <option value="19:30" class="fromworktime">19:30</option>
+                <option value="19:45" class="fromworktime">19:45</option>
+                <option value="20:00" class="fromworktime">20:00</option>
+              </select>
+              <span id="timeCheck" class="check">시간을 선택해주세요.</span>
+              <span id="timeRecheck" class="check">시간을 다시 선택해주세요.</span>
+            </div>
+
+            <div id="showroute">
+              <div id="searchmap">
+                <div>
+                  <input type="text" id="startPoint" name="startPoint" placeholder="출발지찾기" class="form-control rsvform">
+                  <input type="button" id="searchSP" onclick="searchPOIS();" value="출발지찾기"
+                    class="btn btn-primary rsvbtn">
+                </div>
+                <div>
+                  <input type="text" id="endPoint" name="endPoint" placeholder="도착지찾기" class="form-control rsvform">
+                  <input type="button" id="searchEP" onclick="searchPOIE();" value="도착지찾기"
+                    class="btn btn-primary rsvbtn">
+                </div>
+
+                <input type="text" id="start" readonly class="form-control rsvform" placeholder="출발지">
+                <input type="text" id="end" readonly class="form-control rsvform" placeholder="도착지">
+                <!-- 입력안했을 때 -->
+                <span id="routeCheck" class="check">출발지와 도착지를 검색해주세요.</span>
+
+                <input type="button" id="routesearch" onclick="route();" value="경로확인" class="btn btn-primary rsbbtn">
+                <!-- 입력안했을 때 -->
+                <span id="searchCheck" class="check">경로확인은 필수입니다.</span>
+                <div id="map_div" class="bg-white"></div>
+                <input type="hidden" id="startlon" name="startlon">
+                <input type="hidden" id="startlat" name="startlat">
+                <input type="hidden" id="endlon" name="endlon">
+                <input type="hidden" id="endlat" name="endlat">
+                <input type="hidden" id="fare" value="">
+                <input type="submit" id="searchCarpool" value="카풀검색" class="btn btn-primary rsbbtn">
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+
+        <div class="listed">
+          <div id="searchCarpoolList"></div>
+        </div>
 
       </div>
 
-      <div class="listed">
-        <div id="searchCarpoolList"></div>
-      </div>
-
-    </div>
-
-    <!-- 카풀 셀렉트 모달 -->
-    <div class="modal fade" id="selectModal" tabindex="-1" aria-labelledby="selectModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="selectModalLabel">예약하시겠습니까?</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="selectCp">
-              <input type="hidden" id="pIdx" name="pIdx" value="${login.idx}">
-              <input type="hidden" id="drIdx" name="drIdx">
-              카풀날짜 <input type="text" id="dDate" name="dDate" class="inputborder" readonly><br>
-              픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly> - <input
-                type="text" id="dEndTime" name="dEndTime" class="inputborder" readonly><br>
-              출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly><br>
-              도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly><br>
-              카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly>원<br>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary rsvsbtn" data-bs-dismiss="modal">취소</button>
-            <button type="button" class="btn btn-primary rsvsbtn" id="requestReserve"
-              onclick="requestReserve();">예약</button>
+      <!-- 카풀 셀렉트 모달 -->
+      <div class="modal fade" id="selectModal" tabindex="-1" aria-labelledby="selectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="selectModalLabel">예약하시겠습니까?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="selectCp">
+                <input type="hidden" id="pIdx" name="pIdx" value="${login.idx}">
+                <input type="hidden" id="drIdx" name="drIdx">
+                카풀날짜 <input type="text" id="dDate" name="dDate" class="inputborder" readonly><br>
+                픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly> - <input
+                  type="text" id="dEndTime" name="dEndTime" class="inputborder" readonly><br>
+                출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly><br>
+                도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly><br>
+                카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly>원<br>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary rsvsbtn" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-primary rsvsbtn" id="requestReserve"
+                onclick="requestReserve();">예약</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-  </section>
-</th:block>
+    </section>
+  </th:block>
 
-<th:block layout:fragment="js">
-	<script src="/custom/js/passenger/pReservation.js"></script>
-</th:block>
+  <th:block layout:fragment="js">
+    <script src="/custom/js/passenger/pRsv.js"></script>
+  </th:block>
 
 </html>
