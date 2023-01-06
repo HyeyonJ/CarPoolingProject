@@ -107,13 +107,16 @@
 
 					<!-- 주민등록번호 입력 -->
 					<div class="col-md-4 mb-3">
-						<label for="dIdNum">* 주민등록번호</label><span
+						<label for="dIdNum">* 주민등록번호</label>
+							<span
 							class="text-center small mt-2" id="checkIdNumMsg"
-							style="color: red"></span> <input type="text"
+							style="color: red"></span> 
+							<input type="text"
 							class="form-control" id="dIdNumM" name="dIdNumM"
 							pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
 							placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력"
-							maxlength="14" required> <input type="hidden"
+							maxlength="14" required> 
+							<input type="hidden"
 							class="form-control" id="dIdNum" name="dIdNum"
 							th:field="*{dIdNum}"
 							pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9]{6})$"
@@ -122,8 +125,20 @@
 							<span>주민등록번호를 확인해주세요.</span>
 						</div>
 					</div>
+					
+					<div class="col-md-4 mb-3">
+						<label for="dAccountBank">* 은행</label>
+						<input class="form-control" id="dAccountBank" name="dAccountBank" th:field="*{dAccountBank}">
+					</div>
+					
+					<div class="col-md-4 mb-3">
+						<label for="dAccountNum">* 계좌번호</label>
+						<input class="form-control" id="dAccountNum" name="dAccountNum" th:field="*{dAccountNum}">
+					</div>
+					
+					
 
-					<!-- 운전 면허 관련 정보 -->
+				<!-- 운전 면허 관련 정보 -->
 					<!-- 면허 번호 입력 -->						
 					<div class="row">
 						<div class="col-md-4 mb-3">
@@ -160,7 +175,7 @@
 							<label for="dCarNum">* 자동차 번호</label><span class="text-center small mt-2"
 							id="checkCarNumMsg" style="color: red"></span>
 							<input type="text" class="form-control" id="dCarNum" name="dCarNum"
-								placeholder="00땡0000, 000땡0000" pattern="(\d{2,3})([가-힣]{1})(\d{4})"
+								placeholder="12가3456, 123나4567" pattern="(\d{2,3})([가-힣]{1})(\d{4})"
 								maxlength="8" title="자동차 번호 입력" th:field="*{dCarNum}" required>
 							<div class="invalid-feedback">
 								<span>자동차번호를 확인해주세요. </span>
