@@ -3,7 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutDriverHome}">
 <head>
-<title>Driver Login Page</title>
+	<title>Driver Login Page</title>
+
 <!-- CSS only -->
 </head>
 <th:block layout:fragment="content">
@@ -45,12 +46,9 @@
 						</div>
 					</div>
 					<!-- 			  구글 로그인 -->
-					<div class="row justify-content-center">
-						<div class="col-8">
-<!-- 							<a th:href="@{https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/cloud-identity.devices.lookup&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8080/driver/login/google/redirect&response_type=code&client_id=763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com}"> -->
-<!-- 								<img src="/img/buttonGoogle.png" height="50" width="300px" -->
-<!-- 								alt="구글 로그인 버튼" /></a> -->
-							<div id="buttonDiv" style="height: 50px; width:300px;"></div>
+					<div class="d-flex justify-content-center">
+						<div>
+							<div id="buttonDiv" class="mt-1"></div>
 						</div>
 					</div>
 					<!-- 일반 가입 -->
@@ -68,6 +66,10 @@
       <script src="https://apis.google.com/js/platform.js" async defer></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script>
+      
+      $("#gsi_821472_328363").css("width", "300px");
+      $(".haAclf").css("width", "300px");
+		
         function handleCredentialResponse(response) {
            const responsePayload = parseJwt(response.credential);
            console.log("ID: " + responsePayload.sub);
@@ -95,7 +97,7 @@
           });
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large" }  // customization attributes
+            { theme: "outline", size: "large", logo_alignment: "left", width: "270"}  // customization attributes
           );
           google.accounts.id.prompt(); // also display the One Tap dialog
         }
