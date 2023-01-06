@@ -10,6 +10,24 @@
 				 END) as dUserGender
 			FROM dual
 		</selectKey>
+<!-- 		<selectKey keyProperty="dUserId" resultType="String" order="BEFORE"> -->
+<!-- 			SELECT (CASE WHEN dUserType == '네이버'  -->
+<!-- 						THEN 'N@'||TO_CHAR(SYSDATE, 'yymmdd')||T_IDX_SEQ.NEXTVAL -->
+<!-- 					CASE WHEN dUserType == '카카오'  -->
+<!-- 						THEN 'K@'||TO_CHAR(SYSDATE, 'yymmdd')||T_IDX_SEQ.NEXTVAL -->
+<!-- 					CASE WHEN dUserType == '구글'  -->
+<!-- 						THEN 'G@'||TO_CHAR(SYSDATE, 'yymmdd')||T_IDX_SEQ.NEXTVAL -->
+<!-- 					END) AS dUserId -->
+<!-- 			FROM driver -->
+<!-- 		</selectKey> -->
+		<selectKey keyProperty="dUserId" resultType="String" order="BEFORE">
+			SELECT (CASE #{dUserType}
+						WHEN '네이버' THEN 'N@'||TO_CHAR(SYSDATE, 'yymmdd')||T_IDX_SEQ.NEXTVAL
+						WHEN '카카오' THEN 'K@'||TO_CHAR(SYSDATE, 'yymmdd')||T_IDX_SEQ.NEXTVAL
+						WHEN '구글' THEN 'G@'||TO_CHAR(SYSDATE, 'yymmdd')||T_IDX_SEQ.NEXTVAL
+					END) AS dUserId
+			FROM driver
+		</selectKey>
 		INSERT INTO driver (d_idx, d_userType, d_userId, d_userPw, d_userName, d_userTel, 
 		d_userEmail, d_userGender, d_idNum, d_licenseNum, d_licenseIdNum, d_carNum, d_signOut)
 		VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
