@@ -87,7 +87,9 @@ public class PsgLoginController {
 		HttpSession session = req.getSession();	//getSession(true) : session이 없으면 만들고 있으면 안 만든다.
 //		session.setMaxInactiveInterval(540);	//세션 유효시간
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
-		session.setAttribute(SessionVar.LOGIN_ID, "p"+passenger.getPIdx());
+		session.setAttribute(SessionVar.LOGIN_ID, "p"+passenger.getPUserId());
+		session.setAttribute(SessionVar.LOGIN_EMAIL, passenger.getPUserEmail());
+		session.setAttribute(SessionVar.LOGIN_NAME, passenger.getPUserName());
 		
 		//넘어온 redirectURL값이 있으면 해당 경로, 없으면 default값인 "/" 이동
 		return "redirect:" + redirectURL;
