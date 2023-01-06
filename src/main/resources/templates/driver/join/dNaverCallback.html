@@ -33,7 +33,7 @@
 					th:action="|@{/driver/login/naver/join}|" method="post"
 					th:object="${driverInfo}">
 
-					<!-- 가입유형지정 -->
+				<!-- 가입유형지정 -->
 					<div class="row" id="inputUserType">
 						<div class="col mb-3 form-check"
 							th:each="dUserType : ${dUserTypes}">
@@ -43,8 +43,7 @@
 								th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label>
 						</div>
 					</div>
-
-					<!-- 이메일 -->
+				<!-- 이메일 -->
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="dUserEmail">* 이메일(email)</label><br> <input
@@ -52,8 +51,7 @@
 								th:field="*{dUserEmail}" style="width: 400px;" readonly>
 						</div>
 					</div>
-
-					<!-- 패스워드 입력 -->
+				<!-- 패스워드 입력 -->
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="dUserPw">* 비밀번호(pw)</label> <input type="password"
@@ -69,8 +67,7 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- 사용자 이름 입력 -->
+				<!-- 사용자 이름 입력 -->
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="dUserName">* 이름(name)</label> <input type="text"
@@ -80,8 +77,7 @@
 							<div class="invalid-feedback">이름을 입력해주세요.</div>
 						</div>
 					</div>
-
-					<!-- 성별 -->
+				<!-- 성별 -->
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="dUserGender">* 성별(gender)</label><br> <input
@@ -90,8 +86,7 @@
 								style="width: 400px;" readonly>
 						</div>
 					</div>
-
-					<!-- 휴대폰번호 입력 -->
+				<!-- 휴대폰번호 입력 -->
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="dUserTel">* 휴대폰번호</label> <input type="text"
@@ -104,28 +99,27 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- 주민등록번호 입력 -->
+				<!-- 주민등록번호 입력 -->
 					<div class="col-md-4 mb-3">
 						<label for="dIdNum">* 주민등록번호</label>
 							<span
 							class="text-center small mt-2" id="checkIdNumMsg"
 							style="color: red"></span> 
 							<input type="text"
-							class="form-control" id="dIdNumM" name="dIdNumM"
-							pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
-							placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력"
-							maxlength="14" required> 
+								class="form-control" id="dIdNumM" name="dIdNumM"
+								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
+								placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력"
+								maxlength="14" required> 
 							<input type="hidden"
-							class="form-control" id="dIdNum" name="dIdNum"
-							th:field="*{dIdNum}"
-							pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9]{6})$"
-							maxlength="14">
+								class="form-control" id="dIdNum" name="dIdNum"
+								th:field="*{dIdNum}"
+								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9]{6})$"
+								maxlength="14">
 						<div class="invalid-feedback">
 							<span>주민등록번호를 확인해주세요.</span>
 						</div>
 					</div>
-					
+				<!-- 은행 계좌정보 -->
 					<div class="col-md-4 mb-3">
 						<label for="dAccountBank">* 은행</label>
 						<input class="form-control" id="dAccountBank" name="dAccountBank" th:field="*{dAccountBank}">
@@ -135,9 +129,6 @@
 						<label for="dAccountNum">* 계좌번호</label>
 						<input class="form-control" id="dAccountNum" name="dAccountNum" th:field="*{dAccountNum}">
 					</div>
-					
-					
-
 				<!-- 운전 면허 관련 정보 -->
 					<!-- 면허 번호 입력 -->						
 					<div class="row">
