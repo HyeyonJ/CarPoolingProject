@@ -11,5 +11,6 @@ import project.carPooling.driver.domain.DRegistration;
 public interface RegistrationMapper {
 
 	public Integer insert(@Param(value="dRegistration") DRegistration dRegistration, @Param(value = "convertDDate") Date convertDDate);
-	
+	public DRegistration selectRegistrationByTime(@Param(value="dRegistration") DRegistration dRegistration, @Param(value = "convertDDate") Date convertDDate);
+
 }

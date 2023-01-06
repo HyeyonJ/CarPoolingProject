@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<nav th:fragment="navFragment" class="navbar navbar-dark sticky-top bg-dark">
-	  <div class="container-fluid">
-	    <a class="navbar-brand" th:onclick="|location.href='@{/}'|" href="#">카풀링</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-	      <span class="navbar-toggler-icon"></span>
-	    </button>
-	    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-	      <div class="offcanvas-header">
-	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Driver 로그인이 필요합니다.</h5>
-	        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-	      </div>
-	      <div class="offcanvas-body">
-				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false">CarPooling</a>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#" aria-current="page">About</a></li>
-							<li><a class="dropdown-item" href="#" aria-current="page">How to use</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link active" th:onclick="|location.href='@{/driver/home}'|" href="#" aria-current="page">로그인</a></li>
-					<li class="nav-item"><a class="nav-link active" th:onclick="|location.href='@{/driver/join}'|" href="#" aria-current="page">회원가입</a></li>
-
-				</ul>
+	<nav th:fragment="navFragment" style="background-color: #025955;" class="navbar navbar-dark sticky-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:onclick="|location.href='@{/driver/home}'|" href="#"
+				style="font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+				aria-controls="offcanvasDarkNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-end" style="background-color: #025955;" tabindex="-1" id="offcanvasDarkNavbar"
+				aria-labelledby="offcanvasDarkNavbarLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="color: white;">Driver mode</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+						aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" th:href="@{/driver/driverCarpool/registration}">카풀 등록</a>
+						</li>															
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" th:href="@{/driver/driverCarpool/reqList}">카풀 요청</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" href="#">카풀톡</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								마이 카풀링
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark">
+								<li><a class="dropdown-item" th:href="@{/driver/driverCarpool/registration/list}" aria-current="page">나의 카풀</a></li>
+								<li><a class="dropdown-item" aria-current="page" href="#">결제</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" th:onclick="|location.href='@{/driver/info}'|" aria-current="page" href="#">회원정보수정</a></li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:onclick="|location.href='@{/driver/logout}'|" aria-current="page" href="#">로그아웃</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-	    </div>
-	  </div>
+		</div>
 	</nav>
+
 </html>

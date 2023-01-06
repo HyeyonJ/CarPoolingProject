@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<nav th:fragment="navFragment" class="navbar navbar-dark sticky-top bg-dark">
+	<nav th:fragment="navFragment" style="background-color: #025955;" class="navbar navbar-dark sticky-top bg-dark">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" th:onclick="|location.href='@{/}'|" href="#">카풀링</a>
+	    <a class="navbar-brand" th:onclick="|location.href='@{/passenger/home}'|" href="#"
+	    	style="font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
-	    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+	    <div class="offcanvas offcanvas-end text-bg-dark" style="background-color: #025955;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 	      <div class="offcanvas-header">
-	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Passenger 로그인이 필요합니다.</h5>
+	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="color: white;">Passenger mode</h5>
 	        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	      </div>
 	      <div class="offcanvas-body">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 84cdeb616c99b4a9e62659d6c63deffbc2f6136a
 	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 	          <li class="nav-item">
 	            <a class="nav-link active" aria-current="page" href="#">카풀 찾기</a>
 	          </li>
 	          <li class="nav-item">
+<<<<<<< HEAD
 	            <a class="nav-link" aria-current="page" th:href="@{|/chatting/myChatting/${session.loginId}|}">카풀톡</a>
 	          </li>
 	          <li class="nav-item dropdown">
@@ -32,6 +37,22 @@
 	                <hr class="dropdown-divider">
 	              </li>
 	              <li><a class="dropdown-item" href="#">회원정보수정</a></li>
+=======
+	            <a class="nav-link" aria-current="page" href="#">카풀톡</a>
+	          </li>
+	          <li class="nav-item dropdown">
+	            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+	            	aria-expanded="false">
+	              마이 카풀링
+	            </a>
+	            <ul class="dropdown-menu dropdown-menu-dark">
+	              <li><a class="dropdown-item active" href="#" aria-current="page">나의 카풀</a></li>
+	              <li><a class="dropdown-item active" href="#" aria-current="page">결제</a></li>
+	              <li>
+	                <hr class="dropdown-divider">
+	              </li>
+	              <li><a class="dropdown-item active" th:onclick="|location.href='@{/passenger/info}'|" href="#" aria-current="page">회원정보수정</a></li>
+>>>>>>> 84cdeb616c99b4a9e62659d6c63deffbc2f6136a
 	            </ul>
 	          </li>
 	          <li class="nav-item">
@@ -39,6 +60,7 @@
 	          </li>
 	        </ul>
 	      </div>
+<<<<<<< HEAD
 =======
 				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 					<li class="nav-item dropdown"><a
@@ -54,6 +76,8 @@
 				</ul>
 			</div>
 >>>>>>> 606d6eeac4e931f4c121ecda6a0ad3e4a99ce31a
+=======
+>>>>>>> 84cdeb616c99b4a9e62659d6c63deffbc2f6136a
 	    </div>
 	  </div>
 	</nav>
