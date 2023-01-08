@@ -10,7 +10,7 @@ import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.passenger.domain.SearchCarPool;
 
 @Mapper
-public interface SearchCarpoolMapper {
+public interface ReservationMapper {
 	
 	public Integer insert(@Param(value="pIdx") Integer pIdx, @Param(value="drIdx") Integer drIdx);
 

@@ -15,10 +15,10 @@
     </selectKey>
     INSERT INTO driver (d_idx, d_user_type, d_user_id, d_user_pw, d_user_name, d_user_tel,
     d_user_email, d_user_gender, d_id_num, d_license_num, d_license_id_num, d_car_num, 
-    d_account_num, d_account_bank, d_penalty, d_sign_out)
+    d_account_num, d_account_bank, d_point,d_penalty, d_sign_out)
     VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
     #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dLicenseNum}, #{dLicenseIdNum}, #{dCarNum},
-    #{dAccountNum}, #{dAccountBank}, 3,'false')
+    #{dAccountNum}, #{dAccountBank}, 0, 3,'false')
   </insert>
 
   <select id="selectByLoginId" resultType="DriverInfo">
