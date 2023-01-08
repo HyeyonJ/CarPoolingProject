@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutPassenger}">
+
 <head>
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<meta charset="UTF-8">
-<title>Sample Payment</title>
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <meta charset="UTF-8">
+  <title>Sample Payment</title>
 </head>
 <th:block layout:fragment="content">
-<div class="container justify-content-center">
-	<div class="row">
-		<div class="col mt-5 mb-5">
-			<h3>Passenger Info</h3>
-			<p id="pUserName" name="pUserName" th:text="${passenger.pUserName}"></p>
-			<p id="pUserTel" name="pUserTel" th:text="${passenger.pUserTel}"></p>
-			<p id="pUserEmail" name="pUserEmail" th:text="${passenger.pUserEmail}"></p><br>
-			<p th:text="${passenger['pUserName']}"></p>
-			<p th:text="${passenger['pUserEmail']}"></p><br>
-			<p th:text="${passenger.getPUserName()}"></p>
-			<p th:text="${passenger.getPUserEmail()}"></p><br>
-			카풀요금<input type="number" id="dFee" name="dFee" class="inputborder" required> 원<br>
-		</div>
-	</div>
-	<div class="row">
-		<!-- 결제하기 버튼 -->
-		<div class="col mb-5">
-			<button class="btn btn-dark" style="height:50px; width:200px;"
-					type="button" id="requestPay">결제하기</button>
-					<button class="btn btn-dark" style="height:50px; width:200px;"
-					type="button" id="cancelPay">결제취소하기</button>
-		</div>
-	</div>
-</div>
+  <div class="container justify-content-center">
+    <div class="row">
+      <div class="col mt-5 mb-5">
+        <h3>Passenger Info</h3>
+        <p id="pUserName" name="pUserName" th:text="${passenger.pUserName}"></p>
+        <p id="pUserTel" name="pUserTel" th:text="${passenger.pUserTel}"></p>
+        <p id="pUserEmail" name="pUserEmail" th:text="${passenger.pUserEmail}"></p><br>
+        <p th:text="${passenger['pUserName']}"></p>
+        <p th:text="${passenger['pUserEmail']}"></p><br>
+        <p th:text="${passenger.getPUserName()}"></p>
+        <p th:text="${passenger.getPUserEmail()}"></p><br>
+        카풀요금<input type="number" id="dFee" name="dFee" class="inputborder" required> 원<br>
+      </div>
+    </div>
+    <div class="row">
+      <!-- 결제하기 버튼 -->
+      <div class="col mb-5">
+        <button class="btn btn-dark" style="height:50px; width:200px;" type="button" id="requestPay">결제하기</button>
+        <button class="btn btn-dark" style="height:50px; width:200px;" type="button" id="cancelPay">결제취소하기</button>
+      </div>
+    </div>
+  </div>
 </th:block>
 <th:block layout:fragment="js">
-	<script src="/standard/js/payment.js"></script>
+  <script src="/standard/js/payment.js"></script>
 </th:block>

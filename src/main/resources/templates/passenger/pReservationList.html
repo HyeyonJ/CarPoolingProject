@@ -2,108 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutPassenger}">
 
-  <head>
-    <title>reservationList</title>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
-    <style>
-      #prSection {
-        margin-top: 100px;
-      }
+<head>
+  <title>reservationList</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  <style>
+    #prSection {
+      margin-top: 100px;
+    }
 
-      /* 팝업 배경 css*/
-      #popup_mask {
-        position: fixed;
-        width: 100%;
-        height: 1000px;
-        top: 0px;
-        left: 0px;
-        display: none;
-        background-color: #000;
-        -moz-opacity: 0.8;
-        filter: alpha(opacity=80);
-        opacity: 0.8;
-      }
+    /* 팝업 배경 css*/
+    #popup_mask {
+      position: fixed;
+      width: 100%;
+      height: 1000px;
+      top: 0px;
+      left: 0px;
+      display: none;
+      background-color: #000;
+      -moz-opacity: 0.8;
+      filter: alpha(opacity=80);
+      opacity: 0.8;
+    }
 
-      /*팝업창 css*/
-      #popupDiv {
-        top: 0px;
-        position: fixed;
-        background: white;
-        width: 500px;
-        height: 550px;
-        display: none;
-        padding-left: 10px;
-      }
+    /*팝업창 css*/
+    #popupDiv {
+      top: 0px;
+      position: fixed;
+      background: white;
+      width: 500px;
+      height: 550px;
+      display: none;
+      padding-left: 10px;
+    }
 
-      #popCloseBtn {
-        margin-left: 330px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 100px;
-        height: 40px;
-      }
-    </style>
-  </head>
+    #popCloseBtn {
+      margin-left: 330px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+</head>
 
-  <th:block layout:fragment="content">
-    <section id="prListSection">
-      <div class="container">
+<th:block layout:fragment="content">
+  <section id="prListSection">
+    <div class="container">
 
-        <div class="d-flex justify-content-center">
-          <h2 class="mb-4 fw-bold">나의카풀</h2>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="search-wrap-1 ftco-animate p-4 boxes">
-              <button id="acceptedRsv" onclick="acceptedRsv();" class="btn btn-primary rsvsbtn">확정된예약</button>
-              <button id="waitingRsv" onclick="waitingRsv();" class="btn btn-primary rsvsbtn">대기예약</button>
-              <button id="refusedRsv" onclick="refusedRsv();" class="btn btn-primary rsvsbtn">거절된예약</button>
-              <button id="waitingRsv" onclick="pastRsv();" class="btn btn-primary rsvsbtn">지난예약</button>
-            </div>
-            <div class="boxes">
-              <div id="acceptedList"></div>
-              <div id="waitingList"></div>
-              <div id="refusedList"></div>
-              <div id="pastList"></div>
-            </div>
-            <div id="popup_mask"></div>
-            <!-- 팝업 배경 DIV -->
+      <div class="d-flex justify-content-center">
+        <h2 class="mb-4 fw-bold">나의카풀</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="search-wrap-1 ftco-animate p-4 boxes">
+            <button id="acceptedRsv" onclick="acceptedRsv();" class="btn btn-primary rsvsbtn">확정된예약</button>
+            <button id="waitingRsv" onclick="waitingRsv();" class="btn btn-primary rsvsbtn">지난예약</button>
+          </div>
+          <div class="boxes">
+            <div id="acceptedList"></div>
+            <div id="waitingList"></div>
+          </div>
+          <div id="popup_mask"></div>
+          <!-- 팝업 배경 DIV -->
 
-            <div id="popupDiv">
-              <!-- 팝업창 -->
-              <button id="popCloseBtn" class="btn btn-primary">닫기</button>
-              <div id="map_div"></div>
-            </div>
+          <div id="popupDiv">
+            <!-- 팝업창 -->
+            <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+            <div id="map_div"></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- 카풀 경로 모달 -->
-      <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="selectModalLabel">선택하신 카풀의 경로입니다.</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div id="map_div"></div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary rsvsbtn" data-dismiss="modal">확인</button>
-            </div>
+    <!-- 카풀 경로 모달 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="selectModalLabel">선택하신 카풀의 경로입니다.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="map_div"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary rsvsbtn" data-dismiss="modal">확인</button>
           </div>
         </div>
       </div>
-    </section>
-  </th:block>
+    </div>
+  </section>
+</th:block>
 
-  <th:block layout:fragment="js">
-    <script src="/custom/js/passenger/pRsvList.js"></script>
-  </th:block>
+<th:block layout:fragment="js">
+  <script src="/custom/js/passenger/pReservationList.js"></script>
+</th:block>
 
 </html>
