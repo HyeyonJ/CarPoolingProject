@@ -4,22 +4,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
+import project.carPooling.driver.mapper.RegistrationMapper;
 import project.carPooling.passenger.mapper.PassengerInfoMapper;
 import project.carPooling.passenger.mapper.ReservationListMapper;
-import project.carPooling.passenger.mapper.SearchCarpoolMapper;
+import project.carPooling.passenger.mapper.ReservationMapper;
 import project.carPooling.passenger.repository.MybatisPassengerInfoRepository;
 import project.carPooling.passenger.repository.MybatisReservationListRepository;
-import project.carPooling.passenger.repository.MybatisSearchCarpoolRepository;
+import project.carPooling.passenger.repository.MybatisReservationRepository;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
 import project.carPooling.passenger.repository.ReservationListRepository;
-import project.carPooling.passenger.repository.SearchCarpoolRepository;
+import project.carPooling.passenger.repository.ReservationRepository;
 
 @Configuration
 @RequiredArgsConstructor
 public class PassengerAppConfig {
 	
 	private final PassengerInfoMapper passengerMapper;
-	private final SearchCarpoolMapper searchCarpoolMapper;
+	private final ReservationMapper reservationMapper;
+	private final RegistrationMapper registrationMapper;
 	private final ReservationListMapper reservationListMapper;
 	
 	@Bean
@@ -28,8 +30,8 @@ public class PassengerAppConfig {
 	}
 	
 	@Bean
-	public SearchCarpoolRepository searchCarpoolRepository() {
-		return new MybatisSearchCarpoolRepository(searchCarpoolMapper);
+	public ReservationRepository reservationRepository() {
+		return new MybatisReservationRepository(reservationMapper, registrationMapper);
 	}
 
 	@Bean

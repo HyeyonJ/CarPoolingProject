@@ -31,4 +31,10 @@
 		AND d_idx = #{dRegistration.dIdx}
 		AND d_commute = #{dRegistration.dCommute}
 	</select>
+	
+	<update id="updateRegistrationStatus">
+		UPDATE D_REGISTRATION
+		SET d_reservation_status = 'reservated'
+		WHERE dr_idx = #{drIdx}
+	</update>
 </mapper>

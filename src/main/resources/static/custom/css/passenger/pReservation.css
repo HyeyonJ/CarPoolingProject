@@ -53,6 +53,10 @@ body {
   margin-bottom: 10px;
 }
 
+.form-field {
+  width: 400px;
+}
+
 .setext {
   border-radius: 5px;
   border: 1px solid #ddd;
