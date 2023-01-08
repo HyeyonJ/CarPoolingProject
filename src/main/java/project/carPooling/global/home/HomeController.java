@@ -1,4 +1,4 @@
-package project.carPooling.global.controller;
+package project.carPooling.global.home;
 
 import java.util.Enumeration;
 

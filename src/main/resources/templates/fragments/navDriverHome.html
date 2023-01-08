@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<nav th:fragment="navFragment" style="background-color: #025955; height:10vh;" class="navbar navbar-dark sticky-top">
+	<nav th:fragment="navFragment" style="background-color: #025955;" class="navbar sticky-top">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" th:onclick="|location.href='@{/}'|" href="#"
-	    	style="font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
+	    	style="color: white; font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
-	    <div class="offcanvas offcanvas-end text-bg-dark" style="background-color: #025955;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+	    <div class="offcanvas offcanvas-end" style="background-color: #025955; color: white;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 	      <div class="offcanvas-header">
-	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="color: white;">Driver 로그인이 필요합니다.</h5>
+	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Driver 로그인이 필요합니다.</h5>
 	        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	      </div>
 	      <div class="offcanvas-body">
 				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
+						class="nav-link dropdown-toggle" style="color: white;" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false">CarPooling</a>
 						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#" aria-current="page">About</a></li>
-							<li><a class="dropdown-item" href="#" aria-current="page">How to use</a></li>
+							<li><a class="dropdown-item" style="color: white;" href="#" aria-current="page">About</a></li>
+							<li><a class="dropdown-item" style="color: white;" href="#" aria-current="page">How to use</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link active" th:onclick="|location.href='@{/driver/home}'|" href="#" aria-current="page">로그인</a></li>
-					<li class="nav-item"><a class="nav-link active" th:onclick="|location.href='@{/driver/join}'|" href="#" aria-current="page">회원가입</a></li>
+					<li class="nav-item"><a class="nav-link active" style="color: white;" th:onclick="|location.href='@{/driver/home}'|" href="#" aria-current="page">로그인</a></li>
+					<li class="nav-item"><a class="nav-link active" style="color: white;" th:onclick="|location.href='@{/driver/join}'|" href="#" aria-current="page">회원가입</a></li>
 
 				</ul>
 			</div>

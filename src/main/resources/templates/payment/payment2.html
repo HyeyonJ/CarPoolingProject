@@ -69,7 +69,7 @@
 			if(rsp.success){	// 결제 승인 또는 가상계좌 발급에 성공한 경우
 				$.ajax({	// jQuery로 HTTP 요청
 					type: 'POST',
-					url: 'http://localhost:8080/passenger/pay/test',
+					url: '/passenger/pay/verifyIamport' + rsp.imp_uid,
 					headers: { 'Content-Type': 'application/json' },
 					data: JSON.stringify(rsp)
 			    }).done(function (result) {	// 가맹점 서버 결제 API 성공 시
@@ -102,7 +102,7 @@
 							var paymentData = result.response;
 							//결제 검증
 							if(rsp.paid_amount === paymentData[0].amount) {
-								pageReloadAfterPaying();
+								pageReloadAfterPaying()
 								window.location.reload();
 							} else {
 								alert("결제에 실패했습니다." + "에러코드 : " + rsp.error_code + "에러 메시지 : " + rsp.error_message);

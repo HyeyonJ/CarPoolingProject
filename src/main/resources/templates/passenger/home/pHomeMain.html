@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutPassengerHome}">
+      layout:decorate="~{layouts/layoutPassenger}">
 <head>
 <title>Passenger Home</title>
 <!-- css js -->
 </head>
 
 <th:block layout:fragment="content">
-	<h1>Passenger Home</h1>
-
+<div style="height:100%; width:100%;">
+	<div class="container justify-content-center">
+		<h1>Passenger Home</h1>
+		<button class="btn btn-dark mt-30 mb-30" style="height:50px; width:300px;"
+			type="button" th:onclick="|location.href='@{/passenger/pay}'|">결제 연습하러 ㄱ ㄱ</button>
+	</div>
+</div>
 </th:block>
 </html>

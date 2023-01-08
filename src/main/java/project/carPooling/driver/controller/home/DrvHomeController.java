@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.global.session.SessionManager;
 import project.carPooling.global.session.SessionVar;
 
 @Slf4j
@@ -18,18 +19,13 @@ import project.carPooling.global.session.SessionVar;
 @RequestMapping("/driver")
 public class DrvHomeController {
 
+	private final SessionManager sessionManager;
+	
 	@GetMapping("/home")
 	public String driverHome(Model model
 							, HttpServletRequest req) {
 		
-		HttpSession session = req.getSession(false);
-		
-		if(session == null || session.getAttribute(SessionVar.LOGIN_DRIVER) == null) {
-
-			return "redirect:/driver/login"; }
-		
-		//sessionManager에서 넘어온 Object가 driver 혹은 passenger인걸 알 수 있으므로 강제 형변환해주기
-		DriverInfo driver = (DriverInfo)session.getAttribute(SessionVar.LOGIN_DRIVER);
+		DriverInfo driver = sessionManager.getDrSession(req);
 		
 		if(driver == null) { return "redirect:/driver/login"; }
 		

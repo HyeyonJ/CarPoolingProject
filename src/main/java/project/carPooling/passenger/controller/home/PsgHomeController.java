@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.global.session.SessionManager;
 import project.carPooling.global.session.SessionVar;
 import project.carPooling.passenger.domain.PassengerInfo;
 
@@ -18,18 +19,13 @@ import project.carPooling.passenger.domain.PassengerInfo;
 @RequestMapping("/passenger")
 public class PsgHomeController {
 	
+	private final SessionManager sessionManager;
+	
 	@GetMapping("/home")
 	public String passengerHome(Model model
 					, HttpServletRequest req) {
 		
-		HttpSession session = req.getSession(false);
-		
-		if(session == null || session.getAttribute(SessionVar.LOGIN_PASSENGER) == null) {
-			
-			return "redirect:/passenger/login"; }
-
-		//sessionManager에서 넘어온 Object가 driver 혹은 passenger인걸 알 수 있으므로 강제 형변환해주기
-		PassengerInfo passenger = (PassengerInfo)session.getAttribute(SessionVar.LOGIN_PASSENGER);
+		PassengerInfo passenger = sessionManager.getPsSession(req);
 		
 		if(passenger == null) { return "redirect:/passenger/login"; }
 		
