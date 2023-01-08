@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DRegistration;
@@ -22,68 +22,75 @@ import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.global.session.SessionManager;
-import project.carPooling.global.session.SessionVar;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.SearchCarPool;
-import project.carPooling.passenger.repository.SearchCarpoolRepository;
+import project.carPooling.passenger.repository.ReservationRepository;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/passenger")
 public class PsReservationController {
 	
-	private final SearchCarpoolRepository searchCarpoolRepository;
+	private final ReservationRepository reservationRepository;
 	private final DriverInfoRepository driverInfoRepository;
 	private final SessionManager sessionManager;
 	
 	@Autowired
 	private MailService mailService;
 	
-//	@GetMapping("/passenger/passengerCarpool/search")
-	@ResponseBody
-	@PostMapping("/passenger/passengerCarpool/search")
-	public List<DRegistration> search(@ModelAttribute SearchCarPool searchCarPool) {
-		log.info("searchCarPool: {}", searchCarPool.toString());
-		List<DRegistration> dRegistrationList = searchCarpoolRepository.selectCarpool(searchCarPool);
-		return dRegistrationList;
-	}
-
-	@GetMapping("/passenger/passengerCarpool/reservation")
+	
+	@GetMapping("/passengerCarpool/reservation")
 	public String reservation() {
 		return "passenger/pReservation";
 	}
 	
+	@PostMapping("/passengerCarpool/reservation")
+	public void reservationForm(@ModelAttribute("drIdx") Integer drIdx, HttpServletRequest req) throws MessagingException, IOException {
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		reservationRepository.insert(passengerInfo.getPIdx(), drIdx);	
+		
+		DRegistration drRegistration = driverInfoRepository.selectByDrIdx(drIdx);
+		DriverInfo driverInfo = driverInfoRepository.selectByIdx(drRegistration.getDIdx());
+		String userEmail = driverInfo.getDUserEmail();
+		
+		MailTO mailTO = new MailTO();
+		
+		mailTO.setAddress(userEmail);
+		mailTO.setTitle("고객님이 등록하신 카풀에 새로운 예약 요청이 도착했습니다!");
+		mailTO.setMessage("요청을 확인하시려면 이동하기를 눌러주세요.");
+		
+		mailService.sendMailWithFiles(mailTO);
+	}
+
 	@ResponseBody
-	@GetMapping("/passenger/passengerCarpool/reservation/{drIdx}")
+	@PostMapping("/passengerCarpool/reservation/searchAll")
+	public List<DRegistration> search(@ModelAttribute SearchCarPool searchCarPool, HttpServletRequest req) {
+		log.info("searchCarPool: {}", searchCarPool.toString());
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<DRegistration> dRegistrationList = reservationRepository.selectCarpool(searchCarPool, passengerInfo.getPIdx());
+		return dRegistrationList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/passengerCarpool/reservation/search/{drIdx}")
 	public DRegistration reservationForm(@PathVariable("drIdx") Integer drIdx) {
-		DRegistration dRegistration = searchCarpoolRepository.selectCarpoolByDrIdx(drIdx);
+		DRegistration dRegistration = reservationRepository.selectCarpoolByDrIdx(drIdx);
 		log.info("dRegistration: {}", dRegistration.toString());
 		return dRegistration;
 	}
 	
 	@ResponseBody
-	@PostMapping("/passenger/passengerCarpool/reservation/request")
-	public boolean reservationReq(@ModelAttribute DRegistration dRegistration, HttpServletRequest req) throws MessagingException, IOException{
-		log.info("dRegistration: {}", dRegistration.toString()); 
+	@PostMapping("/passengerCarpool/reservation/check")
+	public boolean reservationReq(@ModelAttribute("drIdx") Integer drIdx, HttpServletRequest req) throws MessagingException, IOException{
+		log.info("drIdx: {}", drIdx); 
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		boolean searchPsResult = searchCarpoolRepository.selectPassenger(passengerInfo.getPIdx(), dRegistration.getDrIdx());
+		boolean searchPsResult = reservationRepository.selectPassenger(passengerInfo.getPIdx(), drIdx);
 		// 찾은 결과가 false일 때 실행
 		if(searchPsResult == true) {
 			return searchPsResult;
 		}
-		searchCarpoolRepository.insert(passengerInfo.getPIdx(), dRegistration.getDrIdx());			
-		
-		DRegistration drRegistration = driverInfoRepository.selectByDrIdx(dRegistration.getDrIdx());
-		DriverInfo driverInfo = driverInfoRepository.selectByIdx(drRegistration.getDIdx());
-		String userEmail = driverInfo.getDUserEmail();
-		
-		MailTO mailTO = new MailTO();
-
-		mailTO.setAddress(userEmail);
-		mailTO.setTitle("고객님이 등록하신 카풀에 새로운 예약 요청이 도착했습니다!");
-        mailTO.setMessage("요청을 확인하시려면 이동하기를 눌러주세요.");
-
-		mailService.sendMailWithFiles(mailTO);
 		return false;
 	}
+
 }

@@ -3,10 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.driver.mapper.RegistrationMapper">
 	<insert id="insert">
-		INSERT INTO D_REGISTRATION (dr_idx, d_idx, d_date, d_commute, d_start_time,
+		INSERT INTO D_REGISTRATION (dr_idx, d_idx, d_date, d_hope_gender, d_commute, d_start_time,
 		d_end_time, d_start_point, d_end_point, d_fee, d_distance, d_time,d_start_lon, d_start_lat,
 		d_end_lon, d_end_lat)
-		VALUES(DR_IDX_SEQ.nextval, #{dRegistration.dIdx}, #{convertDDate}, #{dRegistration.dCommute}, #{dRegistration.dStartTime}, #{dRegistration.dEndTime}, #{dRegistration.dStartPoint}, #{dRegistration.dEndPoint},
+		VALUES(DR_IDX_SEQ.nextval, #{dRegistration.dIdx}, #{convertDDate}, #{dRegistration.dHopeGender},#{dRegistration.dCommute}, #{dRegistration.dStartTime}, #{dRegistration.dEndTime}, #{dRegistration.dStartPoint}, #{dRegistration.dEndPoint},
 		#{dRegistration.dFee}, #{dRegistration.dDistance}, #{dRegistration.dTime}, #{dRegistration.dStartLon}, #{dRegistration.dStartLat}, #{dRegistration.dEndLon}, #{dRegistration.dEndLat})
 	</insert>
 <!-- 	<select id="selectRegistrationByTime" resultType="map"> -->
@@ -31,4 +31,10 @@
 		AND d_idx = #{dRegistration.dIdx}
 		AND d_commute = #{dRegistration.dCommute}
 	</select>
+	
+	<update id="updateRegistrationStatus">
+		UPDATE D_REGISTRATION
+		SET d_reservation_status = 'reservated'
+		WHERE dr_idx = #{drIdx}
+	</update>
 </mapper>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<nav th:fragment="navFragment" style="background-color: #025955;" class="navbar navbar-dark sticky-top bg-dark">
+	<nav th:fragment="navFragment" style="background-color: #025955;" class="navbar sticky-top">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" th:onclick="|location.href='@{/passenger/home}'|" href="#"
-	    	style="font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
+	    	style="font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px; color: white;">카풀링</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
 	    <div class="offcanvas offcanvas-end text-bg-dark" style="background-color: #025955;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 	      <div class="offcanvas-header">
-	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="color: white;">Passenger mode</h5>
+	        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="background-color: #025955; color: white;">Passenger mode</h5>
 	        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	      </div>
 	      <div class="offcanvas-body">
@@ -22,9 +22,10 @@
 >>>>>>> Stashed changes
 	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 	          <li class="nav-item">
-	            <a class="nav-link active" aria-current="page" href="#">카풀 찾기</a>
+	            <a class="nav-link active" style="color: white;" aria-current="page" href="#">카풀 찾기</a>
 	          </li>
 	          <li class="nav-item">
+<<<<<<< HEAD
 <<<<<<< HEAD
 	            <a class="nav-link" aria-current="page" th:href="@{|/chatting/myChatting/${session.loginId}|}">카풀톡</a>
 	          </li>
@@ -42,24 +43,31 @@
 	              <li><a class="dropdown-item" href="#">회원정보수정</a></li>
 =======
 	            <a class="nav-link" aria-current="page" href="#">카풀톡</a>
+=======
+	            <a class="nav-link" style="color: white;" aria-current="page" href="#">카풀톡</a>
+>>>>>>> 56cc011827a23aa78715e0b9c6e2f3bf314d0284
 	          </li>
 	          <li class="nav-item dropdown">
-	            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+	            <a class="nav-link dropdown-toggle" style="color: white;" href="#" role="button" data-bs-toggle="dropdown"
 	            	aria-expanded="false">
 	              마이 카풀링
 	            </a>
 	            <ul class="dropdown-menu dropdown-menu-dark">
-	              <li><a class="dropdown-item active" href="#" aria-current="page">나의 카풀</a></li>
-	              <li><a class="dropdown-item active" href="#" aria-current="page">결제</a></li>
+	              <li><a class="dropdown-item active" style="color: white;" href="#" aria-current="page">나의 카풀</a></li>
+	              <li><a class="dropdown-item active" style="color: white;" href="#" aria-current="page">결제</a></li>
 	              <li>
 	                <hr class="dropdown-divider">
 	              </li>
+<<<<<<< HEAD
 	              <li><a class="dropdown-item active" th:onclick="|location.href='@{/passenger/info}'|" href="#" aria-current="page">회원정보수정</a></li>
 >>>>>>> 84cdeb616c99b4a9e62659d6c63deffbc2f6136a
+=======
+	              <li><a class="dropdown-item active" style="color: white;" th:onclick="|location.href='@{/passenger/info}'|" href="#" aria-current="page">회원정보수정</a></li>
+>>>>>>> 56cc011827a23aa78715e0b9c6e2f3bf314d0284
 	            </ul>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" th:onclick="|location.href='@{/passenger/logout}'|" aria-current="page" href="#">로그아웃</a>
+	            <a class="nav-link" style="color: white;" th:onclick="|location.href='@{/passenger/logout}'|" aria-current="page" href="#">로그아웃</a>
 	          </li>
 	        </ul>
 	      </div>

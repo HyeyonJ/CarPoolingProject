@@ -15,6 +15,7 @@ import project.carPooling.driver.repository.RegistrationRepository;
 import project.carPooling.global.session.SessionManager;
 
 @RequiredArgsConstructor
+@Controller
 @RequestMapping("/driver")
 public class DrRegistrationController {
 	

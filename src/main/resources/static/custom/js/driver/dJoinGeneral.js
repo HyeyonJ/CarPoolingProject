@@ -171,8 +171,10 @@ idNum.onkeyup = function(){
 }
 
 idNum.onblur = function(){
+
 	this.value = autoMaskingIdNum (this.value);
 /* 성별 자동 선택*/
+
 	if ( ($("#dIdNum").val()).substr(7,1) === "1" || ($("#dIdNum").val()).substr(7,1) === "3" ){
 		$("#dUserGender1").attr("checked", true);
 	} else {
