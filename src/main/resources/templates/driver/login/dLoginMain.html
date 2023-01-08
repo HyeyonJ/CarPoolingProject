@@ -1,51 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutDriverHome}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutDriverHome}">
 <head>
-	<title>Driver Login Page</title>
+<title>Driver Login Page</title>
 
 <!-- CSS only -->
 </head>
 <th:block layout:fragment="content">
 	<div class="outer">
-		<div class="container justify-content-center">			
+		<div class="container justify-content-center">
 			<div class="row justify-content-center text-center">
 				<div class="col-8 mt-5 mb-3" style="border-bottom: solid 1px black;">
 					<h2>Driver Login</h2>
 				</div>
-				<form class="form-control-lg" action="/driver/login" method="post" th:object="${dLoginForm}">				
+				<form class="form-control-lg" action="/driver/login" method="post"
+					th:object="${dLoginForm}">
 					<!-- 일반 로그인 -->
 					<div class="row justify-content-center">
-						<input type="text" class="col-8 mb-2 form-control" style="height:50px; width:300px;" th:field="*{loginId}" placeholder="아이디를 입력해주세요">
+						<input type="text" class="col-8 mb-2 form-control"
+							style="height: 50px; width: 300px;" th:field="*{loginId}"
+							placeholder="아이디를 입력해주세요">
 					</div>
 					<div class="row justify-content-center">
-						<input type="password" class="col-8 mb-2 form-control" style="height:50px; width:300px;" th:field="*{password}" placeholder="비밀번호를 입력해주세요">
+						<input type="password" class="col-8 mb-2 form-control"
+							style="height: 50px; width: 300px;" th:field="*{password}"
+							placeholder="비밀번호를 입력해주세요">
 					</div>
 					<div class="row justify-content-center">
-						<button type="submit" class="col-8 mb-2 btn btn-dark" style="height:50px; width:300px;">아이디 로그인</button>
+						<button type="submit" class="col-8 mb-2 btn btn-dark"
+							style="height: 50px; width: 300px;">아이디 로그인</button>
 					</div>
 					<div class="row justify-content-center">
-						<div class="col-8 mb-2" style="height:50px; width:300px; text-align: right;"><a href="/">ID/PW 찾기</a></div>
+						<div class="col-8 mb-2"
+							style="height: 50px; width: 300px; text-align: right;">
+							<a href="/">ID/PW 찾기</a>
+						</div>
 					</div>
-				
+
 					<!-- 네이버 로그인 -->
 					<div class="row justify-content-center">
 						<div class="col-8">
-							<a th:href="${apiURL}"><img height="50px"
-								width="300px" src="/img/buttonNaver.png" /></a>
+							<a th:href="${apiURL}"><img height="50px" width="300px"
+								src="/img/buttonNaver.png" /></a>
 						</div>
 					</div>
-					
+
 					<!-- 카카오 로그인 -->
 					<div class="row justify-content-center">
 						<div class="col-8">
-							<a th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/kakao/redirect&response_type=code}">
+							<a
+								th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/driver/login/kakao/redirect&response_type=code}">
 								<img src="/img/buttonKakao.png" height="50" width="300px"
-								alt="카카오 로그인 버튼" /></a>
+								alt="카카오 로그인 버튼" />
+							</a>
 						</div>
 					</div>
-					<!-- 			  구글 로그인 -->
+					<!-- 구글 로그인 -->
 					<div class="d-flex justify-content-center">
 						<div>
 							<div id="buttonDiv" class="mt-1"></div>
@@ -56,54 +67,71 @@
 						<div class="col-8">CarPooling이 처음이신가요?</div>
 					</div>
 					<div class="row justify-content-center mb-5">
-						<button type="button" class="col-8 btn btn-dark" style="height: 50px; width:300px;" th:onclick="|location.href='@{/driver/join/general}'|">회원 가입 하기</button>
+						<button type="button" class="col-8 btn btn-dark"
+							style="height: 50px; width: 300px;"
+							th:onclick="|location.href='@{/driver/join/general}'|">회원
+							가입 하기</button>
 					</div>
 				</form>
+				<form action="/driver/new" method="post" id="emailForm">
+					<input type="hidden" id="email" name="email">
+				</form>
 			</div>
-		</div>		
+		</div>
 	</div>
-	      <script src="https://accounts.google.com/gsi/client" async defer></script>
-      <script src="https://apis.google.com/js/platform.js" async defer></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script>
-      
-      $("#gsi_821472_328363").css("width", "300px");
-      $(".haAclf").css("width", "300px");
-		
-        function handleCredentialResponse(response) {
-           const responsePayload = parseJwt(response.credential);
-           console.log("ID: " + responsePayload.sub);
-            console.log('Full Name: ' + responsePayload.name);
-            console.log('Given Name: ' + responsePayload.given_name);
-            console.log('Family Name: ' + responsePayload.family_name);
-            console.log("Image URL: " + responsePayload.picture);
-            console.log("Email: " + responsePayload.email);
-            console.log("responsePayload" + responsePayload);
-            console.log("responsePayload" + response);
-        }
-        function parseJwt (token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
-            return JSON.parse(jsonPayload);
-        };
-        window.onload = function () {
-          google.accounts.id.initialize({
-            client_id: "763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com",
-            callback: handleCredentialResponse
-          });
-          google.accounts.id.renderButton(
-            document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large", logo_alignment: "left", width: "270"}  // customization attributes
-          );
-          google.accounts.id.prompt(); // also display the One Tap dialog
-        }
-    </script>
 </th:block>
-
 <th:block layout:fragment="js">
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+		function handleCredentialResponse(response) {
+			const responsePayload = parseJwt(response.credential);
+			console.log("ID: " + responsePayload.sub);
+			console.log('Full Name: ' + responsePayload.name);
+			console.log('Given Name: ' + responsePayload.given_name);
+			console.log('Family Name: ' + responsePayload.family_name);
+			console.log("Image URL: " + responsePayload.picture);
+			console.log("Email: " + responsePayload.email);
+			console.log("responsePayload" + responsePayload);
+			console.log("responsePayload" + response);
+			
+			$("#email").val(responsePayload.email);
+			$("#emailForm").submit();
+			  
+		}
+
+		function parseJwt(token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+			var jsonPayload = decodeURIComponent(atob(base64).split('').map(
+					function(c) {
+						return '%'
+								+ ('00' + c.charCodeAt(0).toString(16))
+										.slice(-2);
+					}).join(''));
+
+			return JSON.parse(jsonPayload);
+		};
+
+		window.onload = function() {
+			google.accounts.id
+					.initialize({
+						client_id : "763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com",
+						callback : handleCredentialResponse
+					});
+			google.accounts.id.renderButton(document
+					.getElementById("buttonDiv"), {
+				theme : "outline",
+				size : "large",
+				logo_alignment : "left",
+				width : "270"
+			} // customization attributes
+			);
+			google.accounts.id.prompt(); // also display the One Tap dialog
+		}
+	</script>
 </th:block>
 </html>

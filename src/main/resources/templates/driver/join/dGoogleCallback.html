@@ -7,8 +7,20 @@
 <!-- <meta name="google-signin-client_id" content="763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com"> -->
 <title>Insert title here</title>
 </head>
-<body>
+<th:block layout:fragment="content">
 
-<p>여기 이렇게</p>
-</body>
+	<form>
+		<label for="dUserEmail">* 이메일(email)</label><br> <input
+			class="form-control" type="text" id="dUserEmail"
+			th:value="${email}" readonly>
+
+	</form>
+	<p>여기 이렇게</p>
+</th:block>
+
+<th:block layout:fragment="js">
+	<script>
+	  
+	</script>
+</th:block>
 </html>
