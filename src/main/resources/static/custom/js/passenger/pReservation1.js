@@ -481,21 +481,35 @@ function searchPOI(location) {
         }
       }
 
-      if (resultMarkerArr.length > 0) {
-        for (var i = 0; i < resultMarkerArr.length; i++) {
-          resultMarkerArr[i].setMap(null);
+      if (pResultMarkerArr.length > 0) {
+        for (var i = 0; i < pResultMarkerArr.length; i++) {
+          pResultMarkerArr[i].setMap(null);
         }
       }
 
-      if (resultdrawArr.length > 0) {
-        for (var i = 0; i < resultdrawArr.length; i++) {
-          resultdrawArr[i].setMap(null);
+      if (dResultMarkerArr.length > 0) {
+        for (var i = 0; i < dResultMarkerArr.length; i++) {
+          dResultMarkerArr[i].setMap(null);
+        }
+      }
+
+      if (pResultdrawArr.length > 0) {
+        for (var i = 0; i < pResultdrawArr.length; i++) {
+          pResultdrawArr[i].setMap(null);
+        }
+      }
+
+      if (dResultdrawArr.length > 0) {
+        for (var i = 0; i < dResultdrawArr.length; i++) {
+          dResultdrawArr[i].setMap(null);
         }
       }
 
       drawInfoArr = [];
-      resultMarkerArr = [];
-      resultdrawArr = [];
+      pResultMarkerArr = [];
+      dResultMarkerArr = [];
+      pResultdrawArr = [];
+      dResultdrawArr = [];
 
       // 초기화 ------
 

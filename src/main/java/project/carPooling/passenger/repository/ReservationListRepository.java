@@ -6,14 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 public interface ReservationListRepository {
-	public List<Map<String, Object>> selectAcceptedReservationList(Integer pIdx);
+	public List<Map<String, Object>> selectCurrentList(Integer pIdx);
 	
-	public List<Map<String, Object>> selectWaitingReservationList(Integer pIdx);
-
-	public List<Map<String, Object>> selectRefusedReservationList(Integer pIdx);
-	
-	public List<Map<String, Object>> selectPastReservationList(Integer pIdx);
+	public List<Map<String, Object>> selectPastList(Integer pIdx);
 	
 	public boolean deleteRsv(Integer drIdx, Integer pIdx);
 	
+	public void cancelWaitingReservation(Integer drIdx);
 }

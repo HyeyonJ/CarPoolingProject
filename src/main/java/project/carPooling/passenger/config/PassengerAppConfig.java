@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
+import project.carPooling.driver.mapper.RegistrationListMapper;
 import project.carPooling.driver.mapper.RegistrationMapper;
 import project.carPooling.passenger.mapper.PassengerInfoMapper;
 import project.carPooling.passenger.mapper.ReservationListMapper;
@@ -22,6 +23,7 @@ public class PassengerAppConfig {
 	private final PassengerInfoMapper passengerMapper;
 	private final ReservationMapper reservationMapper;
 	private final RegistrationMapper registrationMapper;
+	private final RegistrationListMapper registrationListMapper;
 	private final ReservationListMapper reservationListMapper;
 	
 	@Bean
@@ -36,7 +38,7 @@ public class PassengerAppConfig {
 
 	@Bean
 	public ReservationListRepository reservationListRepository() {
-		return new MybatisReservationListRepository(reservationListMapper);
+		return new MybatisReservationListRepository(reservationListMapper, registrationListMapper);
 	}
 
 }
