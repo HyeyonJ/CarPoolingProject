@@ -6,6 +6,7 @@
 <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 <!-- <meta name="google-signin-client_id" content="763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com"> -->
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <th:block layout:fragment="content">
 			<div style="margin-top: 50px;"></div>
@@ -28,10 +29,10 @@
 					th:object="${driverInfo}">
 				
 					<div class="row justify-content-center">
-							<div class="col-md-4 mb-3" style="text-align: center;">
-								<h4>Driver 회원가입</h4>
-							</div>
-							</div>
+						<div class="col-md-4 mb-3" style="text-align: center;">
+							<h4>Driver 회원가입</h4>
+						</div>
+					</div>
 				<!-- 가입유형지정 -->
 						<div class="row" id="inputUserType">
 							<div class="col mb-3 form-check" th:each="dUserType : ${dUserTypes}">
