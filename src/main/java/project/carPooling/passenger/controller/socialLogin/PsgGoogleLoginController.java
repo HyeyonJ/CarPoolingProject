@@ -34,18 +34,13 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 			rAttr.addFlashAttribute("pUserEmail", email);
 			System.out.println("google pUserEmail: " + email);
 			
-//			DriverInfo driverInfo = driverInfoRepository.selectByEmail(email);
 			PassengerInfo passengerInfo = passengerInfoRepository.selectByEmail(email);
 			
 			if ( passengerInfo == null) {
 				return "redirect:/passenger/login/google/redirect";
 			}
 			
-//			if ( driverInfo == null ) {
-//				return "redirect:/driver/login/google/redirect";
-//			}
 			HttpSession session = req.getSession();
-//			session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 			session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);
 
 			return "passenger/pReservation";
@@ -53,11 +48,6 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 		
 		@RequestMapping(value="/google/redirect")
 		public String loginGoogle2(Model model) {
-			
-//			DriverInfo driverInfo = new DriverInfo();
-//			model.addAttribute("driverInfo", driverInfo);
-//			
-//			return "/driver/join/dGoogleCallback";
 			
 			PassengerInfo passengerInfo = new PassengerInfo();
 			model.addAttribute("passengerInfo", passengerInfo);
@@ -71,7 +61,6 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 			System.out.println("PassengerInfo : " + passengerInfo);
 			System.out.println("---------------------------");
 			
-//			driverInfoRepository.insert(driverInfo);
 			
 			passengerInfoRepository.insert(passengerInfo);
 			

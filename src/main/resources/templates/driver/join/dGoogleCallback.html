@@ -45,7 +45,9 @@
 						<div class="col mb-3 form-check">
 							<input class="form-check-input" type="radio"
 								th:field="*{dUserGender}" id="dUserGender1" name="dUserGender"
-								th:value="M"><label th:text="남성"></label> <input
+								th:value="M">
+							<label th:text="남성"></label> 
+							<input
 								class="form-check-input" type="radio" th:field="*{dUserGender}"
 								id="dUserGender2" name="dUserGender" th:value="F"><label
 								th:text="여성"></label>
@@ -53,7 +55,7 @@
 					</div>
 				<!-- 이메일 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 							<label for="dUserEmail">* 이메일(email)</label><br> 
 							<input
 								class="form-control" type="text" id="dUserEmail"
@@ -62,7 +64,7 @@
 						</div>
 				<!-- 패스워드 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dUserPw">* 비밀번호(pw)</label>
 									<input type="password"
 									class="form-control" id="dUserPw" name="dUserPw"
@@ -79,7 +81,7 @@
 						</div>
 				<!-- 사용자 이름 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dUserName">* 이름(name)</label> <input type="text"
 									class="form-control" id="dUserName" name="dUserName"
 									th:field="*{dUserName}" maxlength="10" placeholder="이름" required>
@@ -88,7 +90,7 @@
 						</div>
 				<!-- 휴대폰번호 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dUserTel">* 휴대폰번호</label>
 								<input type="text" class="form-control" id="dUserTel" name="dUserTel"
 								 		pattern="(010)-\d{3,4}-\d{4}" maxlength="13" title="숫자만 입력"
@@ -100,7 +102,7 @@
 						</div>	
 				<!-- 주민등록번호 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dIdNum">* 주민등록번호</label><span class="text-center small mt-2"
 								id="checkIdNumMsg" style="color: red"></span>
 								<input type="text" class="form-control" id="dIdNumM" name="dIdNumM"
@@ -116,14 +118,14 @@
 						</div>
 				<!-- 은행 계좌정보 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dAccountBank">* 은행</label> <input
 									class="form-control" id="dAccountBank" name="dAccountBank"
 									th:field="*{dAccountBank}">
 							</div>
 						</div>
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dAccountNum">* 계좌번호</label> <input
 									class="form-control" id="dAccountNum" name="dAccountNum"
 									th:field="*{dAccountNum}">
@@ -132,7 +134,7 @@
 				<!-- 운전 면허 관련 정보 -->
 					<!-- 면허 번호 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dLicenseNum">* 면허번호</label><span class="text-center small mt-2"
 								id="checkLicenseNumMsg" style="color: red"></span>
 								<div class="input-group mb-3">
@@ -149,7 +151,7 @@
 						</div>
 					<!-- 식별 번호 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dLicenseDate">* 식별번호</label> 
 									<input type="text"
 									class="form-control" id="dLicenseIdNum" name="dLicenseIdNum"
@@ -164,7 +166,7 @@
 						</div>
 					<!-- 자동차 번호 입력 -->
 						<div class="row justify-content-center">
-							<div class="col col-md-7 mb-3">
+							<div class="col col-md-6 mb-3">
 								<label for="dCarNum">* 자동차 번호</label><span class="text-center small mt-2"
 								id="checkCarNumMsg" style="color: red"></span>
 								<input type="text" class="form-control" id="dCarNum" name="dCarNum"
