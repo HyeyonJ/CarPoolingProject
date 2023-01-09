@@ -24,18 +24,16 @@ public class DrvEditController {
 	
 	@GetMapping("/info")
 	public String driverUserInfo (Model model
-					, HttpServletRequest req) {
+								, HttpServletRequest req) {
 		
 		HttpSession session = req.getSession(false);
 		
 		if(session == null || session.getAttribute(SessionVar.LOGIN_DRIVER) == null) {
-			
 			return "redirect:/driver/login"; }
 
 		DriverInfo driver = (DriverInfo)session.getAttribute(SessionVar.LOGIN_DRIVER);
 		
 		if(driver == null) { return "redirect:/driver/login"; }
-		
 		model.addAttribute("driver", driver);
 		
 		return "driver/userInfo/dUserInfo";

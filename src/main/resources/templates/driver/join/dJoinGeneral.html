@@ -12,11 +12,15 @@
 </head>
 
 <th:block layout:fragment="content">
-	<div class="container mt-5">
-		<div class="input-form-backgroud row">
+	<div class="input-form-backgroud row">
+		<div style="margin-top: 50px;"></div>
 			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-3">Driver 회원가입</h4>
-				<form class="validation-form" novalidate action="" method="post"
+				<div class="row justify-content-center">
+					<div class="col-md-4 mb-3" style="text-align: center;">
+						<h4>Driver 회원가입</h4>
+					</div>
+				</div>
+			<form class="validation-form" novalidate action="" method="post"
 					th:object="${driver}">
 					<div class="row" id="inputUserType">
 						<!-- 가입유형지정 -->
@@ -39,9 +43,9 @@
 								th:value="F"><label th:text="여성"></label>							
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 아이디 입력 / 중복 체크 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dUserId">아이디(id)</label> <span
 								class="text-center small mt-2" id="checkIdMsg"
 								style="color: red"></span>
@@ -58,9 +62,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 패스워드 입력 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dUserPw">패스워드(pw)</label> <input type="password" th:field="*{dUserPw}"
 								class="form-control" id="dUserPw" name="dUserPw"
 								placeholder="패스워드"
@@ -73,18 +77,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 사용자 이름 입력 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dUserName">이름(name)</label> <input type="text"
 								class="form-control" id="dUserName" name="dUserName"
 								th:field="*{dUserName}" maxlength="10" placeholder="이름" required>
 							<div class="invalid-feedback">이름을 확인해주세요.</div>
 						</div>
 					</div>					
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dUserEmail">이메일(email)</label> <span
 								class="text-center small mt-2" id="checkEmailMsg"
 								style="color: red"></span>
@@ -114,9 +118,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 휴대폰 번호 입력 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dUserTel">휴대폰번호</label>
 							<input type="text" class="form-control" id="dUserTel" name="dUserTel"
 								 placeholder="010-1234-5678 숫자만" pattern="^(010-\d{3,4}-\d{4})$" maxlength="13"
@@ -126,9 +130,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 주민등록번호 입력 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dIdNum">* 주민등록번호</label><span class="text-center small mt-2"
 							id="checkIdNumMsg" style="color: red"></span>
 							<input type="text" class="form-control" id="dIdNumM" name="dIdNumM"
@@ -142,9 +146,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 면허 번호 입력 -->						
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dLicenseNum">면허번호</label><span class="text-center small mt-2"
 							id="checkLicenseNumMsg" style="color: red"></span>
 							<div class="input-group mb-3">
@@ -159,9 +163,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 식별 번호 입력 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dLicenseDate">식별번호</label> <input type="text"
 								class="form-control" id="dLicenseIdNum" name="dLicenseIdNum"
 								th:field="*{dLicenseIdNum}" pattern="^([A-Z0-9]{5,6})$"
@@ -172,9 +176,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row justify-content-center">
 						<!-- 자동차 번호 입력 -->
-						<div class="col-md-4 mb-3">
+						<div class="col col-md-6 mb-3">
 							<label for="dCarNum">자동차번호</label><span class="text-center small mt-2"
 							id="checkCarNumMsg" style="color: red"></span>
 							<input type="text" class="form-control" id="dCarNum" name="dCarNum"
@@ -185,14 +189,15 @@
 							</div>
 						</div>
 					</div>
-					<!-- 개인 정보 활용 동의 -->
-					<div class="custom-control custom-checkbox mb-3">
-						<input type="checkbox" class="custom-control-input" id="aggrement"
-							required> <label class="custom-control-label"
-							for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-					</div>
+					<!-- 개인정보활용동의 -->
+						<div class="custom-control custom-checkbox mb-3" style="margin-top:30px; text-align: center;">
+							<input type="checkbox" class="custom-control-input" id="aggrement"
+								required> <label class="custom-control-label"
+								for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+						</div>
+						<!-- 회원 가입 버튼 -->
 					<div class="row">
-						<div class="col-md-4 mb-3">
+						<div style="margin-top: 20px; text-align: center">
 							<button type="submit" class="btn btn-dark formButton">가입완료</button>
 							<button type="button" class="btn btn-light formButton"
 								th:onclick="|location.href='@{/}'|">취소</button>
@@ -201,7 +206,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
 </th:block>
 <th:block layout:fragment="js">
 	<script src="/custom/js/driver/dJoinGeneral.js"></script>

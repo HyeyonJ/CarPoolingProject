@@ -1,4 +1,4 @@
-console.log("asd");
+
 $('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
 $('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
 
@@ -150,7 +150,7 @@ var autoHypenIdNum = function(idNum){
           tmp += idNum.substr(0, 6);
           tmp += '-';
           tmp += idNum.substr(6);
-          $("#dIdNum").val(tmp);
+          $("#pIdNum").val(tmp);
           return tmp;          
       }
       return idNum;
