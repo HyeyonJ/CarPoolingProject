@@ -60,7 +60,6 @@ public class PsgLoginController {
 		return "passenger/login/pLoginMain";
 	}
 
-
 	//로그인하고나서 원래 이동했었던 경로로 다시 이동시키기
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute PassengerLoginForm pLoginForm
@@ -85,7 +84,10 @@ public class PsgLoginController {
 		}
 		//정상 로그인 처리가 된 경우 세션에 추가
 		HttpSession session = req.getSession();
-		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);		
+		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
+		session.setAttribute(SessionVar.LOGIN_ID, "p"+passenger.getPUserId());
+		session.setAttribute(SessionVar.LOGIN_EMAIL, passenger.getPUserEmail());
+		session.setAttribute(SessionVar.LOGIN_NAME, passenger.getPUserName());
 		
 		//넘어온 redirectURL값이 있으면 해당 경로, 없으면 default값인 "/" 이동
 		return "redirect:" + redirectURL;

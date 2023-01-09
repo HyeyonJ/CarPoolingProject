@@ -18,8 +18,13 @@
 	            <a class="nav-link active" style="color: white;" aria-current="page" href="#">카풀 찾기</a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" style="color: white;" aria-current="page" href="#">카풀톡</a>
+	            <a class="nav-link" style="color: white;" aria-current="page" th:href="@{|/chatting/myChatting/${session.loginId}|}">카풀톡</a>
 	          </li>
+	          <li>
+	          <a class="nav-link active" style="color: white;" aria-current="page"
+	          	 th:data-url="@{|/chatting/myChatting/${session.loginId}|}"
+				 th:onclick="openWin(this.getAttribute('data-url'))">카풀톡</a>
+			  </li>
 	          <li class="nav-item dropdown">
 	            <a class="nav-link dropdown-toggle" style="color: white;" href="#" role="button" data-bs-toggle="dropdown"
 	            	aria-expanded="false">
@@ -41,5 +46,12 @@
 	      </div>
 	    </div>
 	  </div>
+ <script th:inline="javascript">
+    function openWin(url) {
+    ReportPrintPreview = window.open("about:blank", "ReportPrintPreview", "width=400,height=500,left=250,top=50,dependent=yes,menubar=yes,status=yes,resizable=yes,toolbar=no,scrollbars=yes");
+    ReportPrintPreview.location.href = url;
+    ReportPrintPreview.focus();
+	}
+ </script>
 	</nav>
 </html>

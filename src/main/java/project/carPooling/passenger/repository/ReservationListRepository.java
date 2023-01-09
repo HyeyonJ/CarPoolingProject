@@ -10,5 +10,7 @@ public interface ReservationListRepository {
 	
 	public boolean deleteRsv(Integer drIdx, Integer pIdx);
 	
-	public void cancelWaitingReservation(Integer drIdx);
+	public int cancelCurrentReservation(Integer drIdx);
+	
+	public String selectDriverEmail(Integer drIdx);
 }

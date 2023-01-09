@@ -80,17 +80,5 @@ public class PsReservationController {
 		return dRegistration;
 	}
 	
-	@ResponseBody
-	@PostMapping("/passengerCarpool/reservation/check")
-	public boolean reservationReq(@ModelAttribute("drIdx") Integer drIdx, HttpServletRequest req) throws MessagingException, IOException{
-		log.info("drIdx: {}", drIdx); 
-		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		boolean searchPsResult = reservationRepository.selectPassenger(passengerInfo.getPIdx(), drIdx);
-		// 찾은 결과가 false일 때 실행
-		if(searchPsResult == true) {
-			return searchPsResult;
-		}
-		return false;
-	}
 
 }

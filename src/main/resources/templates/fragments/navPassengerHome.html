@@ -26,6 +26,33 @@
 
 				</ul>
 			</div>
+	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+	          <li class="nav-item">
+	            <a class="nav-link active" aria-current="page" href="#">카풀 찾기</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" aria-current="page" th:href="@{|/chatting/myChatting/${session.loginId}|}">카풀톡</a>
+				<a class="nav-link" aria-current="page" onclick="chatPopup()">카풀톡</a>
+	          </li>
+	          <li class="nav-item dropdown">
+	            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	              마이 카풀링
+	            </a>
+	            <ul class="dropdown-menu dropdown-menu-dark">
+	              <li><a class="dropdown-item active" href="#" aria-current="page">나의 카풀</a></li>
+	              <li><a class="dropdown-item active" href="#" aria-current="page">결제</a></li>
+	              <li><a class="dropdown-item active" href="#" aria-current="page">내가 받은 후기</a></li>
+	              <li>
+	                <hr class="dropdown-divider">
+	              </li>
+	              <li><a class="dropdown-item active" th:onclick="|location.href='@{/passenger/info}'|" href="#" aria-current="page">회원정보수정</a></li>
+	            </ul>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" th:onclick="|location.href='@{/passenger/logout}'|" aria-current="page" href="#">로그아웃</a>
+	          </li>
+	        </ul>
+	      </div>
 	    </div>
 	  </div>
 	</nav>

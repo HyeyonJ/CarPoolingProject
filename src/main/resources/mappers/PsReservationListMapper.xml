@@ -23,5 +23,35 @@
 		WHERE dr_idx = #{drIdx} AND p_idx = #{pIdx}
 	</delete>
 	
+	<select id="selectDriverEmail" resultType="String">
+		SELECT d_user_email
+		FROM DRIVER
+		WHERE d_idx = 
+		(SELECT d_idx
+		FROM D_REGISTRATION
+		WHERE dr_idx = #{drIdx})
+	</select>
 	
+	<update id="updateDriverPoint">
+		UPDATE DRIVER
+		SET d_point = d_point + #{point}
+		WHERE d_idx = #{dIdx}
+	</update>
+	
+	<update id="updateReservatedToWaiting">
+		UPDATE D_REGISTRATION
+		SET d_reservation_status = 'waiting'
+		WHERE dr_idx = #{drIdx}
+	</update>
+	
+	<delete id="deleteReservation">
+		DELETE FROM RESERVATION
+		WHERE dr_idx = #{drIdx}
+	</delete>
+	
+	<select id="selectRegistrationByDrIdx" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE dr_idx = #{drIdx}
+	</select>
 </mapper>
