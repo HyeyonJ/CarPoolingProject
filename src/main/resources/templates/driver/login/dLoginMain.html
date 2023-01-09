@@ -16,7 +16,7 @@
 				</div>
 				<form class="form-control-lg" action="/driver/login" method="post"
 					th:object="${dLoginForm}">
-					<!-- 일반 로그인 -->
+				<!-- 일반 로그인 -->
 					<div class="row justify-content-center">
 						<input type="text" class="col-8 mb-2 form-control"
 							style="height: 50px; width: 300px;" th:field="*{loginId}"
@@ -38,7 +38,7 @@
 						</div>
 					</div>
 
-					<!-- 네이버 로그인 -->
+				<!-- 네이버 로그인 -->
 					<div class="row justify-content-center">
 						<div class="col-8">
 							<a th:href="${apiURL}"><img height="50px" width="300px"
@@ -46,7 +46,7 @@
 						</div>
 					</div>
 
-					<!-- 카카오 로그인 -->
+				<!-- 카카오 로그인 -->
 					<div class="row justify-content-center">
 						<div class="col-8">
 							<a
@@ -56,13 +56,13 @@
 							</a>
 						</div>
 					</div>
-					<!-- 구글 로그인 -->
+				<!-- 구글 로그인 -->
 					<div class="d-flex justify-content-center">
 						<div>
 							<div id="buttonDiv" class="mt-1"></div>
 						</div>
 					</div>
-					<!-- 일반 가입 -->
+				<!-- 일반 가입 -->
 					<div class="row justify-content-center mt-3">
 						<div class="col-8">CarPooling이 처음이신가요?</div>
 					</div>
@@ -73,9 +73,12 @@
 							가입 하기</button>
 					</div>
 				</form>
-				<form action="/driver/new" method="post" id="emailForm">
-					<input type="hidden" id="email" name="email">
-				</form>
+				
+				<!-- 구글 email 보내기 -->
+				<!-- form 안에 form 작동 안되기 때문에 빼놓음 -->
+					<form action="/driver/login/google/redirect" method="post" id="emailForm">
+						<input type="hidden" id="email" name="email">
+					</form>
 			</div>
 		</div>
 	</div>
