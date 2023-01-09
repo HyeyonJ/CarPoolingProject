@@ -12,10 +12,9 @@ import project.carPooling.passenger.mapper.PassengerInfoMapper;
 
 @Slf4j
 @Repository @Primary
-@RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
+@RequiredArgsConstructor
 public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
-	
-	//Mapper 인터페이스 호출
+
 	private final PassengerInfoMapper passengerMapper;
 
 	@Override

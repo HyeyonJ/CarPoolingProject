@@ -41,10 +41,10 @@ $("#requestPay").click(function() {
 							type: 'POST',
 							url: '/passenger/carpoolingPay/complete',
 							data: {
-								merchantUid : paymentData.merchant_uid,
-								amount : paymentData.amount,
-								status : paymentData.status
-							}							
+								payIdx : paymentData.merchant_uid,
+								pIdx : user.pIdx,
+								amount : paymentData.amount
+							}
 						})
 						console.log(data);
 						console.log("결제 테이블 저장 완료");
