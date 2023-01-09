@@ -83,10 +83,8 @@ public class PsgLoginController {
 			bindingResult.rejectValue("pLoginForm", "아이디 or 비밀번호 불일치");
 			return "passenger/login/pLoginMain";
 		}
-		//정상 로그인 처리가 된 경우
-		//세션에 추가
-		HttpSession session = req.getSession();	//getSession(true) : session이 없으면 만들고 있으면 안 만든다.
-//		session.setMaxInactiveInterval(540);	//세션 유효시간
+		//정상 로그인 처리가 된 경우 세션에 추가
+		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);		
 		
 		//넘어온 redirectURL값이 있으면 해당 경로, 없으면 default값인 "/" 이동

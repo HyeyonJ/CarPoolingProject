@@ -1,4 +1,4 @@
-package project.carPooling.global.payment;
+package project.carPooling.passenger.controller.payment;
 
 import java.io.IOException;
 import java.math.BigDecimal;

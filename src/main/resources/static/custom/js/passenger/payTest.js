@@ -4,6 +4,7 @@
 var msg;
 const corsErr = "http://cors-anywhere.herokuapp.com/";
 
+//결제 버튼 클릭
 $("#requestPay").click(function () {
 	
 	const data = {
@@ -83,3 +84,9 @@ function pageReloadAfterPaying() {
 		sessionStorage.reloadAfterPageLoad = false;
 	}
 };
+
+
+//결제취소 버튼 클릭
+$("#cancelPay").click(function() {
+	
+});
