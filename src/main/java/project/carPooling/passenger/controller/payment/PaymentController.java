@@ -6,9 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +23,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.global.payments.Payments;
 import project.carPooling.global.session.SessionManager;
 import project.carPooling.passenger.domain.PassengerInfo;
+import project.carPooling.passenger.domain.PaymentData;
 
 @Slf4j
 @RestController
@@ -47,7 +45,7 @@ public class PaymentController {
     }
 
 	@GetMapping("/rqPay")
-	public PassengerInfo testRequestPay(HttpServletRequest req) {
+	public PassengerInfo requestPay(HttpServletRequest req) {
 		PassengerInfo passenger = sessionManager.getPsSession(req);		
 		return passenger;
 	}
@@ -61,13 +59,17 @@ public class PaymentController {
     }
     
     @GetMapping("/complete")
-    public String payComplete(@RequestBody Map<String, Object> paymentData) {
-    	log.info("paymentData : {}", paymentData);
-		Payments payments = (Payments) paymentData;
-		paymentMapper.insert(payments);
-    	return "redirect:/passenger/passengerCarpool/reservation/list";
+    public Map<String, Object> completePay(@RequestBody Map<String, Object> paymentData) {
+    	log.info("paymentData : {}", paymentData);		
+    	return paymentData;
     }
-    
+	
+	@PostMapping("/cancelPay")
+	public Map<String, Object> cancelPay(@RequestBody Map<String, Object> paymentData) {
+		log.info("paymentData : {}", paymentData);
+		return paymentData;
+	}
+	
 	/** 모바일 결제 시, callback 실행 대신 수행할 redirect url **/
     @GetMapping("/mobile/complete")
 	public String orderCompleteMobile(
@@ -87,13 +89,6 @@ public class PaymentController {
 			log.error("검증 결과 : 불일치");
 		}
 		return "redirect:/passenger/passengerCarpool/reservation/list";
-	}
-    
-	
-	@PostMapping("/cancelPay")
-	public Map<String, Object> CancelPay(@RequestBody Map<String, Object> paymentData) {
-		log.info("paymentData : {}", paymentData);
-		return paymentData;
 	}
 	
 }

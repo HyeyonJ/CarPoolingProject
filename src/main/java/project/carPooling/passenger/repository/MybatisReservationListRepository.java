@@ -20,7 +20,6 @@ import project.carPooling.passenger.mapper.ReservationListMapper;
 public class MybatisReservationListRepository implements ReservationListRepository{
 
 	private final ReservationListMapper reservationListMapper;
-	private final RegistrationListMapper registrationListMapper;
 	
 	@Override
 	public List<Map<String, Object>> selectCurrentList(Integer pIdx) {
@@ -46,11 +45,12 @@ public class MybatisReservationListRepository implements ReservationListReposito
 	}
 
 	@Override
-	public void cancelWaitingReservation(Integer drIdx) {
-		DRegistration dRegistration = registrationListMapper.selectRegistrationByDrIdx(drIdx);
+	public int cancelCurrentReservation(Integer drIdx) {
+		DRegistration dRegistration = reservationListMapper.selectRegistrationByDrIdx(drIdx);
 		Integer dIdx = dRegistration.getDIdx();
 		String dDate = dRegistration.getDDate();
 		String dStratTime = dRegistration.getDStartTime();
+		int dFee = dRegistration.getDFee();
 		
 		Date today = new Date();
 		Locale currentLocale = new Locale("KOREAN", "KOREA");
@@ -77,17 +77,43 @@ public class MybatisReservationListRepository implements ReservationListReposito
 		LocalDateTime convertDDate = LocalDateTime.parse(driveDate, dateTimeformatter);
 		LocalDateTime convertNDate = LocalDateTime.parse(nowDate, dateTimeformatter);
 		
+		// 예약취소 패널티
+		// 24시간 이전 - 없음
+		// 24시간 ~ 12시간 - 결제금액 10%
+		// 12시간 ~ 6시간 - 결제금액 15%
+		// 6시간 ~ 카풀시간 - 결제금액 20%
 		if(convertDDate.minusHours(24).isAfter(convertNDate)) {
 			System.out.println("패널티없음");
-			registrationListMapper.deleteRegistration(drIdx);
-			registrationListMapper.deleteReservation(drIdx);
-		} else {
-			System.out.println("패널티있음");
-			registrationListMapper.updatePanalty(dIdx);
-			registrationListMapper.deleteRegistration(drIdx);
-			registrationListMapper.deleteReservation(drIdx);
+		} else if((convertDDate.minusHours(24).isBefore(convertNDate))
+			    && (convertDDate.minusHours(12).isAfter(convertNDate))) {
+			System.out.println("결제금액 20%");
+			dFee = dFee - (int) (dFee * 0.2);
+			System.out.println(dFee);
+			reservationListMapper.updateDriverPoint(dIdx, (int) (dFee * 0.2));
+		} else if((convertDDate.minusHours(12).isBefore(convertNDate))
+			    && (convertDDate.minusHours(6).isAfter(convertNDate))) {
+			System.out.println("결제금액 25%");
+			dFee = dFee - (int) (dFee * 0.25);
+			System.out.println(dFee);
+			reservationListMapper.updateDriverPoint(dIdx, (int) (dFee * 0.25));
+		} else if((convertDDate.minusHours(6).isBefore(convertNDate))
+			    && (convertDDate.isAfter(convertNDate))) {
+			System.out.println("결제금액 30%");
+			dFee = dFee - (int) (dFee * 0.3);
+			System.out.println(dFee);
+			reservationListMapper.updateDriverPoint(dIdx, (int) (dFee * 0.3));
 		}
+		reservationListMapper.updateReservatedToWaiting(drIdx);
+		reservationListMapper.deleteReservation(drIdx);
 		
+		
+		return dFee;
+	}
+
+	@Override
+	public String selectDriverEmail(Integer drIdx) {
+		String dUserEmail = reservationListMapper.selectDriverEmail(drIdx);
+		return dUserEmail;
 	}
 
 }

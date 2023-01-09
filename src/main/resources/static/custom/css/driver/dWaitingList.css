@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-#list {
+/* #list {
   display: inline-block;
   border: 1px solid #ddd;
   margin-top: 20px;
@@ -21,7 +21,7 @@
   overflow-x: hidden;
   width: 500px;
   height: 600px;
-}
+} */
 
 .CommuteSPAN {
   display: inline-block;
@@ -40,6 +40,12 @@
   width: 100px;
   height: 35px;
   line-height: 20px;
+}
+.title {
+  color: #433520;
+  font-family: "NanumSquareNeoExtraBold";
+  font-size: 2.3rem;
+  margin: 40px 0px 40px 0px;
 }
 
 /*오늘 수락버튼*/

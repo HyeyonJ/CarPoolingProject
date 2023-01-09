@@ -60,36 +60,6 @@ $(document).ready(() => {
   /*$('#todayList').css('display','none');*/
   $("#futureList").css("display", "none");
 
-  //날짜 버튼 클릭시 디스플레이
-  $("#past").click(function () {
-    $("#pastList").css("display", "inline");
-    $("#todayList").css("display", "none");
-    $("#futureList").css("display", "none");
-    //버튼활성
-    $("#pastbutton").css("display", "block");
-    $("#todaybutton").css("display", "block");
-    $("#futurebutton").css("display", "block");
-  });
-
-  $("#today").click(function () {
-    $("#todayList").css("display", "inline");
-    $("#pastList").css("display", "none");
-    $("#futureList").css("display", "none");
-    //버튼활성
-    $("#pastbutton").css("display", "block");
-    $("#todaybutton").css("display", "block");
-    $("#futurebutton").css("display", "block");
-  });
-
-  $("#future").click(function () {
-    $("#futureList").css("display", "inline");
-    $("#pastList").css("display", "none");
-    $("#todayList").css("display", "none");
-    //버튼활성
-    $("#pastbutton").css("display", "block");
-    $("#todaybutton").css("display", "block");
-    $("#futurebutton").css("display", "block");
-  });
 });
 
 function list() {
@@ -112,114 +82,56 @@ function list() {
 
         var dDate = data[i].D_DATE.substring(0, 10);
 
-        if (dDate == thisday) {
-          console.log("1번");
-
-          todayhtml += '<div class="pastDiv">';
-          todayhtml +=
-            '<input class="drIdx" type="hidden" value=' +
-            data[i].DR_IDX +
-            "></input><br>\n";
-          todayhtml +=
-            '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
-          todayhtml +=
-            "<span>탑승자 닉네임 : " + data[i].P_USER_NAME + "</span><br>\n";
-
-          todayhtml +=
-            '<span class="DateSPAN">날짜 : ' + "</span>" + dDate + "<br>\n";
-          todayhtml +=
-            '<span class="STimeSPAN">출발시간 : ' +
-            "</span>" +
-            data[i].D_START_TIME +
-            " <br>\n";
-          todayhtml +=
-            '<span class="ETimeSPAN">도착시간 : </span>' +
-            data[i].D_END_TIME +
-            "<br>\n";
-          todayhtml +=
-            '<span class="SpointSPAN">출발장소 : </span>' +
-            data[i].D_START_POINT +
-            "<br>\n";
-          todayhtml +=
-            '<span class="EpointSPAN">도착장소 : </span>' +
-            data[i].D_END_POINT +
-            "<br>\n";
-          todayhtml +=
-            '<span class="FeeSPAN">요금 : </span>' + feeSplit + "원<br>\n";
-          todayhtml +=
-            '<button class="btn btn-primary" id="todayNbtn" onclick="route(' +
-            data[i].D_START_LON +
-            ", " +
-            data[i].D_START_LAT +
-            ", " +
-            data[i].D_END_LON +
-            ", " +
-            data[i].D_END_LAT +
-            ')">지도보기</button>';
-          todayhtml +=
-            '<button class="btn btn-primary" id="todayNbtn" onclick="cancelRegistration(' +
-            data[i].DR_IDX +
-            ", " +
-            data[i].P_IDX +
-            ')">취소</button>' +
-            "<br><br>\n";
-          todayhtml += "</div>";
-
-          //미래
-        } else if (dDate > thisday) {
-          console.log("2번");
-          futurehtml += '<div class="pastDiv">';
-          futurehtml +=
-            '<input class="drIdx" type="hidden" value=' +
-            data[i].DR_IDX +
-            "></input><br>\n";
-          futurehtml +=
-            '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
-          futurehtml +=
-            "<span>탑승자 닉네임 : " + data[i].P_USER_NAME + "</span><br>\n";
-
-          futurehtml +=
-            '<span class="DateSPAN">날짜 : ' + "</span>" + dDate + "<br>\n";
-          futurehtml +=
-            '<span class="STimeSPAN">출발시간 : ' +
-            "</span>" +
-            data[i].D_START_TIME +
-            " <br>\n";
-          futurehtml +=
-            '<span class="ETimeSPAN">도착시간 : </span>' +
-            data[i].D_END_TIME +
-            "<br>\n";
-          futurehtml +=
-            '<span class="SpointSPAN">출발장소 : </span>' +
-            data[i].D_START_POINT +
-            "<br>\n";
-          futurehtml +=
-            '<span class="EpointSPAN">도착장소 : </span>' +
-            data[i].D_END_POINT +
-            "<br>\n";
-          futurehtml +=
-            '<span class="FeeSPAN">요금 : </span>' + feeSplit + "원<br>\n";
-          futurehtml +=
-            '<button class="btn btn-primary" id="todayNbtn" onclick="route(' +
-            data[i].D_START_LON +
-            ", " +
-            data[i].D_START_LAT +
-            ", " +
-            data[i].D_END_LON +
-            ", " +
-            data[i].D_END_LAT +
-            ')">지도보기</button>';
-          futurehtml +=
-            '<button class="btn btn-primary" id="futureNbtn" onclick="cancelRegistration(' +
-            data[i].DR_IDX +
-            ')">취소</button>' +
-            "<br><br>\n";
-          futurehtml += "</div>";
-        }
+        todayhtml += '<div class="pastDiv">';
+        todayhtml +=
+          '<input class="drIdx" type="hidden" value=' +
+          data[i].DR_IDX +
+          "></input><br>\n";
+        todayhtml +=
+          '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
+        todayhtml +=
+          "<span>탑승자 닉네임 : " + data[i].P_USER_NAME + "</span><br>\n";
+        todayhtml +=
+          '<span class="DateSPAN">날짜 : ' + "</span>" + dDate + "<br>\n";
+        todayhtml +=
+          '<span class="STimeSPAN">출발시간 : ' +
+          "</span>" +
+          data[i].D_START_TIME +
+          " <br>\n";
+        todayhtml +=
+          '<span class="ETimeSPAN">도착시간 : </span>' +
+          data[i].D_END_TIME +
+          "<br>\n";
+        todayhtml +=
+          '<span class="SpointSPAN">출발장소 : </span>' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        todayhtml +=
+          '<span class="EpointSPAN">도착장소 : </span>' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        todayhtml +=
+          '<span class="FeeSPAN">요금 : </span>' + feeSplit + "원<br>\n";
+        todayhtml +=
+          '<button class="btn btn-primary" id="todayNbtn" onclick="route(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')">지도보기</button>';
+        todayhtml +=
+          '<button class="btn btn-primary" id="todayNbtn" onclick="cancelRegistration(' +
+          data[i].DR_IDX +
+          ", " +
+          data[i].P_IDX +
+          ')">취소</button>' +
+          "<br><br>\n";
+        todayhtml += "</div>";
       }
-
-      $("#todayList").html(todayhtml);
-      $("#futureList").html(futurehtml);
+      $("#list").html(todayhtml);
     },
   });
 }
@@ -450,13 +362,13 @@ function route(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });

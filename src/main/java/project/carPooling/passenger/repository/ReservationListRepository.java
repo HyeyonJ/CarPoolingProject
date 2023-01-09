@@ -3,8 +3,6 @@ package project.carPooling.passenger.repository;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 public interface ReservationListRepository {
 	public List<Map<String, Object>> selectCurrentList(Integer pIdx);
 	
@@ -12,5 +10,7 @@ public interface ReservationListRepository {
 	
 	public boolean deleteRsv(Integer drIdx, Integer pIdx);
 	
-	public void cancelWaitingReservation(Integer drIdx);
+	public int cancelCurrentReservation(Integer drIdx);
+	
+	public String selectDriverEmail(Integer drIdx);
 }

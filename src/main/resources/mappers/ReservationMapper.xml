@@ -42,12 +42,6 @@
 		WHERE dr_idx = #{drIdx}
 	</select>
 	
-	<select id="selectPassenger" resultType="String">
-		SELECT p_idx
-		FROM RESERVATION
-		WHERE p_idx = #{pIdx} AND dr_idx = #{drIdx}
-	</select>
-	
 	<select id="selectDIdxByGender" resultType="Integer">
 		SELECT d_idx
 		FROM DRIVER
@@ -59,5 +53,11 @@
 		FROM PASSENGER
 		WHERE p_idx = #{p_idx}
 	</select>
+	
+	<update id="updateWaitingToReservated">
+		UPDATE D_REGISTRATION
+		SET d_reservation_status = 'reservated'
+		WHERE dr_idx = #{drIdx}
+	</update>
 	
 </mapper>
