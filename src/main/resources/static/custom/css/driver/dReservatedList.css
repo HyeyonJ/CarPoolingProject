@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-#list {
+/* #list {
   display: inline-block;
   border: 1px solid #ddd;
   margin-top: 20px;
@@ -21,7 +21,7 @@
   overflow-x: hidden;
   width: 500px;
   height: 600px;
-}
+} */
 
 .CommuteSPAN {
   display: inline-block;

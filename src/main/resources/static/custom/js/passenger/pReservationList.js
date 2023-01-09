@@ -137,11 +137,12 @@ function cancelReservation(dr_idx) {
     type: "DELETE",
     data: { drIdx: dr_idx },
     success: function (data) {
-      if (data != null) {
-        alert("취소되었습니다.");
-        window.location.reload();
-      }
-      waitingRsv();
+      // 가격이랑 주문번호 리턴받기
+      const dFee = data.dFee;
+      const merchant_uid = data.merchant_uid;
+      console.log(dFee);
+      console.log(merchant_uid);
+      // 환불코드
     },
   });
 }
@@ -353,13 +354,13 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });

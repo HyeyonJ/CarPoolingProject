@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 ul,
 ol {
   list-style: none;
@@ -24,4 +29,43 @@ button {
   height: 100%;
   background-image: url("/img/carTravel.jpg");
   background-size: cover;
+}
+
+#wrap {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+#wrapHome {
+  min-height: 90%;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+footer {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  padding: 0 25px;
+  line-height: 60px;
+  background: #433520;
+  bottom: 0;
+  transform: translateY(-100%);
+}
+
+#footerHome {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  padding: 0 25px;
+  line-height: 60px;
+  background: #433520;
+  bottom: 0;
+  transform: translateY(-88%);
+}
+
+footer p {
+  color: #fcf8ec;
+  font-family: "NanumSquareNeoExtraBold";
 }
