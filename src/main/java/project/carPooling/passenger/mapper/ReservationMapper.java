@@ -20,11 +20,11 @@ public interface ReservationMapper {
 	
 	public DRegistration selectCarpoolByDrIdx(Integer drIdx);
 
-	public String selectPassenger(@Param(value="pIdx") Integer pIdx, @Param(value="drIdx") Integer drIdx);
-
 	public List<Integer> selectDIdxByGender(String pHopeGender);
 
 	public String selectPUserGenderByPIdx(Integer pIdx);
+	
+	public void updateWaitingToReservated(Integer drIdx);
 	
 }
 

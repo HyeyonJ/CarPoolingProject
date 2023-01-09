@@ -1,4 +1,4 @@
-package project.carPooling.global.payment;
+package project.carPooling.passenger.controller.payment;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.global.payments.Payments;
 import project.carPooling.global.session.SessionManager;
 import project.carPooling.passenger.domain.PassengerInfo;
 
@@ -50,18 +52,20 @@ public class PaymentController {
 		return passenger;
 	}
 	
-//	@PostMapping("/rqPay")
-//	public Map<String, Object> testResponsePay(@RequestBody Map<String, Object> paymentData) {
-//		System.out.println(paymentData);
-//		return paymentData;
-//	}
-	
 	/** 프론트에서 받은 PG사 결과값을 통해 아임포트 토큰 발행 **/
     @PostMapping("/verifyIamport/{imp_uid}")
     //아임포트서버에서 imp_uid(거래 고유번호)를 검사하여, 데이터를 보내준다.
     public IamportResponse<Payment> paymentByImpUid(@PathVariable String imp_uid) throws IamportResponseException, IOException{
         log.info("paymentByImpUid 진입");
         return impClient.paymentByImpUid(imp_uid);
+    }
+    
+    @GetMapping("/complete")
+    public String payComplete(@RequestBody Map<String, Object> paymentData) {
+    	log.info("paymentData : {}", paymentData);
+		Payments payments = (Payments) paymentData;
+		paymentMapper.insert(payments);
+    	return "redirect:/passenger/passengerCarpool/reservation/list";
     }
     
 	/** 모바일 결제 시, callback 실행 대신 수행할 redirect url **/
@@ -83,6 +87,13 @@ public class PaymentController {
 			log.error("검증 결과 : 불일치");
 		}
 		return "redirect:/passenger/passengerCarpool/reservation/list";
+	}
+    
+	
+	@PostMapping("/cancelPay")
+	public Map<String, Object> CancelPay(@RequestBody Map<String, Object> paymentData) {
+		log.info("paymentData : {}", paymentData);
+		return paymentData;
 	}
 	
 }

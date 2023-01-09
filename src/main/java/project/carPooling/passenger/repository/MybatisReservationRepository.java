@@ -18,7 +18,6 @@ import project.carPooling.passenger.mapper.ReservationMapper;
 public class MybatisReservationRepository implements ReservationRepository {
 	
 	private final ReservationMapper reservationMapper;
-	private final RegistrationMapper registrationMapper;
 	
 	@Transactional
 	@Override
@@ -64,20 +63,11 @@ public class MybatisReservationRepository implements ReservationRepository {
 	@Override
 	public DRegistration insert(Integer pIdx, Integer drIdx) {
 		reservationMapper.insert(pIdx, drIdx);
-		registrationMapper.updateRegistrationStatus(drIdx);
+		reservationMapper.updateWaitingToReservated(drIdx);
 		System.out.println("예약성공");
 		return null;
 	}
 
-	@Override
-	public boolean selectPassenger(Integer pIdx, Integer drIdx) {
-		boolean result = false;
-		// 이미 예약된 내역이 있으면 true값 반환 
-		if(reservationMapper.selectPassenger(pIdx, drIdx) != null) {
-			return true;
-		}
-		// 첫 예약이면 false값 반환
-		return result;
-	}
+
 
 }
