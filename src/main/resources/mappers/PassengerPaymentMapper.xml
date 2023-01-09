@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<mapper namespace="project.carPooling.passenger.mapper.PassengerPaymentMapper">
+
+	<insert id="insertPayment">
+		INSERT INTO PAYMENT (pay_idx, r_idx, pay_amount, receipt_url)
+		VALUES(#{payIdx}, #{rIdx}, #{payAmount}, #{receiptUrl})
+	</insert>
+	
+	<insert id="insertCancelPayment">
+		INSERT INTO CANCEL_PAYMENT (pay_idx, cancel_amount, pay_amount, receipt_url)
+		VALUES(#{payIdx}, #{cancelAmount}, #{payAmount}, #{receiptUrl})
+	</insert>
+	
+	<select id="selectPaymentByPayIdx" resultType="PaymentData">
+		SELECT * FROM PAYMENT
+		WHERE pay_idx = #{payIdx}
+	</select>
+	
+	<select id="selectCancelPaymentByPayIdx" resultType="PaymentData">
+		SELECT * FROM CANCEL_PAYMENT
+		WHERE pay_idx = #{payIdx}
+	</select>
+
+	<select id="selectCompletePayListByPidx" resultType="map">
+		SELECT p.pay_idx, p.r_idx, p.pay_amount, p.recipt_url
+		FROM PAYMENT p, RESERVATION r
+		WHERE p.r_idx = r.r_idx
+		AND r.p_idx = #{pIdx}
+	</select>
+	
+	<select id="selectCancelPayListByPidx" resultType="map">
+		SELECT * FROM CANCEL_PAYMENT
+		WHERE p_idx = #{pIdx}
+	</select>
+	
+	<delete id="deletePaymentByPayIdx">
+		DELETE * FROM PAYMENT
+		WHERE pay_idx = #{payIdx}
+	</delete>
+	
+</mapper>
