@@ -21,7 +21,8 @@ public class DriverInfo {
 	private String dLicenseIdNum;
 	private String dCarNum;
 	private String dAccountNum;
-	private String dAccountBank;
+	private String dAccountBank;	
+	private String dPoint;
 	private String dPenalty;
 	private Boolean dSignOut;
 
@@ -121,6 +122,12 @@ public class DriverInfo {
 	}
 	public void setdAccountBank(String dAccountBank) {
 		this.dAccountBank = dAccountBank;
+	}
+	public String getdPoint() {
+		return dPoint;
+	}
+	public void setdPoint(String dPoint) {
+		this.dPoint = dPoint;
 	}
 
 	

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutDriver}">
+
+<head>
+  <title>예약된리스트</title>
+  <link rel="stylesheet" href="/custom/css/driver/dReservatedList.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+</head>
+<th:block layout:fragment="content">
+  <section id="drSection">
+    <div id="container">
+
+      <div class="d-flex justify-content-center">
+        <h1 class="mb-4">예약된카풀</h1>
+
+      </div>
+
+
+      <div id="year">
+
+        <button id="today" class="btn btn-primary"></button>
+        <button id="future" class="btn btn-primary"></button>
+      </div>
+      <div id="listdiv">
+        <div id="list">
+          <br>
+
+
+          <div id="todayList"></div>
+          <div id="futureList"></div>
+
+
+
+        </div>
+      </div>
+
+      <div id="popup_mask"></div>
+      <!-- 팝업 배경 DIV -->
+
+      <div id="popupDiv">
+        <!-- 팝업창 -->
+        <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+        <div id="map_div"></div>
+      </div>
+
+    </div>
+
+  </section>
+</th:block>
+<th:block layout:fragment="js">
+  <script src="/custom/js/driver/dReservatedList.js"></script>
+</th:block>
+
+</html>

@@ -21,5 +21,10 @@ public class SessionManager {
 		DriverInfo driverInfo = (DriverInfo) session.getAttribute(SessionVar.LOGIN_DRIVER);
 		return driverInfo;
 	}
+	
+	public void invalidate(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		session.invalidate();
+	}
 
 }

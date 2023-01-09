@@ -1,0 +1,165 @@
+body {
+  height: 100vh;
+  background-color: #fcf8ec;
+}
+
+#pr_section {
+}
+
+.title {
+  color: #433520;
+  font-family: "NanumSquareNeoExtraBold";
+  font-size: 2.3rem;
+  margin: 40px 0px 40px 0px;
+}
+
+.btn {
+  color: #fcf8ec;
+  background-color: #433520;
+}
+
+.label {
+  color: #433520;
+  margin-bottom: 5px;
+  display: block;
+  font-family: "NanumSquareNeoBold";
+  font-size: 1.2rem;
+}
+.point {
+  color: #433520;
+  margin-bottom: 5px;
+  display: block;
+  font-family: "NanumSquareNeoBold";
+  font-size: 1rem;
+}
+
+.prForm {
+  margin-left: 80px;
+}
+
+.text {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  height: 40px;
+  width: 300px;
+  padding-left: 10px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+#commuteField,
+#dateField,
+#pickupTimeField {
+  margin-bottom: 10px;
+}
+
+.form-field {
+  width: 400px;
+}
+
+.setext {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  height: 40px;
+  width: 300px;
+  padding-left: 10px;
+  color: #757575;
+}
+
+.select_boarding_time {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  height: 40px;
+  width: 182px;
+  padding-left: 10px;
+  color: #757575;
+}
+
+/* 선택안했을 때 스타일 */
+.check {
+  display: none;
+  color: red;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+/* 출발지 도착지 form */
+.rsvform {
+  display: inline-block !important;
+  width: 230px !important;
+  border: 1px solid #433520 !important;
+  background: transparent !important;
+}
+
+/* 출발지 도착지 찾기 btn */
+.rsvbtn {
+  width: 102px;
+}
+#startCSS {
+  margin-bottom: 10px;
+}
+
+#start {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+#end {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.form-field {
+  width: 400px;
+}
+
+/* 경로확인 카풀검색 btn */
+/* .rsbbtn {
+  display: inline-block !important;
+  height: 50px;
+} */
+
+/* .rsvsbtn {
+  display: inline-block !important;
+  height: 40px;
+} */
+
+.modal-body {
+  text-align: left;
+}
+
+.inputborder {
+  border: 0px;
+}
+
+/* .listed {
+text-align: center;
+margin-bottom: 100px;
+} */
+
+/* radio 버튼 안보이게 */
+.box-radio-input input[type="radio"] {
+  display: none;
+}
+
+/* 체크 안되어있을 때의 span태그 스타일 */
+.box-radio-input input[type="radio"] + span {
+  display: inline-block;
+  background: none;
+  border: 1px solid #dfdfdf;
+  padding: 0px 10px;
+  text-align: center;
+  height: 35px;
+  line-height: 33px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 102px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+/* 체크 되었을 때의 변경되는 span태그 스타일 */
+.box-radio-input input[type="radio"]:checked + span {
+  border: 1px solid #433520;
+  background: #433520;
+  color: #fff;
+}

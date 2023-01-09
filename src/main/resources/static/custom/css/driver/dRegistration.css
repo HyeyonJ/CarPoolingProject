@@ -19,7 +19,7 @@ body {
 
 #commuteField,
 #dateField,
-#timeField {
+#pickupTimeField {
   margin-bottom: 10px;
 }
 
@@ -27,6 +27,7 @@ body {
   color: #fcf8ec;
   background-color: #433520;
 }
+
 .point {
   color: #433520;
   margin-bottom: 5px;
@@ -119,10 +120,7 @@ body {
   margin-bottom: 10px;
 }
 
-#searchSP {
-  width: 102px;
-}
-
+#searchSP,
 #searchEP {
   width: 102px;
 }

@@ -2,31 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.passenger.mapper.ReservationListMapper">
-	<select id="selectAcceptedReservationList" resultType="map">
-		SELECT dr.dr_idx, dr.d_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.p_idx, r.r_idx, r.r_date
+	<select id="selectCurrentList" resultType="map">
+		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME", 
+		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee,  r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND r.p_idx=#{pIdx} AND r.r_acceptStatus = 'accepted'
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx 
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') >= sysdate
 	</select>
 	
-	<select id="selectWaitingReservationList" resultType="map">
-		SELECT dr.dr_idx, dr.d_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.p_idx, r.r_idx, r.r_date
+	<select id="selectPastList" resultType="map">
+		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME",
+		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND r.r_acceptStatus = 'waiting' 
-		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') >= sysdate
-	</select>
-	
-	<select id="selectRefusedReservationList" resultType="map">
-		SELECT dr.dr_idx, dr.d_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.p_idx, r.r_idx, r.r_date
-		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} AND r.r_acceptStatus = 'refused' 
-		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') >= sysdate
-	</select>
-	
-	<select id="selectPastReservationList" resultType="map">
-		SELECT dr.dr_idx,dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.p_idx, r.p_idx, r.r_idx, r.r_date
-		FROM d_registration dr, reservation r
-		WHERE dr.dr_idx=r.dr_idx AND p_idx=#{pIdx} 
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx 
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') <![CDATA[<]]> sysdate
 	</select>
 	
