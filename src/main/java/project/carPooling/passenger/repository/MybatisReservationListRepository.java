@@ -105,6 +105,8 @@ public class MybatisReservationListRepository implements ReservationListReposito
 		}
 		reservationListMapper.updateReservatedToWaiting(drIdx);
 		reservationListMapper.deleteReservation(drIdx);
+		
+		
 		return dFee;
 	}
 

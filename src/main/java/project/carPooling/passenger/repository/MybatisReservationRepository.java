@@ -49,6 +49,8 @@ public class MybatisReservationRepository implements ReservationRepository {
 		if(dRegistrationList != null && (dRegistrationList.size() == 0 || dIdxList.size() == 0)) {
 			return null;
 		}
+		
+		System.out.println(dIdxList);
 		return dRegistrationList;
 	}
 

@@ -1,6 +1,5 @@
 package project.carPooling.chatting.controller;
 
-import project.carPooling.chatting.dto.*;
 import project.carPooling.chatting.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
