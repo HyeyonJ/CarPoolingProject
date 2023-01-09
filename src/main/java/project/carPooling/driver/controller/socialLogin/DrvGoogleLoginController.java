@@ -30,7 +30,7 @@ public class DrvGoogleLoginController {
 	
 	@RequestMapping(value = "/google/redirect", method = RequestMethod.POST)
 	public String loginGoogle(HttpServletRequest req, RedirectAttributes rAttr) {
-		System.out.println("들어옴");
+		System.out.println("google Drv login");
 		String email = req.getParameter("email");
 		rAttr.addFlashAttribute("dUserEmail", email);
 		System.out.println("google dUserEmail: " + email);

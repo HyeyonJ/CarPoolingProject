@@ -4,6 +4,7 @@
       layout:decorate="~{layouts/layoutPassengerHome}">
 <head>
 <title>Passenger Login Page</title>
+
 <!-- CSS only -->
 </head>
 <th:block layout:fragment="content">
@@ -14,7 +15,7 @@
 					<h2>Passenger Login</h2>
 				</div>
 				<form class="form-control-lg" action="/passenger/login" method="post" th:object="${pLoginForm}">				
-					<!-- 일반 로그인 -->
+				<!-- 일반 로그인 -->
 					<div class="row justify-content-center">
 						<input type="text" class="col-8 mb-2 form-control" style="height:50px; width:300px;" th:field="*{loginId}" placeholder="아이디를 입력해주세요">
 					</div>
@@ -28,7 +29,7 @@
 						<div class="col-8 mb-2" style="height:50px; width:300px; text-align: right;"><a href="/">ID/PW 찾기</a></div>
 					</div>
 				
-					<!-- 네이버 로그인 -->
+				<!-- 네이버 로그인 -->
 					<div class="row justify-content-center">
 						<div class="col-8">
 							<a th:href="${apiURL}"><img height="50px"
@@ -36,7 +37,7 @@
 						</div>
 					</div>
 					
-					<!-- 카카오 로그인 -->
+				<!-- 카카오 로그인 -->
 					<div class="row justify-content-center">
 						<div class="col-8">
 							<a th:href="@{https://kauth.kakao.com/oauth/authorize?client_id=5bd525c6358eefa90a044fcef6dec8a0&redirect_uri=http://localhost:8080/passenger/login/kakao/redirect&response_type=code}">
@@ -44,24 +45,82 @@
 								alt="카카오 로그인 버튼" /></a>
 						</div>
 					</div>
-					<!-- 			  구글 로그인 -->
-					<div class="row justify-content-center">
-						<div class="col-8">
-							<a th:href="${apiURL}">
-								<img src="/img/buttonGoogle.png" height="50" width="300px"
-								alt="구글 로그인 버튼" /></a>
+				<!-- 구글 로그인 -->
+					<div class="d-flex justify-content-center">
+						<div>
+							<div id="buttonDiv" class="mt-1"></div>
 						</div>
 					</div>
-					<!-- 일반 가입 -->
+				<!-- 일반 가입 -->
 					<div class="row justify-content-center mt-3">
 						<div class="col-8">CarPooling이 처음이신가요?</div>
 					</div>
 					<div class="row justify-content-center mb-5">
-						<button type="button" class="col-8 btn btn-dark" style="height: 50px; width:300px;" th:onclick="|location.href='@{/passenger/join/general}'|">회원 가입 하기</button>
+						<button type="button" class="col-8 btn btn-dark" 
+						style="height: 50px; width:300px;" 
+						th:onclick="|location.href='@{/passenger/join/general}'|">
+						회원 가입 하기</button>
 					</div>
 				</form>
-			</div>
-		</div>		
-	</div>
+				
+				<!-- 구글 email의 값을 받아서 보내기 -->
+				<!-- form 안에 form 작동 안되기 때문에 빼놓음 -->
+					<form action="/passenger/login/google/redirect" method="post" id="emailForm">
+						<input type="hidden" id="email" name="email">
+					</form>
+				</div>
+			</div>		
+		</div>
 </th:block>
-</html>
+<th:block layout:fragment="js">
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+		function handleCredentialResponse(response) {
+			const responsePayload = parseJwt(response.credential);
+			console.log("ID: " + responsePayload.sub);
+			console.log('Full Name: ' + responsePayload.name);
+			console.log('Given Name: ' + responsePayload.given_name);
+			console.log('Family Name: ' + responsePayload.family_name);
+			console.log("Image URL: " + responsePayload.picture);
+			console.log("Email: " + responsePayload.email);
+			
+			$("#email").val(responsePayload.email);
+			$("#emailForm").submit();
+			  
+		}
+
+		function parseJwt(token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+			var jsonPayload = decodeURIComponent(atob(base64).split('').map(
+					function(c) {
+						return '%'
+								+ ('00' + c.charCodeAt(0).toString(16))
+										.slice(-2);
+					}).join(''));
+
+			return JSON.parse(jsonPayload);
+		};
+
+		window.onload = function() {
+			google.accounts.id
+					.initialize({
+						client_id : "763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com",
+						callback : handleCredentialResponse
+					});
+			google.accounts.id.renderButton(document
+					.getElementById("buttonDiv"), {
+				theme : "outline",
+				size : "large",
+				logo_alignment : "left",
+				width : "270"
+			} // customization attributes
+			);
+			google.accounts.id.prompt(); // also display the One Tap dialog
+		}
+	</script>
+</th:block>

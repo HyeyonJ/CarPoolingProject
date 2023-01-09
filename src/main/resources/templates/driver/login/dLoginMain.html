@@ -69,12 +69,12 @@
 					<div class="row justify-content-center mb-5">
 						<button type="button" class="col-8 btn btn-dark"
 							style="height: 50px; width: 300px;"
-							th:onclick="|location.href='@{/driver/join/general}'|">회원
-							가입 하기</button>
+							th:onclick="|location.href='@{/driver/join/general}'|">
+							회원 가입 하기</button>
 					</div>
 				</form>
 				
-				<!-- 구글 email 보내기 -->
+				<!-- 구글 email의 값을 받아서 보내기 -->
 				<!-- form 안에 form 작동 안되기 때문에 빼놓음 -->
 					<form action="/driver/login/google/redirect" method="post" id="emailForm">
 						<input type="hidden" id="email" name="email">
