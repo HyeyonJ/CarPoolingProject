@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller.payment;
+package project.carPooling.global.payment.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -27,10 +27,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.global.payment.repository.PaymentRepository;
 import project.carPooling.global.session.SessionManager;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.PaymentData;
-import project.carPooling.passenger.repository.PassengerPaymentRepository;
 import retrofit2.Call;
 import retrofit2.HttpException;
 import retrofit2.Response;
@@ -39,7 +39,7 @@ import retrofit2.Response;
 @RestController
 @RequiredArgsConstructor
 //@CrossOrigin(origins = "http://localhost:8000")
-@RequestMapping("/passenger/carpoolingPay")
+@RequestMapping("/carpoolingPay")
 public class IamportController {
 
 	/** Iamport 결제 검증 컨트롤러 **/
@@ -66,6 +66,7 @@ public class IamportController {
     }
 
 	/** 모바일 결제 시, callback 실행 대신 수행할 redirect url **/
+    // 흐음!?
     @GetMapping("/mobile/complete")
 	public String orderCompleteMobile(
 			@RequestParam(required = false) String imp_uid

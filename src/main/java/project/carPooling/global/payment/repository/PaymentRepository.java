@@ -1,4 +1,4 @@
-package project.carPooling.passenger.repository;
+package project.carPooling.global.payment.repository;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import project.carPooling.passenger.domain.PaymentData;
 
 
-public interface PassengerPaymentRepository {
+public interface PaymentRepository {
 	
 	public PaymentData insertPayment(PaymentData payment);
 	

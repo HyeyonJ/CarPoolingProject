@@ -1,18 +1,12 @@
-var count = 0;
+function currentRsvList() {
+  $("#currentRsvList").css("display", "block");
+  $("#pastRsvList").css("display", "none");
+  $("#canceledRsvList").css("display", "none");
 
-var dDrawInfoArr = [];
-var dResultMarkerArr = [];
-var dResultdrawArr = [];
-
-function acceptedRsv() {
-  $("#acceptedList").css("display", "block");
-  $("#waitingList").css("display", "none");
-  $("#cancelList").css("display", "none");
   $.ajax({
-    url: "/passenger/passengerCarpool/list/currentList",
+    url: "/passenger/passengerCarpool/list/currentRsvList",
     type: "GET",
     success: function (data) {
-      console.log(data);
       var html = "";
       for (var i = 0; i < data.length; i++) {
         var dDate = data[i].D_DATE.substring(0, 10);
@@ -57,24 +51,25 @@ function acceptedRsv() {
           data[i].R_IDX +
           ')" >탑승대기</button>\t';
         html +=
-          '<button id="delete" onclick="cancelReservation(' +
+          '<button id="PUT" onclick="cancelReservation(' +
           data[i].DR_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
         html += '<button class="btn btn-primary">채팅</button>\t';
         html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
-      $("#acceptedList").html(html);
+      $("#currentRsvList").html(html);
     },
   });
 }
 
-function waitingRsv() {
-  $("#acceptedList").css("display", "none");
-  $("#waitingList").css("display", "block");
-  $("#cancelList").css("display", "none");
+function pastRsvList() {
+  $("#currentRsvList").css("display", "none");
+  $("#pastRsvList").css("display", "block");
+  $("#canceledRsvList").css("display", "none");
+
   $.ajax({
-    url: "/passenger/passengerCarpool/list/pastList",
+    url: "/passenger/passengerCarpool/list/pastRsvList",
     type: "GET",
     success: function (data) {
       console.log(data);
@@ -120,17 +115,18 @@ function waitingRsv() {
         html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
-      $("#waitingList").html(html);
+      $("#pastRsvList").html(html);
     },
   });
 }
 
-function canceledRsv() {
-  $("#acceptedList").css("display", "none");
-  $("#waitingList").css("display", "none");
-  $("#cancelList").css("display", "block");
+function canceledRsvList() {
+  $("#currentRsvList").css("display", "none");
+  $("#pastRsvList").css("display", "none");
+  $("#canceledRsvList").css("display", "block");
+
   $.ajax({
-    url: "/passenger/passengerCarpool/list/cancelList",
+    url: "/passenger/passengerCarpool/list/cancelRsvList",
     type: "GET",
     success: function (data) {
       console.log(data);
@@ -178,89 +174,111 @@ function canceledRsv() {
         html += `<a href="${data[i].cancelReceiptUrl}"><button class="btn btn-primary">결제취소내역</button></a>\t`;
         html += "</div>";
       }
-      $("#cancelList").html(html);
+      $("#canceledRsvList").html(html);
     },
   });
 }
 
 /*거절*/
-function cancelReservation(dr_idx) {
-  confirm("예약을 취소하시겠습니까?");
+function cancelRsv(dr_idx) {
+  Swal.fire({
+    title: "예약을 취소하시겠습니까?",
+    text: "픽업가능 출발시간으로부터 24시간, 12시간, 6시간미만이면 취소수수료가 있습니다.(24시간미만->20%, 12시간미만->25%, 6시간미만->30%) 신중히 선택바랍니다.",
+    icon: "warning",
 
-  $.ajax({
-    url: "/passenger/passengerCarpool/list/currentList/cancellation",
-    type: "DELETE",
-    data: { drIdx: dr_idx },
-    success: function (data) {
-      // 결제 취소 데이터
-      const cancelData = {
-        payIdx: data.payIdx,
-        pIdx: data.pidx,
-        amount: data.amount,
-        cancelAmount: data.cancelAmount,
-      };
-      // 결제 취소 요청
-      const corsErr = "http://cors-anywhere.herokuapp.com/";
+    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+    confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
+    cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
+    confirmButtonText: "승인", // confirm 버튼 텍스트 지정
+    cancelButtonText: "취소", // cancel 버튼 텍스트 지정
+
+    reverseButtons: false, // 버튼 순서 거꾸로
+  }).then((result) => {
+    // 만약 Promise리턴을 받으면,
+    if (result.isConfirmed) {
+      // 만약 모달창에서 confirm 버튼을 눌렀다면
       $.ajax({
-        url: "/passenger/carpoolingPay/cancel/requestIamport", // 토큰 요청
-        type: "POST",
-      }).done(function (data, status) {
-        const token = data.response.token;
-        $.ajax({
-          url: corsErr + "https://api.iamport.kr/payments/cancel",
-          method: "post",
-          headers: {
-            Authorization: token, // 아임포트 서버로부터 발급받은 엑세스 토큰
-          },
-          data: {
-            merchant_uid: cancelData.payIdx, // 예: carpooling_12345567677888
-            amount: cancelData.cancelAmount, // 환불금액
-            reason: "Carpooling 예약 취소",
-          },
-        })
-          .done(function (data, status) {
-            const cancelResData = data;
-            cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
+        url: "/passenger/passengerCarpool/list/currentRsvList/cancellation",
+        type: "PUT",
+        data: { drIdx: dr_idx },
+        success: function (data) {
+          // 결제 취소 데이터
+          const cancelData = {
+            payIdx: data.payIdx,
+            pIdx: data.pidx,
+            amount: data.amount,
+            cancelAmount: data.cancelAmount,
+          };
+          // 결제 취소 요청
+          const corsErr = "http://cors-anywhere.herokuapp.com/";
+          $.ajax({
+            url: "/carpoolingPay/cancel/requestIamport", // 토큰 요청
+            type: "POST",
+          }).done(function (data, status) {
+            const token = data.response.token;
             $.ajax({
-              url: "/passenger/carpoolingPay/cancel/complete",
-              type: "POST",
-              data: cancelData,
-            }).done(function (data, status) {
-              console.log(status);
-              if (
-                cancelResData.response.amount ===
-                cancelResData.response.cancel_amount
-              ) {
-                swal(
-                  "예약취소성공!",
-                  "카풀 예약이 취소되었습니다.\n선결제하신 금액은 전액 즉시 반환됩니다.",
-                  "success"
-                ).then((OK) => {
-                  if (OK) {
-                    window.location.reload();
+              url: corsErr + "https://api.iamport.kr/payments/cancel",
+              method: "POST",
+              headers: {
+                Authorization: token, // 아임포트 서버로부터 발급받은 엑세스 토큰
+              },
+              data: {
+                merchant_uid: cancelData.payIdx, // 예: carpooling_12345567677888
+                amount: cancelData.cancelAmount, // 환불금액
+                reason: "Carpooling 예약 취소",
+              },
+            })
+              .done(function (data, status) {
+                const cancelResData = data;
+                cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
+                $.ajax({
+                  url: "/carpoolingPay/cancel/complete",
+                  type: "POST",
+                  data: cancelData,
+                }).done(function (data, status) {
+                  console.log(status);
+                  if (
+                    cancelResData.response.amount ===
+                    cancelResData.response.cancel_amount
+                  ) {
+                    Swal.fire(
+                      "예약취소성공!",
+                      "카풀 예약이 취소되었습니다.\n선결제하신 금액은 전액 즉시 반환됩니다.",
+                      "success"
+                    ).then((OK) => {
+                      if (OK) {
+                        window.location.reload();
+                      }
+                    });
+                  } else {
+                    Swal.fire(
+                      "예약취소성공!",
+                      "카풀 예약이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료-픽업가능출발시간으로부터\n(24시간미만->20%, 12시간미만->25%, 6시간미만->30%)\n" +
+                        "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
+                      "success"
+                    ).then((OK) => {
+                      if (OK) {
+                        window.location.reload();
+                      }
+                    });
                   }
                 });
-              } else {
-                swal(
-                  "예약취소성공!",
-                  "카풀 예약이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료\n(24시간전->20%, 12시간전->25%, 6시간전->30%)\n" +
-                    "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
-                  "success"
-                ).then((OK) => {
-                  if (OK) {
-                    window.location.reload();
-                  }
-                });
-              }
-            });
-          })
-          .fail(function (error) {
-            console.log("error : " + error);
+              })
+              .fail(function (error) {
+                console.log("error : " + error);
+              });
           });
+        },
       });
-    },
+    }
   });
 }
+
+var count = 0;
+
+var dDrawInfoArr = [];
+var dResultMarkerArr = [];
+var dResultdrawArr = [];
 
 function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
   $("#popupDiv").css({

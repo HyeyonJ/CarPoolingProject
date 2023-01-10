@@ -24,111 +24,87 @@ import project.carPooling.driver.repository.RegistrationListRepository;
 import project.carPooling.driver.repository.RequestRepository;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
+import project.carPooling.global.payment.repository.PaymentRepository;
 import project.carPooling.global.session.SessionManager;
+import project.carPooling.passenger.domain.PaymentData;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/driver")
 public class DrRegistrationListController {
 
-	private final RequestRepository requestRepository;
 	private final RegistrationListRepository registrationListRepository;
 	private final SessionManager sessionManager;
+	private final PaymentRepository PaymentRepository;
 
 	@Autowired
 	private MailService mailService;
-
-	@GetMapping("/driverCarpool/reqList")
-	public String reqList() {
-		return "driver/dRequestList";
-	}
-
-	@ResponseBody
-	@PostMapping("/driverCarpool/reqList")
-	public List<Map<String, Object>> reqList1(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-//		HttpSession session = req.getSession(false);
-//		Integer dIdx = (Integer) session.getAttribute("name");
-		Integer dIdx = 1;
-
-		List<Map<String, Object>> reqList = requestRepository.selectRequestByDIdx(dIdx);
-		System.out.println(reqList);
-
-		return reqList;
-	}
-
 
 	@GetMapping("/driverCarpool/list")
 	public String registraionList() {
 		return "driver/dRegistrationList";
 	}
-
-	@GetMapping("/driverCarpool/list/reservatedList")
-	public String reservatedList() {
-		return "driver/dReservatedList";
-	}
-	
 	
 	@ResponseBody
-	@PostMapping("/driverCarpool/list/reservatedList")
-	public List<Map<String, Object>> selectReservatedList(HttpServletRequest req) {
+	@GetMapping("/driverCarpool/list/reservatedRgsList")
+	public List<Map<String, Object>> reservatedRgsList(HttpServletRequest req) {
 		DriverInfo driverInfo = sessionManager.getDrSession(req);
-		List<Map<String, Object>> reservatedList = registrationListRepository
-				.selectReservatedList(driverInfo.getDIdx());
-		return reservatedList;
+		List<Map<String, Object>> reservatedRgsList = registrationListRepository.selectReservatedRgsList(driverInfo.getDIdx());
+		return reservatedRgsList;
+	}
+	
+
+	@ResponseBody
+	@GetMapping("/driverCarpool/list/waitingRgsList")
+	public List<Map<String, Object>> waitingRgsList(HttpServletRequest req) {
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		List<Map<String, Object>> waitingRgsList = registrationListRepository.selectWaitingRgsList(driverInfo.getDIdx());
+		return waitingRgsList;
+	}
+
+	
+	@ResponseBody
+	@GetMapping("/driverCarpool/list/pastRgsList")
+	public List<Map<String, Object>> pastRgsList(HttpServletRequest req) {
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		List<Map<String, Object>> pastRgsList = registrationListRepository.selectPastRgsList(driverInfo.getDIdx());
+		return pastRgsList;
 	}
 	
 	@ResponseBody
-	@DeleteMapping("/driverCarpool/list/reservatedList/cancellation")
-	public boolean cancelReservatedRegistration(@RequestParam Integer drIdx) throws MessagingException, IOException {
+	@GetMapping("/driverCarpool/list/canceledRgsList")
+	public List<Map<String, Object>> canceledRgsList(HttpServletRequest req) {
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		List<Map<String, Object>> canceledRgsList = registrationListRepository.selectCanceledRgsList(driverInfo.getDIdx());
+		return canceledRgsList;
+	}
+
+	
+	@ResponseBody
+	@PutMapping("/driverCarpool/list/reservatedRgsList/cancellation")
+	public PaymentData cancelReservatedRegistration(@RequestParam Integer drIdx, @RequestParam Integer pIdx) throws MessagingException, IOException {
 		String pUserEmail = registrationListRepository.selectPassengerEmail(drIdx);
-		registrationListRepository.cancelReservatedRegistration(drIdx);
-
+		PaymentData cancelData = PaymentRepository.selectPaymentByDrIdx(drIdx);
+		log.info("cancelData : {}",cancelData);
+		registrationListRepository.cancelReservatedRegistration(drIdx, pIdx);
+		
 		MailTO mailTO = new MailTO();
-
+		
 		mailTO.setAddress(pUserEmail);
 		mailTO.setTitle("고객님이 예약하신 카풀이 취소되었습니다!");
 		mailTO.setMessage("취소를 확인하시려면 이동하기를 눌러주세요.");
-
+		
 		mailService.sendMailWithFiles(mailTO);
-
-		return true;
-	}
-	
-	@GetMapping("/driverCarpool/list/waitingList")
-	public String waitingList() {
-		return "driver/dWaitingList";
-	}
-
-
-	@ResponseBody
-	@PostMapping("/driverCarpool/list/waitingList")
-	public List<Map<String, Object>> waitingList(HttpServletRequest req) {
-		DriverInfo driverInfo = sessionManager.getDrSession(req);
-		List<Map<String, Object>> waitingList = registrationListRepository.selectWaitingList(driverInfo.getDIdx());
-		return waitingList;
+		
+		return cancelData;
 	}
 
 	@ResponseBody
-	@DeleteMapping("/driverCarpool/list/waitingList/cancellation")
+	@PutMapping("/driverCarpool/list/waitingRgsList/cancellation")
 	public boolean cancelWaitingRegistration(@RequestParam Integer drIdx) throws MessagingException, IOException {
-		registrationListRepository.cancelWaitingRegistration(drIdx);
-
+		registrationListRepository.updateCanceledRegistration(drIdx);
 		return true;
-	}
-	
-	@GetMapping("/driverCarpool/list/pastList")
-	public String pastList() {
-		return "driver/dPastList";
-	}
-
-	
-	@ResponseBody
-	@PostMapping("/driverCarpool/list/pastList")
-	public List<Map<String, Object>> pastList(HttpServletRequest req) {
-		DriverInfo driverInfo = sessionManager.getDrSession(req);
-		List<Map<String, Object>> pastList = registrationListRepository.selectPastList(driverInfo.getDIdx());
-		return pastList;
 	}
 
 

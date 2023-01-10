@@ -2,197 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutDriver}">
 
-  <head>
-    <title>registrationList</title>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
-    <style>
-      #today {
-        width: 100px;
-        height: 40px;
-      }
+<head>
+  <title>reservationList</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  <style>
+    #prSection {
+      margin-top: 100px;
+    }
 
-      #future {
-        width: 100px;
-        height: 40px;
-      }
+    /* 팝업 배경 css*/
+    #popup_mask {
+      position: fixed;
+      width: 100%;
+      height: 1000px;
+      top: 0px;
+      left: 0px;
+      display: none;
+      background-color: #000;
+      -moz-opacity: 0.8;
+      filter: alpha(opacity=80);
+      opacity: 0.8;
+    }
 
-      #listdiv {
-        margin: 0 auto;
-        width: 100%;
-      }
+    /*팝업창 css*/
+    #popupDiv {
+      top: 0px;
+      position: fixed;
+      background: white;
+      width: 500px;
+      height: 550px;
+      display: none;
+      padding-left: 10px;
+    }
 
-      #list {
-        display: inline-block;
-        border: 1px solid #DDD;
-        margin-top: 20px;
-        overflow: scroll;
-        overflow-x: hidden;
-        width: 500px;
-        height: 600px;
-      }
+    #popCloseBtn {
+      margin-left: 330px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+</head>
 
-      .CommuteSPAN {
-        display: inline-block;
-        font-weight: 100;
-        background-color: #cd3184;
-        color: white;
-        width: 50px;
-        height: 40px;
-        text-align: center;
-        line-height: 40px;
-        border-radius: 5px;
-        margin-top: 20px;
-      }
+<div layout:fragment="content">
+  <section id="drListSection">
+    <div class="container">
 
-      #pastmapBTN {
-        width: 100px;
-        height: 35px;
-        line-height: 20px;
-      }
+      <div class="d-flex justify-content-center">
+        <h2 class="mb-4 fw-bold">나의카풀</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="search-wrap-1 ftco-animate p-4 boxes">
+            <button id="reservatedRgsListBtn" onclick="reservatedRgsList();"
+              class="btn btn-primary rsvsbtn">예약된카풀</button>
+            <button id="waitingRgsListBtn" onclick="waitingRgsList();" class="btn btn-primary rsvsbtn">대기중인카풀</button>
+            <button id="pastRgsListBtn" onclick="pastRgsList();" class="btn btn-primary rsvsbtn">과거카풀</button>
+            <button id="canceledRgsListBtn" onclick="canceledRgsList();" class="btn btn-primary rsvsbtn">취소된카풀</button>
+          </div>
+          <div class="boxes">
+            <div id="reservatedRgsList"></div>
+            <div id="waitingRgsList"></div>
+            <div id="pastRgsList"></div>
+            <div id="canceledRgsList"></div>
+          </div>
+          <div id="popup_mask"></div>
+          <!-- 팝업 배경 DIV -->
 
-      /*오늘 수락버튼*/
-      #todayYbtn {
-        width: 150px;
-        height: 40px;
-        margin-left: 33px;
-        margin-top: 10px;
-      }
-
-      /*오늘 거절버튼*/
-      #todayNbtn {
-        width: 150px;
-        height: 40px;
-        margin-left: 15px;
-        margin-top: 10px;
-      }
-
-      /*미래 수락버튼*/
-      #futureYbtn {
-        width: 150px;
-        height: 40px;
-        margin-left: 33px;
-        margin-top: 10px;
-      }
-
-      /*미래 거절버튼*/
-      #futureNbtn {
-        width: 150px;
-        height: 40px;
-        margin-left: 15px;
-        margin-top: 10px;
-      }
-
-      /* 팝업 배경 css*/
-      #popup_mask {
-        position: fixed;
-        width: 100%;
-        height: 1000px;
-        top: 0px;
-        left: 0px;
-        display: none;
-        background-color: #000;
-        -moz-opacity: 0.8;
-        filter: alpha(opacity=80);
-        opacity: 0.8;
-      }
-
-      /*팝업창 css*/
-      #popupDiv {
-        top: 0px;
-        position: fixed;
-        background: white;
-        width: 500px;
-        height: 550px;
-        display: none;
-        padding-left: 10px;
-      }
-
-      #popCloseBtn {
-        margin-left: 330px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 100px;
-        height: 40px;
-      }
-    </style>
-  </head>
-  <th:block layout:fragment="content">
-    <section id="drSection">
-      <div class="container">
-
-        <div class="d-flex justify-content-center">
-          <h1 class="mb-4">예약된카풀</h1>
-
-        </div>
-
-
-        <div id="year">
-
-          <button id="today" class="btn btn-primary"></button>
-          <button id="future" class="btn btn-primary"></button>
-        </div>
-        <div id="listdiv">
-          <div id="list">
-            <br>
-
-
-            <div id="todayList"></div>
-            <div id="futureList"></div>
-
-
-
+          <div id="popupDiv">
+            <!-- 팝업창 -->
+            <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+            <div id="map_div"></div>
           </div>
         </div>
-
-        <div id="popup_mask"></div>
-        <!-- 팝업 배경 DIV -->
-
-        <div id="popupDiv">
-          <!-- 팝업창 -->
-          <button id="popCloseBtn" class="btn btn-primary">닫기</button>
-          <div id="map_div"></div>
-        </div>
-
       </div>
+    </div>
 
-      <div class="container">
-
-        <div class="d-flex justify-content-center">
-          <h1 class="mb-4">등록한카풀</h1>
-
-        </div>
-
-
-        <div id="yearAllList">
-
-          <button id="pastAllBtn" class="btn btn-primary"></button>
-          <button id="todayAllBtn" class="btn btn-primary"></button>
-          <button id="futureAllBtn" class="btn btn-primary"></button>
-        </div>
-
-        <div id="allListdiv">
-          <div id="allList">
-            <div id="pastAllList"></div>
-            <div id="todayAllList"></div>
-            <div id="futureAllList"></div>
+    <!-- 카풀 경로 모달 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="selectModalLabel">선택하신 카풀의 경로입니다.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="map_div"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary rsvsbtn" data-dismiss="modal">확인</button>
           </div>
         </div>
-
-        <div id="popup_mask"></div>
-
-        <div id="popupDiv">
-
-          <button id="popCloseBtn" class="btn btn-primary">닫기</button>
-          <div id="map_div"></div>
-        </div>
-
       </div>
+    </div>
+  </section>
+</div>
 
-    </section>
-  </th:block>
-  <th:block layout:fragment="js">
-  	<script src="/custom/js/driver/dRegistrationList.js"></script>
-  </th:block>
+<th:block layout:fragment="js">
+  <script src="/custom/js/driver/dRegistrationList.js"></script>
+</th:block>
 
 </html>

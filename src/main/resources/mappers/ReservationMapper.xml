@@ -11,6 +11,7 @@
 		SELECT *
 		FROM D_REGISTRATION
 		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A')
+		and d_cancel_status = 'uncanceled'
 		and d_idx = #{dIdx} 
 		and to_char(d_date, 'yyyymmdd') = to_char(#{pDate}, 'yyyymmdd')
 		and d_commute = #{searchCarPool.pCommute}
@@ -25,7 +26,8 @@
 	<select id="selectCarpoolByAny" resultType="dRegistration">
 		SELECT *
 		FROM D_REGISTRATION
-		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A') 
+		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A')
+		and d_cancel_status = 'uncanceled'
 		and to_char(d_date, 'yyyymmdd') = to_char(#{pDate}, 'yyyymmdd')
 		and d_commute = #{searchCarPool.pCommute}
 		and d_reservation_status = 'waiting'
@@ -40,6 +42,7 @@
 		SELECT *
 		FROM D_REGISTRATION
 		WHERE dr_idx = #{drIdx}
+		and d_cancel_status = 'uncanceled'
 	</select>
 	
 	<select id="selectDIdxByGender" resultType="Integer">
@@ -75,6 +78,7 @@
         WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx
         AND r.p_idx = #{pIdx}
         AND r.r_cancel_status = 'uncanceled'
+        and dr.d_cancel_status = 'uncanceled'
     </select>
 	
 </mapper>

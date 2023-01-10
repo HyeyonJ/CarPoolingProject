@@ -5,11 +5,11 @@ import java.util.Map;
 
 
 public interface RegistrationListRepository {
-	public List<Map<String, Object>> selectReservatedList(Integer dIdx);
-	public List<Map<String, Object>> selectWaitingList(Integer dIdx);
-	public List<Map<String, Object>> selectPastList(Integer dIdx);
-	public boolean deleteRegistration(Integer drIdx);
-	public void cancelReservatedRegistration(Integer drIdx);
+	public List<Map<String, Object>> selectReservatedRgsList(Integer dIdx);
+	public List<Map<String, Object>> selectWaitingRgsList(Integer dIdx);
+	public List<Map<String, Object>> selectPastRgsList(Integer dIdx);
+	public List<Map<String, Object>> selectCanceledRgsList(Integer dIdx);
+	public void cancelReservatedRegistration(Integer drIdx, Integer pIdx);
 	public String selectPassengerEmail(Integer drIdx);
-	public void cancelWaitingRegistration(Integer drIdx);
+	public void updateCanceledRegistration(Integer drIdx);
 }

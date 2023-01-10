@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,13 +16,12 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.net.aso.c;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
+import project.carPooling.global.payment.repository.PaymentRepository;
 import project.carPooling.global.session.SessionManager;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.PaymentData;
-import project.carPooling.passenger.repository.PassengerPaymentRepository;
 import project.carPooling.passenger.repository.ReservationListRepository;
 
 @Slf4j
@@ -33,7 +32,7 @@ public class PsReservationListController {
 	
 	private final ReservationListRepository reservationListRepository;
 	private final SessionManager sessionManager;
-	private final PassengerPaymentRepository passengerPaymentRepository;
+	private final PaymentRepository PaymentRepository;
 	
 	@Autowired
 	private MailService mailService;
@@ -44,8 +43,8 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/passengerCarpool/list/currentList")
-	public List<Map<String, Object>> currentList(HttpServletRequest req){
+	@GetMapping("/passengerCarpool/list/currentRsvList")
+	public List<Map<String, Object>> currentRsvList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		List<Map<String, Object>> currentRsvList = reservationListRepository.selectCurrentRsvList(passengerInfo.getPIdx());
 		System.out.println(currentRsvList);
@@ -59,8 +58,8 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/passengerCarpool/list/pastList")
-	public List<Map<String, Object>> pastList(HttpServletRequest req){
+	@GetMapping("/passengerCarpool/list/pastRsvList")
+	public List<Map<String, Object>> pastRsvList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		List<Map<String, Object>> pastRsvList = reservationListRepository.selectPastRsvList(passengerInfo.getPIdx());
 		System.out.println(pastRsvList);
@@ -74,8 +73,8 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/passengerCarpool/list/cancelList")
-	public List<Map<String, Object>> cancelList(HttpServletRequest req){
+	@GetMapping("/passengerCarpool/list/cancelRsvList")
+	public List<Map<String, Object>> cancelRsvList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		List<Map<String, Object>> cancelRsvList = reservationListRepository.selectCancelRsvList(passengerInfo.getPIdx());
 		log.info("cancelList: {}", cancelRsvList);
@@ -93,11 +92,11 @@ public class PsReservationListController {
 	}
 	
 	@ResponseBody
-	@DeleteMapping("/passengerCarpool/list/currentList/cancellation")
-	public PaymentData cancelCurrentReservation(@RequestParam Integer drIdx, HttpServletRequest req) throws MessagingException, IOException{
+	@PutMapping("/passengerCarpool/list/currentRsvList/cancellation")
+	public PaymentData cancelCurrentRsv(@RequestParam Integer drIdx, HttpServletRequest req) throws MessagingException, IOException{
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		String dUserEmail = reservationListRepository.selectDriverEmail(drIdx);
-		PaymentData cancelData = passengerPaymentRepository.selectPaymentByDrIdx(drIdx);
+		PaymentData cancelData = PaymentRepository.selectPaymentByDrIdx(drIdx);
 		log.info("cancelData : {}",cancelData);
 		int dFee = reservationListRepository.cancelCurrentReservation(drIdx, passengerInfo.getPIdx());
 		cancelData.setCancelAmount(dFee);

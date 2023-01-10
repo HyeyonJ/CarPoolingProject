@@ -6,7 +6,7 @@
 		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME", 
 		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee,  r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled'
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled' AND dr.d_cancel_status = 'uncanceled'
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') >= sysdate
 	</select>
 	
@@ -14,7 +14,7 @@
 		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME",
 		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.r_idx, r.r_date
 		FROM d_registration dr, reservation r
-		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled'
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled' AND dr.d_cancel_status = 'uncanceled'
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') <![CDATA[<]]> sysdate
 	</select>
 	
@@ -40,13 +40,13 @@
 		WHERE d_idx = #{dIdx}
 	</update>
 	
-	<update id="updateReservatedToWaiting">
+	<update id="updateWaitingRegistration">
 		UPDATE D_REGISTRATION
 		SET d_reservation_status = 'waiting'
 		WHERE dr_idx = #{drIdx}
 	</update>
 	
-	<update id="updateCanceled">
+	<update id="updateCanceledReservation">
 		UPDATE RESERVATION
 		SET r_cancel_status = 'canceled'
 		WHERE dr_idx = #{drIdx} 

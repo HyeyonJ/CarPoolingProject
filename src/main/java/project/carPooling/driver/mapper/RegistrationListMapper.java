@@ -10,19 +10,21 @@ import project.carPooling.driver.domain.DRegistration;
 
 @Mapper
 public interface RegistrationListMapper {
-	public List<Map<String, Object>> selectReservatedList(Integer dIdx);
+	public List<Map<String, Object>> selectReservatedRgsList(Integer dIdx);
 	
-	public List<Map<String, Object>> selectWaitingList(Integer dIdx);
+	public List<Map<String, Object>> selectWaitingRgsList(Integer dIdx);
 
-	public List<Map<String, Object>> selectPastList(Integer dIdx);
+	public List<Map<String, Object>> selectPastRgsList(Integer dIdx);
+	
+	public List<Map<String, Object>> selectCanceledRgsList(Integer dIdx);
 
 	public DRegistration selectRegistrationByDrIdx(Integer drIdx);
 	
 	public void updatePanalty(Integer dIdx);
 	
-	public void deleteRegistration(Integer drIdx);
+	public void updateCanceledRegistration(Integer drIdx);
 	
-	public void deleteReservation(Integer drIdx);
+	public void updateCanceledReservation(@Param("drIdx") Integer drIdx, @Param("pIdx") Integer pIdx);
 	
 	public String selectPassengerEmail(Integer drIdx);
 	

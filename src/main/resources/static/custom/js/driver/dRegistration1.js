@@ -78,7 +78,7 @@ function commuteCheck(selectTime) {
     // 출근 또는 퇴근을 선택해주세요. - 보여주기
     $("#workCheck").css("display", "block");
     // 바로 focusOut 하기
-    $(`#${ selectTime }`).blur();
+    $(`#${selectTime}`).blur();
     return false;
   } else {
     // 출근 또는 퇴근을 선택해주세요. - 숨기기
@@ -310,7 +310,7 @@ $("#rgsBtn").click(function () {
     success: function (data) {
       console.log(data);
       if (data === "insert") {
-        swal("등록성공!", "안전운행해주시기 바랍니다.", "success").then(
+        Swal.fire("등록성공!", "안전운행해주시기 바랍니다.", "success").then(
           (OK) => {
             if (OK) {
               window.location.reload();
@@ -318,19 +318,19 @@ $("#rgsBtn").click(function () {
           }
         );
       } else if (data === "출근") {
-        swal(
+        Swal.fire(
           "등록실패!",
           "해당일자에 이미 출근카풀등록내역이 있습니다. \n 카풀등록은 하루 총 2회 출근 1회, 퇴근 1회만 가능합니다.",
           "warning"
         );
       } else if (data === "퇴근") {
-        swal(
+        Swal.fire(
           "등록실패!",
           "해당일자에 이미 퇴근카풀등록내역이 있습니다. \n 카풀등록은 하루 총 2회 출근 1회, 퇴근 1회만 가능합니다.",
           "warning"
         );
       } else {
-        swal("등록실패!", "카풀등록에 실패했습니다.", "error");
+        Swal.fire("등록실패!", "카풀등록에 실패했습니다.", "error");
       }
     },
   });
@@ -376,11 +376,11 @@ function searchPOI(location) {
 
   if (locationPointVal == "") {
     $("#routeCheck").css("display", "none");
-    $(`#${ locationPoint }Check`).css("display", "block");
-    $(`#${ locationPoint }`).focus();
+    $(`#${locationPoint}Check`).css("display", "block");
+    $(`#${locationPoint}`).focus();
     return;
   } else {
-    $(`#${ locationPoint }Check`).css("display", "none");
+    $(`#${locationPoint}Check`).css("display", "none");
   }
 
   $.ajax({
@@ -459,9 +459,9 @@ function searchPOI(location) {
         $(markerArr[i]._htmlElement).click(() => {
           const lat = markerArr[i]._marker_data.options.position._lat;
           const lng = markerArr[i]._marker_data.options.position._lng;
-          $(`#${ location }`).val(markerArr[i]._marker_data.options.title);
-          $(`#${ locationlon }`).val(lng);
-          $(`#${ locationlat }`).val(lat);
+          $(`#${location}`).val(markerArr[i]._marker_data.options.title);
+          $(`#${locationlon}`).val(lng);
+          $(`#${locationlat}`).val(lat);
         });
       }
 
@@ -472,13 +472,13 @@ function searchPOI(location) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-        request.status +
-        "\n" +
-        "message:" +
-        request.responseText +
-        "\n" +
-        "error:" +
-        error
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
       );
     },
   });
@@ -662,13 +662,13 @@ function route() {
     error: function (request, status, error) {
       console.log(
         "code:" +
-        request.status +
-        "\n" +
-        "message:" +
-        request.responseText +
-        "\n" +
-        "error:" +
-        error
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
       );
     },
   });

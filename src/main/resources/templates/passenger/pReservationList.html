@@ -56,14 +56,14 @@
       <div class="row">
         <div class="col-md-12">
           <div class="search-wrap-1 ftco-animate p-4 boxes">
-            <button id="acceptedRsv" onclick="acceptedRsv();" class="btn btn-primary rsvsbtn">확정된예약</button>
-            <button id="waitingRsv" onclick="waitingRsv();" class="btn btn-primary rsvsbtn">지난예약</button>
-            <button id="canceledRsv" onclick="canceledRsv();" class="btn btn-primary rsvsbtn">취소된예약</button>
+            <button id="currentRsvListBtn" onclick="currentRsvList();" class="btn btn-primary rsvsbtn">확정된예약</button>
+            <button id="pastRsvListBtn" onclick="pastRsvList();" class="btn btn-primary rsvsbtn">지난예약</button>
+            <button id="canceledRsvListBtn" onclick="canceledRsvList();" class="btn btn-primary rsvsbtn">취소된예약</button>
           </div>
           <div class="boxes">
-            <div id="acceptedList"></div>
-            <div id="waitingList"></div>
-            <div id="cancelList"></div>
+            <div id="currentRsvList"></div>
+            <div id="pastRsvList"></div>
+            <div id="canceledRsvList"></div>
           </div>
           <div id="popup_mask"></div>
           <!-- 팝업 배경 DIV -->

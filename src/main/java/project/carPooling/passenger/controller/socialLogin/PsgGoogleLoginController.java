@@ -67,7 +67,7 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 			HttpSession session = req.getSession();
 			session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);
 			
-			return "passenger/pReservation";
+			return "redirect:/passenger/passengerCarpool/reservation";
 		}
 		
 		@ModelAttribute("pUserTypes")

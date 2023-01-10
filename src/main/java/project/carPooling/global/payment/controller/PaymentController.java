@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller.payment;
+package project.carPooling.global.payment.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.global.payment.repository.PaymentRepository;
 import project.carPooling.global.session.SessionManager;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.PaymentData;
-import project.carPooling.passenger.repository.PassengerPaymentRepository;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/passenger/carpoolingPay")
+@RequestMapping("/carpoolingPay")
 public class PaymentController {
 	
-	private final PassengerPaymentRepository passengerPaymentRepository;
+	private final PaymentRepository PaymentRepository;
 	private final SessionManager sessionManager;
 	
 
@@ -38,7 +38,7 @@ public class PaymentController {
 		log.info("payData : {}", payData);
     	PaymentData payComplete = (PaymentData)payData;
 
-    	payComplete = passengerPaymentRepository.insertPayment(payComplete);
+    	payComplete = PaymentRepository.insertPayment(payComplete);
     	log.info("payComplete : {}", payComplete);
 
     }
@@ -47,7 +47,7 @@ public class PaymentController {
 	public void completeCancelPay(@ModelAttribute PaymentData cancelData) {
 		log.info("cancelData : {}", cancelData);
 		
-		cancelData = passengerPaymentRepository.insertCancelPayment(cancelData);
+		cancelData = PaymentRepository.insertCancelPayment(cancelData);
 		log.info("cancelComplete : {}", cancelData);
 		log.info("cancelData insert 완료");
 	

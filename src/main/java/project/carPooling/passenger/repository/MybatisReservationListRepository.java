@@ -98,8 +98,8 @@ public class MybatisReservationListRepository implements ReservationListReposito
 			System.out.println(dFee);
 			reservationListMapper.updateDriverPoint(dIdx, (int) (dFee * 0.3));
 		}
-		reservationListMapper.updateReservatedToWaiting(drIdx);
-		reservationListMapper.updateCanceled(drIdx, pIdx);
+		reservationListMapper.updateWaitingRegistration(drIdx);
+		reservationListMapper.updateCanceledReservation(drIdx, pIdx);
 		
 		
 		return dFee;

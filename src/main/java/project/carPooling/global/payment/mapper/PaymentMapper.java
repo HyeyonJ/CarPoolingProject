@@ -1,4 +1,4 @@
-package project.carPooling.passenger.mapper;
+package project.carPooling.global.payment.mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import project.carPooling.passenger.domain.PaymentData;
 
 @Mapper
-public interface PassengerPaymentMapper {
+public interface PaymentMapper {
 	
 	public Integer insertPayment(PaymentData payment);
 	

@@ -1,43 +1,7 @@
 var count = 0;
 
-var d = new Date();
-var thisyear = d.getFullYear() + "년";
-var today;
-var future;
-
-//날짜 비교 변수
-//10월 미만, 10일 미만 은 0붙여주기
-if (d.getMonth() + 1 < 10 && d.getDate() < 10) {
-  thisday =
-    d.getFullYear() + "-" + "0" + (d.getMonth() + 1) + "-" + "0" + d.getDate();
-  //그냥 10월 미만
-} else if (d.getMonth() + 1 < 10) {
-  thisday =
-    d.getFullYear() + "-" + "0" + (d.getMonth() + 1) + "-" + d.getDate();
-  //10일 미만
-} else if (d.getDate() < 10) {
-  thisday =
-    d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + "0" + d.getDate();
-} else if (d.getMonth() + 1 == 13) {
-  thisday = d.getFullYear() + "-" + "01" + "-" + d.getDate();
-} else {
-  thisday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-}
-
-//오늘
-today = d.getMonth() + 1 + "/" + d.getDate();
-
-//미래
-//32일이 되어버린다면..
-if (d.getDate() + 1 == 32) {
-  future = d.getMonth() + 2 + "/1" + "~";
-} else {
-  future = d.getMonth() + 1 + "/" + (d.getDate() + 1) + "~";
-}
-
 $(document).ready(() => {
   list();
-
 });
 
 function list() {
@@ -47,8 +11,7 @@ function list() {
     success: (data) => {
       console.log(data);
 
-      var todayhtml = "";
-      var futurehtml = "";
+      var html = "";
 
       for (var i = 0; i < data.length; i++) {
         console.log(data[i].D_FEE);
@@ -60,35 +23,33 @@ function list() {
 
         var dDate = data[i].D_DATE.substring(0, 10);
 
-        todayhtml += '<div class="pastDiv">';
-        todayhtml +=
+        html += '<div class="pastDiv">';
+        html +=
           '<input class="drIdx" type="hidden" value=' +
           data[i].DR_IDX +
           "></input><br>\n";
-        todayhtml +=
+        html +=
           '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
-        todayhtml +=
-          '<span class="DateSPAN">날짜 : ' + "</span>" + dDate + "<br>\n";
-        todayhtml +=
+        html += '<span class="DateSPAN">날짜 : ' + "</span>" + dDate + "<br>\n";
+        html +=
           '<span class="STimeSPAN">출발시간 : ' +
           "</span>" +
           data[i].D_START_TIME +
           " <br>\n";
-        todayhtml +=
+        html +=
           '<span class="ETimeSPAN">도착시간 : </span>' +
           data[i].D_END_TIME +
           "<br>\n";
-        todayhtml +=
+        html +=
           '<span class="SpointSPAN">출발장소 : </span>' +
           data[i].D_START_POINT +
           "<br>\n";
-        todayhtml +=
+        html +=
           '<span class="EpointSPAN">도착장소 : </span>' +
           data[i].D_END_POINT +
           "<br>\n";
-        todayhtml +=
-          '<span class="FeeSPAN">요금 : </span>' + feeSplit + "원<br>\n";
-        todayhtml +=
+        html += '<span class="FeeSPAN">요금 : </span>' + feeSplit + "원<br>\n";
+        html +=
           '<button class="btn btn-primary" id="todayNbtn" onclick="route(' +
           data[i].D_START_LON +
           ", " +
@@ -98,17 +59,16 @@ function list() {
           ", " +
           data[i].D_END_LAT +
           ')">지도보기</button>';
-        todayhtml +=
+        html +=
           '<button class="btn btn-primary" id="todayNbtn" onclick="cancelRegistration(' +
           data[i].DR_IDX +
           ", " +
           data[i].P_IDX +
           ')">취소</button>' +
           "<br><br>\n";
-        todayhtml += "</div>";
-
+        html += "</div>";
       }
-      $("#list").html(todayhtml);
+      $("#list").html(html);
     },
   });
 }
@@ -339,13 +299,13 @@ function route(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-        request.status +
-        "\n" +
-        "message:" +
-        request.responseText +
-        "\n" +
-        "error:" +
-        error
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
       );
     },
   });

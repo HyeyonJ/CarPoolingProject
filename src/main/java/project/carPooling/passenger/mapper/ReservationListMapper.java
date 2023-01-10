@@ -21,9 +21,9 @@ public interface ReservationListMapper {
 	
 	public void updateDriverPoint(@Param("dIdx") Integer dIdx, @Param("point") int point);
 	
-	public void updateReservatedToWaiting(Integer drIdx);
+	public void updateWaitingRegistration(Integer drIdx);
 	
-	public void updateCanceled(@Param("drIdx") Integer drIdx, @Param("pIdx") Integer pIdx);
+	public void updateCanceledReservation(@Param("drIdx") Integer drIdx, @Param("pIdx") Integer pIdx);
 	
 	public DRegistration selectRegistrationByDrIdx(Integer drIdx);
 	

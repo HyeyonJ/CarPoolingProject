@@ -1,4 +1,5 @@
 // jQuery datepicker
+
 $(function () {
   $("#datepicker").datepicker({
     dateFormat: "yy-mm-dd",
@@ -239,7 +240,7 @@ $("#searchBtn").click(() => {
     data: searchCarpool,
     success: function (data) {
       if (data !== "") {
-        swal(
+        Swal.fire(
           "찾기성공!",
           "원하시는 카풀을 예약해 주시기 바랍니다.",
           "success"
@@ -302,7 +303,7 @@ $("#searchBtn").click(() => {
           }
         });
       } else {
-        swal("찾기실패!", "해당일자에 등록된 카풀이 없습니다.", "warning");
+        Swal.fire("찾기실패!", "해당일자에 등록된 카풀이 없습니다.", "warning");
       }
     },
   });
@@ -315,7 +316,7 @@ function reservation() {
   $.ajax({
     // 탑승자 결제 데이터 요청
     type: "GET",
-    url: "/passenger/carpoolingPay/request",
+    url: "/carpoolingPay/request",
   }).done(function (user) {
     const data = {
       pg: "html5_inicis", // PG사 선택
@@ -326,8 +327,7 @@ function reservation() {
       buyer_email: user.puserEmail, // 구매자 이메일
       buyer_name: user.puserName, // 구매자 이름
       buyer_tel: user.puserTel, // 구매자 연락처
-      m_redirect_url:
-        "http://localhost:8080/passenger/carpoolingPay/mobile/complete", // 모바일 결제시 사용할 url
+      m_redirect_url: "http://localhost:8080/carpoolingPay/mobile/complete", // 모바일 결제시 사용할 url
       digital: true, // 실제 물품인지 무형의 상품인지(핸드폰 결제에서 필수 파라미터)
     };
 
@@ -341,7 +341,7 @@ function reservation() {
         $.ajax({
           //가맹점 서버 결제 API > 토큰 발급 > imp_uid에 해당하는 결제 정보 조회
           type: "POST",
-          url: "/passenger/carpoolingPay/verifyIamport/" + imp_uid,
+          url: "/carpoolingPay/verifyIamport/" + imp_uid,
         })
           .done(function (result) {
             //console.log(result.response);
@@ -364,11 +364,11 @@ function reservation() {
                       receiptUrl: paymentData.receiptUrl,
                     };
                     $.ajax({
-                      url: "/passenger/carpoolingPay/complete",
+                      url: "/carpoolingPay/complete",
                       type: "POST",
                       data: payData,
                       success: function (result) {
-                        swal(
+                        Swal.fire(
                           "예약성공!",
                           "카풀 예약이 완료되었습니다.",
                           "success"
