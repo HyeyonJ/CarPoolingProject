@@ -90,9 +90,9 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 	}
 	
 	@Override
-	public DriverInfo update(DriverInfo driverInfo) {
-		driverMapper.update(driverInfo);
-		return driverInfo;
+	public void updateDriverInfo(DriverInfo driverInfo) {
+		driverMapper.updateDriverInfo(driverInfo);
+//		return driverInfo;
 	}
 
 	@Override

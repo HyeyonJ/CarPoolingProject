@@ -1,7 +1,7 @@
 
-$('#checkIdMsg').html('<span style="color:red">아이디 중복 확인 필요</span>');
-$('#checkEmailMsg').html('<span style="color:red">이메일 인증 필요</span>');
-$('#checkIdNumMsg').html('<span style="color:red">주민등록번호 확인 필요</span>');
+//$('#checkIdMsg').html('<span style="color:red">아이디는 바꿀 수 없습니다.</span>');
+//$('#checkEmailMsg').html('<span style="color:red">이메일은 바꿀 수 없습니다.</span>');
+//$('#checkIdNumMsg').html('<span style="color:red">주민등록번호는 바꿀 수 없습니다.</span>');
 $('#checkLicenseNumMsg').html('<span style="color:red">운전자정보 확인 필요</span>');
 $('#checkCarNumMsg').html('<span style="color:red">자동차정보 확인 필요</span>');
 
@@ -46,7 +46,7 @@ $("#checkId").click(function() {
 							/* 중복확인 후 버튼색상, 메세지 변경 */
 							$('#checkId').removeClass('btn-dark');
 							$('#checkId').addClass('btn-outline-dark');
-							$('#checkIdMsg').html('<span style="color:darkblue">아이디 중복 확인 완료</span>');
+							$('#checkIdMsg').html('<span style="color:darkblue">아이디는 바꿀 수 없습니다.</span>');
 						}
 					})
 				}
