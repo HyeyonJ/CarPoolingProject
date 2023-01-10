@@ -43,7 +43,7 @@ public class DrvGoogleLoginController {
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 
-		return "driver/dRegistration";
+		return "redirect:/driver/driverCarpool/registration";
 	}
 	
 	@RequestMapping(value="/google/redirect")
@@ -66,7 +66,7 @@ public class DrvGoogleLoginController {
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 		
-		return "driver/dRegistration";
+		return "redirect:/driver/driverCarpool/registration";
 	}
 	
 	@ModelAttribute("dUserTypes")

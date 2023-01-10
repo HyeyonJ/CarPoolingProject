@@ -81,7 +81,7 @@ public class PsgKaKaoLoginController {
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
 		
 		passengerInfoRepository.insert(passenger);
-		return "passenger/pReservation";
+		return "redirect:/passenger/passengerCarpool/reservation";
 	}
 
 	@ModelAttribute("pUserTypes")
