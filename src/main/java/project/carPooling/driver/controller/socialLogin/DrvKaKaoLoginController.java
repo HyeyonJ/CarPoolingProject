@@ -56,6 +56,7 @@ public class DrvKaKaoLoginController {
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("------------------------------");
 //		System.out.println("userinfo" + userInfo);
+		System.out.println("카카오 로그인 완료");
 		System.out.println("------------------------------");
 		
 		
@@ -86,7 +87,7 @@ public class DrvKaKaoLoginController {
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 		
-		return "driver/dRegistration";
+		return "redirect:/driver/driverCarpool/registration";
 	}
 	
 	@ModelAttribute("dUserTypes")

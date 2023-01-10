@@ -1,8 +1,8 @@
 package project.carPooling.passenger.domain;
 
-//import lombok.Data;
+import lombok.Data;
 
-//@Data
+@Data
 public class PassengerInfo {
 	private Integer pIdx;
 	private PUserType pUserType;

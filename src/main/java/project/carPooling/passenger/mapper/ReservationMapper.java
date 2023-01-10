@@ -14,7 +14,7 @@ public interface ReservationMapper {
 	
 	public Integer insert(@Param(value="pIdx") Integer pIdx, @Param(value="drIdx") Integer drIdx);
 
-	public List<DRegistration> selectCarpoolByGender(@Param(value="searchCarPool") SearchCarPool searchCarPool, @Param(value = "pDate") Date pDate, @Param(value="pUserGender") String pUserGender, @Param(value = "dIdx") Integer dIdx);
+	public DRegistration selectCarpoolByGender(@Param(value="searchCarPool") SearchCarPool searchCarPool, @Param(value = "pDate") Date pDate, @Param(value="pUserGender") String pUserGender, @Param(value = "dIdx") Integer dIdx);
 	
 	public List<DRegistration> selectCarpoolByAny(@Param(value="searchCarPool") SearchCarPool searchCarPool, @Param(value = "pDate") Date pDate, @Param(value="pUserGender") String pUserGender);
 	

@@ -158,7 +158,7 @@ public class PsgNaverLoginController {
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);
 		
 		passengerInfoRepository.insert(passengerInfo);
-		return "passenger/pReservation";
+		return "redirect:/passenger/passengerCarpool/reservation";
 	}
 	
 	@ModelAttribute("pUserTypes")

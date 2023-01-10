@@ -60,7 +60,9 @@ function acceptedRsv() {
         html +=
           '<button id="delete" onclick="cancelReservation(' +
           data[i].DR_IDX +
-          ')" class="btn btn-primary rsvsbtn">카풀취소</button>';
+          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+        html +=
+          '<button class="btn btn-primary">채팅</button>';
         html += "</div>";
       }
       $("#acceptedList").html(html);

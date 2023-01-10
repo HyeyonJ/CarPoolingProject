@@ -152,6 +152,7 @@ $("#selectBoardingTime").change(() => {
 
 $("#selectBoardingTime").click((e) => {
   e.preventDefault();
+
   $("#timeCheck").css("display", "none");
   if ($(':radio[name="work"]:checked').length < 1) {
     // 출근 또는 퇴근을 선택해주세요. - 보여주기
@@ -166,6 +167,8 @@ $("#selectBoardingTime").click((e) => {
 });
 
 $("#searchBtn").click(() => {
+  $("#searchCarpoolList").empty();
+
   // 출퇴근 선택이 안되어있을 때
   if ($(':radio[name="work"]:checked').length < 1) {
     $("#workCheck").css("display", "block");
@@ -243,7 +246,6 @@ $("#searchBtn").click(() => {
         ).then((OK) => {
           if (OK) {
             console.log(data);
-            console.log(data[0].dcommute);
             var html = "";
             if (data.length > 0) {
               for (var i = 0; i < data.length; i++) {
@@ -340,38 +342,38 @@ function reservation() {
           //console.log(result.response);
           var paymentData = result.response;
           if (rsp.paid_amount === paymentData.amount) {	//결제 요청 금액과 결제 처리 완료된 금액 비교
-          	//console.log("검증 성공 : 결제 완료");
+            //console.log("검증 성공 : 결제 완료");
             //DB에 결제 데이터 전송하기
             console.log("drIdx : " + $("#drIdx").val());
-			  $.ajax({
-				  url: "/passenger/passengerCarpool/reservation",
-				  type: "POST",
-				  data: { drIdx: $("#drIdx").val() },
-				  success: function(data, status) {
-					  if (status === "success") {
-						  const payData = {
-							  payIdx: paymentData.merchantUid,
-							  rIdx: data,
-							  amount: paymentData.amount,
-							  receiptUrl: paymentData.receiptUrl
-						  };
-						  $.ajax({
-							  url: "/passenger/carpoolingPay/complete",
-							  type: "POST",
-							  data: payData,
-							  success: function(result) {
-								  swal("예약성공!", "카풀 예약이 완료되었습니다.", "success").then(
-									  (OK) => {
-										  if (OK) {
-											  window.location.reload();
-										  }
-									  }
-								  );
-							  }
-						  });
-					  }
-				  }
-			  });
+            $.ajax({
+              url: "/passenger/passengerCarpool/reservation",
+              type: "POST",
+              data: { drIdx: $("#drIdx").val() },
+              success: function (data, status) {
+                if (status === "success") {
+                  const payData = {
+                    payIdx: paymentData.merchantUid,
+                    rIdx: data,
+                    amount: paymentData.amount,
+                    receiptUrl: paymentData.receiptUrl
+                  };
+                  $.ajax({
+                    url: "/passenger/carpoolingPay/complete",
+                    type: "POST",
+                    data: payData,
+                    success: function (result) {
+                      swal("예약성공!", "카풀 예약이 완료되었습니다.", "success").then(
+                        (OK) => {
+                          if (OK) {
+                            window.location.reload();
+                          }
+                        }
+                      );
+                    }
+                  });
+                }
+              }
+            });
           } else {
             //console.log("검증 실패 : 결제 금액 확인 요망")
             //alert("에러코드 : " + rsp.error_code + "에러 메시지 : " + rsp.error_message);

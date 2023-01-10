@@ -73,5 +73,19 @@
         SELECT * FROM DRIVER
         WHERE d_car_num = #{dCarNum}
       </select>
+      
+<!-- 회원 정보 수정 -->
+	<update id="updateDriverInfo" parameterType="DriverInfo" >
+		UPDATE DRIVER
+		SET d_user_pw = #{dUserPw},
+			d_user_name = #{dUserName},
+			d_user_tel = #{dUserTel},
+			d_license_num = #{dLicenseNum},
+			d_license_id_num = #{dLicenseIdNum},
+			d_car_num = #{dCarNum},
+			d_account_num = #{dAccountNum},
+			d_account_bank = #{dAccountBank}
+		WHERE d_user_email = #{dUserEmail}
+	</update>
 
 </mapper>
