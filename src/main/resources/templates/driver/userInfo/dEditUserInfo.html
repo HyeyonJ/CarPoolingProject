@@ -17,16 +17,16 @@
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-3">Driver 회원정보수정</h4>
 				<form class="validation-form" novalidate action="" method="post" th:object="${driver}">
-					<div class="row" id="inputUserType">
-						<!-- 가입유형지정 -->
-						<div class="col mb-3 form-check"
-							th:each="dUserType : ${dUserTypes}">
-							<input class="form-check-input" type="radio"
-								th:field="${driver.dUserType}" name="dUserType"
-								th:value="${dUserType.name}"> <label
-								th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label>
-						</div>
-					</div>
+<!-- 					<div class="row" id="inputUserType"> -->
+<!-- 						가입유형지정 -->
+<!-- 						<div class="col mb-3 form-check" -->
+<!-- 							th:each="dUserType : ${dUserTypes}"> -->
+<!-- 							<input class="form-check-input" type="radio" -->
+<!-- 								th:field="${driver.dUserType}" name="dUserType" -->
+<!-- 								th:value="${dUserType.name}"> <label -->
+<!-- 								th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					</form>
 					<div class="row">
 					<p>여기로</p>

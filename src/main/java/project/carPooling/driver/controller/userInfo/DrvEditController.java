@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,21 +42,16 @@ public class DrvEditController {
 		return "driver/userInfo/dUserInfo";
 	}
 	
-	@GetMapping("/info/edit")
-	public String driverUserInfoEdit (Model model
+	@PostMapping("/info/edit")
+	public String driverUserInfoEdit(@ModelAttribute DriverInfo driverInfo, Model model
 					, HttpServletRequest req) {
 		
-		HttpSession session = req.getSession(false);
-		
-		if(session == null || session.getAttribute(SessionVar.LOGIN_DRIVER) == null) {
-			
-			return "redirect:/driver/login"; }
+		System.out.println("driverInfo : " + driverInfo);
 
-		DriverInfo driver = (DriverInfo)session.getAttribute(SessionVar.LOGIN_DRIVER);
+		driverRepository.update(driverInfo);
 		
-		if(driver == null) { return "redirect:/driver/login"; }
-		
-		model.addAttribute("driver", driver);
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 		
 		return "driver/userInfo/dEditUserInfo";
 	}
