@@ -11,9 +11,9 @@ import project.carPooling.passenger.domain.PaymentData;
 @Mapper
 public interface PassengerPaymentMapper {
 	
-	public PaymentData insertPayment(PaymentData payment);
+	public Integer insertPayment(PaymentData payment);
 	
-	public PaymentData insertCancelPayment(PaymentData payment);
+	public Integer insertCancelPayment(PaymentData payment);
 	
 	public PaymentData selectPaymentByPayIdx(@Param("payIdx") String payIdx);
 

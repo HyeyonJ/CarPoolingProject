@@ -349,15 +349,16 @@ function reservation() {
 				  data: { drIdx: $("#drIdx").val() },
 				  success: function(data, status) {
 					  if (status === "success") {
+						  const payData = {
+							  payIdx: paymentData.merchantUid,
+							  rIdx: data,
+							  amount: paymentData.amount,
+							  receiptUrl: paymentData.receiptUrl
+						  };
 						  $.ajax({
 							  url: "/passenger/carpoolingPay/complete",
 							  type: "POST",
-							  data: {
-								  payIdx: paymentData.merchantUid,
-								  rIdx: data,
-								  amount: paymentData.amount,
-								  receiptUrl: paymentData.receiptUrl
-							  },
+							  data: payData,
 							  success: function(result) {
 								  swal("예약성공!", "카풀 예약이 완료되었습니다.", "success").then(
 									  (OK) => {

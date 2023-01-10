@@ -3,6 +3,7 @@ package project.carPooling.passenger.controller.payment;
 
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,21 +23,26 @@ public class PaymentController {
 	private final PassengerPaymentRepository passengerPaymentRepository;
 	
 	@PostMapping("/complete")
-    public void completePay(@RequestBody Map<String, Object> paymentData) {
+    public void completePay(@ModelAttribute PaymentData payData) {
 		
-		log.info("paymentData : {}", paymentData);    	
-    	PaymentData payComplete = (PaymentData) paymentData;
+		log.info("payData : {}", payData);
+    	PaymentData payComplete = (PaymentData)payData;
 
     	log.info("payComplete : {}", payComplete);    	
     	payComplete = passengerPaymentRepository.insertPayment(payComplete);
 
     }
 
-//	@PostMapping("/cancelPay")
-//	public Map<String, Object> cancelPay(@RequestBody Map<String, Object> paymentData) {
-//		log.info("paymentData : {}", paymentData);
-//		return paymentData;
-//	}
+	@PostMapping("/cancel/complete")
+	public void completeCancelPay(@ModelAttribute PaymentData cancelPay) {
+		
+		log.info("cancelPay : {}", cancelPay);
+		PaymentData cancelComplete = (PaymentData)cancelPay;
+	
+		log.info("cancelComplete : {}", cancelComplete);	
+		cancelComplete = passengerPaymentRepository.insertCancelPayment(cancelComplete);
+	
+	}
 	
 	
 }
