@@ -26,5 +26,7 @@ public interface ReservationMapper {
 	
 	public void updateWaitingToReservated(Integer drIdx);
 	
+	public Integer selectRIdxByDrIdx(Integer drIdx);
+	
 }
 

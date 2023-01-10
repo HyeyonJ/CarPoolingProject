@@ -70,6 +70,12 @@ public class MybatisReservationRepository implements ReservationRepository {
 		return null;
 	}
 
+	@Override
+	public Integer selectRIdxByDrIdx(Integer drIdx) {
+		
+		return reservationMapper.selectRIdxByDrIdx(drIdx);
+	}
+
 
 
 }

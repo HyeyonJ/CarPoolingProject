@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DRegistration;
-import project.carPooling.driver.mapper.RegistrationListMapper;
 import project.carPooling.passenger.mapper.ReservationListMapper;
 
 @Repository

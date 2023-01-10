@@ -11,6 +11,8 @@ public interface ReservationRepository {
 	public DRegistration selectCarpoolByDrIdx(Integer drIdx);
 	
 	public DRegistration insert(Integer pIdx, Integer drIdx);
+	
+	public Integer selectRIdxByDrIdx(Integer drIdx);
 
 
 }
