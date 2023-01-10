@@ -83,9 +83,14 @@ public class MybatisReservationRepository implements ReservationRepository {
 	}
 
 	@Override
-	public Integer selectRIdxByDrIdx(Integer drIdx) {
-
-		return reservationMapper.selectRIdxByDrIdx(drIdx);
+	public Integer selectRIdxByDrIdx(Integer drIdx, Integer pIdx) {
+		return reservationMapper.selectRIdxByDrIdx(drIdx, pIdx);
+	}
+	
+	@Override
+	public DRegistration selectDRegistrationByDrIdx(Integer drIdx, Integer pIdx) {
+		DRegistration dRegistration = reservationMapper.selectDRegistrationByDrIdx(drIdx, pIdx);
+		return dRegistration;
 	}
 
 }

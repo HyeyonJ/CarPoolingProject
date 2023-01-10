@@ -33,7 +33,5 @@ public interface DriverInfoMapper {
 	public void deleteAll();
 	
 	public void updateDriverInfo(DriverInfo driverInfo);
-	
-	public DRegistration selectByDrIdx(Integer drIdx);
 
 }

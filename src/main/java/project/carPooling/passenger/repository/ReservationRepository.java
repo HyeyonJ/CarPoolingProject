@@ -12,7 +12,7 @@ public interface ReservationRepository {
 	
 	public DRegistration insert(Integer pIdx, Integer drIdx);
 	
-	public Integer selectRIdxByDrIdx(Integer drIdx);
+	public Integer selectRIdxByDrIdx(Integer drIdx, Integer pIdx);
 
-
+	public DRegistration selectDRegistrationByDrIdx(Integer drIdx, Integer pIdx);
 }

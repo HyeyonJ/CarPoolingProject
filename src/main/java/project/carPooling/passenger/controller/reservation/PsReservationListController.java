@@ -16,6 +16,7 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.net.aso.c;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.global.session.SessionManager;
@@ -46,19 +47,59 @@ public class PsReservationListController {
 	@GetMapping("/passengerCarpool/list/currentList")
 	public List<Map<String, Object>> currentList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> currentList = reservationListRepository.selectCurrentList(passengerInfo.getPIdx());
-		System.out.println(currentList);
+		List<Map<String, Object>> currentRsvList = reservationListRepository.selectCurrentRsvList(passengerInfo.getPIdx());
+		System.out.println(currentRsvList);
+		for(Map<String, Object> currentRsv : currentRsvList) {
+			Integer rIdx = Integer.parseInt(String.valueOf(currentRsv.get("R_IDX")));
+			PaymentData paymentData = reservationListRepository.selectPaymentDataByRIdx(rIdx);
+			currentRsv.put("receiptUrl", paymentData.getReceiptUrl());
+		}
 		
-		return currentList;
+		return currentRsvList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/passengerCarpool/list/pastList")
+	public List<Map<String, Object>> pastList(HttpServletRequest req){
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<Map<String, Object>> pastRsvList = reservationListRepository.selectPastRsvList(passengerInfo.getPIdx());
+		System.out.println(pastRsvList);
+		for(Map<String, Object> pastRsv : pastRsvList) {
+			Integer rIdx = Integer.parseInt(String.valueOf(pastRsv.get("R_IDX")));
+			PaymentData paymentData = reservationListRepository.selectPaymentDataByRIdx(rIdx);
+			pastRsv.put("receiptUrl", paymentData.getReceiptUrl());
+		}
+		
+		return pastRsvList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/passengerCarpool/list/cancelList")
+	public List<Map<String, Object>> cancelList(HttpServletRequest req){
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<Map<String, Object>> cancelRsvList = reservationListRepository.selectCancelRsvList(passengerInfo.getPIdx());
+		log.info("cancelList: {}", cancelRsvList);
+		for(Map<String, Object> cancelRsv : cancelRsvList) {
+			Integer rIdx = Integer.parseInt(String.valueOf(cancelRsv.get("R_IDX")));
+			log.info("rIdx: {}", rIdx);
+			PaymentData paymentData = reservationListRepository.selectPaymentDataByRIdx(rIdx);
+			log.info("payIdx: {}", paymentData.getPayIdx());
+			Map<String, Object> cancelPayment = reservationListRepository.selectCancelPayMentByPayIdx(paymentData.getPayIdx());
+			cancelRsv.put("cancelReceiptUrl", cancelPayment.get("RECEIPT_URL"));
+			cancelRsv.put("cancelAmount", cancelPayment.get("CANCEL_AMOUNT"));
+		}
+		
+		return cancelRsvList;
 	}
 	
 	@ResponseBody
 	@DeleteMapping("/passengerCarpool/list/currentList/cancellation")
-	public PaymentData cancelCurrentReservation(@RequestParam Integer drIdx) throws MessagingException, IOException{
+	public PaymentData cancelCurrentReservation(@RequestParam Integer drIdx, HttpServletRequest req) throws MessagingException, IOException{
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		String dUserEmail = reservationListRepository.selectDriverEmail(drIdx);
 		PaymentData cancelData = passengerPaymentRepository.selectPaymentByDrIdx(drIdx);
 		log.info("cancelData : {}",cancelData);
-		int dFee = reservationListRepository.cancelCurrentReservation(drIdx);
+		int dFee = reservationListRepository.cancelCurrentReservation(drIdx, passengerInfo.getPIdx());
 		cancelData.setCancelAmount(dFee);
 		
 		MailTO mailTO = new MailTO();
@@ -72,25 +113,6 @@ public class PsReservationListController {
 		return cancelData;
 	}
 	
-	@ResponseBody
-	@GetMapping("/passengerCarpool/list/pastList")
-	public List<Map<String, Object>> pastList(HttpServletRequest req){
-		
-		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		List<Map<String, Object>> pastList = reservationListRepository.selectPastList(passengerInfo.getPIdx());
-		System.out.println(pastList);
-		
-		return pastList;
-	}
-	
-	@ResponseBody
-	@DeleteMapping("/passengerCarpool/reservation/delete")
-	public boolean deleteRsv(@RequestParam Integer drIdx, HttpServletRequest req){
-		System.out.println(drIdx);
-		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		boolean result = reservationListRepository.deleteRsv(drIdx, passengerInfo.getPIdx());
-		
-		return result;
-	}
 
+	
 }

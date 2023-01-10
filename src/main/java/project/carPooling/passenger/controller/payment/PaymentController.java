@@ -49,10 +49,7 @@ public class PaymentController {
 		
 		cancelData = passengerPaymentRepository.insertCancelPayment(cancelData);
 		log.info("cancelComplete : {}", cancelData);
-		
-		passengerPaymentRepository.deletePaymentByPayIdx(cancelData.getPayIdx());
-		log.info("payData 삭제 완료");
-		
+		log.info("cancelData insert 완료");
 	
 	}
 	

@@ -35,11 +35,6 @@
 		WHERE p_idx = #{pIdx}
 	</select>
 	
-	<delete id="deletePaymentByPayIdx">
-		DELETE FROM PAYMENT
-		WHERE pay_idx = #{payIdx}
-	</delete>
-	
 <!-- 	<select id="selectPaymentByDrIdx" resultType="PaymentData">
 		SELECT * FROM payment
 		WHERE r_idx = (select r_idx from reservation where dr_idx = #{drIdx});	
@@ -48,7 +43,7 @@
 	<select id="selectPaymentByDrIdx" resultType="PaymentData">
 		SELECT p.pay_idx pay_idx, p.r_idx r_idx, p.amount amount, p.receipt_url receipt_url, r.p_idx p_idx
 		FROM payment p, (select * from reservation where dr_idx = #{drIdx}) r
-		WHERE p.r_idx = r.r_idx
+		WHERE p.r_idx = r.r_idx AND r.r_cancel_status = 'uncanceled'
 	</select>
 	
 </mapper>

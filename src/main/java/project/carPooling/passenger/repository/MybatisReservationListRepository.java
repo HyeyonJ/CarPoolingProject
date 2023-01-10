@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DRegistration;
+import project.carPooling.passenger.domain.PaymentData;
 import project.carPooling.passenger.mapper.ReservationListMapper;
 
 @Repository
@@ -21,30 +22,25 @@ public class MybatisReservationListRepository implements ReservationListReposito
 	private final ReservationListMapper reservationListMapper;
 	
 	@Override
-	public List<Map<String, Object>> selectCurrentList(Integer pIdx) {
-		List<Map<String, Object>> currentList = reservationListMapper.selectCurrentList(pIdx);
-		return currentList;
+	public List<Map<String, Object>> selectCurrentRsvList(Integer pIdx) {
+		List<Map<String, Object>> currentRsvList = reservationListMapper.selectCurrentRsvList(pIdx);
+		return currentRsvList;
 	}
 
 	@Override
-	public List<Map<String, Object>> selectPastList(Integer pIdx) {
-		List<Map<String, Object>> pastList = reservationListMapper.selectPastList(pIdx);
-		return pastList;
+	public List<Map<String, Object>> selectPastRsvList(Integer pIdx) {
+		List<Map<String, Object>> pastRsvList = reservationListMapper.selectPastRsvList(pIdx);
+		return pastRsvList;
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectCancelRsvList(Integer pIdx) {
+		List<Map<String, Object>> cancelRsvList = reservationListMapper.selectCancelRsvList(pIdx);
+		return cancelRsvList;
 	}
 
 	@Override
-	public boolean deleteRsv(Integer drIdx, Integer pIdx) {
-		boolean result = false;
-		try {
-			reservationListMapper.deleteRsv(drIdx, pIdx);
-			result = true;
-		} catch (Exception e) {
-		}
-		return result;
-	}
-
-	@Override
-	public int cancelCurrentReservation(Integer drIdx) {
+	public int cancelCurrentReservation(Integer drIdx, Integer pIdx) {
 		DRegistration dRegistration = reservationListMapper.selectRegistrationByDrIdx(drIdx);
 		Integer dIdx = dRegistration.getDIdx();
 		String dDate = dRegistration.getDDate();
@@ -103,7 +99,7 @@ public class MybatisReservationListRepository implements ReservationListReposito
 			reservationListMapper.updateDriverPoint(dIdx, (int) (dFee * 0.3));
 		}
 		reservationListMapper.updateReservatedToWaiting(drIdx);
-		reservationListMapper.deleteReservation(drIdx);
+		reservationListMapper.updateCanceled(drIdx, pIdx);
 		
 		
 		return dFee;
@@ -114,5 +110,16 @@ public class MybatisReservationListRepository implements ReservationListReposito
 		String dUserEmail = reservationListMapper.selectDriverEmail(drIdx);
 		return dUserEmail;
 	}
+
+	@Override
+	public PaymentData selectPaymentDataByRIdx(Integer rIdx) {
+		return reservationListMapper.selectPaymentDataByRIdx(rIdx);
+	}
+
+	@Override
+	public Map<String, Object> selectCancelPayMentByPayIdx(String payIdx) {
+		return reservationListMapper.selectCancelPayMentByPayIdx(payIdx);
+	}
+
 
 }

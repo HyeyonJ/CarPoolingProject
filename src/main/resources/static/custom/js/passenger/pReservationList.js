@@ -5,10 +5,9 @@ var dResultMarkerArr = [];
 var dResultdrawArr = [];
 
 function acceptedRsv() {
-  $("#waitingList").css("display", "none");
-  $("#refusedList").css("display", "none");
-  $("#pastList").css("display", "none");
   $("#acceptedList").css("display", "block");
+  $("#waitingList").css("display", "none");
+  $("#cancelList").css("display", "none");
   $.ajax({
     url: "/passenger/passengerCarpool/list/currentList",
     type: "GET",
@@ -61,8 +60,8 @@ function acceptedRsv() {
           '<button id="delete" onclick="cancelReservation(' +
           data[i].DR_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
-        html +=
-          '<button class="btn btn-primary">채팅</button>';
+        html += '<button class="btn btn-primary">채팅</button>\t';
+        html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#acceptedList").html(html);
@@ -72,9 +71,8 @@ function acceptedRsv() {
 
 function waitingRsv() {
   $("#acceptedList").css("display", "none");
-  $("#refusedList").css("display", "none");
-  $("#pastList").css("display", "none");
   $("#waitingList").css("display", "block");
+  $("#cancelList").css("display", "none");
   $.ajax({
     url: "/passenger/passengerCarpool/list/pastList",
     type: "GET",
@@ -119,13 +117,68 @@ function waitingRsv() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html +=
-          '<button class="btn btn-primary rsvsbtn" id="delete" onclick="deleteReq(' +
-          data[i].DR_IDX +
-          ')" >예약취소</button>\t';
+        html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#waitingList").html(html);
+    },
+  });
+}
+
+function canceledRsv() {
+  $("#acceptedList").css("display", "none");
+  $("#waitingList").css("display", "none");
+  $("#cancelList").css("display", "block");
+  $.ajax({
+    url: "/passenger/passengerCarpool/list/cancelList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+        var rDate = data[i].R_DATE.substring(0, 10);
+
+        html += '<div class="rsv">\n';
+        html +=
+          '<span class="fitem">운전자</span>\t' +
+          data[i].D_USER_NAME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">요금</span>\t' +
+          data[i].cancelAmount +
+          "원 <br>\n";
+        html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html += `<a href="${data[i].cancelReceiptUrl}"><button class="btn btn-primary">결제취소내역</button></a>\t`;
+        html += "</div>";
+      }
+      $("#cancelList").html(html);
     },
   });
 }
@@ -134,57 +187,79 @@ function waitingRsv() {
 function cancelReservation(dr_idx) {
   confirm("예약을 취소하시겠습니까?");
 
-	$.ajax({
-		url: "/passenger/passengerCarpool/list/currentList/cancellation",
-		type: "DELETE",
-		data: { drIdx: dr_idx },
-		success: function(data) {
-			// 결제 취소 데이터
-			console.log(data);
-			const cancelData = {
-				payIdx: data.payIdx,
-				pIdx: data.pidx,
-				amount: data.amount,
-				cancelAmount: data.cancelAmount,
-				receiptUrl: data.receiptUrl
-			};
-			
-			// 결제 취소 요청
-			const corsErr = "http://cors-anywhere.herokuapp.com/";
-			$.ajax({
-				url: "/passenger/carpoolingPay/cancel/requestIamport", // 토큰 요청
-				type: "POST"
-			}).done(function(data, status) {
-				const token = data.response.token;
-				$.ajax({
-					url: corsErr + "https://api.iamport.kr/payments/cancel",
-					method: "post",
-					headers: {
-						"Authorization": token // 아임포트 서버로부터 발급받은 엑세스 토큰
-					},
-					data: {
-						merchant_uid: cancelData.payIdx, // 예: carpooling_12345567677888
-						amount: cancelData.cancelAmount, // 환불금액
-						reason: "Carpooling 예약 취소"
-					}
-				}).done(function(data, status) {
-					cancelData.receiptUrl = data.response.receipt_url;
-					$.ajax({
-						url: "/passenger/carpoolingPay/cancel/complete",
-						type: "POST",
-						data: cancelData
-					}).done(function(data, status) {
-						console.log(status);
-					})
-
-				}).fail(function(error) {
-					console.log("error : " + error);
-				})
-
-			});
-
-		},
-	});
+  $.ajax({
+    url: "/passenger/passengerCarpool/list/currentList/cancellation",
+    type: "DELETE",
+    data: { drIdx: dr_idx },
+    success: function (data) {
+      // 결제 취소 데이터
+      const cancelData = {
+        payIdx: data.payIdx,
+        pIdx: data.pidx,
+        amount: data.amount,
+        cancelAmount: data.cancelAmount,
+      };
+      // 결제 취소 요청
+      const corsErr = "http://cors-anywhere.herokuapp.com/";
+      $.ajax({
+        url: "/passenger/carpoolingPay/cancel/requestIamport", // 토큰 요청
+        type: "POST",
+      }).done(function (data, status) {
+        const token = data.response.token;
+        $.ajax({
+          url: corsErr + "https://api.iamport.kr/payments/cancel",
+          method: "post",
+          headers: {
+            Authorization: token, // 아임포트 서버로부터 발급받은 엑세스 토큰
+          },
+          data: {
+            merchant_uid: cancelData.payIdx, // 예: carpooling_12345567677888
+            amount: cancelData.cancelAmount, // 환불금액
+            reason: "Carpooling 예약 취소",
+          },
+        })
+          .done(function (data, status) {
+            const cancelResData = data;
+            cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
+            $.ajax({
+              url: "/passenger/carpoolingPay/cancel/complete",
+              type: "POST",
+              data: cancelData,
+            }).done(function (data, status) {
+              console.log(status);
+              if (
+                cancelResData.response.amount ===
+                cancelResData.response.cancel_amount
+              ) {
+                swal(
+                  "예약취소성공!",
+                  "카풀 예약이 취소되었습니다.\n선결제하신 금액은 전액 즉시 반환됩니다.",
+                  "success"
+                ).then((OK) => {
+                  if (OK) {
+                    window.location.reload();
+                  }
+                });
+              } else {
+                swal(
+                  "예약취소성공!",
+                  "카풀 예약이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료\n(24시간전->20%, 12시간전->25%, 6시간전->30%)\n" +
+                    "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
+                  "success"
+                ).then((OK) => {
+                  if (OK) {
+                    window.location.reload();
+                  }
+                });
+              }
+            });
+          })
+          .fail(function (error) {
+            console.log("error : " + error);
+          });
+      });
+    },
+  });
 }
 
 function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
@@ -394,13 +469,13 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-        request.status +
-        "\n" +
-        "message:" +
-        request.responseText +
-        "\n" +
-        "error:" +
-        error
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
       );
     },
   });

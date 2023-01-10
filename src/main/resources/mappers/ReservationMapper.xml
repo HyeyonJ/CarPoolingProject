@@ -64,6 +64,17 @@
 		SELECT r_idx
 		FROM RESERVATION
 		WHERE dr_idx = #{drIdx}
+		AND p_idx = #{pIdx}
+		AND r_cancel_status = 'uncanceled'
 	</select>
+	
+    <select id="selectDRegistrationByDrIdx" resultType="DRegistration">
+        SELECT dr.dr_idx dr_idx, dr.d_idx d_idx, dr.d_date d_date, dr.d_hope_gender d_hope_gender, dr.d_commute d_commute, dr.d_start_time d_start_time, dr.d_end_time d_end_time, dr.d_start_point d_start_point,
+        	   dr.d_end_point d_end_point, dr.d_fee d_fee, dr.d_distance d_distance, dr.d_time d_time, dr.d_start_lon d_start_lon, dr.d_start_lat d_start_lat, dr.d_end_lon d_end_lon, dr.d_end_lat d_end_lat, dr.d_reservation_status d_reservation_status
+        FROM D_REGISTRATION dr, RESERVATION r
+        WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx
+        AND r.p_idx = #{pIdx}
+        AND r.r_cancel_status = 'uncanceled'
+    </select>
 	
 </mapper>

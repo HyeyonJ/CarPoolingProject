@@ -47,7 +47,8 @@ public class IamportController {
 	
 	// 생성자를 통해 REST API 와 REST API secret 입력
     public IamportController(){
-        this.impClient = new IamportClient("5051703506060018", "CNUjW9iBntIkvX52eLr2lhoQxrkqhmGVeC7KxGcc7Ry0L0VJd9HFRfhCxVMrTZtc2am1RYKnFvJSQl02");
+//        this.impClient = new IamportClient("5051703506060018", "CNUjW9iBntIkvX52eLr2lhoQxrkqhmGVeC7KxGcc7Ry0L0VJd9HFRfhCxVMrTZtc2am1RYKnFvJSQl02");
+        this.impClient = new IamportClient("6140627762686581", "axklrNzeeVI3dOW96XgRX7cAw0ZMsien53R8VCbXTZpqMSdvFbuHj7jCtZBefMdSKSfVY630UT68yxsL");
     }
 
     @PostMapping("/cancel/requestIamport")
