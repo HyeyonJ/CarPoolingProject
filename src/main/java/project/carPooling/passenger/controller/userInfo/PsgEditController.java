@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.global.session.SessionVar;
-import project.carPooling.passenger.controller.home.PsgHomeController;
 import project.carPooling.passenger.domain.PassengerInfo;
 
 @Slf4j

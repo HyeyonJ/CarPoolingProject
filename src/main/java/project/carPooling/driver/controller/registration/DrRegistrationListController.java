@@ -6,9 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,12 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.RegistrationListRepository;
-import project.carPooling.driver.repository.RequestRepository;
 import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.global.payment.repository.PaymentRepository;
