@@ -57,6 +57,13 @@ public class MybatisPassengerPaymentRepository implements PassengerPaymentReposi
 		
 	}
 
+	@Override
+	public PaymentData selectPaymentByDrIdx(Integer drIdx) {
+		PaymentData payment = paymentMapper.selectPaymentByDrIdx(drIdx);
+		
+		return payment;
+	}
+
 
 
 }

@@ -4,7 +4,7 @@ $("#requestPay").click(function() {
 
 	$.ajax({
 		type: 'GET',
-		url: '/passenger/carpoolingPay/rqPay'
+		url: '/passenger/carpoolingPay/request'
 	}).done(function(user) {
 		const data = {
 			pg: 'html5_inicis', // PG사 선택
@@ -23,41 +23,22 @@ $("#requestPay").click(function() {
 		// IMP.request_pay(param, callback) 결제창 호출
 		IMP.request_pay(data, function(rsp) {
 			if (rsp.success) {	// 결제 승인 성공
-				//console.log("결제 승인 완료");
+				//console.log("거래 승인 완료");
 				const imp_uid = rsp.imp_uid;
 				//console.log("결제 검증 진행");					
 				//결제 검증 요청
-				$.ajax({
+				$.ajax({	//가맹점 서버 결제 API > 토큰 발급 > imp_uid에 해당하는 결제 정보 조회
 					type: 'POST',
 					url: '/passenger/carpoolingPay/verifyIamport/' + imp_uid
-				}).done(function(result) {	// 가맹점 서버 결제 API > 토큰 발급 > imp_uid에 해당하는 결제정보 조회
+				}).done(function(result) {
+					console.log("검증 완료 : 결제 성공");
 					console.log(result.response);
-					var paymentData = result.response;
-					//결제 요청 금액과 결제 처리 완료된 금액 비교
-					if (rsp.paid_amount === paymentData.amount) {
-						console.log("(검증 성공 : 결제 완료");
-						alert("결제가 성공적으로 완료되었습니다.");
-						$.ajax({
-							type: 'POST',
-							url: '/passenger/carpoolingPay/complete',
-							data: {
-								payIdx : paymentData.merchant_uid,
-								pIdx : user.pIdx,
-								amount : paymentData.amount
-							}
-						})
-						console.log(data);
-						console.log("결제 테이블 저장 완료");
-					} else {
-						console.log("검증 실패 : 결제 금액 확인 요망")
-						console.log("에러코드 : " + rsp.error_code + "에러 메시지 : " + rsp.error_message);
-					}
 				}).fail(function(error) {
 					console.log("검증 불가 : 검증 로직 확인 요망");
 					console.log("error : " + error);
 				})
 			} else {	//결제 승인 실패
-				console.log("결제 승인 실패");
+				console.log("거래 승인 실패");
 				alert("결제 실패했습니다." + "에러코드 : " + rsp.error_code + "에러 메시지 : " + rsp.error_message);
 			}
 		})
@@ -65,16 +46,39 @@ $("#requestPay").click(function() {
 });
 
 //결제취소 버튼 클릭
+
+
 $("#cancelPay").click(function() {
+const corsErr = "http://cors-anywhere.herokuapp.com/";
 	$.ajax({
-		url: "{환불요청을 받을 서비스 URL}", // 예: http://www.myservice.com/payments/cancel
-		type: "POST",
-		contentType: "application/json",
-		data: JSON.stringify({
-			merchant_uid: "{결제건의 주문번호}", // 예: ORD20180131-0000011
-			cancel_request_amount: {r}, // 환불금액
-			reason: "카풀링 예약 취소" // 환불사유
-		}),
-		dataType: "json"
+		url: "/passenger/carpoolingPay/cancel/requestIamport", // 토큰 요청
+		type: "POST"
+	}).done(function(data, status) {
+		console.log(data.response);
+		console.log(data.response.token);
+		const token = data.response.token;
+		$.ajax({
+			url: corsErr + "https://api.iamport.kr/payments/cancel",
+			method: "post",
+			headers: {
+				"Authorization": token // 아임포트 서버로부터 발급받은 엑세스 토큰
+			},
+			data: {
+				merchant_uid: "carpooling_1673322965492", // 예: carpooling_12345567677888
+				amount: 1000, // 환불금액
+				reason: "Carpooling 예약 취소"
+			}
+		}).done(function(data, status) {			
+			console.log("data : " + data);
+			console.log("status : " + status);
+		}).fail(function(error){
+			console.log("error : " + error);
+		})
+
 	});
+
+
+
+
+
 });

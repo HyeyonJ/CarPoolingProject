@@ -312,7 +312,7 @@ function reservation() {
 
   $.ajax({	// 탑승자 결제 데이터 요청
     type: 'GET',
-    url: '/passenger/carpoolingPay/rqPay'
+    url: '/passenger/carpoolingPay/request'
   }).done(function (user) {
     const data = {
       pg: 'html5_inicis', // PG사 선택

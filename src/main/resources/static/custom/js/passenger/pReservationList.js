@@ -132,19 +132,57 @@ function waitingRsv() {
 function cancelReservation(dr_idx) {
   confirm("예약을 취소하시겠습니까?");
 
-  $.ajax({
-    url: "/passenger/passengerCarpool/list/currentList/cancellation",
-    type: "DELETE",
-    data: { drIdx: dr_idx },
-    success: function (data) {
-      // 가격이랑 주문번호 리턴받기
-      const dFee = data.dFee;
-      const merchant_uid = data.merchant_uid;
-      console.log(dFee);
-      console.log(merchant_uid);
-      // 환불코드
-    },
-  });
+	$.ajax({
+		url: "/passenger/passengerCarpool/list/currentList/cancellation",
+		type: "DELETE",
+		data: { drIdx: dr_idx },
+		success: function(data) {
+			// 결제 취소 데이터
+			console.log(data);
+			const cancelData = {
+				payIdx: data.payIdx,
+				pIdx: data.pidx,
+				amount: data.amount,
+				cancelAmount: data.cancelAmount,
+				receiptUrl: data.receiptUrl
+			};
+			
+			// 결제 취소 요청
+			const corsErr = "http://cors-anywhere.herokuapp.com/";
+			$.ajax({
+				url: "/passenger/carpoolingPay/cancel/requestIamport", // 토큰 요청
+				type: "POST"
+			}).done(function(data, status) {
+				const token = data.response.token;
+				$.ajax({
+					url: corsErr + "https://api.iamport.kr/payments/cancel",
+					method: "post",
+					headers: {
+						"Authorization": token // 아임포트 서버로부터 발급받은 엑세스 토큰
+					},
+					data: {
+						merchant_uid: cancelData.payIdx, // 예: carpooling_12345567677888
+						amount: cancelData.cancelAmount, // 환불금액
+						reason: "Carpooling 예약 취소"
+					}
+				}).done(function(data, status) {
+					cancelData.receiptUrl = data.response.receipt_url;
+					$.ajax({
+						url: "/passenger/carpoolingPay/cancel/complete",
+						type: "POST",
+						data: cancelData
+					}).done(function(data, status) {
+						console.log(status);
+					})
+
+				}).fail(function(error) {
+					console.log("error : " + error);
+				})
+
+			});
+
+		},
+	});
 }
 
 function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {

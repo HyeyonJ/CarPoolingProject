@@ -54,4 +54,5 @@
 		FROM D_REGISTRATION
 		WHERE dr_idx = #{drIdx}
 	</select>
+	
 </mapper>

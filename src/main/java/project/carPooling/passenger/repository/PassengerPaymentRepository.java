@@ -23,4 +23,6 @@ public interface PassengerPaymentRepository {
 	public List<Map<String, Object>> selectCancelPayListByPidx(Integer pIdx);
 	
 	public void deletePaymentByPayIdx(@Param("payIdx") String payIdx);
+	
+	public PaymentData selectPaymentByDrIdx(@Param("drIdx") Integer drIdx);
 }

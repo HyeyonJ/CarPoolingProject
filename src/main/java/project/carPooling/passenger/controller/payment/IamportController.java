@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.AuthData;
+import com.siot.IamportRestClient.request.CancelData;
+import com.siot.IamportRestClient.response.AccessToken;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
@@ -28,6 +31,9 @@ import project.carPooling.global.session.SessionManager;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.PaymentData;
 import project.carPooling.passenger.repository.PassengerPaymentRepository;
+import retrofit2.Call;
+import retrofit2.HttpException;
+import retrofit2.Response;
 
 @Slf4j
 @RestController
@@ -38,20 +44,18 @@ public class IamportController {
 
 	/** Iamport 결제 검증 컨트롤러 **/
     private final IamportClient impClient;
-	private final SessionManager sessionManager;
 	
 	// 생성자를 통해 REST API 와 REST API secret 입력
     public IamportController(){
         this.impClient = new IamportClient("5051703506060018", "CNUjW9iBntIkvX52eLr2lhoQxrkqhmGVeC7KxGcc7Ry0L0VJd9HFRfhCxVMrTZtc2am1RYKnFvJSQl02");
-		this.sessionManager = new SessionManager();
     }
 
-	@GetMapping("/rqPay")
-	public PassengerInfo requestPay(HttpServletRequest req) {
-		PassengerInfo passenger = sessionManager.getPsSession(req);		
-		return passenger;
-	}
-	
+    @PostMapping("/cancel/requestIamport")
+    public IamportResponse<AccessToken> getTokenImpClient() throws IamportResponseException, IOException {
+    	log.info("getAuth() 진입");
+        return impClient.getAuth();
+    }
+    
 	/** 프론트에서 받은 PG사 결과값을 통해 아임포트 토큰 발행 **/
     @PostMapping("/verifyIamport/{imp_uid}")
     //아임포트서버에서 imp_uid(거래 고유번호)를 검사하여, 데이터를 보내준다.
@@ -59,7 +63,7 @@ public class IamportController {
         log.info("paymentByImpUid 진입");
         return impClient.paymentByImpUid(imp_uid);
     }
-    	
+
 	/** 모바일 결제 시, callback 실행 대신 수행할 redirect url **/
     @GetMapping("/mobile/complete")
 	public String orderCompleteMobile(

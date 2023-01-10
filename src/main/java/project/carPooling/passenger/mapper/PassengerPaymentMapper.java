@@ -24,5 +24,7 @@ public interface PassengerPaymentMapper {
 	public List<Map<String, Object>> selectCancelPayListByPidx(@Param("pIdx") Integer pIdx);
 	
 	public void deletePaymentByPayIdx(@Param("payIdx") String payIdx);
+	
+	public PaymentData selectPaymentByDrIdx(@Param("drIdx") Integer drIdx);
 
 }
