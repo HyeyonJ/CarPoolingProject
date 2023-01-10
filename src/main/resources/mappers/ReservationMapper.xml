@@ -60,4 +60,10 @@
 		WHERE dr_idx = #{drIdx}
 	</update>
 	
+	<select id="selectRIdxByDrIdx" resultType="Integer">
+		SELECT r_idx
+		FROM RESERVATION
+		WHERE dr_idx = #{drIdx}
+	</select>
+	
 </mapper>

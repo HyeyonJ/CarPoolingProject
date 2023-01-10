@@ -87,7 +87,7 @@ public class DrvKaKaoLoginController {
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 		
-		return "driver/dRegistration";
+		return "redirect:/driver/driverCarpool/registration";
 	}
 	
 	@ModelAttribute("dUserTypes")

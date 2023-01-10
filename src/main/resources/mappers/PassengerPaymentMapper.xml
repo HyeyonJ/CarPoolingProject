@@ -5,12 +5,12 @@
 
 	<insert id="insertPayment">
 		INSERT INTO PAYMENT (pay_idx, r_idx, pay_amount, receipt_url)
-		VALUES(#{payIdx}, #{rIdx}, #{payAmount}, #{receiptUrl})
+		VALUES(#{payIdx}, #{rIdx}, #{amount}, #{receiptUrl})
 	</insert>
 	
 	<insert id="insertCancelPayment">
-		INSERT INTO CANCEL_PAYMENT (pay_idx, cancel_amount, pay_amount, receipt_url)
-		VALUES(#{payIdx}, #{cancelAmount}, #{payAmount}, #{receiptUrl})
+		INSERT INTO CANCEL_PAYMENT (pay_idx, p_idx, cancel_amount, pay_amount, receipt_url)
+		VALUES(#{payIdx}, #{pIdx}, #{cancelAmount}, #{amount}, #{receiptUrl})
 	</insert>
 	
 	<select id="selectPaymentByPayIdx" resultType="PaymentData">

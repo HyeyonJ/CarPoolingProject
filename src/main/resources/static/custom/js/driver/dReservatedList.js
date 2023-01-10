@@ -113,7 +113,7 @@ function list() {
         todayhtml +=
           '<span class="FeeSPAN">요금 : </span>' + feeSplit + "원<br>\n";
         todayhtml +=
-          '<button class="btn btn-primary" id="todayNbtn" onclick="route(' +
+          '<button class="btn btn-primary" onclick="route(' +
           data[i].D_START_LON +
           ", " +
           data[i].D_START_LAT +
@@ -121,14 +121,15 @@ function list() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')">지도보기</button>';
+          ')">지도보기</button>\t';
         todayhtml +=
-          '<button class="btn btn-primary" id="todayNbtn" onclick="cancelRegistration(' +
+          '<button class="btn btn-primary" onclick="cancelRegistration(' +
           data[i].DR_IDX +
           ", " +
           data[i].P_IDX +
-          ')">취소</button>' +
-          "<br><br>\n";
+          ')">취소</button>\t';
+        todayhtml +=
+          '<button class="btn btn-primary">채팅</button>';
         todayhtml += "</div>";
       }
       $("#list").html(todayhtml);

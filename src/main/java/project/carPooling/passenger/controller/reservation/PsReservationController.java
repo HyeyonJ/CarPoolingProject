@@ -45,10 +45,12 @@ public class PsReservationController {
 		return "passenger/pReservation";
 	}
 	
+	@ResponseBody
 	@PostMapping("/passengerCarpool/reservation")
-	public void reservationForm(@ModelAttribute("drIdx") Integer drIdx, HttpServletRequest req) throws MessagingException, IOException {
+	public Integer reservationForm(@ModelAttribute("drIdx") Integer drIdx, HttpServletRequest req) throws MessagingException, IOException {
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		reservationRepository.insert(passengerInfo.getPIdx(), drIdx);	
+		reservationRepository.insert(passengerInfo.getPIdx(), drIdx);
+		Integer rIdx = reservationRepository.selectRIdxByDrIdx(drIdx);
 		
 		DRegistration drRegistration = driverInfoRepository.selectByDrIdx(drIdx);
 		DriverInfo driverInfo = driverInfoRepository.selectByIdx(drRegistration.getDIdx());
@@ -61,6 +63,8 @@ public class PsReservationController {
 		mailTO.setMessage("요청을 확인하시려면 이동하기를 눌러주세요.");
 		
 		mailService.sendMailWithFiles(mailTO);
+	
+		return rIdx;
 	}
 
 	@ResponseBody
