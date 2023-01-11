@@ -1,6 +1,7 @@
 package project.carPooling.passenger.controller.reivew;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +24,9 @@ public class PsReviewController {
 	private final SessionManager sessionManager;
 	
 	@GetMapping("/passengerCarpool/review")
-	public String review(@ModelAttribute PReview pReview) {
+	public String review(Model model, @ModelAttribute PReview pReview) {
 		passengerReviewRepository.updateCompleteStatus(pReview.getRIdx());
+		model.addAttribute("pReview", pReview);
 		return "passenger/pReview";
 	}
 	

@@ -1,6 +1,7 @@
 package project.carPooling.driver.controller.review;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,8 @@ public class DrReviewController {
 	private final SessionManager sessionManager;
 	
 	@GetMapping("/driverCarpool/review")
-	public String review() {
+	public String review(Model model, @ModelAttribute DReview dReview) {
+		model.addAttribute("dReview", dReview);
 		return "driver/dReview";
 	}
 	
