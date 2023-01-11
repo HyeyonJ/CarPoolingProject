@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layoutDriverHome}">
-
-	<head>
-		<title>Driver Login Page</title>
-
-		<!-- CSS only -->
-	</head>
+<head>
+<title>Driver Login Page</title>
+<!-- CSS only -->
+</head>
 	<div layout:fragment="content">
 		<div class="outer">
 			<div class="container justify-content-center">
@@ -63,8 +62,7 @@
 						</div>
 						<div class="row justify-content-center mb-5">
 							<button type="button" class="col-8 btn btn-dark" style="height: 50px; width: 300px;"
-								th:onclick="|location.href='@{/driver/join/general}'|">회원
-								가입 하기</button>
+								th:onclick="|location.href='@{/driver/join}'|">회원 가입 하기</button>
 						</div>
 					</form>
 

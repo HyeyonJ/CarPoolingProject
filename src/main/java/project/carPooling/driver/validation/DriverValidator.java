@@ -20,17 +20,17 @@ public class DriverValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
-		DriverInfo driverLogin = (DriverInfo) target;
+		DriverInfo driverInfo = (DriverInfo) target;
 		
-		if (!StringUtils.hasText(driverLogin.getDUserId())) {
+		if (!StringUtils.hasText(driverInfo.getDUserId())) {
 			errors.rejectValue("userId", null, "아이디 필수 입력입니다."); }
-		if (!StringUtils.hasText(driverLogin.getDUserPw())) {
-			errors.rejectValue("dUserPw", null, "비밀번호 필수 입력입니다."); }
-		if (!StringUtils.hasText(driverLogin.getDUserName())) {
-			errors.rejectValue("dUserName", null, "이름 필수 입력입니다."); }
-		if (!StringUtils.hasText(driverLogin.getDUserEmail())) {
+		if (!StringUtils.hasText(driverInfo.getDUserPw())) {
+			errors.rejectValue("userPw", null, "비밀번호 필수 입력입니다."); }
+		if (!StringUtils.hasText(driverInfo.getDUserName())) {
+			errors.rejectValue("userName", null, "이름 필수 입력입니다."); }
+		if (!StringUtils.hasText(driverInfo.getDUserEmail())) {
 			errors.rejectValue("userEmail", null, "이메일 필수 입력입니다."); }
-//		if (!StringUtils.hasText(driverLogin.getDUserTel())) {
+//		if (!StringUtils.hasText(driver.getDUserTel())) {
 //			errors.rejectValue("userTel", null, "휴대폰번호 필수 입력입니다."); }
 
 	}

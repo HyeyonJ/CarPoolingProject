@@ -7,13 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.mapper.DriverInfoMapper;
 
 @Slf4j
 @Repository @Primary
-@RequiredArgsConstructor	//Mapper 인터페이스 호출하기 위함
+@RequiredArgsConstructor
 public class MybatisDriverInfoRepository implements DriverInfoRepository {
 
 	private final DriverInfoMapper driverMapper;

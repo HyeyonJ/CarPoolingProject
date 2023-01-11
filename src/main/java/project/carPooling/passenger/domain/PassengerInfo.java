@@ -13,6 +13,7 @@ public class PassengerInfo {
 	private String pUserEmail;
 	private String pUserGender;
 	private String pIdNum;
+	private double pTemperature;
 	private Boolean pSignOut;
 
 	
@@ -95,6 +96,14 @@ public class PassengerInfo {
 
 	public void setPSignOut(Boolean pSignOut) {
 		this.pSignOut = pSignOut;
+	}
+
+	public double getdTemperature() {
+		return pTemperature;
+	}
+
+	public void setdTemperature(double dTemperature) {
+		this.pTemperature = dTemperature;
 	}
 	
 }

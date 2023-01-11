@@ -40,7 +40,7 @@ public class PsReservationController {
 	private MailService mailService;
 	
 	
-	@GetMapping("/passengerCarpool/reservation")
+	@GetMapping({"", "/passengerCarpool", "/passengerCarpool/reservation"})
 	public String reservation() {
 		return "passenger/pReservation";
 	}

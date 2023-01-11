@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutPassenger}">
+
+<head>
+  <title>pMyPage</title>
+  <link rel="stylesheet" href="/standard/css/temperature.css">
+</head>
+
+<div layout:fragment="content">
+  <div id="article-profile-right">
+    <div id="temperature-wrap">
+      <div>매너온도</div>
+      <div class="text-color-03" th:text="${passengerInfo.pTemperature}">
+        <span>°C</span>
+      </div>
+    </div>
+    <div class="meters">
+      <div class="bar bar-color-03"></div>
+    </div>
+    <div class="face face-03"></div>
+  </div>
+</div>
+
+<th:block layout:fragment="js">
+  <script>
+    $(".bar").css("width", "[[${passengerInfo.pTemperature}]]%");
+  </script>
+  <script src="/custom/js/passenger/pMyPage.js"></script>
+</th:block>
+
+</html>

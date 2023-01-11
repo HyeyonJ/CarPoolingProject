@@ -18,30 +18,30 @@ import project.carPooling.driver.validation.DriverValidator;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/driver/join")
+@RequestMapping("/driver")
 public class DrvJoinController {
 	
 	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
 	
-	@GetMapping("/general")
+	@GetMapping("/join")
 	public String newDriver(Model model) {
-		DriverInfo driver = new DriverInfo();
-		model.addAttribute("driver", driver);
+		DriverInfo driverInfo = new DriverInfo();
+		model.addAttribute("driverInfo", driverInfo);
 		return "driver/join/dJoinGeneral";
 	}
 	
-	@PostMapping("/general")
-	public String newDriverInsert(@ModelAttribute DriverInfo driver
+	@PostMapping("/join")
+	public String newDriverInsert(@ModelAttribute DriverInfo driverInfo
 									, BindingResult bindingResult){
-		driverValidator.validate(driver, bindingResult);
+		driverValidator.validate(driverInfo, bindingResult);
 		//validator에서 DriverInfo 검증 후 bindingResult 넘겨받고
 		//error 있으면, 회원가입페이지
 		if (bindingResult.hasErrors()) {
 			return "driver/join/dJoinGeneral";
 		}
 		//error 없으면, insert() 수행 후 로그인 페이지
-		driverInfoRepository.insert(driver);
+		driverInfoRepository.insert(driverInfo);
 
 		return "redirect:/driver/login";
 	}

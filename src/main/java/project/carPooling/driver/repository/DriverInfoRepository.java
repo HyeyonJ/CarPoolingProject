@@ -2,7 +2,6 @@ package project.carPooling.driver.repository;
 
 import java.util.List;
 
-import project.carPooling.driver.domain.DRegistration;
 import project.carPooling.driver.domain.DriverInfo;
 
 public interface DriverInfoRepository {
@@ -36,6 +35,5 @@ public interface DriverInfoRepository {
 //	public void updateDriverSignOut(DriverInfo driverInfo);
 	public boolean updateDriverSignOut(String dUserEmail);
 	
-	public DRegistration selectByDrIdx(Integer drIdx);
 	
 }

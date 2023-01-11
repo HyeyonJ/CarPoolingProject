@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project.carPooling.passenger.mapper.PassengerReviewMapper">
-		<insert id="insert">
+	<insert id="insert">
 		INSERT INTO P_REVIEW (r_idx, from_idx, to_idx, star_point, nickname, content)
 		VALUES(#{rIdx}, #{fromIdx}, #{toIdx}, #{starPoint}, #{nickname}, #{content})
 	</insert>
+	
+	<update id="updateDriverTemperature">
+		UPDATE DRIVER
+		SET d_temperature = d_temperature + #{starPoint}
+		WHERE d_idx = #{toIdx}
+	</update>
 </mapper>

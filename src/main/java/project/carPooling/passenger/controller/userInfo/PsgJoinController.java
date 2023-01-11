@@ -1,8 +1,5 @@
 package project.carPooling.passenger.controller.userInfo;
 
-
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,20 +18,20 @@ import project.carPooling.passenger.validation.PassengerValidator;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/passenger/join")
+@RequestMapping("/passenger")
 public class PsgJoinController {
 	
 	private final PassengerInfoRepository passengerRepository;
 	private final PassengerValidator passengerValidator;
 	
-	@GetMapping("/general")
+	@GetMapping("/join")
 	public String newPassenger(Model model) {
 		PassengerInfo passenger = new PassengerInfo();
 		model.addAttribute("passenger", passenger);
 		return "passenger/join/pJoinGeneral";
 	}
 	
-	@PostMapping("/general")
+	@PostMapping("/join")
 	public String newPassengerInsert(@ModelAttribute PassengerInfo passenger
 									, BindingResult bindingResult){
 		passengerValidator.validate(passenger, bindingResult);
