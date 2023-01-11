@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.carPooling.driver.mapper.DriverReviewMapper">
+	<insert id="insert">
+		INSERT INTO D_REVIEW (r_idx, from_idx, to_idx, star_point, nickname, content)
+		VALUES(#{rIdx}, #{fromIdx}, #{toIdx}, #{starPoint}, #{nickname}, #{content})
+	</insert>
+
+</mapper>

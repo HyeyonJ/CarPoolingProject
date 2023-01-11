@@ -12,7 +12,7 @@ import project.carPooling.passenger.domain.SearchCarPool;
 @Mapper
 public interface ReservationMapper {
 	
-	public Integer insert(@Param(value="pIdx") Integer pIdx, @Param(value="drIdx") Integer drIdx);
+	public void insert(@Param(value="pIdx") Integer pIdx, @Param(value="drIdx") Integer drIdx);
 
 	public DRegistration selectCarpoolByGender(@Param(value="searchCarPool") SearchCarPool searchCarPool, @Param(value = "pDate") Date pDate, @Param(value="pUserGender") String pUserGender, @Param(value = "dIdx") Integer dIdx);
 	

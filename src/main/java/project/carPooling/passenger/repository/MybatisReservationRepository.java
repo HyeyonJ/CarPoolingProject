@@ -75,11 +75,10 @@ public class MybatisReservationRepository implements ReservationRepository {
 	}
 
 	@Override
-	public DRegistration insert(Integer pIdx, Integer drIdx) {
+	public void insert(Integer pIdx, Integer drIdx) {
 		reservationMapper.insert(pIdx, drIdx);
 		reservationMapper.updateWaitingToReservated(drIdx);
 		System.out.println("예약성공");
-		return null;
 	}
 
 	@Override
