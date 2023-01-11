@@ -31,6 +31,8 @@ public interface DriverInfoRepository {
 	
 	public void updateDriverInfo(DriverInfo driverInfo);
 	
+	public boolean updateDriverSignOut(Integer dIdx);
+	
 	public DRegistration selectByDrIdx(Integer drIdx);
 	
 }

@@ -94,6 +94,21 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		driverMapper.updateDriverInfo(driverInfo);
 //		return driverInfo;
 	}
+	@Override
+	public boolean updateDriverSignOut(Integer dIdx) {		
+		
+		boolean result = false;		
+		
+		try {
+			driverMapper.updateDriverSignOut(dIdx);
+			result = true;			
+		} catch (Exception e) {
+			log.error("driverMapper update error {}", dIdx);
+		}
+		
+		return result;
+		
+	}
 
 	@Override
 	public DRegistration selectByDrIdx(Integer drIdx) {

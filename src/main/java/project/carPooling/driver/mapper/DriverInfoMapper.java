@@ -34,6 +34,8 @@ public interface DriverInfoMapper {
 	
 	public void updateDriverInfo(DriverInfo driverInfo);
 	
+	public void updateDriverSignOut(Integer dIdx);
+	
 	public DRegistration selectByDrIdx(Integer drIdx);
 
 }

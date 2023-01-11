@@ -87,5 +87,26 @@
 			d_account_bank = #{dAccountBank}
 		WHERE d_user_email = #{dUserEmail}
 	</update>
+	
+<!-- 	회원 탈퇴 -->
+<!-- idx, email, id 남기기-->
+	<update id="updateDriverSignOut">
+		UPDATE DRIVER
+		SET d_user_type = ''
+<!-- 			d_user_pw = null, -->
+<!-- 			d_user_name = null, -->
+<!-- 			d_user_tel = null, -->
+<!-- 			d_user_gender = null,  -->
+<!-- 			d_id_num = null,  -->
+<!-- 			d_license_num = null,  -->
+<!-- 			d_license_id_num = null,  -->
+<!-- 			d_car_num = null,  -->
+<!--     		d_account_num = null,  -->
+<!--     		d_account_bank = null,  -->
+<!--     		d_point = null, -->
+<!--     		d_penalty = null,  -->
+<!--     		d_sign_out = 'true' -->
+    	WHERE d_idx = #{dIdx}
+	</update>
 
 </mapper>
