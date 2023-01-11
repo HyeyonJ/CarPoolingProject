@@ -23,7 +23,8 @@ public class PsReviewController {
 	private final SessionManager sessionManager;
 	
 	@GetMapping("/passengerCarpool/review")
-	public String review() {
+	public String review(@ModelAttribute PReview pReview) {
+		passengerReviewRepository.updateCompleteStatus(pReview.getRIdx());
 		return "passenger/pReview";
 	}
 	

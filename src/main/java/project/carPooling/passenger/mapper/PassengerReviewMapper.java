@@ -11,4 +11,8 @@ public interface PassengerReviewMapper {
 	public void insert(PReview pReview);
 	
 	public void updateDriverTemperature(@Param("starPoint") double starPoint, @Param("toIdx") Integer toIdx);
+	
+	public Integer selectDrIdxByRIdx(Integer rIdx);
+	
+	public void updateCompleteStatus(Integer drIdx);
 }

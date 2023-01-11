@@ -2,31 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutPassenger}">
 
-<head>
-  <title>pMyPage</title>
-  <link rel="stylesheet" href="/standard/css/temperature.css">
-</head>
+  <head>
+    <title>pMyPage</title>
+    <link rel="stylesheet" href="/standard/css/temperature.css">
+  </head>
 
-<div layout:fragment="content">
-  <div id="article-profile-right">
-    <div id="temperature-wrap">
-      <div>매너온도</div>
-      <div class="text-color-03" th:text="${passengerInfo.pTemperature}">
-        <span>°C</span>
+  <div layout:fragment="content">
+    <div id="article-profile-right">
+      <div id="temperature-wrap">
+        <div>매너온도</div>
+        <div class="text-color-03" th:text="${passengerInfo.pTemperature}">
+          <span>°C</span>
+        </div>
       </div>
+      <div class="meters">
+        <div class="bar"></div>
+      </div>
+      <div class="face"></div>
     </div>
-    <div class="meters">
-      <div class="bar bar-color-03"></div>
-    </div>
-    <div class="face face-03"></div>
   </div>
-</div>
 
-<th:block layout:fragment="js">
-  <script>
-    $(".bar").css("width", "[[${passengerInfo.pTemperature}]]%");
-  </script>
-  <script src="/custom/js/passenger/pMyPage.js"></script>
-</th:block>
+  <th:block layout:fragment="js">
+    <script>
+      var pTemperature = "[[${passengerInfo.pTemperature}]]";
+      $(".bar").css("width", `${ pTemperature }%`);
+      pTemperature = parseFloat(pTemperature);
+
+      if (pTemperature > 0 && pTemperature <= 12.5) {
+        $(".bar").addClass("bar-color-01");
+        $(".face").addClass("face-01");
+      } else if (pTemperature > 12.5 && pTemperature <= 30) {
+        $(".bar").addClass("bar-color-02");
+        $(".face").addClass("face-02");
+      } else if (pTemperature > 30 && pTemperature <= 36.5) {
+        $(".bar").addClass("bar-color-03");
+        $(".face").addClass("face-03");
+      } else if (pTemperature > 36.5 && pTemperature <= 50.5) {
+        $(".bar").addClass("bar-color-04");
+        $(".face").addClass("face-04");
+      } else if (pTemperature > 50.5 && pTemperature <= 65.5) {
+        $(".bar").addClass("bar-color-05");
+        $(".face").addClass("face-05");
+      } else if (pTemperature > 65.5) {
+        $(".bar").addClass("bar-color-06");
+        $(".face").addClass("face-06");
+      }
+    </script>
+    <script src="/custom/js/passenger/pMyPage.js"></script>
+  </th:block>
 
 </html>

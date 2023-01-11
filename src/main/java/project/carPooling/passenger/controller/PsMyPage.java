@@ -18,13 +18,11 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 @Controller
 public class PsMyPage {
 	
-	private final PassengerInfoRepository passengerInfoRepository;
 	private final SessionManager sessionManager;
 	
 	@GetMapping("/passengerCarpool/myPage")
 	public String myPage(HttpServletRequest req, Model model) {
-		PassengerInfo joinData = sessionManager.getPsSession(req);
-		PassengerInfo passengerInfo = passengerInfoRepository.selectByEmail(joinData.getPUserEmail());
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		model.addAttribute("passengerInfo", passengerInfo);
 		return "passenger/pMyPage";
 	}
