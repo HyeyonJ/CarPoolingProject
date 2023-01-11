@@ -22,7 +22,7 @@ public class DrRegistrationController {
 	private final RegistrationRepository registrationRepository;
 	private final SessionManager sessionManager;
 	
-	@GetMapping("/driverCarpool/registration")
+	@GetMapping({"", "/driverCarpool", "/driverCarpool/registration"})
 	public String registraion() {
 		return "driver/dRegistration";
 	}

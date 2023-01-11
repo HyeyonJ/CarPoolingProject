@@ -18,20 +18,20 @@ import project.carPooling.driver.validation.DriverValidator;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/driver/join")
+@RequestMapping("/driver")
 public class DrvJoinController {
 	
 	private final DriverInfoRepository driverInfoRepository;
 	private final DriverValidator driverValidator;
 	
-	@GetMapping("/general")
+	@GetMapping("/join")
 	public String newDriver(Model model) {
 		DriverInfo driver = new DriverInfo();
 		model.addAttribute("driver", driver);
 		return "driver/join/dJoinGeneral";
 	}
 	
-	@PostMapping("/general")
+	@PostMapping("/join")
 	public String newDriverInsert(@ModelAttribute DriverInfo driver
 									, BindingResult bindingResult){
 		driverValidator.validate(driver, bindingResult);
