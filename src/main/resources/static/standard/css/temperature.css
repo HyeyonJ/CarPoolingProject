@@ -1,7 +1,7 @@
 .meters {
   clear: both;
   display: block;
-  width: 500px;
+  width: 50%;
   background-color: #e9ecef;
   height: 10px;
   border-radius: 100px;
@@ -81,7 +81,7 @@
 }
 
 .face-04 {
-  background-position: -0px -96px;
+  background-position: -0px -99px;
   width: 24px;
   height: 24px;
 }
@@ -100,6 +100,6 @@
 
 .face {
   position: absolute;
-  right: 0;
-  top: 0;
+  left: 645px;
+  top: 65px;
 }

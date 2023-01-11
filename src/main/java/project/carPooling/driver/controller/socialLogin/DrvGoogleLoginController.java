@@ -56,12 +56,11 @@ public class DrvGoogleLoginController {
 	}
 
 	@PostMapping("/google/join")
-	public String GoogleInsert(@ModelAttribute DriverInfo driverInfo
+	public String GoogleInsert(@ModelAttribute DriverInfo joinData
 								, HttpServletRequest req) {
-		System.out.println("driverInfo : " + driverInfo);
-		System.out.println("---------------------------");
 		
-		driverInfoRepository.insert(driverInfo);
+		driverInfoRepository.insert(joinData);
+		DriverInfo driverInfo = driverInfoRepository.selectByEmail(joinData.getDUserEmail());
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);

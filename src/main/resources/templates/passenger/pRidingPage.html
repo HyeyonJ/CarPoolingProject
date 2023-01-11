@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutPassenger}">
+
+  <head>
+    <title>pRiding</title>
+    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  </head>
+
+  <div layout:fragment="content">
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+      <div class="text-center">
+        탑승자분, 카풀 운행이 시작되었습니다.
+        <br>
+        운행종료시 버튼을 눌러주세요!
+      </div>
+      <div id="map_div"></div>
+      <input type="hidden" id="drIdx" th:value="${drIdx}">
+      <input type="hidden" id="dFee">
+      <form id="reivewDataForm" th:action="|@{/passenger/passengerCarpool/review}|" method="get" th:object="${pReview}">
+        <input type="hidden" id="dIdx" name="dIdx" th:field="*{toIdx}">
+        <input type="hidden" id="rIdx" name="rIdx" th:field="*{rIdx}">
+        <button type="button" class="btn btn-primary" id="completeBtn">운행종료</button>
+      </form>
+    </div>
+  </div>
+
+  <th:block layout:fragment="js">
+    <script src="/custom/js/passenger/pRidingPage.js"></script>
+  </th:block>
+
+</html>

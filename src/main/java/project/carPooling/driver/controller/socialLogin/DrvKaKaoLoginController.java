@@ -78,11 +78,10 @@ public class DrvKaKaoLoginController {
     
 	// kakao 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
 	@PostMapping("/kakao/join")
-	public String KakaoInsert(@ModelAttribute DriverInfo driverInfo, HttpServletRequest req, BindingResult bindingResult) {
-		System.out.println("driverInfo : " + driverInfo);
-		System.out.println("---------------------------");
-		
-		driverInfoRepository.insert(driverInfo);
+	public String KakaoInsert(@ModelAttribute DriverInfo joinData, HttpServletRequest req, BindingResult bindingResult) {
+
+		driverInfoRepository.insert(joinData);
+		DriverInfo driverInfo = driverInfoRepository.selectByEmail(joinData.getDUserEmail());
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);

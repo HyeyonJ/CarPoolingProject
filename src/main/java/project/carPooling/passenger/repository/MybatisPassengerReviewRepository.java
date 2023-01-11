@@ -1,5 +1,6 @@
 package project.carPooling.passenger.repository;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,7 @@ import project.carPooling.passenger.domain.PReview;
 import project.carPooling.passenger.mapper.PassengerReviewMapper;
 
 @Slf4j
-@Repository
+@Repository @Primary
 @RequiredArgsConstructor
 public class MybatisPassengerReviewRepository implements PassengerReviewRepository {
 
@@ -21,6 +22,12 @@ public class MybatisPassengerReviewRepository implements PassengerReviewReposito
 		double starPoint = pReview.getStarPoint()*0.1;
 		passengerReviewMapper.updateDriverTemperature(starPoint, pReview.getToIdx());
 		log.info("temperature update 성공");
+	}
+
+	@Override
+	public void updateCompleteStatus(Integer rIdx) {
+		Integer drIdx = passengerReviewMapper.selectDrIdxByRIdx(rIdx);
+		passengerReviewMapper.updateCompleteStatus(drIdx);
 	}
 
 }

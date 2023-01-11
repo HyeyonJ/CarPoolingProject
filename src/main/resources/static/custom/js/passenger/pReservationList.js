@@ -1,3 +1,15 @@
+setInterval(function () {
+  $.ajax({
+    url: "/passenger/passengerCarpool/drivingStatus",
+    type: "GET",
+    success: function (data, status) {
+      if (data !== "") {
+        window.location.href = "http://localhost:8080/passenger/passengerCarpool/ridingPage?drIdx=" + data;
+      }
+    }
+  })
+}, 1000);
+
 function currentRsvList() {
   $("#currentRsvList").css("display", "block");
   $("#pastRsvList").css("display", "none");
@@ -55,7 +67,7 @@ function currentRsvList() {
           data[i].DR_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
         html += '<button class="btn btn-primary">채팅</button>\t';
-        html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
+        html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#currentRsvList").html(html);
@@ -112,7 +124,7 @@ function pastRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
+        html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#pastRsvList").html(html);
@@ -171,7 +183,7 @@ function canceledRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${data[i].cancelReceiptUrl}"><button class="btn btn-primary">결제취소내역</button></a>\t`;
+        html += `<a href="${ data[i].cancelReceiptUrl }"><button class="btn btn-primary">결제취소내역</button></a>\t`;
         html += "</div>";
       }
       $("#canceledRsvList").html(html);
@@ -254,7 +266,7 @@ function cancelRsv(dr_idx) {
                     Swal.fire(
                       "예약취소성공!",
                       "카풀 예약이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료-픽업가능출발시간으로부터\n(24시간미만->20%, 12시간미만->25%, 6시간미만->30%)\n" +
-                        "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
+                      "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
                       "success"
                     ).then((OK) => {
                       if (OK) {
@@ -487,13 +499,13 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });

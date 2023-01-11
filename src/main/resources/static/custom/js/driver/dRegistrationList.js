@@ -48,8 +48,8 @@ function reservatedRgsList() {
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
         html +=
           '<button class="btn btn-primary rsvsbtn" onclick="drivingStart(' +
-          data[i].R_IDX +
-          ')" >탑승대기</button>\t';
+          data[i].DR_IDX +
+          ')" >운행시작</button>\t';
         html +=
           '<button id="PUT" onclick="cancelReservatedRgs(' +
           data[i].DR_IDX +
@@ -57,7 +57,6 @@ function reservatedRgsList() {
           data[i].P_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
         html += '<button class="btn btn-primary">채팅</button>\t';
-        html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#reservatedRgsList").html(html);
@@ -172,7 +171,6 @@ function pastRgsList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${data[i].cancelReceiptUrl}"><button class="btn btn-primary">결제취소내역</button></a>\t`;
         html += "</div>";
       }
       $("#pastRgsList").html(html);
@@ -305,7 +303,7 @@ function cancelReservatedRgs(drIdx, pIdx) {
                     Swal.fire(
                       "카풀취소성공!",
                       "카풀 등록이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료\n(24시간전->20%, 12시간전->25%, 6시간전->30%)\n" +
-                        "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
+                      "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
                       "success"
                     ).then((OK) => {
                       if (OK) {
@@ -369,6 +367,22 @@ function cancelWaitingRgs(drIdx) {
     }
   });
 }
+
+// 운행시작
+function drivingStart(drIdx) {
+  $.ajax({
+    url: "/driver/driverCarpool/drivingPage",
+    type: "PUT",
+    data: { drIdx: drIdx },
+    success: function (data, status) {
+      if (status === "success") {
+        window.location.href = "http://localhost:8080/driver/driverCarpool/drivingPage?drIdx=" + drIdx;
+      }
+    },
+  });
+}
+
+
 
 var count = 0;
 
@@ -583,13 +597,13 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });
