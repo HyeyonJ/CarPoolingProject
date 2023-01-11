@@ -15,10 +15,10 @@
     </selectKey>
     INSERT INTO driver (d_idx, d_user_type, d_user_id, d_user_pw, d_user_name, d_user_tel,
     d_user_email, d_user_gender, d_id_num, d_license_num, d_license_id_num, d_car_num, 
-    d_account_num, d_account_bank, d_point,d_penalty, d_sign_out)
+    d_point,d_penalty, d_sign_out)
     VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
     #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dLicenseNum}, #{dLicenseIdNum}, #{dCarNum},
-    #{dAccountNum}, #{dAccountBank}, 0, 3,'false')
+    0, 3,'false')
   </insert>
 
   <select id="selectByLoginId" resultType="DriverInfo">
@@ -83,24 +83,24 @@
 		WHERE d_user_email = #{dUserEmail}
 	</update>
 	
-<!-- 	회원 탈퇴 -->
-<!-- idx, email, id 남기기-->
+<!-- 회원 탈퇴 -->
+<!-- idx, id, email 남기기-->
 	<update id="updateDriverSignOut">
 		UPDATE DRIVER
-		SET d_user_type = ''
-<!-- 			d_user_pw = null, -->
-<!-- 			d_user_name = null, -->
-<!-- 			d_user_tel = null, -->
-<!-- 			d_user_gender = null,  -->
-<!-- 			d_id_num = null,  -->
-<!-- 			d_license_num = null,  -->
-<!-- 			d_license_id_num = null,  -->
-<!-- 			d_car_num = null,  -->
-<!--     		d_account_num = null,  -->
-<!--     		d_account_bank = null,  -->
-<!--     		d_point = null, -->
-<!--     		d_penalty = null,  -->
-<!--     		d_sign_out = 'true' -->
+		SET d_user_type = null,
+			d_user_pw = null,
+			d_user_name = null,
+			d_user_tel = null,
+			d_user_gender = null, 
+			d_id_num = null, 
+			d_license_num = null, 
+			d_license_id_num = null, 
+			d_car_num = null, 
+    		d_account_num = null, 
+    		d_account_bank = null, 
+    		d_point = null,
+    		d_penalty = null, 
+    		d_sign_out = 'true'
     	WHERE d_idx = #{dIdx}
 	</update>
 

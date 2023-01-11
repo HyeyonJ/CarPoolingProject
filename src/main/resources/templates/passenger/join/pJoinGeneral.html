@@ -10,7 +10,7 @@
 	.formButton { margin: 0 12px; }
 </style>
 </head>
-<th:block layout:fragment="content">
+<div layout:fragment="content">
 	<div class="container mt-5">
 		<form class="form-control-lg validation-form" novalidate action="" method="post" th:object="${passenger}">
 			<div class="row justify-content-center">
@@ -20,7 +20,7 @@
 			</div>
 			<div class="row justify-content-center" id="inputUserType">				
 				<!-- 가입유형지정 -->
-				<div class="col col-md-2 mb-3 form-check" th:each="pUserType : ${pUserTypes}">
+				<div class="col mb-3 form-check" th:each="pUserType : ${pUserTypes}">
 					<input class="form-check-input" type="radio" th:field="*{pUserType}" name="pUserType"
 						th:value="${pUserType.name}">
 					<label th:for="${#ids.prev('pUserType')}" th:text="${pUserType.memo}"></label>
@@ -28,15 +28,13 @@
 			</div>
 			<div class="row justify-content-center" id="inputUserGender">
 				<!-- 가입자 성별 -->
-				<div class="col col-md-2 mb-3 form-check">
+				<div class="col mb-3 form-check">
 					<input class="form-check-input" type="radio"
 						th:field="*{pUserGender}" id="pUserGender1" name="pUserGender"
-						th:value="M"><label th:text="남성"></label>
-				</div>
-				<div class="col col-md-2 mb-3 form-check">
-					<input class="form-check-input" type="radio"
-						th:field="*{pUserGender}" id="pUserGender2" name="pUserGender"
-						th:value="F"><label th:text="여성"></label>							
+						th:value="M"><label th:text="남성"></label><input
+						class="form-check-input" type="radio" th:field="*{pUserGender}"
+						id="pUserGender2" name="pUserGender" th:value="F"><label 
+						th:text="여성"></label>							
 				</div>
 			</div>
 			<div class="row justify-content-center">
@@ -144,7 +142,7 @@
 			</div>
 		</form>
 	</div>	
-</th:block>
+</div>
 <th:block layout:fragment="js">
 	<script src="/custom/js/passenger/pJoinGeneral.js"></script>
 </th:block>

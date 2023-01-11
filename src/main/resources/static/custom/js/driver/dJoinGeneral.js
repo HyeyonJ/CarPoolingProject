@@ -3,12 +3,12 @@ $("#checkEmailMsg").html('<span style="color:red">이메일 인증 필요</span>
 $("#checkIdNumMsg").html(
   '<span style="color:red">주민등록번호 확인 필요</span>'
 );
-$("#checkLicenseNumMsg").html(
-  '<span style="color:red">운전자정보 확인 필요</span>'
-);
-$("#checkCarNumMsg").html(
-  '<span style="color:red">자동차정보 확인 필요</span>'
-);
+//$("#checkLicenseNumMsg").html(
+//  '<span style="color:red">운전자정보 확인 필요</span>'
+//);
+//$("#checkCarNumMsg").html(
+//  '<span style="color:red">자동차정보 확인 필요</span>'
+//);
 
 /* 가입유형/성별/인증번호 입력폼 숨김처리 */
 $("#inputUserType").css("display", "none");
@@ -263,3 +263,4 @@ var licenseNum = document.getElementById("dLicenseNum");
 licenseNum.onkeyup = function () {
   this.value = autoHypenLicenseNum(this.value);
 };
+
