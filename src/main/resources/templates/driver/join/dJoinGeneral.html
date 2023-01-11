@@ -11,7 +11,7 @@
 </style>
 </head>
 
-<th:block layout:fragment="content">
+<div layout:fragment="content">
 	<div class="container mt-5">
 		<form class="form-control-lg validation-form" novalidate action=""
 			method="post" th:object="${driverInfo}">
@@ -254,7 +254,7 @@
 			</div>
 		</form>
 	</div>
-</th:block>
+</div>
 <th:block layout:fragment="js">
    <script src="/custom/js/driver/dJoinGeneral.js"></script>
 </th:block>
