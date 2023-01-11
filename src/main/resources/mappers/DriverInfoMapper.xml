@@ -103,5 +103,10 @@
       d_sign_out = 'true'
     WHERE d_user_email = #{dUserEmail}
 	</update>
+	
+	<select id="selectByIdNum" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_id_num = #{dIdNum}
+    </select>
 
 </mapper>

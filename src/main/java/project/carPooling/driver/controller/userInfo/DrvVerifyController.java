@@ -33,6 +33,13 @@ public class DrvVerifyController {
 	private final UserMailService userMailService;
 	private final DriverUserService dUserService;
 	
+	//주민등록번호 중복 체크
+	@GetMapping("/check/idNum")
+	public boolean driverCheckIdNum(@RequestParam String idNum) {		
+		boolean CheckIdNum = dUserService.driverCheckIdNum(idNum);		
+		log.info("주민등록번호 중복 체크 : {}", CheckIdNum);
+		return CheckIdNum;
+	}
 
 	//면허번호 중복 체크
 	@GetMapping("/check/license")
@@ -50,7 +57,7 @@ public class DrvVerifyController {
 		return checkId;
 	}
 	
-	//이메일 중복 체크(사용안함)
+	//이메일 중복 체크
 	@GetMapping("/check/email")
 	public boolean driverCheckJoinMail(@RequestParam String email) {		
 		boolean checkEmail = dUserService.driverCheckEmail(email);		

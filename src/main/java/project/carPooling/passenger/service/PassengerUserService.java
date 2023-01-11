@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.repository.DriverInfoRepository;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
 
@@ -12,13 +14,23 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 @RequiredArgsConstructor
 public class PassengerUserService {
 
+	private final DriverInfoRepository driverRepository;
 	private final PassengerInfoRepository passengerRepository;
 	
-	//passenger 아이디 중복 체크
+	//passenger 주민등록번호 중복 체크
+	public boolean passengerCheckIdNum(String idNum) {
+		boolean checkIdNum = false;
+		PassengerInfo passenger = passengerRepository.selectByIdNum(idNum);        
+        if(passenger!=null) { checkIdNum = true; }        
+        return checkIdNum;
+    }
+	
+	//아이디 통합 중복 체크
 	public boolean passengerCheckId(String id) {
 		boolean checkId = false;
-        PassengerInfo passenger = passengerRepository.selectByLoginId(id);        
-        if(passenger!=null) { checkId = true; }        
+        DriverInfo driver = driverRepository.selectByLoginId(id);
+        PassengerInfo passenger = passengerRepository.selectByLoginId(id);
+        if(driver!=null && passenger!=null ) { checkId = true; }        
         return checkId;
     }
 	

@@ -35,5 +35,7 @@ public interface DriverInfoRepository {
 //	public void updateDriverSignOut(DriverInfo driverInfo);
 	public boolean updateDriverSignOut(String dUserEmail);
 	
+	public DriverInfo selectByIdNum(String idNum);
+	
 	
 }

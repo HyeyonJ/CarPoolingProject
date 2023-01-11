@@ -6,29 +6,19 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.global.gmail.UserMailService;
-import project.carPooling.passenger.domain.PUserType;
-import project.carPooling.passenger.domain.PassengerInfo;
-import project.carPooling.passenger.repository.PassengerInfoRepository;
 import project.carPooling.passenger.service.PassengerUserService;
-import project.carPooling.passenger.validation.PassengerValidator;
 
 @Slf4j
 @RestController
@@ -42,6 +32,14 @@ public class PsgVerifyController {
 	private final UserMailService userMailService;
 	private final PassengerUserService pUserService;
 
+	//주민등록번호 중복 체크
+	@GetMapping("/check/idNum")
+	public boolean passengerCheckIdNum(@RequestParam String idNum) {		
+		boolean CheckIdNum = pUserService.passengerCheckIdNum(idNum);		
+		log.info("주민등록번호 중복 체크 : {}", CheckIdNum);
+		return CheckIdNum;
+	}
+	
 	//아이디 중복 체크
 	@GetMapping("/check/id")
 	public boolean passengerCheckJoinId(@RequestParam String id) {		
@@ -50,7 +48,7 @@ public class PsgVerifyController {
 		return checkId;
 	}
 	
-	//이메일 중복 체크(사용안함)
+	//이메일 중복 체크
 	@GetMapping("/check/email")
 	public boolean passengerCheckJoinMail(@RequestParam String email) {		
 		boolean checkEmail = pUserService.passengerCheckEmail(email);		

@@ -32,5 +32,7 @@ public interface PassengerInfoRepository {
 	public void deleteAll();
 	
 	public PassengerInfo update(PassengerInfo passenger);
+	
+	public PassengerInfo selectByIdNum(String idNum);
 
 }

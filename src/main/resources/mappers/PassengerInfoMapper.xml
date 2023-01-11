@@ -84,4 +84,9 @@
 		WHERE p_user_email = #{pUserEmail}
 	</update>
 	
+	<select id="selectByIdnum" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_id_num = #{p_idNum}
+	</select>
+	
 </mapper>
