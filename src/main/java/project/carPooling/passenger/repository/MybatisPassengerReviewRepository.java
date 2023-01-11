@@ -18,7 +18,9 @@ public class MybatisPassengerReviewRepository implements PassengerReviewReposito
 	public void insert(PReview pReview) {
 		log.info("insert성공");
 		passengerReviewMapper.insert(pReview);
+		double starPoint = pReview.getStarPoint()*0.1;
+		passengerReviewMapper.updateDriverTemperature(starPoint, pReview.getToIdx());
+		log.info("temperature update 성공");
 	}
-
 
 }

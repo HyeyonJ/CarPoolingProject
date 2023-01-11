@@ -6,4 +6,9 @@
 		VALUES(#{rIdx}, #{fromIdx}, #{toIdx}, #{starPoint}, #{nickname}, #{content})
 	</insert>
 
+	<update id="updatePassengerTemperature">
+		UPDATE PASSENGER
+		SET p_temperature = p_temperature + #{starPoint}
+		WHERE p_idx = #{toIdx}
+	</update>
 </mapper>

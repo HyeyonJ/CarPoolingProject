@@ -23,6 +23,7 @@ public class DriverInfo {
 	private String dAccountNum;
 	private String dAccountBank;	
 	private int dPoint;
+	private double dTemperature;
 	private String dPenalty;
 	private Boolean dSignOut;
 
@@ -128,6 +129,12 @@ public class DriverInfo {
 	}
 	public void setdPoint(int dPoint) {
 		this.dPoint = dPoint;
+	}
+	public double getdTemperature() {
+		return dTemperature;
+	}
+	public void setdTemperature(double dTemperature) {
+		this.dTemperature = dTemperature;
 	}
 
 	

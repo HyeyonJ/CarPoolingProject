@@ -16,8 +16,11 @@ public class MybatisDriverReviewRepository implements DriverReviewRepository{
 	
 	@Override
 	public void insert(DReview dReview) {
-		log.info("insert성공");
+		log.info("review insert 성공");
 		driverReviewMapper.insert(dReview);
+		double starPoint = dReview.getStarPoint()*0.1;
+		driverReviewMapper.updatePassengerTemperature(starPoint, dReview.getToIdx());
+		log.info("temperature update 성공");
 	}
 
 
