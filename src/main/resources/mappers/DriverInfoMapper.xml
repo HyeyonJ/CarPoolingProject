@@ -70,7 +70,7 @@
       </select>
       
 <!-- 회원 정보 수정 -->
-	<update id="updateDriverInfo" parameterType="DriverInfo" >
+	<update id="updateDriverInfo" parameterType="DriverInfo">
 		UPDATE DRIVER
 		SET d_user_pw = #{dUserPw},
 			d_user_name = #{dUserName},
@@ -87,21 +87,21 @@
 <!-- idx, email, id 남기기-->
 	<update id="updateDriverSignOut">
 		UPDATE DRIVER
-		SET d_user_type = ''
-<!-- 			d_user_pw = null, -->
-<!-- 			d_user_name = null, -->
-<!-- 			d_user_tel = null, -->
-<!-- 			d_user_gender = null,  -->
-<!-- 			d_id_num = null,  -->
-<!-- 			d_license_num = null,  -->
-<!-- 			d_license_id_num = null,  -->
-<!-- 			d_car_num = null,  -->
-<!--     		d_account_num = null,  -->
-<!--     		d_account_bank = null,  -->
-<!--     		d_point = null, -->
-<!--     		d_penalty = null,  -->
-<!--     		d_sign_out = 'true' -->
-    	WHERE d_idx = #{dIdx}
+		SET d_user_type = null,
+			d_user_pw = null,
+			d_user_name = '탈퇴회원',
+			d_user_tel = null,
+			d_user_gender = null, 
+			d_id_num = null, 
+			d_license_num = null, 
+			d_license_id_num = null, 
+			d_car_num = null, 
+    		d_account_num = null, 
+    		d_account_bank = null,
+    		d_point = null,
+    		d_penalty = null, 
+    		d_sign_out = 'true'
+    	WHERE d_user_email = #{dUserEmail}
 	</update>
 
 </mapper>

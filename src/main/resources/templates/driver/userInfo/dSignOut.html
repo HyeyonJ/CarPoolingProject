@@ -38,7 +38,7 @@
 					</div>
 					<div style="margin-top: 20px; text-align: center">
 	 					<button type="button" class="btn btn-dark" id="checkBtn">본인확인</button>
-						<button type="submit" class="btn btn-dark" id="signOutBtn">회원탈퇴</button>
+						<button style="margin:auto;" type="submit" class="btn btn-dark" id="signOutBtn">회원탈퇴</button>
 					</div>
 				</form>
 		</div>
@@ -46,15 +46,16 @@
  	$("#signOutBtn").css("display", "none");
 
 	$("#checkBtn").click(function() {
+// 		console.log($("#dUserPw").val());
 			$.ajax({
 				type: "POST",
 				url: "/driver/check/signOut",
-				data: { "password": $("#dUserPw").val() },
+				data: { password: $("#dUserPw").val()},
 				success: function (res,status) {				
 					if(res == false){
-						swal("패스워드가 일치하지않습니다.", "다시 확인해주세요.", "error");
+						Swal.fire("패스워드가 일치하지않습니다.", "다시 확인해주세요.", "error");
 					} else {
-						swal("본인 확인되었습니다.", "탈퇴를 원하시면 버튼을 눌러주세요.", "success").then((OK)=>{
+						Swal.fire("본인 확인되었습니다.", "탈퇴를 원하시면 버튼을 눌러주세요.", "success").then((OK)=>{
 							if(OK) {
  								$("#signOutBtn").css("display", "block");
  								$("#checkBtn").css("display", "none");

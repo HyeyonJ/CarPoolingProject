@@ -15,11 +15,11 @@ public class DriverUserService {
 	private final DriverInfoRepository driverRepository;
 	
 	//driver 아이디 중복 체크
-	public boolean driverCheckId(String id) {
-		boolean checkId = false;
+	public boolean drivercheckId(String id) {
+		boolean checkPw = false;
         DriverInfo driver = driverRepository.selectByLoginId(id);
-        if(driver!=null) { checkId = true; }        
-        return checkId;
+        if(driver!=null) { checkPw = true; }        
+        return checkPw;
     }
 	
 	//driver 이메일 중복 체크
@@ -51,5 +51,4 @@ public class DriverUserService {
         	return "일치하는 정보를 찾을 수 없습니다.";
         }        
     }
-		
 }
