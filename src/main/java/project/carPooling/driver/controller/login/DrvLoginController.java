@@ -101,7 +101,6 @@ public class DrvLoginController {
 		if(session != null) {
 			session.invalidate();
 		}
-		
 		return "redirect:/";
 	}
 	
