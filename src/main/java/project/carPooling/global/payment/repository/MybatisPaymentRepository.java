@@ -1,19 +1,20 @@
-package project.carPooling.passenger.repository;
+package project.carPooling.global.payment.repository;
 
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import project.carPooling.global.payment.mapper.PaymentMapper;
 import project.carPooling.passenger.domain.PaymentData;
-import project.carPooling.passenger.mapper.PassengerPaymentMapper;
 
-@Repository
+@Repository @Primary
 @RequiredArgsConstructor
-public class MybatisPassengerPaymentRepository implements PassengerPaymentRepository {
+public class MybatisPaymentRepository implements PaymentRepository {
 	
-	private final PassengerPaymentMapper paymentMapper;
+	private final PaymentMapper paymentMapper;
 
 	@Override
 	public PaymentData insertPayment(PaymentData payment) {
@@ -55,6 +56,13 @@ public class MybatisPassengerPaymentRepository implements PassengerPaymentReposi
 	public void deletePaymentByPayIdx(String payIdx) {
 		paymentMapper.deletePaymentByPayIdx(payIdx);
 		
+	}
+
+	@Override
+	public PaymentData selectPaymentByDrIdx(Integer drIdx) {
+		PaymentData payment = paymentMapper.selectPaymentByDrIdx(drIdx);
+		
+		return payment;
 	}
 
 

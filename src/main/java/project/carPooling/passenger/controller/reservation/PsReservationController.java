@@ -49,10 +49,11 @@ public class PsReservationController {
 	@PostMapping("/passengerCarpool/reservation")
 	public Integer reservationForm(@ModelAttribute("drIdx") Integer drIdx, HttpServletRequest req) throws MessagingException, IOException {
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
-		reservationRepository.insert(passengerInfo.getPIdx(), drIdx);
-		Integer rIdx = reservationRepository.selectRIdxByDrIdx(drIdx);
+		Integer pIdx = passengerInfo.getPIdx();
+		reservationRepository.insert(pIdx, drIdx);
+		Integer rIdx = reservationRepository.selectRIdxByDrIdx(drIdx, pIdx);
 		
-		DRegistration drRegistration = driverInfoRepository.selectByDrIdx(drIdx);
+		DRegistration drRegistration = reservationRepository.selectDRegistrationByDrIdx(drIdx, pIdx);
 		DriverInfo driverInfo = driverInfoRepository.selectByIdx(drRegistration.getDIdx());
 		String userEmail = driverInfo.getDUserEmail();
 		

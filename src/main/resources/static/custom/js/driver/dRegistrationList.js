@@ -1,597 +1,634 @@
+function reservatedRgsList() {
+  $("#reservatedRgsList").css("display", "block");
+  $("#waitingRgsList").css("display", "none");
+  $("#pastRgsList").css("display", "none");
+  $("#canceledRgsList").css("display", "none");
+
+  $.ajax({
+    url: "/driver/driverCarpool/list/reservatedRgsList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+
+        html += '<div class="rsv">\n';
+        html +=
+          '<span class="fitem">탑승자</span>\t' +
+          data[i].P_USER_NAME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html +=
+          '<button class="btn btn-primary rsvsbtn" onclick="drivingStart(' +
+          data[i].R_IDX +
+          ')" >탑승대기</button>\t';
+        html +=
+          '<button id="PUT" onclick="cancelReservatedRgs(' +
+          data[i].DR_IDX +
+          "," +
+          data[i].P_IDX +
+          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+        html += '<button class="btn btn-primary">채팅</button>\t';
+        html += `<a href="${data[i].receiptUrl}"><button class="btn btn-primary">결제내역</button></a>\t`;
+        html += "</div>";
+      }
+      $("#reservatedRgsList").html(html);
+    },
+  });
+}
+
+function waitingRgsList() {
+  $("#reservatedRgsList").css("display", "none");
+  $("#waitingRgsList").css("display", "block");
+  $("#pastRgsList").css("display", "none");
+  $("#canceledRgsList").css("display", "none");
+
+  $.ajax({
+    url: "/driver/driverCarpool/list/waitingRgsList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+
+        html += '<div class="rsv">\n';
+        html +=
+          '<span class="fitem">카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html +=
+          '<button id="PUT" onclick="cancelWaitingRgs(' +
+          data[i].DR_IDX +
+          "," +
+          data[i].P_IDX +
+          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+        html += "</div>";
+      }
+      $("#waitingRgsList").html(html);
+    },
+  });
+}
+
+function pastRgsList() {
+  $("#reservatedRgsList").css("display", "none");
+  $("#waitingRgsList").css("display", "none");
+  $("#pastRgsList").css("display", "block");
+  $("#canceledRgsList").css("display", "none");
+
+  $.ajax({
+    url: "/driver/driverCarpool/list/pastRgsList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+
+        html += '<div class="rsv">\n';
+        html +=
+          '<span class="fitem">탑승자</span>\t' +
+          data[i].P_USER_NAME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">요금</span>\t' +
+          data[i].cancelAmount +
+          "원 <br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html += `<a href="${data[i].cancelReceiptUrl}"><button class="btn btn-primary">결제취소내역</button></a>\t`;
+        html += "</div>";
+      }
+      $("#pastRgsList").html(html);
+    },
+  });
+}
+
+function canceledRgsList() {
+  $("#reservatedRgsList").css("display", "none");
+  $("#waitingRgsList").css("display", "none");
+  $("#pastRgsList").css("display", "none");
+  $("#canceledRgsList").css("display", "block");
+
+  $.ajax({
+    url: "/driver/driverCarpool/list/canceledRgsList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+        html += '<div class="rsv">\n';
+        html +=
+          '<span class="fitem">카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span class="fitem">출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html += "</div>";
+      }
+      $("#canceledRgsList").html(html);
+    },
+  });
+}
+
+/*거절*/
+function cancelReservatedRgs(drIdx, pIdx) {
+  Swal.fire({
+    title: "등록을 취소하시겠습니까?",
+    text: "픽업가능 출발시간으로부터 24시간미만이면 1회 경고가 누적되며 5회 이상 누적시 서비스이용이 정지됩니다. 신중히 선택바랍니다.",
+    icon: "warning",
+
+    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+    confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
+    cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
+    confirmButtonText: "승인", // confirm 버튼 텍스트 지정
+    cancelButtonText: "취소", // cancel 버튼 텍스트 지정
+
+    reverseButtons: false, // 버튼 순서 거꾸로
+  }).then((result) => {
+    // 만약 Promise리턴을 받으면,
+    if (result.isConfirmed) {
+      // 만약 모달창에서 confirm 버튼을 눌렀다면
+      $.ajax({
+        url: "/driver/driverCarpool/list/reservatedRgsList/cancellation",
+        type: "PUT",
+        data: { drIdx: drIdx, pIdx: pIdx },
+        success: function (data) {
+          // 결제 취소 데이터
+          const cancelData = {
+            payIdx: data.payIdx,
+            pIdx: data.pidx,
+            amount: data.amount,
+            cancelAmount: data.amount,
+          };
+          // 결제 취소 요청
+          const corsErr = "http://cors-anywhere.herokuapp.com/";
+          $.ajax({
+            url: "/carpoolingPay/cancel/requestIamport", // 토큰 요청
+            type: "POST",
+          }).done(function (data, status) {
+            const token = data.response.token;
+            $.ajax({
+              url: corsErr + "https://api.iamport.kr/payments/cancel",
+              method: "POST",
+              headers: {
+                Authorization: token, // 아임포트 서버로부터 발급받은 엑세스 토큰
+              },
+              data: {
+                merchant_uid: cancelData.payIdx, // 예: carpooling_12345567677888
+                amount: cancelData.cancelAmount, // 환불금액
+                reason: "Carpooling 예약 취소",
+              },
+            })
+              .done(function (data, status) {
+                const cancelResData = data;
+                cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
+                $.ajax({
+                  url: "/carpoolingPay/cancel/complete",
+                  type: "POST",
+                  data: cancelData,
+                }).done(function (data, status) {
+                  console.log(status);
+                  if (
+                    cancelResData.response.amount ===
+                    cancelResData.response.cancel_amount
+                  ) {
+                    Swal.fire(
+                      "등록취소성공!",
+                      "카풀 등록이 취소되었습니다.\n선결제하신 금액은 전액 즉시 반환됩니다.",
+                      "success"
+                    ).then((OK) => {
+                      if (OK) {
+                        window.location.reload();
+                      }
+                    });
+                  } else {
+                    Swal.fire(
+                      "카풀취소성공!",
+                      "카풀 등록이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료\n(24시간전->20%, 12시간전->25%, 6시간전->30%)\n" +
+                        "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
+                      "success"
+                    ).then((OK) => {
+                      if (OK) {
+                        window.location.reload();
+                      }
+                    });
+                  }
+                });
+              })
+              .fail(function (error) {
+                console.log("error : " + error);
+              });
+          });
+        },
+      });
+    }
+  });
+}
+
+function cancelWaitingRgs(drIdx) {
+  Swal.fire({
+    title: "등록을 취소하시겠습니까?",
+    text: "다시 되돌릴 수 없습니다. 신중하세요.",
+    icon: "warning",
+
+    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+    confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
+    cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
+    confirmButtonText: "승인", // confirm 버튼 텍스트 지정
+    cancelButtonText: "취소", // cancel 버튼 텍스트 지정
+
+    reverseButtons: false, // 버튼 순서 거꾸로
+  }).then((result) => {
+    // 만약 Promise리턴을 받으면,
+    if (result.isConfirmed) {
+      // 만약 모달창에서 confirm 버튼을 눌렀다면
+      $.ajax({
+        url: "/driver/driverCarpool/list/waitingRgsList/cancellation",
+        type: "PUT",
+        data: { drIdx: drIdx },
+        success: function (data, status) {
+          if (status === "success") {
+            Swal.fire(
+              "등록취소성공!",
+              "카풀 등록이 취소되었습니다.",
+              "success"
+            ).then((OK) => {
+              if (OK) {
+                window.location.reload();
+              } else {
+                Swal.fire(
+                  "등록취소실패!",
+                  "카풀 등록 취소에 실패하였습니다.",
+                  "error"
+                );
+              }
+            });
+          }
+        },
+      });
+    }
+  });
+}
+
 var count = 0;
 
-      var dDrawInfoArr = [];
-      var dResultMarkerArr = [];
-      var dResultdrawArr = [];
+var dDrawInfoArr = [];
+var dResultMarkerArr = [];
+var dResultdrawArr = [];
 
-      var d = new Date();
-      var thisyear = d.getFullYear() + "년";
-      var past;
-      var today;
-      var future;
+function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
+  $("#popupDiv").css({
+    top: ($(window).height() - $("#popupDiv").outerHeight()) / 2 + "px",
+    left: ($(window).width() - $("#popupDiv").outerWidth()) / 2 + "px",
+    //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+  });
 
+  $("#popup_mask").css("display", "block"); //팝업 뒷배경 display block
+  $("#popupDiv").css("display", "block"); //팝업창 display block
 
-      //날짜 비교 변수
-      //10월 미만, 10일 미만 은 0붙여주기
-      if (d.getMonth() + 1 < 10 && d.getDate() < 10) {
-        thisday = d.getFullYear() + "-" + "0" + (d.getMonth() + 1) + "-" + "0" + d.getDate();
-        //그냥 10월 미만
-      } else if (d.getMonth() + 1 < 10) {
-        thisday = d.getFullYear() + "-" + "0" + (d.getMonth() + 1) + "-" + d.getDate();
-        //10일 미만
-      } else if (d.getDate() < 10) {
-        thisday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + "0" + d.getDate();
-      } else if (d.getMonth() + 1 == 13) {
-        thisday = d.getFullYear() + "-" + "01" + "-" + d.getDate();
+  $("body").css("overflow", "hidden"); //body 스크롤바 없애기
+
+  if (count == 1) {
+    var html = '<div id="map_div"></div>';
+    $("#popupDiv").append(html);
+  }
+
+  var map;
+
+  // 1. 지도 띄우기
+  map = new Tmapv2.Map("map_div", {
+    width: "490px",
+    height: "450px",
+    zoom: 17,
+  });
+
+  // ------ 초기화 ------
+
+  if (dResultMarkerArr.length > 0) {
+    for (var i = 0; i < dResultMarkerArr.length; i++) {
+      dResultMarkerArr[i].setMap(null);
+    }
+  }
+
+  if (dResultdrawArr.length > 0) {
+    for (var i = 0; i < dResultdrawArr.length; i++) {
+      dResultdrawArr[i].setMap(null);
+    }
+  }
+
+  dResultMarkerArr = [];
+  dDrawInfoArr = [];
+  dResultdrawArr = [];
+
+  $.ajax({
+    type: "POST",
+    url: "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
+    async: false,
+    data: {
+      appKey: "l7xx7b54bdec824142b3b3887c3917595b73",
+      startX: d_startlon,
+      startY: d_startlat,
+      endX: d_endlon,
+      endY: d_endlat,
+      reqCoordType: "WGS84GEO",
+      resCoordType: "EPSG3857",
+    },
+    success: function (response) {
+      var positionBounds = new Tmapv2.LatLngBounds(); //맵에 결과물 확인 하기
+
+      var x;
+      var y;
+
+      var numberSX = parseFloat(d_startlon);
+      var numberSY = parseFloat(d_startlat);
+      var numberEX = parseFloat(d_endlon);
+      var numberEY = parseFloat(d_endlat);
+
+      if (numberSX > numberEX) {
+        var x = numberEX + (numberSX - numberEX) / 2;
       } else {
-        thisday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        var x = numberSX + (numberEX - numberSX) / 2;
       }
 
-      //오늘
-      today = (d.getMonth() + 1) + "/" + d.getDate();
-
-
-      //미래
-      //32일이 되어버린다면..
-      if (d.getDate() + 1 == 32) {
-        future = (d.getMonth() + 2) + "/1" + "~";
+      if (numberSY > numberEY) {
+        var y = numberEY + (numberSY - numberEY) / 2;
       } else {
-        future = (d.getMonth() + 1) + "/" + (d.getDate() + 1) + "~";
+        var y = numberSY + (numberEY - numberSY) / 2;
       }
 
-      $(document).ready(() => {
-        // val로 하면 안먹힘
-        /*
-        element.insertAdjacentHTML(position, text);
-        postion에는 beforebegin, afterbegin, beforeend, afterend가 있다.
-        text(인자)는 HTML 또는 XML로 해석될 수 있는 문자열이다.
-        position의 예시
-        [beforebegin] : element 앞에
-        [afterbegin] : element 안에 가장 첫번째 child
-        [beforeend] : element 안에 가장 마지막 child
-        [afterend] : element 뒤에
-        */
-        // https://stackoverflow.com/questions/6588630/jquery-append-text 보안때문에 createTextNode or insertAdjacentHTML사용
+      var lonlat = new Tmapv2.LatLng(y, x);
+      map.setCenter(lonlat);
 
-        // 예약 된 카풀에 날짜 추가
-        $('#today').append(document.createTextNode(today));
-        $('#future').append(document.createTextNode(future));
-
-        //등록 한 카풀에 날짜 추가
-        $('#pastAllBtn').append("과거");
-        $('#todayAllBtn').append(today);
-        $('#futureAllBtn').append(future);
-
-        // document.getElementById('today').insertAdjacentHTML("beforeend", today);
-        // document.getElementById('future').insertAdjacentHTML("beforeend", future);
-
-        allList();
-        list();
-
-        // 예약된 카풀 날짜 버튼 클릭시 디스플레이
-        $('#pastAllBtn').click(function () {
-          $('#pastAllList').css('display', 'inline');
-          $('#todayAllList').css('display', 'none');
-          $('#futureAllList').css('display', 'none');
-        });
-
-        $('#todayAllBtn').click(function () {
-          $('#todayAllList').css('display', 'inline');
-          $('#pastAllList').css('display', 'none');
-          $('#futureAllList').css('display', 'none');
-        });
-
-        $('#futureAllBtn').click(function () {
-          $('#futureAllList').css('display', 'inline');
-          $('#pastAllList').css('display', 'none');
-          $('#todayAllList').css('display', 'none');
-        });
-
-
-        //날짜 버튼 클릭시 디스플레이
-        $('#past').click(function () {
-          $('#pastList').css('display', 'inline');
-          $('#todayList').css('display', 'none');
-          $('#futureList').css('display', 'none');
-
-        });
-
-        $('#today').click(function () {
-          $('#todayList').css('display', 'inline');
-          $('#pastList').css('display', 'none');
-          $('#futureList').css('display', 'none');
-        });
-
-        $('#future').click(function () {
-          $('#futureList').css('display', 'inline');
-          $('#pastList').css('display', 'none');
-          $('#todayList').css('display', 'none');
-        });
-
-
-        //리스트 none
-        $('#futureList').css('display', 'none');
-        $('#pastList').css('display', 'none');
-
-        $('#futureAllList').css('display', 'none');
-        $('#pastAllList').css('display', 'none');
-
-      });
-
-      /*거절*/
-      function deleteRegistration(dr_idx) {
-        confirm('등록을 취소하시겠습니까?');
-
-        $.ajax({
-          url: '/driver/driverCarpool/registration/delete',
-          type: 'DELETE',
-          data: { drIdx: dr_idx },
-          success: function (data) {
-            if (data != null) {
-              alert('취소되었습니다.');
-              window.location.reload();
-            }
-            waitingRsv();
-          }
-        });
+      var resultData = response.features;
+      console.log(resultData);
+      var distance = resultData[0].properties.totalDistance / 1000;
+      if (distance < 10) {
+        console.log("10km미만");
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+      } else if (distance < 20) {
+        console.log("20km미만");
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+      } else if (distance < 30) {
+        console.log("30km미만");
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+      } else if (distance < 40) {
+        console.log("40km미만");
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+      } else {
+        console.log("40km이상");
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
+        map.zoomOut();
       }
 
-      function list() {
-        $.ajax({
-          url: "/driver/driverCarpool/registration/acceptedList",
-          type: "GET",
-          success: (data) => {
-            console.log(data);
+      var tDistance = (resultData[0].properties.totalDistance / 1000).toFixed(
+        1
+      );
+      var tTime = (resultData[0].properties.totalTime / 60).toFixed(0);
+      var tFare = resultData[0].properties.taxiFare;
 
-            var todayhtml = '';
-            var futurehtml = '';
+      //택시비의 60프로 저렴한 가격
+      $("#fare").val(parseInt(tFare) * 0.6);
 
-            for (var i = 0; i < data.length; i++) {
-              console.log(data[i].D_FEE);
+      for (var i in resultData) {
+        //for문 [S]
+        var geometry = resultData[i].geometry;
+        var properties = resultData[i].properties;
 
-              var fee = data[i].D_FEE.toString();
-              var feeCut = fee.substring(fee.length, fee.length - 3);
-              var split = fee.split(feeCut);
-              var feeSplit = split[0] + ',' + feeCut;
+        if (geometry.type == "LineString") {
+          for (var j in geometry.coordinates) {
+            // 경로들의 결과값들을 포인트 객체로 변환
+            var latlng = new Tmapv2.Point(
+              geometry.coordinates[j][0],
+              geometry.coordinates[j][1]
+            );
+            // 포인트 객체를 받아 좌표값으로 변환
+            var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+              latlng
+            );
+            // 포인트객체의 정보로 좌표값 변환 객체로 저장
+            var convertChange = new Tmapv2.LatLng(
+              convertPoint._lat,
+              convertPoint._lng
+            );
+            // 배열에 담기
+            dDrawInfoArr.push(convertChange);
+          }
+          dDrawLine(dDrawInfoArr, "0");
+        } else {
+          var markerImg = "";
+          var pType = "";
 
-              var dDate = data[i].D_DATE.substring(0, 10)
-
-              if (dDate == thisday) {
-                console.log("1번");
-
-
-                todayhtml += '<div class="pastDiv">';
-                todayhtml += '<input class="drIdx" type="hidden" value=' + data[i].DR_IDX + '></input><br>\n';
-                todayhtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
-
-
-
-                // todayhtml += '<span>탑승자 닉네임 : ' + data[i].nickname + '</span><br>\n';
-                todayhtml += '<span>탑승자 닉네임 : ' + data[i].P_IDX + '</span><br>\n';
-
-
-
-                todayhtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
-                todayhtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
-                todayhtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
-                todayhtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
-                todayhtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
-                todayhtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
-                todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-                todayhtml += '<button class="btn btn-primary" id="todayYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">운행시작</button>';
-                todayhtml += '</div>';
-
-                //미래
-              } else if (dDate > thisday) {
-                console.log("2번");
-                futurehtml += '<div class="pastDiv">';
-                futurehtml += '<input class="drIdx" type="hidden" value=' + data[i].DR_IDX + '></input><br>\n';
-                futurehtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
-
-                // futurehtml += '<span>탑승자 닉네임 : ' + data[i].nickname + '</span><br>\n';
-                futurehtml += '<span>탑승자 닉네임 : ' + data[i].P_IDX + '</span><br>\n';
-
-
-                futurehtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
-                futurehtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
-                futurehtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
-                futurehtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
-                futurehtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
-                futurehtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
-                futurehtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-                futurehtml += '<button class="btn btn-primary" id="futureYbtn" onclick="concent(' + data[i].DR_IDX + ', ' + data[i].P_IDX + ')">운행시작</button>';
-                futurehtml += '</div>';
-              }
-
-
-
-            }
-            $('#todayList').html(todayhtml);
-            $('#futureList').html(futurehtml);
-
+          if (properties.pointType == "S") {
+            //출발지 마커
+            markerImg =
+              "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
+            pType = "S";
+          } else if (properties.pointType == "E") {
+            //도착지 마커
+            markerImg =
+              "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
+            pType = "E";
+          } else {
+            //각 포인트 마커
+            markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+            pType = "P";
           }
 
-        })
-      }
+          // 경로들의 결과값들을 포인트 객체로 변환
+          var latlon = new Tmapv2.Point(
+            geometry.coordinates[0],
+            geometry.coordinates[1]
+          );
+          // 포인트 객체를 받아 좌표값으로 다시 변환
+          var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+            latlon
+          );
 
-      function allList() {
-        $.ajax({
-          url: "/driver/driverCarpool/registration/allList",
-          type: "GET",
-          success: (data) => {
-            console.log(data);
+          var routeInfoObj = {
+            markerImage: markerImg,
+            lng: convertPoint._lng,
+            lat: convertPoint._lat,
+            pointType: pType,
+          };
 
-            var pasthtml = '';
-            var todayhtml = '';
-            var futurehtml = '';
-
-            for (var i = 0; i < data.length; i++) {
-              console.log(data[i].D_FEE);
-
-              var fee = data[i].D_FEE.toString();
-              var feeCut = fee.substring(fee.length, fee.length - 3);
-              var split = fee.split(feeCut);
-              var feeSplit = split[0] + ',' + feeCut;
-
-              var dDate = data[i].D_DATE.substring(0, 10)
-
-              if (dDate < thisday) {
-
-
-
-                pasthtml += '<div class="pastDiv">';
-                pasthtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
-                pasthtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
-                pasthtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
-                pasthtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
-                pasthtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
-                pasthtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
-                pasthtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
-                pasthtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-
-                if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
-
-                  pasthtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
-                  pasthtml += '</div>';
-
-                } else {
-
-                  pasthtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
-                  pasthtml += '</div>';
-
-                }
-
-
-                //오늘
-              } else if (dDate == thisday) {
-
-                todayhtml += '<div class="pastDiv">';
-                todayhtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
-                todayhtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
-                todayhtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
-                todayhtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
-                todayhtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
-                todayhtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
-                todayhtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
-                todayhtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-
-                if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
-                  todayhtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
-                  todayhtml += '</div>';
-                } else {
-                  todayhtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
-                  todayhtml += '</div>';
-
-                }
-
-
-                //미래
-              } else if (dDate > thisday) {
-
-                futurehtml += '<div class="pastDiv">';
-                futurehtml += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
-                futurehtml += '<span class="DateSPAN">날짜 : ' + '</span>' + dDate + '<br>\n';
-                futurehtml += '<span class="STimeSPAN">출발시간 : ' + '</span>' + data[i].D_STARTTIME + ' <br>\n';
-                futurehtml += '<span class="ETimeSPAN">도착시간 : </span>' + data[i].D_ENDTIME + '<br>\n';
-                futurehtml += '<span class="SpointSPAN">출발장소 : </span>' + data[i].D_STARTPOINT + '<br>\n';
-                futurehtml += '<span class="EpointSPAN">도착장소 : </span>' + data[i].D_ENDPOINT + '<br>\n';
-                futurehtml += '<button class="btn btn-primary" id="pastmapBTN" onclick="map(' + data[i].D_STARTLON + ', ' + data[i].D_STARTLAT + ', ' + data[i].D_ENDLON + ', ' + data[i].D_ENDLAT + ')">지도보기</button>' + '<br>\n';
-                futurehtml += '<span class="FeeSPAN">요금 : </span>' + feeSplit + '원<br>\n';
-
-                if (data[i].R_CONFIRM == "Y" || data[i].R_CONFIRM == "B") {
-
-                  futurehtml += '<button class="btn btn-primary" onclick="deleteRegistration(' + data[i].DR_IDX + ')" id="pastdelBTN">삭제하기</button>' + '<br><br>\n';
-                  futurehtml += '</div>';
-
-                } else {
-                  futurehtml += '<button class="btn btn-primary" id="pastdelBTN"  onclick="deleteRegistration(' + data[i].DR_IDX + ')">삭제하기</button>' + '<br><br>\n';
-                  futurehtml += '</div>';
-
-                }
-
-              }
-
-
-
-            }
-            $('#pastAllList').html(pasthtml);
-            $('#todayAllList').html(todayhtml);
-            $('#futureAllList').html(futurehtml);
-
-          }
-
-        })
-      }
-
-
-
-
-
-
-      function pastMapClose(count) {
-
-
-        if (count == 0) {
-          var html = '<button id="closebutton" onclick="closebutton()">지도 닫기</button>';
-
-          $('#pastMapClose').append(html);
-
+          // Marker 추가
+          addMarkers(routeInfoObj);
         }
-      };
+      } //for문 [E]
+    },
+    error: function (request, status, error) {
+      console.log(
+        "code:" +
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
+      );
+    },
+  });
 
+  //마커 생성하기
+  function addMarkers(infoObj) {
+    var size = new Tmapv2.Size(24, 38); //아이콘 크기 설정합니다.
 
-      function closebutton() {
+    if (infoObj.pointType == "P") {
+      //포인트점일때는 아이콘 크기를 줄입니다.
+      size = new Tmapv2.Size(8, 8);
+    }
 
+    marker_p = new Tmapv2.Marker({
+      position: new Tmapv2.LatLng(infoObj.lat, infoObj.lng),
+      icon: infoObj.markerImage,
+      iconSize: size,
+      map: map,
+    });
 
-        /*alert('삭제'+count);*/
+    dResultMarkerArr.push(marker_p);
+  }
 
-        $('#map_div').remove();
-        $('#closebutton').css('display', 'none');
-      };
+  //라인그리기
+  function dDrawLine(arrPoint, traffic) {
+    var polyline_ = new Tmapv2.Polyline({
+      path: arrPoint,
+      strokeColor: "#2979ff",
+      strokeWeight: 6,
+      map: map,
+    });
+    dResultdrawArr.push(polyline_);
+  }
 
-      function map(D_STARTLON, D_STARTLAT, D_ENDLON, D_ENDLAT) {
-
-        $("#popupDiv").css({
-          "top": (($(window).height() - $("#popupDiv").outerHeight()) / 2) + "px",
-          "left": (($(window).width() - $("#popupDiv").outerWidth()) / 2) + "px"
-          //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
-
-        });
-
-        $("#popup_mask").css("display", "block"); //팝업 뒷배경 display block
-        $("#popupDiv").css("display", "block"); //팝업창 display block
-
-        $("body").css("overflow", "hidden"); //body 스크롤바 없애기
-
-        if (count == 1) {
-          var html = '<div id="map_div"></div>';
-          $('#popupDiv').append(html);
-        }
-
-
-        var map;
-
-
-        // 1. 지도 띄우기
-        map = new Tmapv2.Map("map_div", {
-          width: '490px',
-          height: '450px',
-          zoom: 17,
-        });
-
-        // ------ 초기화 ------
-
-        if (dResultMarkerArr.length > 0) {
-          for (var i = 0; i < dResultMarkerArr.length; i++) {
-            dResultMarkerArr[i].setMap(null);
-          }
-        }
-
-        if (dResultdrawArr.length > 0) {
-          for (var i = 0; i < dResultdrawArr.length; i++) {
-            dResultdrawArr[i].setMap(null);
-          }
-        }
-
-        dResultMarkerArr = [];
-        dDrawInfoArr = [];
-        dResultdrawArr = [];
-
-
-        $
-          .ajax({
-            type: "POST",
-            url: "https://apis.openapi.sk.com/tmap/routes?version=1&format=json&callback=result",
-            async: false,
-            data: {
-              "appKey": "l7xx7b54bdec824142b3b3887c3917595b73",
-              "startX": D_STARTLON,
-              "startY": D_STARTLAT,
-              "endX": D_ENDLON,
-              "endY": D_ENDLAT,
-              "reqCoordType": "WGS84GEO",
-              "resCoordType": "EPSG3857",
-            },
-            success: function (response) {
-
-              var positionBounds = new Tmapv2.LatLngBounds();		//맵에 결과물 확인 하기 
-
-              var x;
-              var y;
-
-              var numberSX = parseFloat(D_STARTLON);
-              var numberSY = parseFloat(D_STARTLAT);
-              var numberEX = parseFloat(D_ENDLON);
-              var numberEY = parseFloat(D_ENDLAT);
-
-              if (numberSX > numberEX) {
-                var x = numberEX + (numberSX - numberEX) / 2;
-              } else {
-                var x = numberSX + (numberEX - numberSX) / 2;
-              }
-
-              if (numberSY > numberEY) {
-                var y = numberEY + (numberSY - numberEY) / 2;
-              } else {
-                var y = numberSY + ((numberEY - numberSY) / 2);
-              }
-
-              var lonlat = new Tmapv2.LatLng(y, x);
-              map.setCenter(lonlat);
-
-              var resultData = response.features;
-              console.log(resultData);
-              var distance = (resultData[0].properties.totalDistance / 1000);
-              if (distance < 10) {
-                console.log("10km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else if (distance < 20) {
-                console.log("20km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else if (distance < 30) {
-                console.log("30km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else if (distance < 40) {
-                console.log("40km미만");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              } else {
-                console.log("40km이상");
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-                map.zoomOut();
-              }
-
-              var tDistance = (resultData[0].properties.totalDistance / 1000).toFixed(1);
-              var tTime = (resultData[0].properties.totalTime / 60).toFixed(0);
-              var tFare = resultData[0].properties.taxiFare;
-
-              //택시비의 60프로 저렴한 가격
-              $('#fare').val(parseInt(tFare) * 0.6);
-
-              for (var i in resultData) { //for문 [S]
-                var geometry = resultData[i].geometry;
-                var properties = resultData[i].properties;
-
-                if (geometry.type == "LineString") {
-                  for (var j in geometry.coordinates) {
-                    // 경로들의 결과값들을 포인트 객체로 변환 
-                    var latlng = new Tmapv2.Point(
-                      geometry.coordinates[j][0],
-                      geometry.coordinates[j][1]);
-                    // 포인트 객체를 받아 좌표값으로 변환
-                    var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-                      latlng);
-                    // 포인트객체의 정보로 좌표값 변환 객체로 저장
-                    var convertChange = new Tmapv2.LatLng(
-                      convertPoint._lat,
-                      convertPoint._lng);
-                    // 배열에 담기
-                    dDrawInfoArr.push(convertChange);
-                  }
-                  dDrawLine(dDrawInfoArr, "0");
-                } else {
-
-                  var markerImg = "";
-                  var pType = "";
-
-                  if (properties.pointType == "S") { //출발지 마커
-                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_s.png";
-                    pType = "S";
-                  } else if (properties.pointType == "E") { //도착지 마커
-                    markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_e.png";
-                    pType = "E";
-                  } else { //각 포인트 마커
-                    markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-                    pType = "P"
-                  }
-
-                  // 경로들의 결과값들을 포인트 객체로 변환 
-                  var latlon = new Tmapv2.Point(
-                    geometry.coordinates[0],
-                    geometry.coordinates[1]);
-                  // 포인트 객체를 받아 좌표값으로 다시 변환
-                  var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-                    latlon);
-
-                  var routeInfoObj = {
-                    markerImage: markerImg,
-                    lng: convertPoint._lng,
-                    lat: convertPoint._lat,
-                    pointType: pType
-                  };
-
-                  // Marker 추가
-                  addMarkers(routeInfoObj);
-                }
-              }//for문 [E]
-
-            },
-            error: function (request, status, error) {
-              console.log("code:"
-                + request.status + "\n"
-                + "message:"
-                + request.responseText
-                + "\n" + "error:" + error);
-            }
-          });
-
-        //마커 생성하기
-        function addMarkers(infoObj) {
-          var size = new Tmapv2.Size(24, 38);//아이콘 크기 설정합니다.
-
-          if (infoObj.pointType == "P") { //포인트점일때는 아이콘 크기를 줄입니다.
-            size = new Tmapv2.Size(8, 8);
-          }
-
-          marker_p = new Tmapv2.Marker({
-            position: new Tmapv2.LatLng(infoObj.lat, infoObj.lng),
-            icon: infoObj.markerImage,
-            iconSize: size,
-            map: map
-          });
-
-          dResultMarkerArr.push(marker_p);
-        }
-
-        //라인그리기
-        function dDrawLine(arrPoint, traffic) {
-          var polyline_ = new Tmapv2.Polyline({
-            path: arrPoint,
-            strokeColor: "#2979ff",
-            strokeWeight: 6,
-            map: map
-          });
-          dResultdrawArr.push(polyline_);
-        }
-
-        $("#popCloseBtn").click(function (event) {
-          $("#popup_mask").css("display", "none"); //팝업창 뒷배경 display none
-          $("#popupDiv").css("display", "none"); //팝업창 display none
-          $("body").css("overflow", "auto"); //body 스크롤바 생성
-          $('#map_div').remove();
-          count = 1;
-        });
-      }
+  $("#popCloseBtn").click(function (event) {
+    $("#popup_mask").css("display", "none"); //팝업창 뒷배경 display none
+    $("#popupDiv").css("display", "none"); //팝업창 display none
+    $("body").css("overflow", "auto"); //body 스크롤바 생성
+    $("#map_div").remove();
+    count = 1;
+  });
+}

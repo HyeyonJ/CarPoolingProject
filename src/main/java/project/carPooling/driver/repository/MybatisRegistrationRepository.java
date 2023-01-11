@@ -14,11 +14,10 @@ public class MybatisRegistrationRepository implements RegistrationRepository {
 	private final RegistrationMapper registrationMapper;
 	
 	@Override
-	public DRegistration insert(DRegistration dRegistration) {
+	public void insert(DRegistration dRegistration) {
 		java.sql.Date dDate =  java.sql.Date.valueOf(dRegistration.getDDate());
 		registrationMapper.insert(dRegistration, dDate);
 		System.out.println("카풀등록성공");
-		return dRegistration;
 	}
 
 	@Override

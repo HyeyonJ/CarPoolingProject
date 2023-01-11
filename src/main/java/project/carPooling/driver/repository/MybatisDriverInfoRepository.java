@@ -110,10 +110,4 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		
 	}
 
-	@Override
-	public DRegistration selectByDrIdx(Integer drIdx) {
-		DRegistration dRegistration = driverMapper.selectByDrIdx(drIdx);
-		return dRegistration;
-	}
-
 }

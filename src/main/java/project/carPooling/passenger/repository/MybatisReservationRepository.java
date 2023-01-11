@@ -75,17 +75,21 @@ public class MybatisReservationRepository implements ReservationRepository {
 	}
 
 	@Override
-	public DRegistration insert(Integer pIdx, Integer drIdx) {
+	public void insert(Integer pIdx, Integer drIdx) {
 		reservationMapper.insert(pIdx, drIdx);
 		reservationMapper.updateWaitingToReservated(drIdx);
 		System.out.println("예약성공");
-		return null;
 	}
 
 	@Override
-	public Integer selectRIdxByDrIdx(Integer drIdx) {
-
-		return reservationMapper.selectRIdxByDrIdx(drIdx);
+	public Integer selectRIdxByDrIdx(Integer drIdx, Integer pIdx) {
+		return reservationMapper.selectRIdxByDrIdx(drIdx, pIdx);
+	}
+	
+	@Override
+	public DRegistration selectDRegistrationByDrIdx(Integer drIdx, Integer pIdx) {
+		DRegistration dRegistration = reservationMapper.selectDRegistrationByDrIdx(drIdx, pIdx);
+		return dRegistration;
 	}
 
 }

@@ -2,28 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
 <mapper namespace="project.carPooling.driver.mapper.RegistrationListMapper">
-	<select id="selectReservatedList" resultType="map">
+	<select id="selectReservatedRgsList" resultType="map">
 		SELECT dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee,
 		(SELECT p_user_name FROM PASSENGER WHERE p_idx = r.p_idx) "P_USER_NAME", r.p_idx
 		FROM d_registration dr, reservation r
-		WHERE dr.d_idx = #{dIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'reservated'
+		WHERE dr.d_idx = #{dIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'reservated' AND dr.d_cancel_status = 'uncanceled' AND r.r_cancel_status = 'uncanceled'
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') >= sysdate	
 	</select>
 	
-	<select id="selectWaitingList" resultType="map">
+	<select id="selectWaitingRgsList" resultType="map">
 		SELECT *
 		FROM d_registration
-		WHERE d_idx = #{dIdx} AND d_reservation_status = 'waiting'
+		WHERE d_idx = #{dIdx} AND d_reservation_status = 'waiting' AND d_cancel_status = 'uncanceled'
 		AND to_date(to_char(d_date, 'yymmdd')||substr(d_start_time, 0, 2)||substr(d_end_time, 4,5), 'yymmddhh24mi') >= sysdate	
 	</select>
 	
 	<!-- 과거등록리스트 예약돼서 운행한 것과 예약안돼서 운행 못한 것 구분? -->
-	<select id="selectPastList" resultType="map">
+	<select id="selectPastRgsList" resultType="map">
 		SELECT dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee,
 		(SELECT p_user_name FROM PASSENGER WHERE p_idx = r.p_idx) "P_USER_NAME", r.p_idx
 		FROM d_registration dr, reservation r
 		WHERE dr.d_idx = #{dIdx} AND dr.dr_idx = r.dr_idx
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') <![CDATA[<]]> sysdate	
+	</select>
+	
+	<select id="selectCanceledRgsList" resultType="map">
+		SELECT *
+		FROM d_registration
+		WHERE d_cancel_status = 'canceled'
 	</select>
 	
 	<select id="selectRegistrationByDrIdx" resultType="DRegistration">
@@ -38,15 +44,19 @@
 		WHERE d_idx = #{dIdx}
 	</update>
 	
-	<delete id="deleteRegistration">
-		DELETE FROM D_REGISTRATION
+	<update id="updateCanceledRegistration">
+		UPDATE D_REGISTRATION
+		SET d_cancel_status = 'canceled'
 		WHERE dr_idx = #{drIdx}
-	</delete>
+	</update>
 	
-	<delete id="deleteReservation">
-		DELETE FROM RESERVATION
+	<update id="updateCanceledReservation">
+		UPDATE RESERVATION
+		SET r_cancel_status = 'canceled'
 		WHERE dr_idx = #{drIdx}
-	</delete>
+		AND p_idx = #{pIdx}
+		AND r_cancel_status = 'uncanceled'
+	</update>
 	
 	<select id="selectPassengerEmail" resultType="String">
 		SELECT p_user_email
@@ -54,7 +64,7 @@
 		WHERE p_idx = 
 		(SELECT r.p_idx
 		FROM D_REGISTRATION dr, reservation r
-		WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx)
+		WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled')
 	</select>
 	
 </mapper>

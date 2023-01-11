@@ -21,36 +21,31 @@ public class MybatisRegistrationListRepository implements RegistrationListReposi
 	private final RegistrationListMapper registrationListMapper;
 	
 	@Override
-	public List<Map<String, Object>> selectReservatedList(Integer dIdx) {
-		List<Map<String, Object>> reservatedList = registrationListMapper.selectReservatedList(dIdx);
-		return reservatedList;
+	public List<Map<String, Object>> selectReservatedRgsList(Integer dIdx) {
+		List<Map<String, Object>> reservatedRgsList = registrationListMapper.selectReservatedRgsList(dIdx);
+		return reservatedRgsList;
 	}
 	
 	@Override
-	public List<Map<String, Object>> selectWaitingList(Integer dIdx) {
-		List<Map<String, Object>> waitingList = registrationListMapper.selectWaitingList(dIdx);
-		return waitingList;
+	public List<Map<String, Object>> selectWaitingRgsList(Integer dIdx) {
+		List<Map<String, Object>> waitingRgsList = registrationListMapper.selectWaitingRgsList(dIdx);
+		return waitingRgsList;
 	}
 	
 	@Override
-	public List<Map<String, Object>> selectPastList(Integer dIdx) {
-		List<Map<String, Object>> pastList = registrationListMapper.selectPastList(dIdx);
-		return pastList;
+	public List<Map<String, Object>> selectPastRgsList(Integer dIdx) {
+		List<Map<String, Object>> pastRgsList = registrationListMapper.selectPastRgsList(dIdx);
+		return pastRgsList;
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectCanceledRgsList(Integer dIdx) {
+		List<Map<String, Object>> canceledRgsList = registrationListMapper.selectCanceledRgsList(dIdx);
+		return canceledRgsList;
 	}
 
 	@Override
-	public boolean deleteRegistration(Integer drIdx) {
-		boolean result = false;
-		try {
-			registrationListMapper.deleteRegistration(drIdx);
-			result = true;
-		} catch (Exception e) {
-		}
-		return result;
-	}
-
-	@Override
-	public void cancelReservatedRegistration(Integer drIdx) {
+	public void cancelReservatedRegistration(Integer drIdx, Integer pIdx) {
 		DRegistration dRegistration = registrationListMapper.selectRegistrationByDrIdx(drIdx);
 		Integer dIdx = dRegistration.getDIdx();
 		String dDate = dRegistration.getDDate();
@@ -83,13 +78,13 @@ public class MybatisRegistrationListRepository implements RegistrationListReposi
 		
 		if(convertDDate.minusHours(24).isAfter(convertNDate)) {
 			System.out.println("패널티없음");
-			registrationListMapper.deleteRegistration(drIdx);
-			registrationListMapper.deleteReservation(drIdx);
+			registrationListMapper.updateCanceledRegistration(drIdx);
+			registrationListMapper.updateCanceledReservation(drIdx, pIdx);
 		} else {
 			System.out.println("패널티있음");
 			registrationListMapper.updatePanalty(dIdx);
-			registrationListMapper.deleteRegistration(drIdx);
-			registrationListMapper.deleteReservation(drIdx);
+			registrationListMapper.updateCanceledRegistration(drIdx);
+			registrationListMapper.updateCanceledReservation(drIdx, pIdx);
 		}
 	}
 
@@ -100,7 +95,7 @@ public class MybatisRegistrationListRepository implements RegistrationListReposi
 	}
 
 	@Override
-	public void cancelWaitingRegistration(Integer drIdx) {
-		registrationListMapper.deleteRegistration(drIdx);
+	public void updateCanceledRegistration(Integer drIdx) {
+		registrationListMapper.updateCanceledRegistration(drIdx);
 	}
 }
