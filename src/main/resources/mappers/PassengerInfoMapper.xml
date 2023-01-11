@@ -24,13 +24,13 @@
 	<!-- public PassengerInfo selectByLoginId(String loginId); -->
 	<select id="selectByLoginId" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_user_id = #{pUserId}
+		WHERE p_user_id = #{pUserId} AND p_sign_out = 'false'
 	</select>
 	
 	<!-- public PassengerInfo selectByEmail(String email); -->
 	<select id="selectByEmail" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_user_email = #{pUserEmail}
+		WHERE p_user_email = #{pUserEmail} AND p_sign_out = 'false'
 	</select>
 	
 	<!-- public PassengerInfo selectByNameAndEmail(String name, String email); -->
