@@ -12,200 +12,248 @@
 </head>
 
 <th:block layout:fragment="content">
-   <div class="input-form-backgroud row">
-      <div style="margin-top: 50px;"></div>
-         <div class="input-form col-md-12 mx-auto">
-            <div class="row justify-content-center">
-               <div class="col-md-4 mb-3" style="text-align: center;">
-                  <h4>Driver 회원가입</h4>
-               </div>
-            </div>
-         <form class="validation-form" novalidate action="" method="post"
-               th:object="${driverInfo}">
-               <div class="row" id="inputUserType">
-                  <!-- 가입유형지정 -->
-                  <div class="col mb-3 form-check"
-                     th:each="dUserType : ${dUserTypes}">
-                     <input class="form-check-input" type="radio"
-                        th:field="*{dUserType}" name="dUserType"
-                        th:value="${dUserType.name}"> <label
-                        th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label>
-                  </div>
-               </div>
-               <div class="row" id="inputUserGender">
-                  <!-- 가입자 성별 -->
-                  <div class="col mb-3 form-check">
-                     <input class="form-check-input" type="radio"
-                        th:field="*{dUserGender}" id="dUserGender1" name="dUserGender"
-                        th:value="M"><label th:text="남성"></label>
-                     <input class="form-check-input" type="radio"
-                        th:field="*{dUserGender}" id="dUserGender2" name="dUserGender"
-                        th:value="F"><label th:text="여성"></label>                     
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 아이디 입력 / 중복 체크 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dUserId">아이디(id)</label> <span
-                        class="text-center small mt-2" id="checkIdMsg"
-                        style="color: red"></span>
-                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="dUserId"
-                           name="dUserId" placeholder="아이디" pattern="[a-zA-Z0-9]{4,12}"
-                           aria-label="dUserId" aria-describedby="checkId"
-                           th:field="*{dUserId}" title="영문, 숫자 포함 4자리에서 최대 12자리까지"
-                           maxlength="12" required>
-                        <button class="btn btn-dark" type="button" id="checkId">중복확인</button>
-                     </div>
-                     <div class="invalid-feedback">
-                        <span>아이디를 확인해주세요.</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 패스워드 입력 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dUserPw">패스워드(pw)</label> <input type="password" th:field="*{dUserPw}"
-                        class="form-control" id="dUserPw" name="dUserPw"
-                        placeholder="패스워드"
-                        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
-                        title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
-                        maxlength="16" required>
-                     <div class="invalid-feedback">
-                        <span>패스워드를 확인해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개
-                           이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 사용자 이름 입력 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dUserName">이름(name)</label> <input type="text"
-                        class="form-control" id="dUserName" name="dUserName"
-                        th:field="*{dUserName}" maxlength="10" placeholder="이름" required>
-                     <div class="invalid-feedback">이름을 확인해주세요.</div>
-                  </div>
-               </div>               
-               <div class="row justify-content-center">
-                  <!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dUserEmail">이메일(email)</label> <span
-                        class="text-center small mt-2" id="checkEmailMsg"
-                        style="color: red"></span>
-                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" id="dUserEmail"
-                           name="dUserEmail" aria-label="dUserEmail" th:field="*{dUserEmail}"
-                           aria-describedby="checkEmail"
-                           pattern="^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-                           placeholder="carpooling@example.com"
-                           title="이메일 양식:carpooling@sample.com" maxlength="50" required>
-                        <button class="btn btn-dark" type="button" id="checkEmail">인증</button>
-                     </div>
-                     <div class="invalid-feedback">
-                        <span>이메일을 확인해주세요. </span><span>(carpooling@sample.com)</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <!-- 인증 번호 입력 -->
-                  <div class="col-md-4 mb-3" id="inputVcode">
-                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="dUserVcode"
-                           name="dUserVcode" placeholder="인증코드" aria-label="dUserVcode"
-                           aria-describedby="checkVcode" title="이메일로 발송된 인증코드를 입력"
-                           required>
-                        <button class="btn btn-dark" type="button" id="checkVcode">확인</button>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 휴대폰 번호 입력 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dUserTel">휴대폰번호</label>
-                     <input type="text" class="form-control" id="dUserTel" name="dUserTel"
-                         placeholder="010-1234-5678 숫자만" pattern="^(010-\d{3,4}-\d{4})$" maxlength="13"
-                         title="숫자만 입력" th:field="*{dUserTel}" required>
-                     <div class="invalid-feedback">
-                        <span>휴대폰번호를 확인해주세요. </span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 주민등록번호 입력 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dIdNum">* 주민등록번호</label><span class="text-center small mt-2"
-                     id="checkIdNumMsg" style="color: red"></span>
-                     <input type="text" class="form-control" id="dIdNumM" name="dIdNumM"
-                        pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
-                        placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력" maxlength="14" required>
-                     <input type="hidden" class="form-control" id="dIdNum" name="dIdNum" th:field="*{dIdNum}"
-                        pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9]{6})$"
-                        maxlength="14">
-                     <div class="invalid-feedback">
-                        <span>주민등록번호를 확인해주세요.</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 면허 번호 입력 -->                  
-                  <div class="col col-md-6 mb-3">
-                     <label for="dLicenseNum">면허번호</label><span class="text-center small mt-2"
-                     id="checkLicenseNumMsg" style="color: red"></span>
-                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="dLicenseNum"
-                           name="dLicenseNum" aria-label="dLicenseNum" aria-describedby="checkLicenseNum"
-                           th:field="*{dLicenseNum}" pattern="^(\d{2}-\d{2}-\d{6}-\d{2})$"
-                           placeholder="00-00-000000-00 숫자만" maxlength="15" title="면허 번호 숫자만 입력" required>
-                        <button class="btn btn-dark" type="button" id="checkLicenseNum">확인</button>
-                     </div>
-                     <div class="invalid-feedback">
-                        <span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 식별 번호 입력 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dLicenseDate">식별번호</label> <input type="text"
-                        class="form-control" id="dLicenseIdNum" name="dLicenseIdNum"
-                        th:field="*{dLicenseIdNum}" pattern="^([A-Z0-9]{5,6})$"
-                        placeholder="영문(대)+숫자 5자리 혹은 6자리" maxlength="8"
-                        title="식별 번호 (영문대문자+숫자) 입력" required>
-                     <div class="invalid-feedback"><span>(면허증 우측 사진 아래)</span>
-                        <span>식별번호를 확인해주세요. </span><span>(영문대문자+숫자 5자리 혹은 6자리)</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <!-- 자동차 번호 입력 -->
-                  <div class="col col-md-6 mb-3">
-                     <label for="dCarNum">자동차번호</label><span class="text-center small mt-2"
-                     id="checkCarNumMsg" style="color: red"></span>
-                     <input type="text" class="form-control" id="dCarNum" name="dCarNum"
-                        placeholder="00땡0000, 000땡0000" pattern="(\d{2,3})([가-힣]{1})(\d{4})"
-                        maxlength="8" title="자동차 번호 입력" th:field="*{dCarNum}" required>
-                     <div class="invalid-feedback">
-                        <span>자동차번호를 확인해주세요. </span>
-                     </div>
-                  </div>
-               </div>
-               <!-- 개인정보활용동의 -->
-                  <div class="custom-control custom-checkbox mb-3" style="margin-top:30px; text-align: center;">
-                     <input type="checkbox" class="custom-control-input" id="aggrement"
-                        required> <label class="custom-control-label"
-                        for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-                  </div>
-                  <!-- 회원 가입 버튼 -->
-               <div class="row">
-                  <div style="margin-top: 20px; text-align: center">
-                     <button type="submit" class="btn btn-dark formButton">가입완료</button>
-                     <button type="button" class="btn btn-light formButton"
-                        th:onclick="|location.href='@{/}'|">취소</button>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
+	<div class="container mt-5">
+		<form class="form-control-lg validation-form" novalidate action=""
+			method="post" th:object="${driverInfo}">
+			<div class="row justify-content-center">
+				<div class="col col-md-6 mb-3">
+					<h4>Driver 회원가입</h4>
+				</div>
+			</div>
+			<div class="row justify-content-center" id="inputUserType">
+				<!-- 가입유형지정 -->
+				<div class="col mb-3 form-check" th:each="dUserType : ${dUserTypes}">
+					<input class="form-check-input" type="radio"
+						th:field="*{dUserType}" name="dUserType"
+						th:value="${dUserType.name}"> <label
+						th:for="${#ids.prev('dUserType')}" th:text="${dUserType.memo}"></label>
+				</div>
+			</div>
+			<div class="row justify-content-center" id="inputUserGender">
+				<!-- 가입자 성별 -->
+				<div class="col mb-3 form-check">
+					<input class="form-check-input" type="radio"
+						th:field="*{dUserGender}" id="dUserGender1" name="dUserGender"
+						th:value="M"><label th:text="남성"></label> <input
+						class="form-check-input" type="radio" th:field="*{dUserGender}"
+						id="dUserGender2" name="dUserGender" th:value="F"><label
+						th:text="여성"></label>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 아이디 입력 / 중복 체크 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dUserId">* 아이디(id)</label> <span
+						class="text-center small mt-2" id="checkIdMsg" style="color: red"></span>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="dUserId"
+							name="dUserId" placeholder="아이디" pattern="[a-zA-Z0-9]{4,12}"
+							aria-label="dUserId" aria-describedby="checkId"
+							th:field="*{dUserId}" title="영문, 숫자 포함 4자리에서 최대 12자리까지"
+							maxlength="12" required>
+						<button class="btn btn-dark" type="button" id="checkId">중복확인</button>
+					</div>
+					<div class="invalid-feedback">
+						<span>아이디를 확인해주세요.</span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 패스워드 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dUserPw">* 패스워드(pw)</label> <input type="password"
+						th:field="*{dUserPw}" class="form-control" id="dUserPw"
+						name="dUserPw" placeholder="패스워드"
+						pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
+						title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지" maxlength="16"
+						required>
+					<div class="invalid-feedback">
+						<span>패스워드를 확인해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개 이상
+							포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 사용자 이름 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dUserName">* 이름(name)</label> <input type="text"
+						class="form-control" id="dUserName" name="dUserName"
+						th:field="*{dUserName}" maxlength="10" placeholder="이름" required>
+					<div class="invalid-feedback">이름을 확인해주세요.</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dUserEmail">* 이메일(email)</label> <span
+						class="text-center small mt-2" id="checkEmailMsg"
+						style="color: red"></span>
+					<div class="input-group mb-3">
+						<input type="email" class="form-control" id="dUserEmail"
+							name="dUserEmail" aria-label="dUserEmail"
+							th:field="*{dUserEmail}" aria-describedby="checkEmail"
+							pattern="^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+							placeholder="carpooling@example.com"
+							title="이메일 양식:carpooling@sample.com" maxlength="50" required>
+						<button class="btn btn-dark" type="button" id="checkEmail">인증</button>
+					</div>
+					<div class="invalid-feedback">
+						<span>이메일을 확인해주세요. </span><span>(carpooling@sample.com)</span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 인증 번호 입력 -->
+				<div class="col col-md-6 mb-3" id="inputVcode">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="dUserVcode"
+							name="dUserVcode" placeholder="인증코드" aria-label="dUserVcode"
+							aria-describedby="checkVcode" title="이메일로 발송된 인증코드를 입력" required>
+						<button class="btn btn-dark" type="button" id="checkVcode">확인</button>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 휴대폰 번호 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dUserTel">* 휴대폰번호</label> <input type="text"
+						class="form-control" id="dUserTel" name="dUserTel"
+						placeholder="010-1234-5678 숫자만" pattern="^(010-\d{3,4}-\d{4})$"
+						maxlength="13" title="숫자만 입력" th:field="*{dUserTel}" required>
+					<div class="invalid-feedback">
+						<span>휴대폰번호를 확인해주세요. </span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 주민등록번호 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dIdNum">* 주민등록번호</label><span
+						class="text-center small mt-2" id="checkIdNumMsg"
+						style="color: red"></span> <input type="text" class="form-control"
+						id="dIdNumM" name="dIdNumM"
+						pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
+						placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력"
+						maxlength="14" required> <input type="hidden"
+						class="form-control" id="dIdNum" name="dIdNum"
+						th:field="*{dIdNum}"
+						pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9]{6})$"
+						maxlength="14">
+					<div class="invalid-feedback">
+						<span>주민등록번호를 확인해주세요.</span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 면허 번호 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dLicenseNum">* 면허번호</label><span
+						class="text-center small mt-2" id="checkLicenseNumMsg"
+						style="color: red"></span>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="dLicenseNum"
+							name="dLicenseNum" aria-label="dLicenseNum"
+							aria-describedby="checkLicenseNum" th:field="*{dLicenseNum}"
+							pattern="^(\d{2}-\d{2}-\d{6}-\d{2})$"
+							placeholder="00-00-000000-00 숫자만" maxlength="15"
+							title="면허 번호 숫자만 입력" required>
+						<button class="btn btn-dark" type="button" id="checkLicenseNum">확인</button>
+					</div>
+					<div class="invalid-feedback">
+						<span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 식별 번호 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dLicenseDate">* 식별번호</label> <input type="text"
+						class="form-control" id="dLicenseIdNum" name="dLicenseIdNum"
+						th:field="*{dLicenseIdNum}" pattern="^([A-Z0-9]{5,6})$"
+						placeholder="영문(대)+숫자 5자리 혹은 6자리" maxlength="8"
+						title="식별 번호 (영문대문자+숫자) 입력" required>
+					<div class="invalid-feedback">
+						<span>(면허증 우측 사진 아래)</span> <span>식별번호를 확인해주세요. </span><span>(영문대문자+숫자
+							5자리 혹은 6자리)</span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 자동차 번호 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dCarNum">* 자동차번호</label><span
+						class="text-center small mt-2" id="checkCarNumMsg"
+						style="color: red"></span> <input type="text" class="form-control"
+						id="dCarNum" name="dCarNum" placeholder="00땡0000, 000땡0000"
+						pattern="(\d{2,3})([가-힣]{1})(\d{4})" maxlength="8"
+						title="자동차 번호 입력" th:field="*{dCarNum}" required>
+					<div class="invalid-feedback">
+						<span>자동차번호를 확인해주세요. </span>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 계좌 번호 입력 -->
+				<div class="col col-md-6 mb-3">
+					<label for="dAccountBank">계좌번호</label>
+					<div class="input-group mb-3">
+						<select id="dAccountBank" name="dAccountBank" th:field="*{dAccountBank}"
+							class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" required>
+							<option selected class="dropdown-item">은행명</option>
+							<option class="dropdown-item" value="04">KB국민은행</option>
+							<option class="dropdown-item" value="23">SC제일은행</option>
+							<option class="dropdown-item" value="39">경남은행</option>
+							<option class="dropdown-item" value="34">광주은행</option>
+							<option class="dropdown-item" value="03">기업은행</option>
+							<option class="dropdown-item" value="11">농협</option>
+							<option class="dropdown-item" value="31">대구은행</option>
+							<option class="dropdown-item" value="32">부산은행</option>
+							<option class="dropdown-item" value="02">산업은행</option>
+							<option class="dropdown-item" value="45">새마을금고</option>
+							<option class="dropdown-item" value="07">수협</option>
+							<option class="dropdown-item" value="88">신한은행</option>
+							<option class="dropdown-item" value="48">신협</option>
+							<option class="dropdown-item" value="81">외환은행</option>
+							<option class="dropdown-item" value="20">우리은행</option>
+							<option class="dropdown-item" value="71">우체국</option>
+							<option class="dropdown-item" value="37">전북은행</option>
+							<option class="dropdown-item" value="12">축협</option>
+							<option class="dropdown-item" value="90">카카오뱅크</option>
+							<option class="dropdown-item" value="89">케이뱅크</option>
+							<option class="dropdown-item" value="81">하나은행</option>
+							<option class="dropdown-item" value="27">한국씨티은행</option>
+							<option class="dropdown-item" value="92">토스뱅크</option>
+						</select> <input type="text" class="form-control" id="dAccountNum" name="dAccountNum"
+							aria-label="Text input with dropdown button"
+							th:field="*{dAccountNum}" placeholder="계좌번호를 입력하세요" required>
+						<div class="invalid-feedback">
+							<span>계좌번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 개인정보활용동의 -->
+				<div class="custom-control custom-checkbox mb-3">
+					<input type="checkbox"
+						class="col col-md-6 custom-control custom-checkbox mb-3"
+						id="aggrement" required> <label
+						class="custom-control-label" for="aggrement">개인정보 수집 및 이용에
+						동의합니다.</label>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- 회원 가입 버튼 -->
+				<div class="row justify-content-center">
+					<div class="col col-md-4 mb-3">
+						<button type="submit" class="btn btn-dark formButton">가입완료</button>
+						<button type="button" class="btn btn-light formButton"
+							th:onclick="|location.href='@{/}'|">취소</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </th:block>
 <th:block layout:fragment="js">
    <script src="/custom/js/driver/dJoinGeneral.js"></script>

@@ -14,7 +14,7 @@
 	<div class="container mt-5">
 		<form class="form-control-lg validation-form" novalidate action="" method="post" th:object="${passenger}">
 			<div class="row justify-content-center">
-				<div class="col col-md-8 mb-3">
+				<div class="col col-md-6 mb-3">
 					<h4>Passenger 회원가입</h4>
 				</div>
 			</div>
@@ -39,8 +39,8 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 아이디 입력 / 중복 체크 -->
-				<div class="col col-md-8 mb-3">
-					<label for="pUserId">아이디(id)</label>
+				<div class="col col-md-6 mb-3">
+					<label for="pUserId">* 아이디(id)</label>
 					<span class="text-center small mt-2" id="checkIdMsg" style="color: red"></span>
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" id="pUserId" name="pUserId" placeholder="아이디"
@@ -53,8 +53,8 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 패스워드 입력 -->
-				<div class="col col-md-8 mb-3">
-					<label for="pUserPw">패스워드(pw)</label>
+				<div class="col col-md-6 mb-3">
+					<label for="pUserPw">* 패스워드(pw)</label>
 					<input type="password" class="form-control" id="pUserPw" name="pUserPw" th:field="*{pUserPw}" placeholder="패스워드"
 						pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 						title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지" maxlength="16" required>
@@ -65,8 +65,8 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 사용자 이름 입력 -->
-				<div class="col col-md-8 mb-3">
-					<label for="pUserName">이름(name)</label>
+				<div class="col col-md-6 mb-3">
+					<label for="pUserName">* 이름(name)</label>
 					<input type="text" class="form-control" id="pUserName" name="pUserName" th:field="*{pUserName}"
 						maxlength="10" placeholder="이름" required>
 					<div class="invalid-feedback">이름을 확인해주세요.</div>
@@ -74,8 +74,8 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
-				<div class="col col-md-8 mb-3">
-					<label for="pUserEmail">이메일(email)</label>
+				<div class="col col-md-6 mb-3">
+					<label for="pUserEmail">* 이메일(email)</label>
 					<span class="text-center small mt-2" id="checkEmailMsg" style="color: red"></span>
 					<div class="input-group mb-3">
 						<input type="email" class="form-control" id="pUserEmail" name="pUserEmail"
@@ -92,7 +92,7 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 인증 번호 입력 -->
-				<div class="col col-md-8 mb-3" id="inputVcode">
+				<div class="col col-md-6 mb-3" id="inputVcode">
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" id="pUserVcode" name="pUserVcode" placeholder="인증코드"
 							aria-label="pUserVcode" aria-describedby="checkVcode" title="이메일로 발송된 인증코드를 입력" required>
@@ -102,8 +102,8 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 휴대폰번호 입력 -->
-				<div class="col col-md-8 mb-3">
-					<label for="pUserTel">휴대폰번호</label>
+				<div class="col col-md-6 mb-3">
+					<label for="pUserTel">* 휴대폰번호</label>
 					<input type="text" class="form-control" id="pUserTel" name="pUserTel"
 					 		pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 					 		th:field="*{pUserTel}" value="010" required>
@@ -114,8 +114,8 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 주민등록번호 입력 -->
-				<div class="col col-md-8 mb-3">
-					<label for="pIdNumM">주민등록번호</label>
+				<div class="col col-md-6 mb-3">
+					<label for="pIdNumM">* 주민등록번호</label>
 					<input type="text" class="form-control" id="pIdNumM" name="pIdNumM"
 						pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
 						placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력" maxlength="14" required>
@@ -129,12 +129,13 @@
 			</div>
 			<div class="row justify-content-center">
 				<!-- 개인정보활용동의 -->
-				<div class="col col-md-8 custom-control custom-checkbox mb-3">
+				<div class="col col-md-6 custom-control custom-checkbox mb-3">
 					<input type="checkbox" class="custom-control-input" id="aggrement" required> <label
 						class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
 				</div>
 			</div>
 			<div class="row justify-content-center">
+				<!-- 회원 가입 버튼 -->
 				<div class="col col-md-4 mb-3">
 					<button type="submit" class="btn btn-dark formButton">가입완료</button>
 					<button type="button" class="btn btn-light formButton" th:onclick="|location.href='@{/}'|">취소</button>
