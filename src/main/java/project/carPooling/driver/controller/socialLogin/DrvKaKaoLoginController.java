@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +43,8 @@ public class DrvKaKaoLoginController {
 //    		 BindingResult bindingResult, 
     		@RequestParam(value = "code", required = false) String code,
     		HttpServletResponse resp, HttpServletRequest req,
-    		@RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL
+    		@RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL,
+    		RedirectAttributes rAttr
     		) throws Exception {
 		
     	System.out.println("controller/code=" + code);
@@ -63,6 +65,11 @@ public class DrvKaKaoLoginController {
 		model.addAttribute("driverInfo", driverInfo);
 		
 		DriverInfo driverInfo2 = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
+		
+		if(driverInfo2 != null && driverInfo2.getDSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/driver/login";
+		}
 		
 		if ( driverInfo2 == null ) {
 			return "driver/join/dKakaoCallback";

@@ -36,7 +36,12 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 			
 			PassengerInfo passengerInfo = passengerInfoRepository.selectByEmail(email);
 			
-			if ( passengerInfo == null) {
+			if(passengerInfo != null && passengerInfo.getPSignOut() == true) {
+				rAttr.addFlashAttribute("signOut", true);
+				return "redirect:/passenger/login";
+			}
+			
+			if (passengerInfo == null) {
 				return "redirect:/passenger/login/google/redirect";
 			}
 			

@@ -52,7 +52,7 @@ public class DrvVerifyController {
 	//아이디 중복 체크
 	@GetMapping("/check/id")
 	public boolean driverCheckJoinId(@RequestParam String id) {
-		boolean checkId = dUserService.drivercheckId(id);		
+		boolean checkId = dUserService.driverCheckId(id);		
 		log.info("아이디 중복 체크 : {}", checkId);
 		return checkId;
 	}

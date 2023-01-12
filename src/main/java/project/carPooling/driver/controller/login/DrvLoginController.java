@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -66,7 +67,8 @@ public class DrvLoginController {
 	public String doLogin(@ModelAttribute DriverLoginForm dLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL) {
+						, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL,
+						RedirectAttributes rAttr) {
 		log.info("dLoginForm {}", dLoginForm);
 		
 		validateLoginForm(dLoginForm, bindingResult);
@@ -78,6 +80,11 @@ public class DrvLoginController {
 		DriverInfo driver = driverLoginService.login(dLoginForm.getLoginId(), dLoginForm.getPassword());
 		
 		log.info("dLogin {}", driver);
+		
+		if(driver != null && driver.getDSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/driver/login";
+		}
 		
 		if(driver == null) {	//계정 정보가 없거나, 비밀번호가 안 맞으면 로그인 실패
 			bindingResult.rejectValue("dLoginForm", "아이디 or 비밀번호 불일치");

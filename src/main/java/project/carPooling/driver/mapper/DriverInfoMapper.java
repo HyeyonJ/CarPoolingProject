@@ -38,4 +38,6 @@ public interface DriverInfoMapper {
 	// 회원 탈퇴 시 update 처리
 	public void updateDriverSignOut(String dUserEmail);
 	
+	public DriverInfo selectByIdNum(String idNum);
+	
 }
