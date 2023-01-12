@@ -2,6 +2,14 @@ body {
   height: 100vh;
 }
 
+#pReservationClass{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;	
+	
+}
+
+
 #pr_section {
 }
 
