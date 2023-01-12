@@ -15,7 +15,7 @@ public class DriverLoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		String uri = request.getRequestURI();		
-		log.info("LogIntercepter preHandle {}", uri);
+		log.info("DriverLoginIntercepter preHandle {}", uri);
 		
 		HttpSession session = request.getSession(false);
 		if(session == null || session.getAttribute(SessionVar.LOGIN_DRIVER) == null) {

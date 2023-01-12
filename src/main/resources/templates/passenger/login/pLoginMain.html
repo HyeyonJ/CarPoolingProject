@@ -91,7 +91,12 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script th:inline="javascript">
+		const login = "[[${login}]]";
 		const signOut = "[[${signOut}]]";
+		
+		if(login === "false") {
+			Swal.fire("로그인 실패!", "ID/PW를 확인해주세요.", "error")
+		}
 		
 		if(signOut === "true"){
 			Swal.fire("로그인 실패!", "이미 탈퇴한 회원입니다.", "error")
