@@ -131,7 +131,7 @@
 	</th:block>
 	<th:block layout:fragment="js">
 		<script th:inline="javascript">
-			$("#pUserEmail").val(/*[[${dUserEmail}]]*/);
+			$("#pUserEmail").val([[${pUserEmail}]]);
 		</script>
 		<script src="/custom/js/passenger/pJoinGoogle1.js"></script>
 	</th:block>
