@@ -1,6 +1,7 @@
 package project.carPooling.driver.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +17,21 @@ public class DriverUserService {
 	
 	private final DriverInfoRepository driverRepository;
 	private final PassengerInfoRepository passengerRepository;
+	
+	//driver 자동차번호 중복 체크
+	public boolean driverCheckCarNum(String carNum) {
+		boolean checkCarNum = false;
+		DriverInfo driver = driverRepository.selectByCarNum(carNum);		
+		if(driver!=null) { checkCarNum = true; }        
+        return checkCarNum;        
+	}
 
 	//driver 주민등록번호 중복 체크
 	public boolean driverCheckIdNum(String idNum) {
 		boolean checkIdNum = false;
 		DriverInfo driver = driverRepository.selectByIdNum(idNum);        
         if(driver!=null) { checkIdNum = true; }        
-        return checkIdNum;        
+        return checkIdNum;
     }
 	
 	//아이디 통합 중복 체크

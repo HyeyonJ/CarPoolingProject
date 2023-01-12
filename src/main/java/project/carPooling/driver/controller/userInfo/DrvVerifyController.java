@@ -33,12 +33,28 @@ public class DrvVerifyController {
 	private final UserMailService userMailService;
 	private final DriverUserService dUserService;
 	
+	//계좌번호 중복 체크
+	@GetMapping("/check/accountInfo")
+	public boolean driverCheckAccountInfo(@RequestParam String carNum) {
+		boolean checkCarNum = dUserService.driverCheckCarNum(carNum);
+		log.info("자동차번호 중복 체크 : {}", checkCarNum);
+		return checkCarNum;
+	}
+	
+	//자동차번호 중복 체크
+	@GetMapping("/check/carNum")
+	public boolean driverCheckCarNum(@RequestParam String carNum) {		
+		boolean checkCarNum = dUserService.driverCheckCarNum(carNum);		
+		log.info("자동차번호 중복 체크 : {}", checkCarNum);
+		return checkCarNum;
+	}
+	
 	//주민등록번호 중복 체크
 	@GetMapping("/check/idNum")
 	public boolean driverCheckIdNum(@RequestParam String idNum) {		
-		boolean CheckIdNum = dUserService.driverCheckIdNum(idNum);		
-		log.info("주민등록번호 중복 체크 : {}", CheckIdNum);
-		return CheckIdNum;
+		boolean checkIdNum = dUserService.driverCheckIdNum(idNum);		
+		log.info("주민등록번호 중복 체크 : {}", checkIdNum);
+		return checkIdNum;
 	}
 
 	//면허번호 중복 체크

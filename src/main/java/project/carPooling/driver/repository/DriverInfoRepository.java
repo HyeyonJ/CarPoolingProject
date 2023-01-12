@@ -32,10 +32,13 @@ public interface DriverInfoRepository {
 	public void updateDriverInfo(DriverInfo driverInfo);
 	
 	// 회원 탈퇴 시 update 처리
-//	public void updateDriverSignOut(DriverInfo driverInfo);
 	public boolean updateDriverSignOut(String dUserEmail);
 	
 	public DriverInfo selectByIdNum(String idNum);
+	
+	public DriverInfo selectDriverAccountInfo(Integer dIdx);
+	
+	public boolean updateDriverAccountInfo(Integer dIdx);
 	
 	
 }

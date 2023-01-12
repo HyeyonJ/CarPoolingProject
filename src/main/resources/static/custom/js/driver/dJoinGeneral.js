@@ -1,10 +1,3 @@
-$("#checkIdMsg").html('<span style="color:red"> 확인 필요</span>');
-$("#checkPwMsg").html('<span style="color:red"> 확인 필요</span>');
-$("#checkEmailMsg").html('<span style="color:red"> 인증 필요</span>');
-$("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
-$("#checkLicenseNumMsg").html('<span style="color:red"> 확인 필요</span>');
-$("#checkCarNumMsg").html('<span style="color:red"> 확인 필요</span>');
-
 var userId = document.getElementById("dUserId");
 var userPw = document.getElementById("dUserPw");
 var userPwCheck = document.getElementById("dUserPwCheck");
@@ -49,10 +42,16 @@ window.addEventListener(
 
 
 /* 아이디 체크 */
+userId.onkeyup = function(){
+	const regId = /^[a-zA-Z0-9]{4,12}$/;
+	$("#checkIdMsg").html('<span style="color:red"> 영문, 숫자 포함 4자리에서 최대 12자리</span>');
+	if (regId.test($("#dUserId").val())) {
+		$("#checkIdMsg").html('<span style="color:red"> 중복 확인 필요</span>');
+	}
+}
 $("#checkId").click(function() {
 	$("#checkId").removeClass("btn-outline-dark");
 	$("#checkId").addClass("btn-dark");
-	$("#checkIdMsg").html('<span style="color:red"> 확인 필요</span>');
 	const regId = /^[a-zA-Z0-9]{4,12}$/;
 	if (regId.test($("#dUserId").val())) {
 		$.ajax({
@@ -88,33 +87,40 @@ $("#checkId").click(function() {
 	}
 });
 
-/* 패스워드 체크 */
 
+/* 패스워드 체크 */
 userPw.onkeyup = function() {
 	const regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
-	$("#checkPwMsg").html('<span style="color:red"> 확인 필요</span>');
+	$("#checkPwMsg").html('<span style="color:red"> 영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리</span>');
 	if (regPw.test($("#dUserPw").val())) {
-		$("#checkPwMsg").html('<span style="color:darkblue"> 사용 가능</span>');
+		$("#checkPwMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 	}
 }
-
+/* 패스워드 확인 */
 userPwCheck.onkeyup = function() {
 	const regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+	$("#checkPwMsg2").html('<span style="color:red"> 영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리</span>');
 	if (regPw.test($("#dUserPwCheck").val())) {
 		$("#checkPwMsg2").html('<span style="color:red"> 불일치</span>');
 		if( ($("#dUserPwCheck").val())==($("#dUserPw").val()) ) {
-			$("#checkPwMsg2").html('<span style="color:darkblue"> 확인 완료</span>');
+			$("#checkPwMsg2").html('<span style="color:darkblue"> 일치</span>');
 		}
 	}
 };
 
 
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
+userEmail.onkeyup = function(){
+	$("#checkEmailMsg").html('<span style="color:red"> carpooling@sample.com</span>');
+	if (regEmail.test($("#dUserEmail").val())) {
+		$("#checkEmailMsg").html('<span style="color:red"> 인증 필요</span>');
+	}
+}
 $("#checkEmail").click(function() {
 	$("#inputVcode").css("display", "none");
 	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 	$("#checkEmail").removeClass("btn-outline-dark");
-	$("#checkEmail").addClass("btn-dark");	
+	$("#checkEmail").addClass("btn-dark");
 	if (regEmail.test($("#dUserEmail").val())) {
 		//이메일 중복 체크
 		$.ajax({
@@ -253,15 +259,16 @@ var autoMaskingIdNum = function (idNum) {
 userIdNum.onkeyup = function () {
   this.value = autoHypenIdNum(this.value);
   const regIdNum = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$/;
-  $("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
+  $("#checkIdNumMsg").html('<span style="color:red"> 13자리 숫자만 입력</span>');
 	if (regIdNum.test($("#dIdNum").val())) {
+		$("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
 		$.ajax({
 			type: "GET",
 			url: "/driver/check/idNum",
 			data: { idNum: $("#dIdNum").val() },
 			success: function (res, status) {
 				if(res == true) {
-					$("#checkIdNumMsg").html('<span style="color:red">이미 가입된 주민등록번호입니다.</span>');
+					$("#checkIdNumMsg").html('<span style="color:red"> 이미 가입된 주민등록번호입니다.</span>');
 				} else {
 					$("#checkIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 				}
@@ -319,6 +326,7 @@ var autoHypenLicenseNum = function (licenseNum) {
 licenseNum.onkeyup = function() {
 	this.value = autoHypenLicenseNum(this.value);
 	const regLicenseNum = /^(\d{2}-\d{2}-\d{6}-\d{2})$/;
+	$("#checkLicenseNumMsg").html('<span style="color:red"> 12자리 숫자만 입력</span>');
 	if (regLicenseNum.test($("#dLicenseNum").val())) {
 		$.ajax({
 			type: "GET",
@@ -326,7 +334,7 @@ licenseNum.onkeyup = function() {
 			data: { licenseNum: $("#dLicenseNum").val() },
 			success: function(res, status) {
 				if (res == true) {
-					$("#checkLicenseNumMsg").html('<span style="color:red">이미 등록된 면허입니다.</span>');
+					$("#checkLicenseNumMsg").html('<span style="color:red"> 이미 등록된 면허입니다.</span>');
 				} else {
 					$("#checkLicenseNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 				}
@@ -337,3 +345,30 @@ licenseNum.onkeyup = function() {
 	}
 };
 
+
+licenseIdNum.onkeyup = function() {
+	const regLicenseIdNum = /^([A-Z0-9]{5,6})$/;
+	$("#checkLIdNumMsg").html('<span style="color:red"> 영문대문자+숫자 5자리 혹은 6자리(면허증 우측 사진 아래 식별번호)</span>');
+	if (regLicenseIdNum.test($("#dLicenseIdNum").val())) {
+		$("#checkLIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+	}
+}
+
+carNum.onkeyup = function() {
+	const regCarNum = /(\d{2,3})([가-힣]{1})(\d{4})/;
+	$("#checkCarNumMsg").html('<span style="color:red"> 00땡0000, 000땡0000</span>');
+	if (regCarNum.test($("#dCarNum").val())) {
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/carNum",
+			data: { carNum: $("#dCarNum").val() },
+			success: function(res, status) {
+				if (res == true) {
+					$("#checkCarNumMsg").html('<span style="color:red"> 이미 등록된 자동차입니다.</span>');
+				} else {
+					$("#checkCarNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+				}
+			}
+		});
+	}
+};

@@ -40,4 +40,8 @@ public interface DriverInfoMapper {
 	
 	public DriverInfo selectByIdNum(String idNum);
 	
+	public DriverInfo selectDriverAccountInfo(Integer dIdx);
+	
+	public void updateDriverAccountInfo(Integer dIdx);
+	
 }
