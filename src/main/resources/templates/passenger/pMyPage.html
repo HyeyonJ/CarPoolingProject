@@ -5,17 +5,7 @@
   <head>
     <title>pMyPage</title>
     <link rel="stylesheet" href="/standard/css/temperature.css">
-    <title>dMyPage</title>
-    <link rel="stylesheet" href="/standard/css/temperature.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <style>
-      .mypage {
-        font-family: 'Gowun Dodum', sans-serif;
-      }
-
       .box {
         width: 150px;
         height: 150px;
@@ -68,46 +58,44 @@
           </td>
       </tbody>
     </table>
-		<div class="container" style="width: 80%; margin-top: 70px;">
-			<h4 style="font-weight: bold;">"내가작성한리뷰"</h4>
-			<div
-				style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-				<div th:each="myReview : ${myReviewList}"
-					style="margin-top: 30px; width: 45%;">
-					<div class="card">
-						<div class="card-header">
-							<span>★별점</span> <span th:text="${myReview.starPoint}"></span>
-						</div>
-						<div class="card-body">
-							<div th:text="${myReview.content}"></div>
-							- <span th:text="${myReview.nickname}"></span>
-								<div style="text-align: center;">
-									<button class="btn" style="background-color:  rgb(212, 206, 223);" th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
-              						<button class="btn" style="background-color:  rgb(212, 206, 223);" th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
-								</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container" style="width: 80%; margin-top: 70px;">
-			<h4 style="font-weight: bold;">"내가받은리뷰"</h4>
-			<div
-				style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-				<div th:each="drReview : ${drReviewList}"
-					style="margin-top: 30px; width: 45%;">
-					<div class="card">
-						<div class="card-header">
-							<span>★별점</span> <span th:text="${drReview.starPoint}"></span>
-						</div>
-						<div class="card-body">
-							<div th:text="${drReview.content}"></div>
-							- <span th:text="${drReview.nickname}"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="container" style="width: 80%; margin-top: 70px;">
+      <h4 style="font-weight: bold;">"내가작성한리뷰"</h4>
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div th:each="myReview : ${myReviewList}" style="margin-top: 30px; width: 45%;">
+          <div class="card">
+            <div class="card-header">
+              <span>★별점</span> <span th:text="${myReview.starPoint}"></span>
+            </div>
+            <div class="card-body">
+              <div th:text="${myReview.content}"></div>
+              - <span th:text="${myReview.nickname}"></span>
+              <div style="text-align: center;">
+                <button class="btn" style="background-color:  rgb(212, 206, 223);"
+                  th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
+                <button class="btn" style="background-color:  rgb(212, 206, 223);"
+                  th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="width: 80%; margin-top: 70px;">
+      <h4 style="font-weight: bold;">"내가받은리뷰"</h4>
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div th:each="drReview : ${drReviewList}" style="margin-top: 30px; width: 45%;">
+          <div class="card">
+            <div class="card-header">
+              <span>★별점</span> <span th:text="${drReview.starPoint}"></span>
+            </div>
+            <div class="card-body">
+              <div th:text="${drReview.content}"></div>
+              - <span th:text="${drReview.nickname}"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <th:block layout:fragment="js">

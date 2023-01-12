@@ -14,10 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import project.carPooling.driver.domain.DUserType;
-import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.global.session.SessionManager;
-import project.carPooling.global.session.SessionVar;
 import project.carPooling.passenger.domain.PUserType;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.repository.PassengerInfoRepository;
@@ -102,7 +99,7 @@ public class PsgEditController {
 
 	// 회원 탈퇴 페이지에서 update 후 DB repository에 저장
 	@PostMapping("/signOut")
-	public String driverSignOutReal(HttpServletRequest req) {
+	public String passengerSignOutReal(HttpServletRequest req) {
 		
 		PassengerInfo sessionData = sessionManager.getPsSession(req);
 		passengerInfoRepository.updatePassengerSignOut(sessionData.getPUserEmail());
