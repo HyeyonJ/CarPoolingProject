@@ -34,7 +34,7 @@ public class DrMyPage {
 		List<PReview> pReviewList = driverReviewRepository.selectPsReview(driverInfo.getDIdx());
 		model.addAttribute("myReviewList", dReviewList);
 		model.addAttribute("psReviewList", pReviewList);
-		
+		System.out.println(pReviewList);
 		return "driver/dMyPage";
 	}
 }
