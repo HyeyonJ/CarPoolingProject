@@ -41,18 +41,66 @@ button {
 }
 
 footer {
-  /* position: relative; */
-  /* height: 100px; */
-  /* width: 100%; */
-  /* padding: 0 25px; */
-  /* line-height: 60px; */
-  background: #433520;
-  /* bottom: 0; */
-  /* transform: translateY(-100%); */
+	border-top: solid 0.5px silver;
+	height: 150px;
+	width: 100%;
+	background: white;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: start;
+	justify-items: center;
+	text-align: center;
+	/* position: relative; */
+	/* line-height: 60px; */
+	/* bottom: 0; */
+	/* transform: translateY(-100%); */
 }
 
-footer p {
-  color: #fcf8ec;
+.footerContainer {
+    box-sizing: border-box;
+}
+
+.footerContainer div {
+	margin: 0 20px;
+}
+
+.footerContainer h1{
+	font-size: 35px;
+    text-align: center;
+}
+
+.footerContainer span{
+	margin-right: 1em;
+    margin-block-start: 0.1em;
+    margin-block-end: 0.1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+footer p {	
+	color: #433520;
+	margin: 0;
+}
+
+.span6 {
+	font-size: 50px;
+	font-weight: 600;
+    display: inline-block;
+}
+
+.spanCan {
+	font-size: 25px;
+	font-weight: 700;
+    display: inline-block;
+}
+
+.f2 span {
+	margin-right: 1em;
+    display: block;
+    margin-block-start: 0.1em;
+    margin-block-end: 0.1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 .title {
