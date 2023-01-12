@@ -1,12 +1,11 @@
 var userId = document.getElementById("pUserId");
 var userPw = document.getElementById("pUserPw");
 var userPwCheck = document.getElementById("pUserPwCheck");
+var userName = document.getElementById("pUserName");
 var userIdNum = document.getElementById("pIdNumM");
 var userEmail = document.getElementById("pUserEmail");
 var inputCode = document.getElementById("pUserVcode");
 var userTel = document.getElementById("pUserTel");
-
-
 
 
 /* 가입유형/성별/인증번호 입력폼 숨김처리 */
@@ -107,6 +106,16 @@ userPwCheck.onkeyup = function() {
 		if( ($("#pUserPwCheck").val())==($("#pUserPw").val()) ) {
 			$("#checkPwMsg2").html('<span style="color:darkblue"> 일치</span>');
 		}
+	}
+};
+
+
+/* 이름 입력 */
+userName.onkeyup = function(){
+	const regName = /^([가-힣a-zA-Z]{2,10})$/;
+	$("#checkNameMsg").html('<span style="color:red"> 한글/영문 최대 10자리</span>');
+	if (regName.test($("#pUserName").val())) {
+		$("#checkNameMsg").html('<span style="color:darkblue"> 사용 가능</span>');
 	}
 };
 
@@ -295,3 +304,4 @@ userTel.onkeyup = function() {
 		$("#checkTelMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 	}
 };
+

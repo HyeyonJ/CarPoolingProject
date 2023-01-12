@@ -1,5 +1,10 @@
-$("#checkIdMsg").html('<span style="color:red">아이디 중복 확인 필요</span>');
-$("#checkEmailMsg").html('<span style="color:red">이메일 인증 필요</span>');
+var userEmail = document.getElementById("pUserEmail");
+var userPw = document.getElementById("pUserPw");
+var userPwCheck = document.getElementById("pUserPwCheck");
+var userName = document.getElementById("pUserName");
+var userTel = document.getElementById("pUserTel");
+var userIdNum = document.getElementById("pIdNumM");
+
 
 /* 가입유형/성별/인증번호 입력폼 숨김처리 */
 $("#inputUserType").css("display", "none");
@@ -32,115 +37,83 @@ window.addEventListener(
   false
 );
 
-/* 아이디 중복 체크 */
-$("#checkId").click(function () {
-  const regId = /^[a-zA-Z0-9]{4,12}$/;
-  if (regId.test($("#pUserId").val())) {
-    $.ajax({
-      type: "GET",
-      url: "/passenger/check/id",
-      data: { id: $("#pUserId").val() },
-      success: function (res, status) {
-        /* 아이디 중복 체크 */
-        if (res == true) {
-          Swal.fire(
-            "이미 사용중인 아이디입니다.",
-            "다른 아이디를 입력해주세요.",
-            "error"
-          );
-        } else {
-          Swal.fire(
-            "사용 가능한 아이디입니다.",
-            "회원가입을 진행해주세요.",
-            "success"
-          ).then((OK) => {
-            if (OK) {
-              /* 중복확인 후 버튼색상, 메세지 변경 */
-              $("#checkId").removeClass("btn-dark");
-              $("#checkId").addClass("btn-outline-dark");
-              $("#checkIdMsg").html(
-                '<span style="color:darkblue">아이디 중복 확인 완료</span>'
-              );
-            }
-          });
-        }
-      },
-    });
-  } else {
-    Swal.fire("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error");
-  }
-});
 
-/* 이메일 인증 (인증코드 발송 > 결과 확인) */
-$("#checkEmail").click(function () {
-  const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  if (regEmail.test($("#pUserEmail").val())) {
-    Swal.fire(
-      "사용 가능한 이메일입니다.",
-      "입력하신 이메일로 인증코드가 발송됩니다.",
-      "success"
-    ).then((OK) => {
-      if (OK) {
-        $.ajax({
-          type: "GET",
-          url: "/passenger/send/email",
-          data: { email: $("#pUserEmail").val() },
-          success: () => {
-            /* 인증 메일 발송 후 인증 코드 입력 폼 출력 */
-            $("#inputVcode").css("display", "block");
-          },
-        });
-      }
-    });
-  } else {
-    Swal.fire(
-      "이메일을 확인해주세요.",
-      "다시 입력하시고 인증 버튼을 눌러주세요.",
-      "error"
-    );
-  }
-});
+/* 패스워드 체크 */
+userPw.onkeyup = function() {
+	const regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+	$("#checkPwMsg").html('<span style="color:red"> 영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리</span>');
+	if (regPw.test($("#pUserPw").val())) {
+		$("#checkPwMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+	}
+}
 
-/* 인증 코드 입력 & 확인 버튼 */
-$("#checkVcode").click(function () {
-  const regVcode = /^[A-Z0-9]{10}$/;
-  if (regVcode.test($("#pUserVcode").val())) {
-    $.ajax({
-      type: "GET",
-      url: "/passenger/check/vCode",
-      data: { code: $("#pUserVcode").val() },
-      success: function (res, status) {
-        console.log(res);
-        console.log(status);
-        if (res == true) {
-          Swal.fire(
-            "이메일 인증이 완료되었습니다.",
-            "회원가입을 진행해주세요.",
-            "success"
-          ).then((OK) => {
-            if (OK) {
-              /* 인증완료 후 입력폼 숨기기, 버튼색상/메세지 변경, 입력폼 숨기기 */
-              $("#checkEmail").removeClass("btn-dark");
-              $("#checkEmail").addClass("btn-outline-dark");
-              $("#inputVcode").css("display", "none");
-              $("#checkEmailMsg").html(
-                '<span style="color:darkblue">이메일 인증 완료</span>'
-              );
-            }
-          });
-        } else {
-          Swal.fire(
-            "인증코드가 일치하지않습니다.",
-            "인증코드를 다시 확인해주세요.",
-            "error"
-          );
-        }
-      },
-    });
+
+/* 이름 입력 */
+userName.onkeyup = function(){
+	const regName = /^([가-힣a-zA-Z]{2,10})$/;
+	$("#checkNameMsg").html('<span style="color:red"> 한글/영문 최대 10자리</span>');
+	if (regName.test($("#pUserName").val())) {
+		$("#checkNameMsg").html('<span style="color:darkblue"> 사용 가능</span>');
+	}
+};
+
+
+/* 주민등록번호 '-' 자동 입력 */
+var autoHypenIdNum = function (idNum) {
+  idNum = idNum.replace(/[^0-9]/g, "");
+  var tmp = "";
+  if (idNum.length < 7) {
+    return idNum;
   } else {
-    Swal.fire("잘못 입력하셨습니다.", "인증코드를 다시 확인해주세요.", "error");
+    tmp += idNum.substr(0, 6);
+    tmp += "-";
+    tmp += idNum.substr(6);
+    $("#pIdNum").val(tmp);
+    return tmp;
   }
-});
+  return idNum;
+};
+
+var autoMaskingIdNum = function (idNum) {
+  tmp = idNum.replaceAll(/([0-9]{6})-([1-4]{1})([0-9]{6})/g, "$1-$2******");
+  return tmp;
+};
+
+userIdNum.onkeyup = function () {
+  this.value = autoHypenIdNum(this.value);
+  const regIdNum = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$/;
+  $("#checkIdNumMsg").html('<span style="color:red"> 13자리 숫자만 입력</span>');
+	if (regIdNum.test($("#pIdNum").val())) {
+		$("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
+		$.ajax({
+			type: "GET",
+			url: "/passenger/check/idNum",
+			data: { idNum: $("#pIdNum").val() },
+			success: function (res, status) {
+				if(res == true) {
+					$("#checkIdNumMsg").html('<span style="color:red"> 이미 가입된 주민등록번호입니다.</span>');
+				} else {
+					$("#checkIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+				}
+
+			}
+		});
+	}
+};
+
+userIdNum.onblur = function () {
+  this.value = autoMaskingIdNum(this.value);
+  /* 성별 자동 선택*/
+  if (
+    $("#pIdNum").val().substr(7, 1) === "1" ||
+    $("#pIdNum").val().substr(7, 1) === "3"
+  ) {
+    $("#pUserGender1").attr("checked", true);
+  } else {
+    $("#pUserGender2").attr("checked", true);
+  }
+};
+
 
 /* 휴대폰 번호 '-' 자동 입력 */
 var autoHypenPhone = function (tel) {
@@ -171,48 +144,12 @@ var autoHypenPhone = function (tel) {
   return tel;
 };
 
-var userTel = document.getElementById("pUserTel");
-
-userTel.onkeyup = function () {
-  this.value = autoHypenPhone(this.value);
+userTel.onkeyup = function() {
+	this.value = autoHypenPhone(this.value);
+	const regTel = /^(010-\d{3,4}-\d{4})$/;
+	$("#checkTelMsg").html('<span style="color:red"> 010포함 숫자만 입력</span>');
+	if (regTel.test($("#pUserTel").val())) {
+		$("#checkTelMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+	}
 };
 
-/* 주민등록번호 '-' 자동 입력 */
-var autoHypenIdNum = function (idNum) {
-  idNum = idNum.replace(/[^0-9]/g, "");
-  var tmp = "";
-  if (idNum.length < 7) {
-    return idNum;
-  } else {
-    tmp += idNum.substr(0, 6);
-    tmp += "-";
-    tmp += idNum.substr(6);
-    $("#pIdNum").val(tmp);
-    return tmp;
-  }
-  return idNum;
-};
-
-var autoMaskingIdNum = function (idNum) {
-  tmp = idNum.replaceAll(/([0-9]{6})-([1-4]{1})([0-9]{6})/g, "$1-$2******");
-  return tmp;
-};
-
-var idNum = document.getElementById("pIdNumM");
-
-idNum.onkeyup = function () {
-  this.value = autoHypenIdNum(this.value);
-};
-
-idNum.onblur = function () {
-  this.value = autoMaskingIdNum(this.value);
-  /* 성별 자동 선택*/
-  if (
-    $("#pIdNum").val().substr(7, 1) === "1" ||
-    $("#pIdNum").val().substr(7, 1) === "3"
-  ) {
-    $("#pUserGender1").attr("checked", true);
-  } else {
-    $("#pUserGender2").attr("checked", true);
-  }
-};

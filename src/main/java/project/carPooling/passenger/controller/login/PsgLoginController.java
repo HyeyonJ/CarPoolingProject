@@ -63,18 +63,27 @@ public class PsgLoginController {
 						, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL
 						, RedirectAttributes rAttr) {
 		
-		PassengerInfo passenger = passengerLoginService.login(pLoginForm.getLoginId(), pLoginForm.getPassword());
-
-		//계정 정보가 없거나, 로그인 정보 불일치
+		PassengerInfo passenger = passengerLoginService.checkLogin(pLoginForm.getLoginId());
+		
+		//계정 정보가 없음
 		if(passenger == null) {
-			rAttr.addFlashAttribute("login", false);
+			rAttr.addFlashAttribute("user", false);
+			return "redirect:/passenger/login";
+		}		
+
+		passenger = passengerLoginService.login(pLoginForm.getLoginId(), pLoginForm.getPassword());
+		
+		//계정 정보가 있으나, 패스워드 불일치
+		if(passenger == null) {
+			rAttr.addFlashAttribute("user", true);
 			return "redirect:/passenger/login";
 		}
+		
 		//계정 정보가 있으나, 탈퇴한 회원
 		if(passenger.getPSignOut() == true) {
 			rAttr.addFlashAttribute("signOut", true);
 			return "redirect:/passenger/login";
-		}		
+		}
 		
 		//정상 로그인 처리가 된 경우 세션에 추가
 		HttpSession session = req.getSession();

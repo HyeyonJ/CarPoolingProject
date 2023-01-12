@@ -1,6 +1,7 @@
 var userId = document.getElementById("dUserId");
 var userPw = document.getElementById("dUserPw");
 var userPwCheck = document.getElementById("dUserPwCheck");
+var userName = document.getElementById("dUserName");
 var userIdNum = document.getElementById("dIdNumM");
 var userEmail = document.getElementById("dUserEmail");
 var inputCode = document.getElementById("dUserVcode");
@@ -107,6 +108,16 @@ userPwCheck.onkeyup = function() {
 		if( ($("#dUserPwCheck").val())==($("#dUserPw").val()) ) {
 			$("#checkPwMsg2").html('<span style="color:darkblue"> 일치</span>');
 		}
+	}
+};
+
+
+/* 이름 입력 */
+userName.onkeyup = function(){
+	const regName = /^([가-힣a-zA-Z]{2,10})$/;
+	$("#checkNameMsg").html('<span style="color:red"> 한글/영문 최대 10자리</span>');
+	if (regName.test($("#dUserName").val())) {
+		$("#checkNameMsg").html('<span style="color:darkblue"> 사용 가능</span>');
 	}
 };
 
@@ -377,3 +388,4 @@ carNum.onkeyup = function() {
 		});
 	}
 };
+
