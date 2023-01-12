@@ -1,12 +1,12 @@
-package project.carPooling.driver.validation.form;
+package project.carPooling.passenger.domain;
 
 //import lombok.Data;
 
 //@Data
-public class DriverLoginForm {
+public class PassengerLoginForm {
 	private String loginId;	
 	private String password;
-	
+
 	public String getLoginId() {
 		return loginId;
 	}

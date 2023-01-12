@@ -21,7 +21,7 @@ public class PassengerUserService {
 	public boolean passengerCheckIdNum(String idNum) {
 		boolean checkIdNum = false;
 		PassengerInfo passenger = passengerRepository.selectByIdNum(idNum);
-        if(passenger!=null) { checkIdNum = true; }        
+        if(passenger!=null) { checkIdNum = true; }
         return checkIdNum;
     }
 	

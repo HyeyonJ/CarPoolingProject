@@ -15,7 +15,7 @@ public class PassengerLoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		String uri = request.getRequestURI();		
-		log.info("LogIntercepter preHandle {}", uri);
+		log.info("PassengerLoginIntercepter preHandle {}", uri);
 		
 		HttpSession session = request.getSession(false);
 		if(session == null || session.getAttribute(SessionVar.LOGIN_PASSENGER) == null) {
