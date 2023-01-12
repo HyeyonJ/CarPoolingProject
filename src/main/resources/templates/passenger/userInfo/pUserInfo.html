@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutdriver}">
+      layout:decorate="~{layouts/layoutPassenger}">
 <head>
 <title>driverInfo Info Edit</title>
 
@@ -16,18 +16,19 @@
 	<div class="container mt-5">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<div class="row">
-					<div class="col-md-6 mb-3" style="text-align: center;">
-						<h4>내정보 관리</h4>
+			<div class="row justify-content-center">
+						<div class="col col-md-6 mb-3" style="text-align: center;">
+							<h4>내정보 관리</h4>
+							<div
+								style="border-bottom: solid 1px silver; margin-left: 200px; margin-right: 200px; margin-bottom: 50px;"></div>
+						</div>
 					</div>
-				</div>
-				<div
-					style="border-bottom: solid 1px silver; margin-left: 200px; margin-right: 200px; margin-bottom: 50px;"></div>
-				<!-- 				가입유형지정 -->
 				<form class="validation-form" novalidate="novalidate"
 					th:action="|@{/passenger/info}|" method="post"
-					th:object="${passenger}">
-					<div class="row" id="inputUserType">
+					th:object="${passenger}">					
+					
+					<!-- 				가입유형지정 -->
+					<div class="row justify-content-center" id="inputUserType">
 						<div class="col col-md-2 mb-3 form-check"
 							th:each="pUserType : ${pUserTypes}">
 							<input class="form-check-input" type="radio"
@@ -40,15 +41,14 @@
 					<div class="row justify-content-center" id="inputUserGender">
 						<div class="col col-md-2 mb-3 form-check">
 							<input class="form-check-input" type="radio"
-								th:field="${passenger.pUserGender}" id="pUserGender1" name="pUserGender"
-								th:value="M" hidden>
-							<label th:text="남성" hidden></label>
+								th:field="${passenger.pUserGender}" id="pUserGender1"
+								name="pUserGender" th:value="M" hidden> <label
+								th:text="남성" hidden></label>
 						</div>
 						<div class="col col-md-2 mb-3 form-check">
 							<input class="form-check-input" type="radio"
 								th:field="*{pUserGender}" id="pUserGender2" name="pUserGender"
-								th:value="F" hidden>
-							<label th:text="여성" hidden></label>
+								th:value="F" hidden> <label th:text="여성" hidden></label>
 						</div>
 					</div>
 					<!-- 				아이디 수정 -->
@@ -95,9 +95,8 @@
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
 							<label for="pIdNumM">주민등록번호</label><span
-								class="text-center small mt-2" id="checkIdNumMsg"
-								style="color: red"></span> <input type="text"
-								class="form-control" id="pIdNumM" name="pIdNumM"
+								class="text-center small mt-2" id="checkIdNumMsg"></span> <input
+								type="text" class="form-control" id="pIdNumM" name="pIdNumM"
 								th:field="${passenger.pIdNum}"
 								pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
 								placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력"
@@ -115,8 +114,7 @@
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
 							<label for="pUserEmail">이메일(email)</label> <span
-								class="text-center small mt-2" id="checkEmailMsg"
-								style="color: red"></span>
+								class="text-center small mt-2" id="checkEmailMsg"></span>
 							<div class="input-group mb-3">
 								<input type="email" class="form-control" id="pUserEmail"
 									name="pUserEmail" aria-label="pUserEmail"
@@ -145,19 +143,25 @@
 							</div>
 						</div>
 					</div>
-					<!-- 				회원 탈퇴 -->
-					<div class="row">
-						<div style="margin-top: 20px;">
-							<a th:href="@{/passenger/signOut}" style="color: gray;">회원 탈퇴></a>
+					<div class="row justify-content-center">
+						<div class="col col-md-6 mb-3">
+							<button type="submit" class="btn btn-dark" id="updateBtn">수정하기</button>
+							<button type="button" class="btn btn-light formButton"
+								th:onclick="|location.href='@{/passenger/passengerCarpool/reservation}'|">취소</button>
 						</div>
 					</div>
-				 </form>
+					<!-- 				회원 탈퇴 -->
+					<div class="row justify-content-center">
+						<div class="col col-md-6 mb-3">
+							<a th:href="@{/passenger/signOut}" style="color: gray;">회원탈퇴</a>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 </th:block>
 <th:block layout:fragment="js">
-	<script src="/custom/js/passenger/pEditUserInfo.js"></script>
-
+	<script src="/custom/js/passenger/pJoinGeneral.js"></script>
 </th:block>
 </html>

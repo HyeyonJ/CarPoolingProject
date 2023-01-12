@@ -63,18 +63,27 @@ public class DrvLoginController {
 						, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL
 						, RedirectAttributes rAttr) {
 		
-		DriverInfo driver = driverLoginService.login(dLoginForm.getLoginId(), dLoginForm.getPassword());
+		DriverInfo driver = driverLoginService.checkLogin(dLoginForm.getLoginId());
 		
-		//계정 정보가 없거나, 로그인 정보 불일치
+		//계정 정보가 없음
 		if(driver == null) {
-			rAttr.addFlashAttribute("login", false);
+			rAttr.addFlashAttribute("user", false);
 			return "redirect:/driver/login";
 		}
+		
+		driver = driverLoginService.login(dLoginForm.getLoginId(), dLoginForm.getPassword());
+		
+		//계정 정보가 있으나, 패스워드 불일치
+		if(driver == null) { 
+			rAttr.addFlashAttribute("user", true);
+			return "redirect:/driver/login";
+		}
+		
 		//계정 정보가 있으나, 탈퇴한 회원
 		if(driver.getDSignOut() == true) {
 			rAttr.addFlashAttribute("signOut", true);
 			return "redirect:/driver/login";
-		}
+		}		
 		
 		//정상 로그인 처리가 된 경우 세션에 추가
 		HttpSession session = req.getSession();
@@ -84,8 +93,7 @@ public class DrvLoginController {
 		
 		//넘어온 redirectURL값이 있으면 해당 경로로 이동
 		return "redirect:" + redirectURL;
-	}
-	
+	}	
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletResponse resp, HttpServletRequest req) {
