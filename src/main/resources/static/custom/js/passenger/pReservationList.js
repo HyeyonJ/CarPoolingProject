@@ -10,6 +10,11 @@ setInterval(function () {
   })
 }, 1000);
 
+// 부트스트랩 모달창 닫을 시 입력값 초기화
+$("#reviewModal").on("hide.bs.modal", function () {
+  $(this).find(".modal-body form")[0].reset();
+});
+
 function currentRsvList() {
   $("#currentRsvList").css("display", "block");
   $("#pastRsvList").css("display", "none");
@@ -157,6 +162,48 @@ function pastRsvList() {
   });
 }
 
+function getRIdxAndPIdx(rIdx, pIdx) {
+  $("#rIdx").val(rIdx);
+  $("#pIdx").val(pIdx);
+}
+
+$(function () {
+  $("#starRate").barrating({
+    theme: "fontawesome-stars",
+  });
+});
+
+var nameList = new Array('어피치', '초롱초롱', '튜브', '프로도', '라이언', '프로도');
+
+function randomName(nameList) {
+  return nameList[Math.floor(Math.random() * nameList.length)];
+}
+
+$("#nickname").val(randomName(nameList));
+
+function reviewSubmit() {
+  const pReview = {
+    starPoint: $("#starRate").val(),
+    nickname: $("#nickname").val(),
+    content: $("#content").val(),
+    toIdx: $("#pIdx").val(),
+    rIdx: $("#rIdx").val(),
+  };
+
+  $.ajax({
+    url: "/passenger/passengerCarpool/review",
+    type: "POST",
+    data: pReview,
+    success: function (data, status) {
+      if (status === "success") {
+        window.location.href =
+          "http://localhost:8080/passenger/passengerCarpool/reservation";
+      }
+    },
+  });
+}
+
+
 function completedRsvList() {
   $("#currentRsvList").css("display", "none");
   $("#pastRsvList").css("display", "none");
@@ -170,6 +217,8 @@ function completedRsvList() {
       console.log(data);
       var html = "";
       for (var i = 0; i < data.length; i++) {
+        const rIdx = data[i].rIdx.toString();
+        const pIdx = data[i].pIdx.toString();
         var dDate = data[i].D_DATE.substring(0, 10);
         var rDate = data[i].R_DATE.substring(0, 10);
 
@@ -210,8 +259,11 @@ function completedRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += '<button class="btn btn-primary">후기작성</button>\t';
         html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
+        if (data[i].pReview === false) {
+          html +=
+            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btn-primary rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
+        }
         html += "</div>";
       }
       $("#completedRsvList").html(html);

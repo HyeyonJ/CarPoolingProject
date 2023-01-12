@@ -28,14 +28,17 @@ public class MybatisDriverReviewRepository implements DriverReviewRepository{
 
 	@Override
 	public List<DReview> selectMyReview(Integer dIdx) {
-		List<DReview> dReviewList = driverReviewMapper.selectMyReview(dIdx);
-		return dReviewList;
+		return driverReviewMapper.selectMyReview(dIdx);
 	}
 
 	@Override
-	public List<PReview> selectPsReview(Integer dIdx) {
-		List<PReview> pReviewList = driverReviewMapper.selectPsReview(dIdx); 
-		return pReviewList;
+	public List<PReview> selectPsReview(Integer dIdx) { 
+		return driverReviewMapper.selectPsReview(dIdx);
+	}
+	
+	@Override
+	public List<DReview> selectUserReview(Integer pIdx) { 
+		return driverReviewMapper.selectUserReview(pIdx);
 	}
 	
 	@Override
@@ -47,5 +50,7 @@ public class MybatisDriverReviewRepository implements DriverReviewRepository{
 	public void deleteReview(Integer rIdx) {
 		driverReviewMapper.deleteReview(rIdx);
 	}
+
+
 
 }

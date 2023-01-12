@@ -88,4 +88,9 @@
 		WHERE p_id_num = #{pIdNum}
 	</select>
 	
+	<select id="selectByIdx" resultType="PassengerInfo">
+      SELECT * FROM PASSENGER
+      WHERE p_idx = #{pIdx}
+    </select>
+	
 </mapper>

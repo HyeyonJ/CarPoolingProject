@@ -8,29 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import project.carPooling.driver.domain.DriverInfo;
+import project.carPooling.driver.domain.DReview;
 import project.carPooling.driver.repository.DriverReviewRepository;
-import project.carPooling.global.session.SessionManager;
-import project.carPooling.passenger.domain.PReview;
+import project.carPooling.passenger.domain.PassengerInfo;
+import project.carPooling.passenger.repository.PassengerInfoRepository;
 
 @RequiredArgsConstructor
 @RequestMapping("/driver")
 @Controller
 public class DrUserPage {
 
+	private final PassengerInfoRepository passengerInfoRepository;
 	private final DriverReviewRepository driverReviewRepository;
-	private final SessionManager sessionManager;
 	
 	@GetMapping("/driverCarpool/userPage")
-	public String userPage(@RequestParam Integer pIdx, Model model, HttpServletRequest req) {
-		DriverInfo driverInfo = sessionManager.getDrSession(req);
-		model.addAttribute("driverInfo", driverInfo);
-
-		List<PReview> pReviewList = driverReviewRepository.selectDrReview(driverInfo.getDIdx());
-		model.addAttribute("psReviewList", pReviewList);
+	public String userPage(@RequestParam Integer pIdx, Model model) {
+		PassengerInfo passengerInfo = passengerInfoRepository.selectByIdx(pIdx);
+		model.addAttribute("userInfo", passengerInfo);
 		
-		return "driver/dMyPage";
+		List<DReview> userReviewList = driverReviewRepository.selectUserReview(pIdx);
+		model.addAttribute("userReviewList", userReviewList);
+		return "driver/dUserPage";
 	}
+	
 }

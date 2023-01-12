@@ -5,6 +5,10 @@
   <head>
     <title>reservationList</title>
     <link rel="stylesheet" href="/custom/css/passenger/pReservationList.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/standard/css/fontawesome-stars.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
     <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
     <style>
       #prSection {
@@ -82,22 +86,42 @@
         </div>
       </div>
 
-      <!-- 카풀 경로 모달 -->
-      <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+      <!-- 리뷰 작성 모달 -->
+      <div class="modal fade" id="review" tabindex="-1" aria-labelledby="reviewLabel" aria-hidden="true">
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="selectModalLabel">선택하신 카풀의 경로입니다.</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <h1 class="modal-title fs-5" id="reviewLabel">리뷰를 작성해주세요.</h1>
+              <input type="hidden" id="rIdx">
+              <input type="hidden" id="pIdx">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div id="map_div"></div>
+              <div class="d-flex justify-content-center" id="starPoint">
+                <select id="starRate">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="nickname">작성자</label>
+                <input type="text" class="form-control" id="nickname" aria-describedby=" emailHelp" readonly>
+                <small id="textHelp" class="form-text text-muted">솔직한 후기를 위해 작성자의 이름은 임의의 닉네임으로 표시 됩니다.</small>
+              </div>
+              <div class="form-group">
+                <label for="comment">내용</label>
+                <input type="text" class="form-control" id="content" aria-describedby="emailHelp"
+                  placeholder="리뷰 내용을 작성해주세요." value="">
+              </div>
+
+              <button type="button" onclick="reviewSubmit()"
+                class="btn btn-primary btn-block text-center btn-submit">후기등록</button>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary rsvsbtn" data-dismiss="modal">확인</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

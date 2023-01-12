@@ -16,6 +16,7 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DReview;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.RegistrationListRepository;
 import project.carPooling.global.gmail.MailService;
@@ -73,6 +74,25 @@ public class DrRegistrationListController {
 	public List<Map<String, Object>> completeRgsList(HttpServletRequest req) {
 		DriverInfo driverInfo = sessionManager.getDrSession(req);
 		List<Map<String, Object>> completeRgsList = registrationListRepository.selectCompleteRgsList(driverInfo.getDIdx());
+		DReview dReview = null;
+		for(Map<String, Object> completeRgs : completeRgsList) {
+			Integer drIdx = Integer.parseInt(String.valueOf(completeRgs.get("DR_IDX")));
+			Map<String, Object> reviewData = registrationListRepository.selectRIdxAndPIdx(drIdx);
+			System.out.println(reviewData);
+			Integer rIdx = Integer.parseInt(String.valueOf(reviewData.get("R_IDX")));
+			Integer pIdx = Integer.parseInt(String.valueOf(reviewData.get("P_IDX")));
+			System.out.println(rIdx);
+			System.out.println(pIdx);
+			completeRgs.put("rIdx", rIdx);
+			completeRgs.put("pIdx", pIdx);
+			dReview = registrationListRepository.selectReviewExistStatus(rIdx);
+			if(dReview == null) {
+				completeRgs.put("dReview", false);
+			} else {
+				completeRgs.put("dReview", true);
+			}
+		}
+		
 		return completeRgsList;
 	}
 

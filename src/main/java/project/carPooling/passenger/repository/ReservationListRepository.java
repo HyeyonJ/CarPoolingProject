@@ -3,6 +3,7 @@ package project.carPooling.passenger.repository;
 import java.util.List;
 import java.util.Map;
 
+import project.carPooling.passenger.domain.PReview;
 import project.carPooling.passenger.domain.PaymentData;
 
 public interface ReservationListRepository {
@@ -21,4 +22,6 @@ public interface ReservationListRepository {
 	public PaymentData selectPaymentDataByRIdx(Integer rIdx);
 	
 	public Map<String, Object> selectCancelPayMentByPayIdx(String payIdx);
+	
+	public PReview selectReviewExistStatus(Integer rIdx);
 }

@@ -25,7 +25,6 @@
 
 
   <div layout:fragment="content" style="margin:50px;">
-    <!-- 	<h4 class="mypage" style="margin-bottom:10px; margin-left:120px;">> 마이페이지</h4> -->
     <div class="row">
       <div class="col-sm-5" style="text-align: center; margin-bottom: 20px;">
         <div class="box">
@@ -34,9 +33,7 @@
       </div>
       <div class="col-sm-7">
         <h3 style="font-weight:bold; margin-top:100px;" class="mypage">
-          <span th:text="${driverInfo.dUserName}"></span><span>님의 마이페이지</span>
-          <a th:href="@{/driver/info}"><button class="btn btn-secondary mt-1" style="margin-left: 200px;">프로필
-              수정</button></a>
+          <span th:text="${userInfo.pUserName}"></span><span>님의 프로필</span>
         </h3>
       </div>
     </div>
@@ -51,7 +48,7 @@
           <td>
             <div>
               <div style="position: relative; right: -82%; width: 50px;">
-                <span class="text-color-03" th:text="${driverInfo.dTemperature}"></span>°C
+                <span class="text-color-03" th:text="${userInfo.pTemperature}"></span>°C
               </div>
             </div>
             <div class="meters">
@@ -60,84 +57,54 @@
             </div>
           </td>
         </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">포인트</h5>
-          </th>
-          <td>
-            <span th:text="${driverInfo.dPoint}"></span>
-            <button class="btn btn-secondary" style="margin-left: 600px">출금하기</button>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">패널티</h5>
-          </th>
-          <td colspan="2">
-            <span th:text="${driverInfo.dPenalty}"></span>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">내가작성한리뷰</h5>
-          </th>
-          <td colspan="2">
-            <div th:each="myReview : ${myReviewList}">
-              <span style="color:silver">별점</span>
-              <span style="color:silver" th:text="${myReview.starPoint}"></span>
-              <div th:text="${myReview.content}"></div>
-              <div style="border-bottom: solid 1px silver;"></div>
-              <button class="btn btn-primary" th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
-              <button class="btn btn-primary" th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">내가받은리뷰</h5>
-          </th>
-          <td colspan="2">
-            <div th:each="psReview : ${psReviewList}">
-              <span style="color:silver">별점</span>
-              <span style="color:silver" th:text="${psReview.starPoint}"></span>
-              <span style="color:silver">/ from</span>
-              <span style="color:silver" th:text="${psReview.nickname}"></span>
-              <div th:text="${psReview.content}"></div>
-              <div style="border-bottom: solid 1px silver;"></div>
-            </div>
-          </td>
-        </tr>
       </tbody>
     </table>
+
+    <div class="container" style="width: 80%; margin-top: 70px;">
+      <h4 style="font-weight:bold;">"다른사람이 작성한리뷰"</h4>
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div th:each="userReview : ${userReviewList}" style="margin-top: 30px; width: 45%;">
+          <div class="card">
+            <div class="card-header">
+              <span>★별점</span>
+              <span th:text="${userReview.starPoint}"></span>
+            </div>
+            <div class="card-body">
+              <div th:text="${userReview.content}"></div>
+              - <span th:text="${userReview.nickname}"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <th:block layout:fragment="js">
     <script>
-      var dTemperature = "[[${driverInfo.dTemperature}]]";
-      $(".bar").css("width", `${ dTemperature }%`);
-      dTemperature = parseFloat(dTemperature);
+      var userTemperature = "[[${userInfo.pTemperature}]]";
+      $(".bar").css("width", `${ userTemperature }%`);
+      userTemperature = parseFloat(userTemperature);
 
-      if (dTemperature > 0 && dTemperature <= 12.5) {
+      if (userTemperature > 0 && userTemperature <= 12.5) {
         $(".bar").addClass("bar-color-01");
         $(".face").addClass("face-01");
-      } else if (dTemperature > 12.5 && dTemperature <= 30) {
+      } else if (userTemperature > 12.5 && userTemperature <= 30) {
         $(".bar").addClass("bar-color-02");
         $(".face").addClass("face-02");
-      } else if (dTemperature > 30 && dTemperature <= 36.5) {
+      } else if (userTemperature > 30 && userTemperature <= 36.5) {
         $(".bar").addClass("bar-color-03");
         $(".face").addClass("face-03");
-      } else if (dTemperature > 36.5 && dTemperature <= 50.5) {
+      } else if (userTemperature > 36.5 && userTemperature <= 50.5) {
         $(".bar").addClass("bar-color-04");
         $(".face").addClass("face-04");
-      } else if (dTemperature > 50.5 && dTemperature <= 65.5) {
+      } else if (userTemperature > 50.5 && userTemperature <= 65.5) {
         $(".bar").addClass("bar-color-05");
         $(".face").addClass("face-05");
-      } else if (dTemperature > 65.5) {
+      } else if (userTemperature > 65.5) {
         $(".bar").addClass("bar-color-06");
         $(".face").addClass("face-06");
       }
     </script>
-    <script src="/custom/js/driver/dMyPage.js"></script>
   </th:block>
 
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 
+import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.passenger.domain.PassengerInfo;
 
 @Mapper
@@ -37,5 +38,7 @@ public interface PassengerInfoMapper {
 	public PassengerInfo update(PassengerInfo passenger);
 	
 	public PassengerInfo selectByIdNum(String idNum);
+	
+	public PassengerInfo selectByIdx(Integer pIdx);
 	
 }

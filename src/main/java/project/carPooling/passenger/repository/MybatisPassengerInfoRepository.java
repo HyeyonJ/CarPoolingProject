@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.mapper.PassengerInfoMapper;
 
@@ -102,7 +103,9 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 		return passenger;
 	}
 
-
-
+	@Override
+	public PassengerInfo selectByIdx(Integer pIdx) {
+		return passengerMapper.selectByIdx(pIdx);
+	}
 
 }

@@ -25,7 +25,7 @@ public class PsUserPage {
 	private final PassengerReviewRepository passengerReviewRepository;
 	
 	@GetMapping("/passengerCarpool/userPage")
-	public String userPage(@RequestParam Integer dIdx, Model model) {
+	public String userPage(@RequestParam Integer dIdx, @RequestParam String randomName,Model model) {
 		DriverInfo driverInfo = driverInfoRepository.selectByIdx(dIdx);
 		model.addAttribute("userInfo", driverInfo);
 		System.out.println("여기1:" + driverInfo);
@@ -33,6 +33,8 @@ public class PsUserPage {
 		List<PReview> userReviewList = passengerReviewRepository.selectUserReview(dIdx);
 		System.out.println("여기2:" + userReviewList);
 		model.addAttribute("userReviewList", userReviewList);
+		
+		model.addAttribute("randomName", randomName);
 		return "passenger/pUserPage";
 	}
 }
