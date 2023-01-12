@@ -81,38 +81,31 @@
 					 </tr>
 					 <tr>
 					 	<th scope="row"><h5 style="font-weight:bold;">내가작성한리뷰</h5></th>
-						<td colspan="2">
-							<div th:each="myReview : ${myReviewList}" style="color:silver">
-								별점 <span th:text="${myReview.starPoint}"></span> 
-								내용	<div th:text="${myReview.content}"></div>
-							</div>
-						</td>
+							<td colspan="2">
+								<div th:each="myReview : ${myReviewList}">
+									<span style="color:silver">별점</span>
+									<span style="color:silver" th:text="${myReview.starPoint}"></span> 
+									<div th:text="${myReview.content}"></div>
+								<div style="border-bottom: solid 1px silver;"></div>
+								</div>
+							</td>
 					 </tr>
 					 <tr>
 					 	<th scope="row"><h5 style="font-weight:bold;">내가받은리뷰</h5></th>
 						<td colspan="2">
-							<div th:each="psReview : ${psReviewList}" style="color:silver">
-								별점 <span th:text="${psReview.starPoint}"></span> 
-								이름 <span th:text="${psReview.nickname}"></span> 
-								내용 <div th:text="${psReview.content}"></div>
+							<div th:each="psReview : ${psReviewList}">
+								<span style="color:silver">별점</span> 
+								<span style="color:silver" th:text="${psReview.starPoint}"></span>
+								<span style="color:silver">/ from</span> 
+								<span style="color:silver" th:text="${psReview.nickname}"></span> 
+								<div th:text="${psReview.content}"></div>
+								<div style="border-bottom: solid 1px silver;"></div>
 							</div>
 						</td>
 					 </tr>
 				</tbody>
 			</table>
-
-<!-- 	    <div th:each="myReview : ${myReviewList}"> -->
-<!-- 	      <h3>내가작성한후기</h3> -->
-<!-- 	      별점: <span th:text="${myReview.starPoint}"></span> -->
-<!-- 	      내용: <span th:text="${myReview.content}"></span> -->
-<!-- 	    </div> -->
-<!-- 	    <div th:each="psReview : ${psReviewList}"> -->
-<!-- 	      <h3>내가받은후기</h3> -->
-<!-- 	      별점: <span th:text="${psReview.starPoint}"></span> -->
-<!-- 	      이름: <span th:text="${psReview.nickname}"></span> -->
-<!-- 	      내용: <span th:text="${psReview.content}"></span> -->
-<!-- 	    </div> -->
-  </div>
+ 		</div>
 
   <th:block layout:fragment="js">
     <script>
