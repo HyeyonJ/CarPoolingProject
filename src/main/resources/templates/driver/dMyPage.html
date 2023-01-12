@@ -2,33 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutDriver}">
 
- <head>
+  <head>
     <title>dMyPage</title>
     <link rel="stylesheet" href="/standard/css/temperature.css">
-  
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-<style>
 
-.mypage {
-	font-family: 'Gowun Dodum', sans-serif;
-}
-.box {
-    width: 150px;
-    height: 150px; 
-    border-radius: 70%;
-    overflow: hidden;
-	margin-left: 100px;
-}
-.profile {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+      .mypage {
+        font-family: 'Gowun Dodum', sans-serif;
+      }
 
-</style>
-</head>
+      .box {
+        width: 150px;
+        height: 150px;
+        border-radius: 70%;
+        overflow: hidden;
+        margin-left: 100px;
+      }
+
+      .profile {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
 
 
   <div layout:fragment="content" style="margin:50px;">
@@ -84,8 +84,62 @@
 				<h5>나의리뷰</h5>
 	</div>
 
-<th:block layout:fragment="js">
-<script>
+    <table class="table container" style="width:80%;">
+      <tbody>
+        <tr>
+          <th scope="row" style="width:20%">
+            <h5 style="font-weight:bold;">매너온도</h5>
+          </th>
+          <td>
+            <div>
+              <div>
+                <span class="text-color-03" th:text="${driverInfo.dTemperature}"></span>°C
+              </div>
+            </div>
+            <div class="meters">
+              <div class="bar"></div>
+              <div class="face"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <h5 style="font-weight:bold;">포인트</h5>
+          </th>
+          <td>
+            <span th:text="${driverInfo.dPoint}"></span>
+            <button class="btn btn-primary">출금하기</button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <h5 style="font-weight:bold;">패널티</h5>
+          </th>
+          <td colspan="2">
+            <span th:text="${driverInfo.dPenalty}"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div th:each="myReview : ${myReviewList}">
+      <h3>내가작성한후기</h3>
+      별점: <span th:text="${myReview.starPoint}"></span>
+      이름: <span th:text="${myReview.nickname}"></span>
+      내용: <span th:text="${myReview.content}"></span>
+    </div>
+    <div th:each="psReview : ${psReviewList}">
+      <h3>내가받은후기</h3>
+      별점: <span th:text="${psReview.starPoint}"></span>
+      이름: <span th:text="${psReview.nickname}"></span>
+      내용: <span th:text="${psReview.content}"></span>
+    </div>
+  </div>
+
+  </div>
+
+  <th:block layout:fragment="js">
+    <script>
       var dTemperature = "[[${driverInfo.dTemperature}]]";
       $(".bar").css("width", `${ dTemperature }%`);
       dTemperature = parseFloat(dTemperature);
@@ -110,5 +164,7 @@
         $(".face").addClass("face-06");
       }
     </script>
-				<script src="/custom/js/driver/dMyPage.js"></script>
-			</th:block></html>
+    <script src="/custom/js/driver/dMyPage.js"></script>
+  </th:block>
+
+</html>

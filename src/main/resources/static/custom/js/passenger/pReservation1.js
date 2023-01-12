@@ -234,6 +234,12 @@ $("#searchBtn").click(() => {
     pEndLat: $("#endlat").val() + 1,
   };
 
+  var nameList = new Array('어피치', '초롱초롱', '튜브', '프로도', '라이언', '프로도');
+
+  function randomName(nameList) {
+    return nameList[Math.floor(Math.random() * nameList.length)];
+  }
+
   $.ajax({
     url: "/passenger/passengerCarpool/reservation/searchAll",
     type: "POST",
@@ -252,6 +258,9 @@ $("#searchBtn").click(() => {
               for (var i = 0; i < data.length; i++) {
                 html += '<div id="match">';
                 // html += '<img src="img/car.png>" id="matchimg">';
+                html +=
+                  '<a href="">' + randomName(nameList) + '</a>' +
+                  '<br>\n'
                 html +=
                   '<input type="hidden" id="' +
                   data[i].drIdx +
@@ -284,13 +293,13 @@ $("#searchBtn").click(() => {
                   "원 <br>";
                 html +=
                   '<button id="view" onclick="dRoute(' +
-                  data[i].dstartlon +
+                  data[i].dstartLon +
                   ", " +
-                  data[i].dstartlat +
+                  data[i].dstartLat +
                   ", " +
-                  data[i].dendlon +
+                  data[i].dendLon +
                   ", " +
-                  data[i].dendlat +
+                  data[i].dendLat +
                   ')" class="btn rsvsbtn">경로보기</button>\t';
                 html +=
                   '<button id="select" onclick="searchCarpool(' +
@@ -854,45 +863,8 @@ function dRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
       resCoordType: "EPSG3857",
     },
     success: function (response) {
-      var x;
-      var y;
-
-      var numberSX = parseFloat(d_startlon);
-      var numberSY = parseFloat(d_startlat);
-      var numberEX = parseFloat(d_endlon);
-      var numberEY = parseFloat(d_endlat);
-
-      if (numberSX > numberEX) {
-        var x = numberEX + (numberSX - numberEX) / 2;
-      } else {
-        var x = numberSX + (numberEX - numberSX) / 2;
-      }
-
-      if (numberSY > numberEY) {
-        var y = numberEY + (numberSY - numberEY) / 2;
-      } else {
-        var y = numberSY + (numberEY - numberSY) / 2;
-      }
-
-      var lonlat = new Tmapv2.LatLng(y, x);
-      map.setCenter(lonlat);
 
       var resultData = response.features;
-      console.log(resultData);
-      var tDistance = (resultData[0].properties.totalDistance / 1000).toFixed(
-        1
-      );
-      if (tDistance < 10) {
-        zoom(map, 2);
-      } else if (tDistance < 20) {
-        zoom(map, 3);
-      } else if (tDistance < 30) {
-        zoom(map, 4);
-      } else if (tDistance < 40) {
-        zoom(map, 5);
-      } else {
-        zoom(map, 6);
-      }
 
       for (var i in resultData) {
         //for문 [S]
