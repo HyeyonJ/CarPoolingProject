@@ -16,7 +16,7 @@
   <section class="pr_section">
 
     <div class="d-flex justify-content-center">
-      <span class="title">카풀찾기</sapn>
+      <span class="title">카풀찾기</span>
     </div>
     <div class="d-flex">
 
@@ -117,13 +117,15 @@
               <span id="searchCheck" class="check">경로검색은 필수입니다.</span>
 
             </div>
-
-            <input type="hidden" id="startlon" name="startlon">
-            <input type="hidden" id="startlat" name="startlat">
-            <input type="hidden" id="endlon" name="endlon">
-            <input type="hidden" id="endlat" name="endlat">
-            <input type="hidden" id="fare" value="">
-
+			
+			<div style="text-align:center;">
+	            <input type="hidden" id="startlon" name="startlon">
+	            <input type="hidden" id="startlat" name="startlat">
+	            <input type="hidden" id="endlon" name="endlon">
+	            <input type="hidden" id="endlat" name="endlat">
+	            <input type="hidden" id="fare" value="">
+			</div>
+			
             <p id="result"></p>
             <!--지도 div끝-->
 
@@ -160,14 +162,14 @@
           </div>
           <div class="modal-body">
             <form id="selectCp">
-              <input type="hidden" id="drIdx" name="drIdx">
-              카풀날짜 <input type="text" id="dDate" name="dDate" class="inputborder" readonly><br>
-              픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly> - <input
-                type="text" id="dEndTime" name="dEndTime" class="inputborder" readonly><br>
-              출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly><br>
-              도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly><br>
-              카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly>원<br>
-            </form>
+	              <input type="hidden" id="drIdx" name="drIdx">
+	              카풀날짜 <input type="text" id="dDate" name="dDate" class="inputborder" readonly><br>
+	              픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly> - <input
+	                type="text" id="dEndTime" name="dEndTime" class="inputborder" readonly><br>
+	              출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly><br>
+	              도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly><br>
+	              카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly>원<br>
+			</form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary rsvsbtn" data-bs-dismiss="modal">취소</button>

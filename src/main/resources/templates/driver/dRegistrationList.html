@@ -43,6 +43,163 @@
         width: 100px;
         height: 40px;
       }
+      
+/*       여기부터 */
+
+/* Please ❤ this if you like it! */
+
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  overflow-x: none;
+}
+p{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #fff;
+  margin: 0;
+}
+.section-fluid-main{
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: calc(100% - 40px);
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1140px;
+}
+.section-row{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.section-row:hover .section-col{
+  opacity: 0.1;
+}
+.section-col{
+  position: relative;
+  width: 100%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  transition: opacity 250ms linear;
+}
+.section-row .section-col:hover{
+  opacity: 1;
+}
+.section{
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 15px;
+}
+.section-in{
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.section-in img{
+  display: block;
+  width: 100%;
+  height: 300px;
+  transition: transform 250ms linear;
+}
+.section-col:hover .section-in img{
+  transform: scale(1.1) rotate(-3deg);
+}
+
+.hover-text{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+  mix-blend-mode: difference;
+}
+.hover-text h2{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 8vw;
+  line-height: 1;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: transform 250ms linear, opacity 250ms ease;
+}
+.section-col:hover + .hover-text h2{
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.logo {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  display: block;
+  z-index: 1000;
+  transition: all 250ms linear;
+}
+.logo img {
+  height: 26px;
+  width: auto;
+  display: block;
+  transition: filter 250ms 700ms linear;
+}
+
+
+@media (max-width: 767px) {
+  .section-col{
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .hover-text h2{
+    font-size: 12vw;
+  }
+}
     </style>
   </head>
 
@@ -50,41 +207,91 @@
     <section id="drListSection">
       <div class="container">
 
-        <div class="d-flex justify-content-center">
-          <span class="title">나의 카풀</span>
-        </div>
-
-        <div>
-          <div>
-            <div class="btn-field">
-              <button id="reservatedRgsListBtn" onclick="reservatedRgsList();"
-                class="btn btn-primary rsvsbtn">예약된카풀</button>
-              <button id="waitingRgsListBtn" onclick="waitingRgsList();" class="btn btn-primary rsvsbtn">대기중인카풀</button>
-              <button id="pastRgsListBtn" onclick="pastRgsList();" class="btn btn-primary rsvsbtn">과거카풀</button>
-              <button id="completedRgsListBtn" onclick="completedRgsList();"
-                class="btn btn-primary rsvsbtn">완료된카풀</button>
-              <button id="canceledRgsListBtn" onclick="canceledRgsList();"
-                class="btn btn-primary rsvsbtn">취소된카풀</button>
-            </div>
-
-            <div class="boxes">
-              <div id="reservatedRgsList"></div>
-              <div id="waitingRgsList"></div>
-              <div id="pastRgsList"></div>
-              <div id="completedRgsList"></div>
-              <div id="canceledRgsList"></div>
-            </div>
-
-            <div id="popup_mask"></div>
-            <!-- 팝업 배경 DIV -->
-
-            <div id="popupDiv">
-              <!-- 팝업창 -->
-              <button id="popCloseBtn" class="btn btn-primary">닫기</button>
-              <div id="map_div"></div>
-            </div>
-          </div>
-        </div>
+	        <div class="d-flex justify-content-center" style="margin-top:50px;">
+	          <span class="title">나의 카풀</span>
+	        </div>
+	
+	        <div>
+	          <div>
+				<div class="section-fluid-main">
+				    <div class="section-row">
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+				            <img src="https://i.pinimg.com/564x/fe/71/49/fe7149761e7823503f5d0c9c0d3d32fa.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>예약된 카풀</h2>
+				      </div>
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+				            <img src="/img/road2.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>대기중인 카풀</h2>
+				      </div>
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+<!-- 				          여기 -->
+				            <img src="https://assets.codepen.io/1462889/sl6.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>과거카풀</h2>
+				      </div>
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+				            <img src="https://i.pinimg.com/564x/8c/c2/f3/8cc2f39cd71eba0c10d0a3fabc6aa953.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>완료된카풀</h2>
+				      </div>
+	
+<!-- 				    <a href="https://front.codes/" class="logo" target="_blank"> -->
+<!-- 				      <img src="https://assets.codepen.io/1462889/fcy.png" alt=""> -->
+<!-- 				    </a>   -->
+				  </div>
+	            
+	            <div class="btn-field" style="background-color:  rgb(212, 206, 223); margin-top:50px;">
+	              <button id="reservatedRgsListBtn" onclick="reservatedRgsList();"
+	                class="btn">예약된카풀</button>
+	              <button id="waitingRgsListBtn" onclick="waitingRgsList();" class="btn">대기중인카풀</button>
+	              <button id="pastRgsListBtn" onclick="pastRgsList();" class="btn">과거카풀</button>
+	              <button id="completedRgsListBtn" onclick="completedRgsList();"
+	                class="btn">완료된카풀</button>
+	              <button id="canceledRgsListBtn" onclick="canceledRgsList();"
+	                class="btn">취소된카풀</button>
+	            </div>
+	
+	            <div class="boxes">
+	              <div id="reservatedRgsList"></div>
+	              <div id="waitingRgsList"></div>
+	              <div id="pastRgsList"></div>
+	              <div id="completedRgsList"></div>
+	              <div id="canceledRgsList"></div>
+	            </div>
+	
+	            <div id="popup_mask"></div>
+	            <!-- 팝업 배경 DIV -->
+	
+	            <div id="popupDiv">
+	              <!-- 팝업창 -->
+	              <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+	              <div id="map_div"></div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
       </div>
 
       <!-- 카풀 경로 모달 -->
