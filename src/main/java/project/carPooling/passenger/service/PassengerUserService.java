@@ -20,7 +20,7 @@ public class PassengerUserService {
 	//passenger 주민등록번호 중복 체크
 	public boolean passengerCheckIdNum(String idNum) {
 		boolean checkIdNum = false;
-		PassengerInfo passenger = passengerRepository.selectByIdNum(idNum);        
+		PassengerInfo passenger = passengerRepository.selectByIdNum(idNum);
         if(passenger!=null) { checkIdNum = true; }        
         return checkIdNum;
     }

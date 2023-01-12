@@ -111,5 +111,11 @@
         SELECT * FROM DRIVER
         WHERE d_id_num = #{dIdNum}
     </select>
+    
+    <select id="selectDriverByAccountInfo" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_account_num = #{dAccountNum}
+        AND d_account_bank = #{dAccountBank}
+    </select>
 
 </mapper>
