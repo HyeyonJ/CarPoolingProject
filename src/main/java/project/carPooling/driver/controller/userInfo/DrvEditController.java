@@ -29,6 +29,29 @@ public class DrvEditController {
 	private final SessionManager sessionManager;
 	private final DriverUserService dUserService;
 	
+	// 계좌 정보 등록
+	@PostMapping("/info/account")
+	public String updateDriverAccountInfo(HttpServletRequest req) {
+		
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		driverInfoRepository.updateDriverAccountInfo(driverInfo.getDIdx());
+		
+		return "redirect:/driver/info/account";
+	}
+	
+	// 계좌 정보 확인
+	@GetMapping("/info/account")
+	public String driverAccountInfo(Model model, HttpServletRequest req) {
+		
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		driverInfo = driverInfoRepository.selectByIdx(driverInfo.getDIdx());
+		
+		model.addAttribute("driverInfo", driverInfo);
+		
+		return "driver/userInfo/dAccountInfo";
+	}
+
+	
 	// 회원 정보 수정 페이지에 값 가지고 오기
 	@GetMapping("/info")
 	public String driverUserInfo(Model model, HttpServletRequest req) {
@@ -49,14 +72,8 @@ public class DrvEditController {
 		System.out.println("driverInfo : " + driverInfo);
 
 		driverInfoRepository.updateDriverInfo(driverInfo);
-		
-//		HttpSession session = req.getSession();
-//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
-		
-//		return "driver/userInfo/dEditUserInfo";
-//		return "redirect:/driver/userInfo/dUserInfo";
+
 		return "redirect:/driver/info";
-//		return "redirect:/";
 	}
 	
 	// 회원 정보 수정 시 uUserType
@@ -81,9 +98,6 @@ public class DrvEditController {
 	@ResponseBody
 	@PostMapping("/check/signOut")
 	public boolean driverCheckSignOut(@RequestParam String password, HttpServletRequest req) {
-//		boolean checkPw = dUserService.driverCheckPw(password);
-//		log.info("비밀번호 중복 체크 : {}", checkPw);
-//		return checkPw;
 
 		boolean checkPw = false;
 		
