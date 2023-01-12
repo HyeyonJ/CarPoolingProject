@@ -46,4 +46,14 @@ public class MybatisPassengerReviewRepository implements PassengerReviewReposito
 		return dReviewList;
 	}
 
+	@Override
+	public void updateReview(Integer rIdx, String content) {
+		passengerReviewMapper.updateReview(rIdx, content);
+	}
+
+	@Override
+	public void deleteReview(Integer rIdx) {
+		passengerReviewMapper.deleteReview(rIdx);
+	}
+
 }

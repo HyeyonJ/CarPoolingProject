@@ -40,4 +40,15 @@
 		SELECT * FROM P_REVIEW
 		WHERE to_idx = #{pIdx}
 	</select>
+	
+	<update id="updateReview">
+		UPDATE P_REVIEW
+		SET content = #{content}
+		WHERE r_idx = #{rIdx} 
+	</update>
+	
+	<delete id="deleteReview">
+		DELETE FROM P_REVIEW
+		WHERE r_idx = #{rIdx}
+	</delete>
 </mapper>

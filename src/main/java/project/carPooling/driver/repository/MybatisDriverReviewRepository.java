@@ -37,6 +37,15 @@ public class MybatisDriverReviewRepository implements DriverReviewRepository{
 		List<PReview> pReviewList = driverReviewMapper.selectPsReview(dIdx); 
 		return pReviewList;
 	}
+	
+	@Override
+	public void updateReview(Integer rIdx, String content) {
+		driverReviewMapper.updateReview(rIdx, content);
+	}
 
+	@Override
+	public void deleteReview(Integer rIdx) {
+		driverReviewMapper.deleteReview(rIdx);
+	}
 
 }

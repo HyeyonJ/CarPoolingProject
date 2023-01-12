@@ -41,7 +41,6 @@ public class DrDrvingController {
 		return map;
 	}
 	
-	@ResponseBody
 	@PutMapping("/driverCarpool/drivingPage")
 	public void updateDrivingRegistration(@RequestParam Integer drIdx) {
 		drivingRepository.updateDrivingRegistration(drIdx);

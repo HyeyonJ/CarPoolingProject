@@ -13,4 +13,7 @@ public interface DriverReviewRepository {
 
 	public List<PReview> selectPsReview(Integer dIdx);
 	
+	public void updateReview(Integer rIdx, String content);
+
+	public void deleteReview(Integer rIdx);
 }
