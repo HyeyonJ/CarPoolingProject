@@ -18,11 +18,19 @@ public class DriverUserService {
 	private final DriverInfoRepository driverRepository;
 	private final PassengerInfoRepository passengerRepository;
 	
+	//driver 계좌번호 중복 체크
+	public boolean driverCheckAccountInfo(String accountBanck, String accountNum) {
+		boolean checkAccountInfo = false;
+		DriverInfo driver = driverRepository.selectDriverByAccountInfo(accountBanck, accountNum);
+		if(driver!=null) { checkAccountInfo = true; }
+		return checkAccountInfo;
+	}
+	
 	//driver 자동차번호 중복 체크
 	public boolean driverCheckCarNum(String carNum) {
 		boolean checkCarNum = false;
 		DriverInfo driver = driverRepository.selectByCarNum(carNum);		
-		if(driver!=null) { checkCarNum = true; }        
+		if(driver!=null) { checkCarNum = true; }
         return checkCarNum;        
 	}
 

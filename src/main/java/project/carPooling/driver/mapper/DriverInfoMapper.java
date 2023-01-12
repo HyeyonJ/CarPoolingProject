@@ -39,9 +39,7 @@ public interface DriverInfoMapper {
 	public void updateDriverSignOut(String dUserEmail);
 	
 	public DriverInfo selectByIdNum(String idNum);
-	
-	public DriverInfo selectDriverAccountInfo(Integer dIdx);
-	
-	public void updateDriverAccountInfo(Integer dIdx);
+		
+	public DriverInfo selectDriverByAccountInfo(String dAccountBanck, String dAccountNum);
 	
 }

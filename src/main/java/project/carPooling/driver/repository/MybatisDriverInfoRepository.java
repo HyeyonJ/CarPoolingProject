@@ -115,21 +115,11 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		DriverInfo driverInfo = driverMapper.selectByIdNum(idNum);
 		return driverInfo;
 	}
-
-	@Override
-	public DriverInfo selectDriverAccountInfo(Integer dIdx) {
-		DriverInfo driverInfo = driverMapper.selectDriverAccountInfo(dIdx);
-		return driverInfo;
-	}
 	
 	@Override
-	public boolean updateDriverAccountInfo(Integer dIdx) {		
-		boolean result = false;
-		try {
-			driverMapper.updateDriverAccountInfo(dIdx);
-			result = true;			
-		} catch (Exception e) { }		
-		return result;
+	public DriverInfo selectDriverByAccountInfo(String dAccountBanck, String dAccountNum) {
+		DriverInfo driverInfo = driverMapper.selectDriverByAccountInfo(dAccountBanck, dAccountNum);
+		return driverInfo;
 	}
 
 

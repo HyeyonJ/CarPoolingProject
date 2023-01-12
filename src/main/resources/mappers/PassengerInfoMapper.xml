@@ -86,7 +86,7 @@
 	
 	<select id="selectByIdnum" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_id_num = #{p_idNum}
+		WHERE p_id_num = #{pIdNum}
 	</select>
 	
 </mapper>

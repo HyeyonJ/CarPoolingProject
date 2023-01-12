@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.domain.DUserType;
 import project.carPooling.driver.domain.DriverInfo;
 import project.carPooling.driver.repository.DriverInfoRepository;
-import project.carPooling.driver.service.DriverUserService;
 import project.carPooling.global.session.SessionManager;
 
 @Slf4j
@@ -27,30 +26,6 @@ public class DrvEditController {
 	
 	private final DriverInfoRepository driverInfoRepository;
 	private final SessionManager sessionManager;
-	private final DriverUserService dUserService;
-	
-	// 계좌 정보 등록
-	@PostMapping("/info/account")
-	public String updateDriverAccountInfo(HttpServletRequest req) {
-		
-		DriverInfo driverInfo = sessionManager.getDrSession(req);
-		driverInfoRepository.updateDriverAccountInfo(driverInfo.getDIdx());
-		
-		return "redirect:/driver/info/account";
-	}
-	
-	// 계좌 정보 확인
-	@GetMapping("/info/account")
-	public String driverAccountInfo(Model model, HttpServletRequest req) {
-		
-		DriverInfo driverInfo = sessionManager.getDrSession(req);
-		driverInfo = driverInfoRepository.selectByIdx(driverInfo.getDIdx());
-		
-		model.addAttribute("driverInfo", driverInfo);
-		
-		return "driver/userInfo/dAccountInfo";
-	}
-
 	
 	// 회원 정보 수정 페이지에 값 가지고 오기
 	@GetMapping("/info")
