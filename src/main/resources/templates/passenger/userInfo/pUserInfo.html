@@ -3,9 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutPassenger}">
 <head>
-<title>driverInfo Info Edit</title>
+<title>Passenger Info Edit</title>
     <link rel="stylesheet" href="/standard/css/temperature.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
@@ -13,9 +12,7 @@
 	.errormsg { color: red; }
 	.emailButton { padding-top: 24px; }
 	.formButton { margin: 0 12px; }
-	.userInfo {
-	        font-family: 'Gowun Dodum', sans-serif;
-	}
+	.userInfo { font-family: 'Gowun Dodum', sans-serif; }
 </style>
 </head>
 
@@ -23,13 +20,13 @@
 	<div class="container mt-5 userInfo">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-			<div class="row justify-content-center">
-						<div class="col col-md-6 mb-3" style="text-align: center;">
-							<h4>내정보 관리</h4>
-							<div
-								style="border-bottom: solid 1px silver; margin-left: 200px; margin-right: 200px; margin-bottom: 50px;"></div>
-						</div>
+				<div class="row justify-content-center">
+					<div class="col col-md-6 mb-3" style="text-align: center;">
+						<h4>내정보 관리</h4>
+						<div style="border-bottom: solid 1px silver; margin-left: 200px;
+						 margin-right: 200px; margin-bottom: 50px;"></div>
 					</div>
+				</div>
 				<form class="validation-form" novalidate="novalidate"
 					th:action="|@{/passenger/info}|" method="post"
 					th:object="${passenger}">					
@@ -146,7 +143,7 @@
 								pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 								th:field="${passenger.pUserTel}" value="010">
 							<div class="invalid-feedback">
-								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+								<span>휴대폰번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
@@ -155,14 +152,10 @@
 							<button type="submit" class="btn btn-dark" id="updateBtn">수정하기</button>
 							<button type="button" class="btn btn-light formButton"
 								th:onclick="|location.href='@{/passenger/passengerCarpool/reservation}'|">취소</button>
-					<!-- 				회원 탈퇴 -->
-					<div class="row">
-						<div style="margin-top: 20px; margin-left:300px;">
-							<a th:href="@{/passenger/signOut}" style="color: gray;">회원 탈퇴></a>
 						</div>
 					</div>
-					<!-- 				회원 탈퇴 -->
-					<div class="row justify-content-center">
+					<!-- 회원 탈퇴 -->
+					<div class="row">
 						<div class="col col-md-6 mb-3">
 							<a th:href="@{/passenger/signOut}" style="color: gray;">회원탈퇴</a>
 						</div>
@@ -173,6 +166,6 @@
 	</div>
 </th:block>
 <th:block layout:fragment="js">
-	<script src="/custom/js/passenger/pJoinGeneral.js"></script>
+	<script src="/custom/js/passenger/pEditUserInfo.js"></script>
 </th:block>
 </html>

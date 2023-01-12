@@ -12,9 +12,7 @@
 	.errormsg { color: red; }
 	.emailButton { padding-top: 24px; }
 	.formButton { margin: 0 12px; }
-	.userInfo {
-	        font-family: 'Gowun Dodum', sans-serif;
-	}
+	.userInfo { font-family: 'Gowun Dodum', sans-serif; }
 </style>
 </head>
 
@@ -22,13 +20,13 @@
 	<div class="container mt-5 userInfo">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-			<div class="row justify-content-center">
-						<div class="col col-md-6 mb-3" style="text-align: center;">
-							<h4>내정보 관리</h4>
-							<div
-								style="border-bottom: solid 1px silver; margin-left: 200px; margin-right: 200px; margin-bottom: 50px;"></div>
-						</div>
+				<div class="row justify-content-center">
+					<div class="col col-md-6 mb-3" style="text-align: center;">
+						<h4>내정보 관리</h4>
+						<div style="border-bottom: solid 1px silver; margin-left: 200px;
+						 margin-right: 200px; margin-bottom: 50px;"></div>
 					</div>
+				</div>
 				<form class="validation-form" novalidate="novalidate"
 					th:action="|@{/driver/info}|" method="post"
 					th:object="${driverInfo}">
@@ -64,8 +62,9 @@
 					<!-- 				패스워드 수정 -->
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="dUserPw">새로운 비밀번호</label> <input type="text"
-								th:field="${driverInfo.dUserPw}" class="form-control"
+							<label for="dUserPw">새로운 비밀번호</label> <span
+								class="text-center small mt-2" id="checkPwMsg"></span>
+							<input type="text" th:field="${driverInfo.dUserPw}" class="form-control"
 								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
 								placeholder="패스워드" maxlength="16">
@@ -121,27 +120,30 @@
 					<!-- 				휴대폰 번호 수정 -->
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="dUserTel">휴대폰번호</label> <input type="text"
-								class="form-control" id="dUserTel" name="dUserTel"
+							<label for="dUserTel">휴대폰번호</label> <span
+								class="text-center small mt-2" id="checkTelMsg"></span>
+							<input type="text" class="form-control" id="dUserTel" name="dUserTel"
 								pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 								th:field="${driverInfo.dUserTel}" value="010">
 							<div class="invalid-feedback">
-								<span>휴대폰번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+								<span>휴대폰번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
 					<!-- 				은행 계좌정보 -->
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="dAccountBank">은행</label> <input class="form-control"
-								id="dAccountBank" name="dAccountBank"
+							<label for="dAccountBank">은행</label> <span
+								class="text-center small mt-2" id="checkAccBankMsg"></span>
+							<input class="form-control" id="dAccountBank" name="dAccountBank"
 								th:field="${driverInfo.dAccountBank}">
 						</div>
 					</div>
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="dAccountNum">계좌번호</label> <input class="form-control"
-								id="dAccountNum" name="dAccountNum"
+							<label for="dAccountNum">계좌번호</label> <span
+								class="text-center small mt-2" id="checkAccNumMsg"></span>
+							<input class="form-control" id="dAccountNum" name="dAccountNum"
 								th:field="${driverInfo.dAccountNum}">
 						</div>
 					</div>
@@ -154,7 +156,7 @@
 								th:field="${driverInfo.dLicenseNum}" maxlength="15"
 								title="숫자만 입력">
 							<div class="invalid-feedback">
-								<span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+								<span>면허번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
@@ -192,19 +194,18 @@
 								th:onclick="|location.href='@{/driver/driverCarpool/registration}'|">취소</button>
 						</div>
 					</div>
-					<!-- 				회원 탈퇴 -->
-				<div class="row justify-content-center">
-					<div class="col col-md-6 mb-3">
-						<a th:href="@{/driver/signOut}" style="color: gray;">회원 탈퇴 ></a>
+					<!-- 회원 탈퇴 -->
+					<div class="row">
+						<div class="col col-md-6 mb-3">
+							<a th:href="@{/driver/signOut}" style="color: gray;">회원 탈퇴 ></a>
+						</div>
 					</div>
-				</div>
-				</form>
-				
+				</form>				
 			</div>
 		</div>
 	</div>
 </th:block>
 <th:block layout:fragment="js">
-	<script src="/custom/js/driver/dJoinGeneral.js"></script>
+	<script src="/custom/js/driver/dEditUserInfo.js"></script>
 </th:block>
 </html>
