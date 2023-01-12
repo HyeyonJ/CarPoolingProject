@@ -37,11 +37,17 @@ public class ChatController {
                  message.setMessage(c.getMessage());
                  template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
              }
-             //채팅 저장 
-             ChatMsgSaveDTO chatMsgSaveDTO = new ChatMsgSaveDTO(message.getRoomId(),message.getWriter(), message.getMessage());
-             ChatRoomEntity chatRoomEntity= crr.findByRoomId(message.getRoomId());
-             cr.save(ChatMessageEntity.toChatEntity(chatMsgSaveDTO,chatRoomEntity));
-         }
+             message.setMessage(enterMember+ "님이 채팅방에 참여하였습니다.");
+             message.setWriter(enterMember);
+             template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+         	 } else {
+            message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
+            template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+        }
+        //채팅 저장 
+        ChatMsgSaveDTO chatMsgSaveDTO = new ChatMsgSaveDTO(message.getRoomId(),message.getWriter(), message.getMessage());
+        ChatRoomEntity chatRoomEntity= crr.findByRoomId(message.getRoomId());
+        cr.save(ChatMessageEntity.toChatEntity(chatMsgSaveDTO,chatRoomEntity));
 
     }
 

@@ -10,8 +10,9 @@ public interface ChatService {
 
 	    ChatRoomInfoDTO findRoomById(String id);
 	    //채팅방 생성하기
-	    void createChatRoomDTO(String name, String roomOwner);
+	    void createPsChatRoomDTO(String name, String roomId, Integer pIdx, Integer dIdx, Integer rIdx);
+	    void createDrChatRoomDTO(String name, String roomId, Integer pIdx, Integer dIdx, Integer rIdx);
 	    void deleteById(Long chatRoomId);
 
-	    List<ChatMsgInfoDTO> findAllChatByRoomId(String roomId);
+	    List<ChatMsgInfoDTO> findAllChatByRoomId(String roomId);   
 	}

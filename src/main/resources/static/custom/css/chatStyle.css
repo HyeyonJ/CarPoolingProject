@@ -109,6 +109,14 @@ html, body{
     background: #fff;
 }
 
+.chatting_top {
+ 	height:30px;
+ 	text-align:center;
+ 	background-color: #025955;
+ 	color: white;
+ 	font-family: 'NanumSquareNeoHeavy';
+ 	}	
+
 
 
 
