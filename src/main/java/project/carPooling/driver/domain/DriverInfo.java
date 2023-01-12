@@ -21,7 +21,7 @@ public class DriverInfo {
 	private String dLicenseIdNum;
 	private String dCarNum;
 	private String dAccountNum;
-	private Integer dAccountBank;	
+	private String dAccountBank;	
 	private int dPoint;
 	private double dTemperature;
 	private String dPenalty;
