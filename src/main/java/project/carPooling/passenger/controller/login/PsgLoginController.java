@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,7 +66,8 @@ public class PsgLoginController {
 	public String doLogin(@ModelAttribute PassengerLoginForm pLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL) {
+						, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL
+						, RedirectAttributes rAttr) {
 		log.info("pLoginForm {}", pLoginForm);
 		
 		validateLoginForm(pLoginForm, bindingResult);
@@ -78,6 +80,11 @@ public class PsgLoginController {
 		
 		log.info("pLogin {}", passenger);
 		
+		if(passenger != null && passenger.getPSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/passenger/login";
+		}
+		
 		if(passenger == null) {	//계정 정보가 없거나, 비밀번호가 안 맞으면 로그인 실패
 			bindingResult.rejectValue("pLoginForm", "아이디 or 비밀번호 불일치");
 			return "passenger/login/pLoginMain";
@@ -85,9 +92,9 @@ public class PsgLoginController {
 		//정상 로그인 처리가 된 경우 세션에 추가
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
-		session.setAttribute(SessionVar.LOGIN_ID, "p"+passenger.getPUserId());
-		session.setAttribute(SessionVar.LOGIN_EMAIL, passenger.getPUserEmail());
+		session.setAttribute(SessionVar.LOGIN_ID, passenger.getPIdx());
 		session.setAttribute(SessionVar.LOGIN_NAME, passenger.getPUserName());
+//		session.setAttribute(SessionVar.LOGIN_EMAIL, passenger.getPUserEmail());
 		
 		//넘어온 redirectURL값이 있으면 해당 경로, 없으면 default값인 "/" 이동
 		return "redirect:" + redirectURL;

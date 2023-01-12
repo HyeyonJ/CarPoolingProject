@@ -36,4 +36,6 @@ public interface PassengerInfoMapper {
 	
 	public PassengerInfo update(PassengerInfo passenger);
 	
+	public PassengerInfo selectByIdNum(String idNum);
+	
 }

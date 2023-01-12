@@ -34,6 +34,13 @@
         </form>
       </div>
     </div>
+     <script th:inline="javascript">
+	    function openWin(url) {
+	    ReportPrintPreview = window.open("about:blank", "카풀톡", "width=400,height=500,left=250,top=50,dependent=yes,menubar=yes,status=yes,resizable=yes,toolbar=no,scrollbars=yes");
+	    ReportPrintPreview.location.href = url;
+	    ReportPrintPreview.focus();
+		}
+ 	</script>
   </nav>
 
 </html>

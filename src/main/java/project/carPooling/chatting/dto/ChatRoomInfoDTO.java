@@ -11,17 +11,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatRoomInfoDTO {
     private Long chatRoomId;
-    private String roomOwner;
     private String roomId;
     private String name;
+    private Integer rIdx;
+    private Integer pIdx;
+    private Integer dIdx;
 
     public static ChatRoomInfoDTO toChatRoomInfoDTO(ChatRoomEntity chatRoomEntity){
         ChatRoomInfoDTO chatRoomInfoDTO = new ChatRoomInfoDTO();
 
         chatRoomInfoDTO.setChatRoomId(chatRoomEntity.getId());
-        chatRoomInfoDTO.setRoomOwner(chatRoomEntity.getRoomOwner());
         chatRoomInfoDTO.setRoomId(chatRoomEntity.getRoomId());
         chatRoomInfoDTO.setName(chatRoomEntity.getRoomName());
+        chatRoomInfoDTO.setRIdx(chatRoomEntity.getRIdx());
+        chatRoomInfoDTO.setPIdx(chatRoomEntity.getPIdx());
+        chatRoomInfoDTO.setDIdx(chatRoomEntity.getDIdx());
         return chatRoomInfoDTO;
     }
 

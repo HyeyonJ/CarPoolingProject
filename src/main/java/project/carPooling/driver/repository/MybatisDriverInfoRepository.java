@@ -110,5 +110,10 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		
 	}
 
+	@Override
+	public DriverInfo selectByIdNum(String idNum) {
+		DriverInfo driverInfo = driverMapper.selectByIdNum(idNum);
+		return driverInfo;
+	}
 
 }

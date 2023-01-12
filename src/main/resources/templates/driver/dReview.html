@@ -2,70 +2,71 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutDriver}">
 
-<head>
-  <title>dReview</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="/standard/css/fontawesome-stars.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
-  <style>
-    #drReviewSection {
-      margin-top: 150px;
-    }
+  <head>
+    <title>dReview</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/standard/css/fontawesome-stars.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
+    <style>
+      #drReviewSection {
+        margin-top: 150px;
+      }
 
-    #review {
-      margin-top: 40px;
-      margin-bottom: 70px;
-    }
-  </style>
-</head>
+      #review {
+        margin-top: 40px;
+        margin-bottom: 70px;
+      }
+    </style>
+  </head>
 
-<div layout:fragment="content">
-  <section id="drReviewSection">
+  <div layout:fragment="content">
+    <section id="drReviewSection">
 
-    <div class="container">
       <div class="container">
-        <h1 class="text-center">탑승자와의 여정, 어떠셨나요?</h1>
+        <div class="container">
+          <h1 class="text-center">탑승자와의 여정, 어떠셨나요?</h1>
 
-        <form id="reviewForm">
-          <!-- 별점 시작  -->
-          <div class="d-flex justify-content-center" id="review">
-            <select id="starRate">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5" selected>5</option>
-            </select>
-          </div>
-          <!-- 별점 끝-->
+          <form id="reviewForm" th:object="${dReview}">
+            <!-- 별점 시작  -->
+            <div class="d-flex justify-content-center" id="review">
+              <select id="starRate" th:field="*{starPoint}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+              </select>
+            </div>
+            <!-- 별점 끝-->
 
-          <!-- 후기 : 익명의 사용자 닉네임, 후기내용   -->
-          <div class="form-group">
-            <label for="nickname">작성자</label> <!-- 현재 세션에서 d_idx, nickname 값 구해서 input 에 넣어주기  -->
-            <input type="text" class="form-control" id="nickname" value="임의값" aria-describedby=" emailHelp" readonly>
-            <small id="textHelp" class="form-text text-muted">솔직한 후기를 위해 작성자의 이름은 임의의 닉네임으로 표시 됩니다.</small>
-          </div>
-          <div class="form-group">
-            <label for="comment">내용</label>
-            <input type="text" class="form-control" id="content" aria-describedby="emailHelp"
-              placeholder="후기 내용을 작성해주세요." value=" ">
-          </div>
-          <input type="hidden" name="payidx" id="payidx">
-          <input type="hidden" name="p_idx" id="p_idx" value="">
-          <input type="hidden" name="r_idx" id="r_idx" value="">
-        </form>
+            <!-- 후기 : 익명의 사용자 닉네임, 후기내용   -->
+            <div class="form-group">
+              <label for="nickname">작성자</label> <!-- 현재 세션에서 d_idx, nickname 값 구해서 input 에 넣어주기  -->
+              <input type="text" class="form-control" id="nickname" value="임의값" aria-describedby=" emailHelp" readonly
+                th:field="*{nickname}">
+              <small id="textHelp" class="form-text text-muted">솔직한 후기를 위해 작성자의 이름은 임의의 닉네임으로 표시 됩니다.</small>
+            </div>
+            <div class="form-group">
+              <label for="comment">내용</label>
+              <input type="text" class="form-control" id="content" aria-describedby="emailHelp"
+                placeholder="후기 내용을 작성해주세요." value="" th:field="*{content}">
+            </div>
+            <input type="hidden" name="payidx" id="payidx">
+            <input type="hidden" name="pidx" id="pIdx" th:field="*{toIdx}">
+            <input type="hidden" name="ridx" id="rIdx" th:field="*{rIdx}">
+          </form>
 
-        <button type="button" onclick="reviewSubmit()"
-          class="btn btn-primary btn-block text-center btn-submit">후기등록</button>
+          <button type="button" onclick="reviewSubmit()"
+            class="btn btn-primary btn-block text-center btn-submit">후기등록</button>
 
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<th:block layout:fragment="js">
-  <script src="/custom/js/driver/dReview.js"></script>
-</th:block>
+  <th:block layout:fragment="js">
+    <script src="/custom/js/driver/dReview.js"></script>
+  </th:block>
 
 </html>

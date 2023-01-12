@@ -9,10 +9,8 @@ function reviewSubmit() {
     starPoint: $("#starRate").val(),
     nickname: $("#nickname").val(),
     content: $("#content").val(),
-    // toIdx: $("#dIdx").val(),
-    toIdx: "1",
-    // rIdx: $("#rIdx").val(),
-    rIdx: "1",
+    toIdx: $("#dIdx").val(),
+    rIdx: $("#rIdx").val()
   };
 
   $.ajax({

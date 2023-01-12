@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -66,7 +67,8 @@ public class DrvNaverLoginController {
 	public String drvNaverCallback(HttpSession session
 								, HttpServletRequest request
 								, Model model, HttpServletRequest req
-								, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL)
+								, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL,
+								RedirectAttributes rAttr)
 									throws IOException, ParseException {
 
 		String code = request.getParameter("code");
@@ -118,6 +120,11 @@ public class DrvNaverLoginController {
 		model.addAttribute("driverInfo", driverInfo);
 		
 		driverInfo = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
+		
+		if(driverInfo != null && driverInfo.getDSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/driver/login";
+		}
 		
 		if ( driverInfo == null ) {
 			return "driver/join/dNaverCallback";

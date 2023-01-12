@@ -95,6 +95,12 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 		}
 		return result;
 	}
+	@Override
+	public PassengerInfo selectByIdNum(String idNum) {
+		PassengerInfo passenger = passengerMapper.selectByIdNum(idNum);
+		return passenger;
+	}
+
 
 
 
