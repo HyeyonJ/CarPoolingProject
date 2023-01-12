@@ -35,10 +35,9 @@ public interface DriverInfoRepository {
 	public boolean updateDriverSignOut(String dUserEmail);
 	
 	public DriverInfo selectByIdNum(String idNum);
+
+	public DriverInfo selectDriverByAccountInfo(String dAccountBanck, String dAccountNum);
 	
-	public DriverInfo selectDriverAccountInfo(Integer dIdx);
-	
-	public boolean updateDriverAccountInfo(Integer dIdx);
 	
 	
 }

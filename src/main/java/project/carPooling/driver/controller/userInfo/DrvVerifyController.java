@@ -7,14 +7,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.service.DriverUserService;
@@ -35,10 +32,11 @@ public class DrvVerifyController {
 	
 	//계좌번호 중복 체크
 	@GetMapping("/check/accountInfo")
-	public boolean driverCheckAccountInfo(@RequestParam String carNum) {
-		boolean checkCarNum = dUserService.driverCheckCarNum(carNum);
-		log.info("자동차번호 중복 체크 : {}", checkCarNum);
-		return checkCarNum;
+	public boolean driverCheckAccountInfo(@RequestParam String accountBanck
+										, @RequestParam String accountNum) {
+		boolean checkAccountInfo = dUserService.driverCheckAccountInfo(accountBanck, accountNum);
+		log.info("계좌번호 중복 체크 : {}", checkAccountInfo);
+		return checkAccountInfo;
 	}
 	
 	//자동차번호 중복 체크

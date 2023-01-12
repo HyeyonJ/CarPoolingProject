@@ -1,6 +1,5 @@
 package project.carPooling.passenger.controller.userInfo;
 
-
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;

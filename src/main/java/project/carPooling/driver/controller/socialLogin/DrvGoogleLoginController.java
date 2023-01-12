@@ -31,15 +31,15 @@ public class DrvGoogleLoginController {
 		System.out.println("google dUserEmail: " + email);
 		
 		DriverInfo driverInfo = driverInfoRepository.selectByEmail(email);
-		System.out.println(driverInfo.getDSignOut());
 		
 		if(driverInfo != null && driverInfo.getDSignOut() == true) {
 			rAttr.addFlashAttribute("signOut", true);
 			return "redirect:/driver/login";
 		}
 		
-		if ( driverInfo == null ) {
+		if (driverInfo == null ) {
 			return "redirect:/driver/login/google/redirect";
+			
 		}
 		
 		HttpSession session = req.getSession();
