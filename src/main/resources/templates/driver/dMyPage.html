@@ -32,80 +32,91 @@
 
 
   <div layout:fragment="content" style="margin:50px;">
-<!-- 	<h4 class="mypage" style="margin-bottom:10px; margin-left:120px;">> 마이페이지</h4> -->
-			<div class="row">
-				<div class="col-sm-5" style="text-align: center;">
-					<div class="box">
-						<img class="profile"
-							src="https://i.pinimg.com/564x/71/20/23/7120230d2db9d4b9dcd84f4d1dd48a10.jpg"></img>
-					</div>
-		    	</div>
-				<div class="col-sm-7">
-					<h3 style="font-weight:bold; margin-top:100px;" class="mypage">
-						<span th:text="${driverInfo.dUserName}"></span><span>님의 마이페이지</span>
-						<a th:href="@{/driver/info}"><button class="btn btn-secondary mt-1" style="margin-left: 280px;">프로필 수정</button></a>
-					</h3>
-				</div>
-			</div>
-			<div style="border-bottom: solid 1px silver; margin-left:100px; margin-right:100px; margin-bottom:50px;"></div>
-		
-			<table class="table container mypage" style="width:80%;">
-				<tbody>
-					<tr>
-						<th scope="row" style="width:20%"><h5 style="font-weight:bold; margin-top: 20px;">매너온도</h5></th>
-						<td>
-							<div>
-								<div>
-									<span class="text-color-03" th:text="${driverInfo.dTemperature}"></span>°C
-								</div>
-							</div>
-							<div class="meters">
-								<div class="bar"></div>
-								<div class="face"></div>
-							</div>
-						</td>
-					</tr>
-					 <tr>
-	      				<th scope="row"><h5 style="font-weight:bold;">포인트</h5>
-	      				</th>
-	      				<td>
-	      					<span th:text="${driverInfo.dPoint}"></span>
-	      					<button class="btn btn-secondary"  style="margin-left: 700px">출금하기</button>
-	      				</td>
-	      			</tr>
-					 <tr>
-					    <th scope="row"><h5 style="font-weight:bold;">패널티</h5></th>
-					    <td colspan="2">
-					    	<span th:text="${driverInfo.dPenalty}"></span>
-					    </td>
-					 </tr>
-					 <tr>
-					 	<th scope="row"><h5 style="font-weight:bold;">내가작성한리뷰</h5></th>
-							<td colspan="2">
-								<div th:each="myReview : ${myReviewList}">
-									<span style="color:silver">별점</span>
-									<span style="color:silver" th:text="${myReview.starPoint}"></span> 
-									<div th:text="${myReview.content}"></div>
-								<div style="border-bottom: solid 1px silver;"></div>
-								</div>
-							</td>
-					 </tr>
-					 <tr>
-					 	<th scope="row"><h5 style="font-weight:bold;">내가받은리뷰</h5></th>
-						<td colspan="2">
-							<div th:each="psReview : ${psReviewList}">
-								<span style="color:silver">별점</span> 
-								<span style="color:silver" th:text="${psReview.starPoint}"></span>
-								<span style="color:silver">/ from</span> 
-								<span style="color:silver" th:text="${psReview.nickname}"></span> 
-								<div th:text="${psReview.content}"></div>
-								<div style="border-bottom: solid 1px silver;"></div>
-							</div>
-						</td>
-					 </tr>
-				</tbody>
-			</table>
- 		</div>
+    <!-- 	<h4 class="mypage" style="margin-bottom:10px; margin-left:120px;">> 마이페이지</h4> -->
+    <div class="row">
+      <div class="col-sm-5" style="text-align: center; margin-bottom: 20px;">
+        <div class="box">
+          <img class="profile" src="https://i.pinimg.com/564x/71/20/23/7120230d2db9d4b9dcd84f4d1dd48a10.jpg"></img>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <h3 style="font-weight:bold; margin-top:100px;" class="mypage">
+          <span th:text="${driverInfo.dUserName}"></span><span>님의 마이페이지</span>
+          <a th:href="@{/driver/info}"><button class="btn btn-secondary mt-1" style="margin-left: 200px;">프로필
+              수정</button></a>
+        </h3>
+      </div>
+    </div>
+    <div style="border-bottom: solid 1px silver; margin-left:100px; margin-right:100px; margin-bottom:50px;"></div>
+
+    <table class="table container mypage" style="width:80%;">
+      <tbody>
+        <tr>
+          <th scope="row" style="width:20%">
+            <h5 style="font-weight:bold; margin-top: 20px;">매너온도</h5>
+          </th>
+          <td>
+            <div>
+              <div style="position: relative; right: -82%; width: 50px;">
+                <span class="text-color-03" th:text="${driverInfo.dTemperature}"></span>°C
+              </div>
+            </div>
+            <div class="meters">
+              <div class="bar"></div>
+              <div class="face"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <h5 style="font-weight:bold;">포인트</h5>
+          </th>
+          <td>
+            <span th:text="${driverInfo.dPoint}"></span>
+            <button class="btn btn-secondary" style="margin-left: 600px">출금하기</button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <h5 style="font-weight:bold;">패널티</h5>
+          </th>
+          <td colspan="2">
+            <span th:text="${driverInfo.dPenalty}"></span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <h5 style="font-weight:bold;">내가작성한리뷰</h5>
+          </th>
+          <td colspan="2">
+            <div th:each="myReview : ${myReviewList}">
+              <span style="color:silver">별점</span>
+              <span style="color:silver" th:text="${myReview.starPoint}"></span>
+              <div th:text="${myReview.content}"></div>
+              <div style="border-bottom: solid 1px silver;"></div>
+              <button class="btn btn-primary" th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
+              <button class="btn btn-primary" th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <h5 style="font-weight:bold;">내가받은리뷰</h5>
+          </th>
+          <td colspan="2">
+            <div th:each="psReview : ${psReviewList}">
+              <span style="color:silver">별점</span>
+              <span style="color:silver" th:text="${psReview.starPoint}"></span>
+              <span style="color:silver">/ from</span>
+              <span style="color:silver" th:text="${psReview.nickname}"></span>
+              <div th:text="${psReview.content}"></div>
+              <div style="border-bottom: solid 1px silver;"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <th:block layout:fragment="js">
     <script>

@@ -14,4 +14,8 @@ public interface PassengerReviewRepository {
 	public List<PReview> selectMyReview(Integer pIdx);
 
 	public List<DReview> selectDrReview(Integer pIdx);
+
+	public void updateReview(Integer rIdx, String content);
+
+	public void deleteReview(Integer rIdx);
 }

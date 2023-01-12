@@ -61,9 +61,7 @@ function currentRsvList() {
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
         html +=
-          '<button class="btn btn-primary rsvsbtn" onclick="drivingStart(' +
-          data[i].R_IDX +
-          ')" >탑승대기</button>\t';
+          '<button class="btn btn-primary rsvsbtn" onclick="waitingBoarding()" >탑승대기</button>\t';
         html +=
           '<button id="PUT" onclick="cancelRsv(' +
           data[i].DR_IDX +
@@ -71,28 +69,28 @@ function currentRsvList() {
         html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
         //		Chatting Room 생성 
         html +=
-        	'<form action="/chatting/room/ps" method="post" id="formId'+
-        	data[i].R_IDX +
-        	'">';
+          '<form action="/chatting/room/ps" method="post" id="formId' +
+          data[i].R_IDX +
+          '">';
         html +=
-        		'<input type="hidden" name="dIdx" value="' +
-        		data[i].D_IDX + 
-        		'"></input>'
+          '<input type="hidden" name="dIdx" value="' +
+          data[i].D_IDX +
+          '"></input>'
         html +=
-        		'<input type="hidden" name="rIdx" value="' +
-        		data[i].R_IDX + 
-        		'"></input>' 
+          '<input type="hidden" name="rIdx" value="' +
+          data[i].R_IDX +
+          '"></input>'
         html +=
-        		'<input type="hidden" name="name" value="' +
-        		data[i].R_IDX + 
-        		"번 방"+
-        		'"></input>' 		
-		html +=
+          '<input type="hidden" name="name" value="' +
+          data[i].R_IDX +
+          "번 방" +
+          '"></input>'
+        html +=
           '<span class="btn btn-primary" onclick="roomExistCheck(' +
           data[i].R_IDX +
-          ')">채팅</span>';				
-        html +=  
-        	'</form>'
+          ')">채팅</span>';
+        html +=
+          '</form>'
         html += "</div>";
       }
       $("#currentRsvList").html(html);
@@ -377,6 +375,10 @@ function cancelRsv(dr_idx) {
   });
 }
 
+function waitingBoarding() {
+  Swal.fire("조금만 기다려주세요!", "운전자가 운행 시작 버튼을 누르면 자동으로 운행이 시작됩니다.", "info");
+}
+
 var count = 0;
 
 var dDrawInfoArr = [];
@@ -641,23 +643,24 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
 }
 
 
-function roomExistCheck(thisRIdx){
-	$.ajax({
-		type:'GET',
-		url:'/chatting/getChattingList',
-		success: function(data){
-//			console.log(data);
-		var result = 0;
-		for(var i=1; i<=data.length; i++){
-			if (data[i].rIdx == thisRIdx){
-			result++;
-			} 
-	 	}
-	 	if (result==0){
-			 $("#formId" + thisRIdx).submit(); 
-		 } else {
-			 alert('이미 채팅방이 존재합니다. 카풀톡을 확인해 주세요.');
-		 }}
-})
+function roomExistCheck(thisRIdx) {
+  $.ajax({
+    type: 'GET',
+    url: '/chatting/getChattingList',
+    success: function (data) {
+      //			console.log(data);
+      var result = 0;
+      for (var i = 1; i <= data.length; i++) {
+        if (data[i].rIdx == thisRIdx) {
+          result++;
+        }
+      }
+      if (result == 0) {
+        $("#formId" + thisRIdx).submit();
+      } else {
+        alert('이미 채팅방이 존재합니다. 카풀톡을 확인해 주세요.');
+      }
+    }
+  })
 };
 
