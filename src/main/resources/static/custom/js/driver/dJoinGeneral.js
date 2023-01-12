@@ -349,7 +349,7 @@ licenseNum.onkeyup = function() {
 licenseIdNum.onkeyup = function() {
 	const regLicenseIdNum = /^([A-Z0-9]{5,6})$/;
 	$("#checkLIdNumMsg").html('<span style="color:red"> 영문대문자+숫자 5자리 혹은 6자리(면허증 우측 사진 아래 식별번호)</span>');
-	if (regCarNum.test($("#dLicenseIdNum").val())) {
+	if (regLicenseIdNum.test($("#dLicenseIdNum").val())) {
 		$("#checkLIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 	}
 }
