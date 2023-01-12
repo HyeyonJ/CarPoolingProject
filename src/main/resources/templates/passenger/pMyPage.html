@@ -20,7 +20,22 @@
       </div>
       <div class="face"></div>
     </div>
+
+    <div th:each="myReview : ${myReviewList}">
+      <h3>내가작성한후기</h3>
+      별점: <span th:text="${myReview.starPoint}"></span>
+      이름: <span th:text="${myReview.nickname}"></span>
+      내용: <span th:text="${myReview.content}"></span>
+    </div>
+    <div th:each="drReview : ${drReviewList}">
+      <h3>내가받은후기</h3>
+      별점: <span th:text="${drReview.starPoint}"></span>
+      이름: <span th:text="${drReview.nickname}"></span>
+      내용: <span th:text="${drReview.content}"></span>
+    </div>
   </div>
+  </div>
+
 
   <th:block layout:fragment="js">
     <script>

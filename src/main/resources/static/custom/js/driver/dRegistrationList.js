@@ -60,28 +60,28 @@ function reservatedRgsList() {
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
         //		Chatting Room 생성
         html +=
-        	'<form action="/chatting/room/dr" method="post" id="formId'+
-        	data[i].DR_IDX +
-        	'">';
+          '<form action="/chatting/room/dr" method="post" id="formId' +
+          data[i].DR_IDX +
+          '">';
         html +=
-        		'<input type="hidden" name="pIdx" value="' +
-        		data[i].P_IDX + 
-        		'"></input>';
+          '<input type="hidden" name="pIdx" value="' +
+          data[i].P_IDX +
+          '"></input>';
         html +=
-        		'<input type="hidden" name="rIdx" value="' +
-        		data[i].DR_IDX + 
-        		'"></input>' ;
+          '<input type="hidden" name="rIdx" value="' +
+          data[i].DR_IDX +
+          '"></input>';
         html +=
-        		'<input type="hidden" name="name" value="' +
-        		data[i].DR_IDX + 
-        		"번 방"+
-        		'"></input>' ;	
-		html += 
+          '<input type="hidden" name="name" value="' +
+          data[i].DR_IDX +
+          "번 방" +
+          '"></input>';
+        html +=
           '<span class="fitem" onclick="roomExistCheck(' +
           data[i].DR_IDX +
-          ')">채팅</span>';				
-        html +=  
-        	'</form>'
+          ')">채팅</span>';
+        html +=
+          '</form>'
         html += "</div>";
       }
       $("#reservatedRgsList").html(html);
@@ -258,7 +258,7 @@ function completedRgsList() {
           data[i].DR_IDX +
           "," +
           data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">리뷰작성</button>\t';
+          ')" class="btn btn-primary rsvsbtn">후기작성</button>\t';
         html += "</div>";
       }
       $("#completedRgsList").html(html);
@@ -736,23 +736,24 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
 }
 
 //채팅 중복생성 방지 함수, 조건 검증 미흡
-function roomExistCheck(thisRIdx){
-	$.ajax({
-		type:'GET',
-		url:'/chatting/getChattingList',
-		success: function(data){
-//			console.log(data);
-		
-		var result = 0;
-		for(var i=1; i<=data.length; i++){
-			if (data[i].rIdx == thisRIdx){
-			result++;
-			} 
-	 	}
-	 	if (result==0){
-			 $("#formId" + thisRIdx).submit(); 
-		 } else {
-			 alert('이미 채팅방이 존재합니다. 카풀톡을 확인해 주세요.');
-		 }}
-})
+function roomExistCheck(thisRIdx) {
+  $.ajax({
+    type: 'GET',
+    url: '/chatting/getChattingList',
+    success: function (data) {
+      //			console.log(data);
+
+      var result = 0;
+      for (var i = 1; i <= data.length; i++) {
+        if (data[i].rIdx == thisRIdx) {
+          result++;
+        }
+      }
+      if (result == 0) {
+        $("#formId" + thisRIdx).submit();
+      } else {
+        alert('이미 채팅방이 존재합니다. 카풀톡을 확인해 주세요.');
+      }
+    }
+  })
 };

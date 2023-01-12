@@ -11,4 +11,14 @@
 		SET p_temperature = p_temperature + #{starPoint}
 		WHERE p_idx = #{toIdx}
 	</update>
+	
+	<select id="selectMyReview" resultType="DReview">
+		SELECT * FROM D_REVIEW
+		WHERE from_idx = #{dIdx}
+	</select>
+
+	<select id="selectPsReview" resultType="PReview">
+		SELECT * FROM P_REVIEW
+		WHERE to_idx = #{dIdx}
+	</select>
 </mapper>
