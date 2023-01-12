@@ -56,7 +56,26 @@ function reservatedRgsList() {
           "," +
           data[i].P_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
-        html += '<button class="btn btn-primary">채팅</button>\t';
+        //		Chatting Room 생성
+        html +=
+        	'<form action="/chatting/room/dr" method="post">';
+        html +=
+        		'<input type="hidden" name="pIdx" value="' +
+        		data[i].P_IDX + 
+        		'"></input>'
+        html +=
+        		'<input type="hidden" name="rIdx" value="' +
+        		data[i].DR_IDX + 
+        		'"></input>' 
+        html +=
+        		'<input type="hidden" name="name" value="' +
+        		data[i].DR_IDX + 
+        		"번 방"+
+        		'"></input>' 		
+		html +=
+          '<button class="btn btn-primary">채팅</button>';				
+        html +=  
+        	'</form>'
         html += "</div>";
       }
       $("#reservatedRgsList").html(html);
