@@ -70,7 +70,7 @@
 	      				</th>
 	      				<td>
 	      					<span th:text="${driverInfo.dPoint}"></span>
-	      					<button class="btn btn-secondary"  style="margin-left: 650px">출금하기</button>
+	      					<button class="btn btn-secondary"  style="margin-left: 700px">출금하기</button>
 	      				</td>
 	      			</tr>
 					 <tr>
@@ -79,63 +79,39 @@
 					    	<span th:text="${driverInfo.dPenalty}"></span>
 					    </td>
 					 </tr>
+					 <tr>
+					 	<th scope="row"><h5 style="font-weight:bold;">내가작성한리뷰</h5></th>
+						<td colspan="2">
+							<div th:each="myReview : ${myReviewList}" style="color:silver">
+								별점 <span th:text="${myReview.starPoint}"></span> 
+								내용	<div th:text="${myReview.content}"></div>
+							</div>
+						</td>
+					 </tr>
+					 <tr>
+					 	<th scope="row"><h5 style="font-weight:bold;">내가받은리뷰</h5></th>
+						<td colspan="2">
+							<div th:each="psReview : ${psReviewList}" style="color:silver">
+								별점 <span th:text="${psReview.starPoint}"></span> 
+								이름 <span th:text="${psReview.nickname}"></span> 
+								내용 <div th:text="${psReview.content}"></div>
+							</div>
+						</td>
+					 </tr>
 				</tbody>
 			</table>
-				<h5>나의리뷰</h5>
-	</div>
 
-    <table class="table container" style="width:80%;">
-      <tbody>
-        <tr>
-          <th scope="row" style="width:20%">
-            <h5 style="font-weight:bold;">매너온도</h5>
-          </th>
-          <td>
-            <div>
-              <div>
-                <span class="text-color-03" th:text="${driverInfo.dTemperature}"></span>°C
-              </div>
-            </div>
-            <div class="meters">
-              <div class="bar"></div>
-              <div class="face"></div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">포인트</h5>
-          </th>
-          <td>
-            <span th:text="${driverInfo.dPoint}"></span>
-            <button class="btn btn-primary">출금하기</button>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">패널티</h5>
-          </th>
-          <td colspan="2">
-            <span th:text="${driverInfo.dPenalty}"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div th:each="myReview : ${myReviewList}">
-      <h3>내가작성한후기</h3>
-      별점: <span th:text="${myReview.starPoint}"></span>
-      이름: <span th:text="${myReview.nickname}"></span>
-      내용: <span th:text="${myReview.content}"></span>
-    </div>
-    <div th:each="psReview : ${psReviewList}">
-      <h3>내가받은후기</h3>
-      별점: <span th:text="${psReview.starPoint}"></span>
-      이름: <span th:text="${psReview.nickname}"></span>
-      내용: <span th:text="${psReview.content}"></span>
-    </div>
-  </div>
-
+<!-- 	    <div th:each="myReview : ${myReviewList}"> -->
+<!-- 	      <h3>내가작성한후기</h3> -->
+<!-- 	      별점: <span th:text="${myReview.starPoint}"></span> -->
+<!-- 	      내용: <span th:text="${myReview.content}"></span> -->
+<!-- 	    </div> -->
+<!-- 	    <div th:each="psReview : ${psReviewList}"> -->
+<!-- 	      <h3>내가받은후기</h3> -->
+<!-- 	      별점: <span th:text="${psReview.starPoint}"></span> -->
+<!-- 	      이름: <span th:text="${psReview.nickname}"></span> -->
+<!-- 	      내용: <span th:text="${psReview.content}"></span> -->
+<!-- 	    </div> -->
   </div>
 
   <th:block layout:fragment="js">
