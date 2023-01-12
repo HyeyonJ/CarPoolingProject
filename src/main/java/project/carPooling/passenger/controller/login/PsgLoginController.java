@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,7 +66,8 @@ public class PsgLoginController {
 	public String doLogin(@ModelAttribute PassengerLoginForm pLoginForm
 						, BindingResult bindingResult, HttpServletResponse resp
 						, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL) {
+						, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL
+						, RedirectAttributes rAttr) {
 		log.info("pLoginForm {}", pLoginForm);
 		
 		validateLoginForm(pLoginForm, bindingResult);
@@ -77,6 +79,11 @@ public class PsgLoginController {
 		PassengerInfo passenger = passengerLoginService.login(pLoginForm.getLoginId(), pLoginForm.getPassword());
 		
 		log.info("pLogin {}", passenger);
+		
+		if(passenger != null && passenger.getPSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/passenger/login";
+		}
 		
 		if(passenger == null) {	//계정 정보가 없거나, 비밀번호가 안 맞으면 로그인 실패
 			bindingResult.rejectValue("pLoginForm", "아이디 or 비밀번호 불일치");

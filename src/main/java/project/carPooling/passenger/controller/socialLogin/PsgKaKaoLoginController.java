@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,8 +40,8 @@ public class PsgKaKaoLoginController {
 //    		 BindingResult bindingResult, 
     		@RequestParam(value = "code", required = false) String code,
     		HttpServletResponse resp, HttpServletRequest req,
-    		@RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL
-    		) throws Exception {
+    		@RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL,
+    		RedirectAttributes rAttr) throws Exception {
 		
     	System.out.println("code=" + code);
 		
@@ -55,6 +56,11 @@ public class PsgKaKaoLoginController {
 		model.addAttribute("passenger", passengerKakao);
 		
 		PassengerInfo passenger = passengerInfoRepository.selectByEmail(passengerKakao.getPUserEmail());
+		
+		if(passenger != null && passenger.getPSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/passenger/login";
+		}
 		
 		if ( passenger == null ) {
 			return "passenger/join/pKakaoCallback";
