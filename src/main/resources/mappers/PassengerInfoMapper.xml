@@ -24,13 +24,13 @@
 	<!-- public PassengerInfo selectByLoginId(String loginId); -->
 	<select id="selectByLoginId" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_user_id = #{pUserId}
+		WHERE p_user_id = #{pUserId} AND p_sign_out = 'false'
 	</select>
 	
 	<!-- public PassengerInfo selectByEmail(String email); -->
 	<select id="selectByEmail" resultType="PassengerInfo">
 		SELECT * FROM passenger
-		WHERE p_user_email = #{pUserEmail}
+		WHERE p_user_email = #{pUserEmail} AND p_sign_out = 'false'
 	</select>
 	
 	<!-- public PassengerInfo selectByNameAndEmail(String name, String email); -->
@@ -60,5 +60,33 @@
 	
 	<!-- public PassengerInfo update(PassengerInfo passenger); -->
 	
+<!-- 	회원 정보 수정 -->
+	<update id="updatePassengerInfo">
+		UPDATE PASSENGER 
+		SET p_user_pw = #{pUserPw},
+			p_user_name = #{pUserName},
+			p_user_tel = #{pUserTel},
+		WHERE  p_user_email = #{pUserEmail}
+	</update>
+	
+<!-- 	회원 탈퇴 -->
+<!-- idx, email, id 남기기-->
+	<update id="updatePassengerSignOut">
+		UPDATE PASSENGER
+		SET p_user_type = null,
+			p_user_pw = null,
+			p_user_name = null,
+			p_user_tel = null,
+			p_user_email = null,
+			p_user_gender = null,
+			p_id_num = null,
+			p_sign_out	= 'true'
+		WHERE p_user_email = #{pUserEmail}
+	</update>
+	
+	<select id="selectByIdnum" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_id_num = #{p_idNum}
+	</select>
 	
 </mapper>

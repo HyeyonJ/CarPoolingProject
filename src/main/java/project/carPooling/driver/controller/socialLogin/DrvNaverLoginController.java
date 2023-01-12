@@ -103,39 +103,19 @@ public class DrvNaverLoginController {
 			model.addAttribute("res", "Login failed!");
 		}
 		
-//		String apiURL = "https://openapi.naver.com/v1/nid/me";
-//		String headerStr = "Bearer " + parsedJson.get("access_token"); // Bearer 다음에 공백 추가
-//		String res = requestToServer(apiURL, headerStr);
-		
-		//res -> profile -> id, name
-		// addAttibute (id, name) view -> view id, name input hidden
-		// input value =id, name
-		//return "driver/login/dNaverCallback"; 회원가입 입력하는 페이지로 바로 이동
-		
-		log.info("accessToken: {}", accessToken);
 		String getProfileApiURL = "https://openapi.naver.com/v1/nid/me";
 		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
 		String resProfile = drvRequestToServer(getProfileApiURL, headerStr);
-		log.info("resPofile {}", resProfile);
-		//사용자 아이디랑 닉네임 정보
 
-		//1. String JSON 파싱 원하는 정보 뽑아내기
-		//2. addInfo view 에 데이터 맵핑
-		// input 타입 -> email
-		// input 타입 -> 닉네임
 		JsonParser parser = new JsonParser();
 		JsonObject obj = (JsonObject)parser.parse(resProfile);
 		JsonObject obj1 = (JsonObject) obj.get("response");
-		log.info("email: {}", obj1.get("email"));
-		log.info("gender: {}", obj1.get("gender"));
 		
 		DriverInfo driverInfo = new DriverInfo();
 		driverInfo.setDUserEmail(obj1.get("email").getAsString());
 		driverInfo.setDUserGender(obj1.get("gender").getAsString());
-//		driverInfo.setDUserType(DUserType.NAVER);
 		
 		model.addAttribute("driverInfo", driverInfo);
-		System.out.println("naverDriverinfo: " + driverInfo);
 		
 		driverInfo = driverInfoRepository.selectByEmail(driverInfo.getDUserEmail());
 		
@@ -145,17 +125,15 @@ public class DrvNaverLoginController {
 		
 		HttpSession session1 = req.getSession();
 		session1.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
-//		session1.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;
 	}
 	
 	
-	// Naver 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
 		@PostMapping("/naver/join")
-		public String drvNaverInsert(@ModelAttribute DriverInfo driverInfo, BindingResult bindingResult, HttpServletRequest req) {
-			System.out.println("driverInfo : " + driverInfo);
-			System.out.println("---------------------------");
+		public String drvNaverInsert(@ModelAttribute DriverInfo joinData, BindingResult bindingResult, HttpServletRequest req) {
+			driverInfoRepository.insert(joinData);
+			DriverInfo driverInfo = driverInfoRepository.selectByEmail(joinData.getDUserEmail());
 			
 			HttpSession session = req.getSession();
 			session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);

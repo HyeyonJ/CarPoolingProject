@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.repository.DriverInfoRepository;
+import project.carPooling.passenger.domain.PassengerInfo;
+import project.carPooling.passenger.repository.PassengerInfoRepository;
 import project.carPooling.driver.domain.DriverInfo;
 
 @Slf4j
@@ -13,12 +15,22 @@ import project.carPooling.driver.domain.DriverInfo;
 public class DriverUserService {
 	
 	private final DriverInfoRepository driverRepository;
+	private final PassengerInfoRepository passengerRepository;
+
+	//driver 주민등록번호 중복 체크
+	public boolean driverCheckIdNum(String idNum) {
+		boolean checkIdNum = false;
+		DriverInfo driver = driverRepository.selectByIdNum(idNum);        
+        if(driver!=null) { checkIdNum = true; }        
+        return checkIdNum;        
+    }
 	
-	//driver 아이디 중복 체크
+	//아이디 통합 중복 체크
 	public boolean driverCheckId(String id) {
 		boolean checkId = false;
         DriverInfo driver = driverRepository.selectByLoginId(id);
-        if(driver!=null) { checkId = true; }        
+        PassengerInfo passenger = passengerRepository.selectByLoginId(id);
+        if(driver!=null || passenger!=null ) { checkId = true; }        
         return checkId;
     }
 	
@@ -27,7 +39,7 @@ public class DriverUserService {
 		boolean checkEmail = false;
 		DriverInfo driver = driverRepository.selectByEmail(email);        
         if(driver!=null) { checkEmail = true; }        
-        return checkEmail;        
+        return checkEmail;
     }
 	
 	//driver 면허번호 중복 체크
@@ -51,5 +63,4 @@ public class DriverUserService {
         	return "일치하는 정보를 찾을 수 없습니다.";
         }        
     }
-		
 }

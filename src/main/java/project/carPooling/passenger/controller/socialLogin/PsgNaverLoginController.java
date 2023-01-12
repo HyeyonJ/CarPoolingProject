@@ -150,14 +150,13 @@ public class PsgNaverLoginController {
 	
 	// Naver 추가 정보가 입력이 안 되어 있을 시 등록하는 양식 보여준 후 받아서 처리
 	@PostMapping("/naver/join")
-	public String psgNaverInsert(@ModelAttribute PassengerInfo passengerInfo, BindingResult bindingResult, HttpServletRequest req) {
-		System.out.println("passengerInfo : " + passengerInfo);
-		System.out.println("---------------------------");
+	public String psgNaverInsert(@ModelAttribute PassengerInfo joinData, BindingResult bindingResult, HttpServletRequest req) {
+		passengerInfoRepository.insert(joinData);
+		PassengerInfo passengerInfo = passengerInfoRepository.selectByEmail(joinData.getPUserEmail());
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);
 		
-		passengerInfoRepository.insert(passengerInfo);
 		return "redirect:/passenger/passengerCarpool/reservation";
 	}
 	

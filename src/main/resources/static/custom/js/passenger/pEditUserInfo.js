@@ -5,7 +5,7 @@ $("#checkIdMsg").html('<span style="color:red">아이디 중복 확인 필요</s
 $("#checkEmailMsg").html('<span style="color:red">이메일 인증 필요</span>');
 
 /* 가입유형 자동 선택 (일반), 숨김처리 */
-$("#pUserType1").attr("checked", true);
+$("#pUserType").attr("checked", true);
 $("#inputUserType").css("display", "none");
 
 /* bootstrap 유효성 검사 */

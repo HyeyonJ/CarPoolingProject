@@ -56,13 +56,11 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 		}
 
 		@PostMapping("/google/join")
-		public String GoogleInsert(@ModelAttribute PassengerInfo passengerInfo
+		public String GoogleInsert(@ModelAttribute PassengerInfo joinData
 									, HttpServletRequest req) {
-			System.out.println("PassengerInfo : " + passengerInfo);
-			System.out.println("---------------------------");
 			
-			
-			passengerInfoRepository.insert(passengerInfo);
+			passengerInfoRepository.insert(joinData);
+			PassengerInfo passengerInfo = passengerInfoRepository.selectByEmail(joinData.getPUserEmail());
 			
 			HttpSession session = req.getSession();
 			session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);

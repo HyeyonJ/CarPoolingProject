@@ -1,14 +1,20 @@
-$("#checkIdMsg").html('<span style="color:red">아이디 중복 확인 필요</span>');
-$("#checkEmailMsg").html('<span style="color:red">이메일 인증 필요</span>');
-$("#checkIdNumMsg").html(
-  '<span style="color:red">주민등록번호 확인 필요</span>'
-);
-//$("#checkLicenseNumMsg").html(
-//  '<span style="color:red">운전자정보 확인 필요</span>'
-//);
-//$("#checkCarNumMsg").html(
-//  '<span style="color:red">자동차정보 확인 필요</span>'
-//);
+$("#checkIdMsg").html('<span style="color:red"> 확인 필요</span>');
+$("#checkPwMsg").html('<span style="color:red"> 확인 필요</span>');
+$("#checkEmailMsg").html('<span style="color:red"> 인증 필요</span>');
+$("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
+$("#checkLicenseNumMsg").html('<span style="color:red"> 확인 필요</span>');
+$("#checkCarNumMsg").html('<span style="color:red"> 확인 필요</span>');
+
+var userId = document.getElementById("dUserId");
+var userPw = document.getElementById("dUserPw");
+var userPwCheck = document.getElementById("dUserPwCheck");
+var userEmail = document.getElementById("dUserEmail");
+var inputCode = document.getElementById("dUserVcode");
+var userTel = document.getElementById("dUserTel");
+var userIdNum = document.getElementById("dIdNumM");
+var licenseNum = document.getElementById("dLicenseNum");
+var licenseIdNum = document.getElementById("dLicenseIdNum");
+var carNum = document.getElementById("dCarNum");
 
 /* 가입유형/성별/인증번호 입력폼 숨김처리 */
 $("#inputUserType").css("display", "none");
@@ -41,114 +47,151 @@ window.addEventListener(
   false
 );
 
-/* 아이디 중복 체크 */
-$("#checkId").click(function () {
-  const regId = /^[a-zA-Z0-9]{4,12}$/;
-  if (regId.test($("#dUserId").val())) {
-    $.ajax({
-      type: "GET",
-      url: "/driver/check/id",
-      data: { id: $("#dUserId").val() },
-      success: function (res, status) {
-        /* 아이디 중복 체크 */
-        if (res == true) {
-          Swal.fire(
-            "이미 사용중인 아이디입니다.",
-            "다른 아이디를 입력해주세요.",
-            "error"
-          );
-        } else {
-          Swal.fire(
-            "사용 가능한 아이디입니다.",
-            "회원가입을 진행해주세요.",
-            "success"
-          ).then((OK) => {
-            if (OK) {
-              /* 중복확인 후 버튼색상, 메세지 변경 */
-              $("#checkId").removeClass("btn-dark");
-              $("#checkId").addClass("btn-outline-dark");
-              $("#checkIdMsg").html(
-                '<span style="color:darkblue">아이디 중복 확인 완료</span>'
-              );
-            }
-          });
-        }
-      },
-    });
-  } else {
-    Swal.fire("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error");
-  }
+
+/* 아이디 체크 */
+$("#checkId").click(function() {
+	$("#checkId").removeClass("btn-outline-dark");
+	$("#checkId").addClass("btn-dark");
+	$("#checkIdMsg").html('<span style="color:red"> 확인 필요</span>');
+	const regId = /^[a-zA-Z0-9]{4,12}$/;
+	if (regId.test($("#dUserId").val())) {
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/id",
+			data: { id: $("#dUserId").val() },
+			success: function(res, status) {
+				/* 아이디 중복 체크 */
+				if (res == true) {
+					Swal.fire(
+						"이미 사용중인 아이디입니다.",
+						"다른 아이디를 입력해주세요.",
+						"error"
+					)
+				} else {
+					Swal.fire(
+						"사용 가능한 아이디입니다.",
+						"회원가입을 진행해주세요.",
+						"success"
+					).then((OK) => {
+						if (OK) {
+							/* 확인 완료 후 버튼색상, 메세지 변경 */
+							$("#checkId").removeClass("btn-dark");
+							$("#checkId").addClass("btn-outline-dark");
+							$("#checkIdMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+						}
+					});
+				}
+			},
+		});
+	} else {
+		Swal.fire("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error");
+	}
 });
 
+/* 패스워드 체크 */
+
+userPw.onkeyup = function() {
+	const regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+	$("#checkPwMsg").html('<span style="color:red"> 확인 필요</span>');
+	if (regPw.test($("#dUserPw").val())) {
+		$("#checkPwMsg").html('<span style="color:darkblue"> 사용 가능</span>');
+	}
+}
+
+userPwCheck.onkeyup = function() {
+	const regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+	if (regPw.test($("#dUserPwCheck").val())) {
+		$("#checkPwMsg2").html('<span style="color:red"> 불일치</span>');
+		if( ($("#dUserPwCheck").val())==($("#dUserPw").val()) ) {
+			$("#checkPwMsg2").html('<span style="color:darkblue"> 확인 완료</span>');
+		}
+	}
+};
+
+
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
-$("#checkEmail").click(function () {
-  const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  if (regEmail.test($("#dUserEmail").val())) {
-    Swal.fire(
-      "사용 가능한 이메일입니다.",
-      "입력하신 이메일로 인증코드가 발송됩니다.",
-      "success"
-    ).then((OK) => {
-      if (OK) {
-        $.ajax({
-          type: "GET",
-          url: "/driver/send/email",
-          data: { email: $("#dUserEmail").val() },
-          success: () => {
-            /* 인증 메일 발송 후 인증 코드 입력 폼 출력 */
-            $("#inputVcode").css("display", "block");
-          },
-        });
-      }
-    });
-  } else {
-    Swal.fire(
-      "이메일을 확인해주세요.",
-      "다시 입력하시고 인증 버튼을 눌러주세요.",
-      "error"
-    );
-  }
+$("#checkEmail").click(function() {
+	$("#inputVcode").css("display", "none");
+	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+	$("#checkEmail").removeClass("btn-outline-dark");
+	$("#checkEmail").addClass("btn-dark");	
+	if (regEmail.test($("#dUserEmail").val())) {
+		//이메일 중복 체크
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/email",
+			data: { email: $("#dUserEmail").val() },
+			success: function(res, status) {
+				if (res == false) {
+					Swal.fire(
+						"사용 가능한 이메일입니다.",
+						"입력하신 이메일로 인증코드가 발송됩니다.",
+						"success"
+					).then((OK) => {						
+						if (OK) {
+							/* 인증 코드 입력 폼 출력 & 인증 메일 발송 */
+							$("#inputVcode").css("display", "block");
+							$.ajax({
+								type: "GET",
+								url: "/driver/send/email",
+								data: { email: $("#dUserEmail").val() },
+								success: () => {
+									/* 유효시간 출력 */
+									
+								}
+							});
+						}
+					});
+				} else {
+					Swal.fire(
+						"이미 사용중인 이메일 입니다.",
+						"다시 입력하시고 인증 버튼을 눌러주세요.",
+						"error"
+					);
+				}
+			}
+		});
+	}
 });
 
 /* 인증 코드 입력 & 확인 버튼 */
-$("#checkVcode").click(function () {
-  const regVcode = /^[A-Z0-9]{10}$/;
-  if (regVcode.test($("#dUserVcode").val())) {
-    $.ajax({
-      type: "GET",
-      url: "/driver/check/vCode",
-      data: { code: $("#dUserVcode").val() },
-      success: function (res, status) {
-        console.log(res);
-        console.log(status);
-        if (res == true) {
-          Swal.fire(
-            "이메일 인증이 완료되었습니다.",
-            "회원가입을 진행해주세요.",
-            "success"
-          ).then((OK) => {
-            if (OK) {
-              /* 인증완료 후 입력폼 숨기기, 버튼색상/메세지 변경, 입력폼 숨기기 */
-              $("#checkEmail").removeClass("btn-dark");
-              $("#checkEmail").addClass("btn-outline-dark");
-              $("#inputVcode").css("display", "none");
-              $("#checkEmailMsg").html(
-                '<span style="color:darkblue">이메일 인증 완료</span>'
-              );
-            }
-          });
-        } else {
-          Swal.fire(
-            "인증코드가 일치하지않습니다.",
-            "인증코드를 다시 확인해주세요.",
-            "error"
-          );
-        }
-      },
-    });
-  } else {
-    Swal.fire("잘못 입력하셨습니다.", "인증코드를 다시 확인해주세요.", "error");
-  }
+$("#checkVcode").click(function() {
+	const regVcode = /^[A-Z0-9]{10}$/;
+	if (regVcode.test($("#dUserVcode").val())) {
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/vCode",
+			data: { code: $("#dUserVcode").val() },
+			success: function(res, status) {
+				console.log(res);
+				console.log(status);
+				if (res == true) {
+					Swal.fire(
+						"이메일 인증이 완료되었습니다.",
+						"회원가입을 진행해주세요.",
+						"success"
+					).then((OK) => {
+						if (OK) {
+							/* 인증완료 후 입력폼 숨기기, 버튼색상/메세지 변경, 입력폼 숨기기 */
+							$("#checkEmail").removeClass("btn-dark");
+							$("#checkEmail").addClass("btn-outline-dark");
+							$("#inputVcode").css("display", "none");
+							$("#checkEmailMsg").html('<span style="color:darkblue"> 인증 완료</span>');
+							inputCode.value = null;
+						}
+					});
+				} else {
+					Swal.fire(
+						"인증코드가 일치하지않습니다.",
+						"인증코드를 다시 확인해주세요.",
+						"error"
+					);
+				}
+			},
+		});
+	} else {
+		Swal.fire("잘못 입력하셨습니다.", "인증코드를 다시 확인해주세요.", "error");
+	}
 });
 
 /* 휴대폰 번호 '-' 자동 입력 */
@@ -180,10 +223,9 @@ var autoHypenPhone = function (tel) {
   return tel;
 };
 
-var userTel = document.getElementById("dUserTel");
-
 userTel.onkeyup = function () {
   this.value = autoHypenPhone(this.value);
+  
 };
 
 /* 주민등록번호 '-' 자동 입력 */
@@ -207,13 +249,29 @@ var autoMaskingIdNum = function (idNum) {
   return tmp;
 };
 
-var idNum = document.getElementById("dIdNumM");
 
-idNum.onkeyup = function () {
+userIdNum.onkeyup = function () {
   this.value = autoHypenIdNum(this.value);
+  const regIdNum = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$/;
+  $("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
+	if (regIdNum.test($("#dIdNum").val())) {
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/idNum",
+			data: { idNum: $("#dIdNum").val() },
+			success: function (res, status) {
+				if(res == true) {
+					$("#checkIdNumMsg").html('<span style="color:red">이미 가입된 주민등록번호입니다.</span>');
+				} else {
+					$("#checkIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+				}
+
+			}
+		});
+	}
 };
 
-idNum.onblur = function () {
+userIdNum.onblur = function () {
   this.value = autoMaskingIdNum(this.value);
   /* 성별 자동 선택*/
 
@@ -258,9 +316,24 @@ var autoHypenLicenseNum = function (licenseNum) {
   return licenseNum;
 };
 
-var licenseNum = document.getElementById("dLicenseNum");
+licenseNum.onkeyup = function() {
+	this.value = autoHypenLicenseNum(this.value);
+	const regLicenseNum = /^(\d{2}-\d{2}-\d{6}-\d{2})$/;
+	if (regLicenseNum.test($("#dLicenseNum").val())) {
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/license",
+			data: { licenseNum: $("#dLicenseNum").val() },
+			success: function(res, status) {
+				if (res == true) {
+					$("#checkLicenseNumMsg").html('<span style="color:red">이미 등록된 면허입니다.</span>');
+				} else {
+					$("#checkLicenseNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+				}
 
-licenseNum.onkeyup = function () {
-  this.value = autoHypenLicenseNum(this.value);
+			}
+		});
+
+	}
 };
 

@@ -28,6 +28,14 @@ public interface PassengerInfoMapper {
 	
 	public void deleteAll();
 	
+	// 회원 정보 update 처리
+	public void updatePassengerInfo(PassengerInfo passenger);
+	
+	// 회원 탈퇴 시 update 처리
+	public void updatePassengerSignOut(String pUserEmail); 
+	
 	public PassengerInfo update(PassengerInfo passenger);
+	
+	public PassengerInfo selectByIdNum(String idNum);
 	
 }

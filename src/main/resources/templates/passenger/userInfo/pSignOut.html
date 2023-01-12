@@ -16,15 +16,15 @@
 				
 				<div>
 					<div style="margin-left:100px; margin-bottom:50px;">
-						<p>※ 사용하고 계신 아이디(<span th:text="${driverInfo.dUserId}"></span>)는 재사용 및 복구가 불가능합니다.</p>
+						<p>※ 사용하고 계신 아이디(<span th:text="${passenger.pUserId}"></span>)는 재사용 및 복구가 불가능합니다.</p>
 						<span style="color:red;">탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가</span><span style="color: silver;">하오니 신중하게 선택하시기 바랍니다.</span>
 					</div>
 				</div>
-				<form th:action="|@{/driver/signOut}|" method="post" th:object="${driverInfo}">
+				<form th:action="|@{/passenger/signOut}|" method="post" th:object="${passenger}">
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="dUserPw" >나의 비밀번호</label> <input type="password"
-								th:field="${driverInfo.dUserPw}" name="dUserPw" class="form-control"
+							<label for="pUserPw" >나의 비밀번호</label> <input type="password"
+								th:field="${passenger.pUserPw}" name="pUserPw" class="form-control"
 								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
 								placeholder="패스워드" maxlength="16">
@@ -46,11 +46,10 @@
  	$("#signOutBtn").css("display", "none");
 
 	$("#checkBtn").click(function() {
-// 		console.log($("#dUserPw").val());
 			$.ajax({
 				type: "POST",
-				url: "/driver/check/signOut",
-				data: { password: $("#dUserPw").val()},
+				url: "/passenger/check/signOut",
+				data: { password: $("#pUserPw").val()},
 				success: function (res,status) {				
 					if(res == false){
 						Swal.fire("패스워드가 일치하지않습니다.", "다시 확인해주세요.", "error");

@@ -7,11 +7,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import project.carPooling.driver.service.DriverUserService;
@@ -30,6 +33,13 @@ public class DrvVerifyController {
 	private final UserMailService userMailService;
 	private final DriverUserService dUserService;
 	
+	//주민등록번호 중복 체크
+	@GetMapping("/check/idNum")
+	public boolean driverCheckIdNum(@RequestParam String idNum) {		
+		boolean CheckIdNum = dUserService.driverCheckIdNum(idNum);		
+		log.info("주민등록번호 중복 체크 : {}", CheckIdNum);
+		return CheckIdNum;
+	}
 
 	//면허번호 중복 체크
 	@GetMapping("/check/license")
@@ -42,12 +52,12 @@ public class DrvVerifyController {
 	//아이디 중복 체크
 	@GetMapping("/check/id")
 	public boolean driverCheckJoinId(@RequestParam String id) {
-		boolean checkId = dUserService.driverCheckId(id);		
+		boolean checkId = dUserService.drivercheckId(id);		
 		log.info("아이디 중복 체크 : {}", checkId);
 		return checkId;
 	}
 	
-	//이메일 중복 체크(사용안함)
+	//이메일 중복 체크
 	@GetMapping("/check/email")
 	public boolean driverCheckJoinMail(@RequestParam String email) {		
 		boolean checkEmail = dUserService.driverCheckEmail(email);		
@@ -85,6 +95,7 @@ public class DrvVerifyController {
         
 		return "driver/join/general";
 	}
+	
 	
 	//테스트 redis value 출력
 	@GetMapping("/members/email/dancingfrogs@naver.com/{key}")

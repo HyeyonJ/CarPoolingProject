@@ -2,31 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layoutDriver}">
 
-<head>
-  <title>dMyPage</title>
-  <link rel="stylesheet" href="/standard/css/temperature.css">
-</head>
+  <head>
+    <title>dMyPage</title>
+    <link rel="stylesheet" href="/standard/css/temperature.css">
+  </head>
 
-<div layout:fragment="content">
-  <div id="article-profile-right">
-    <div id="temperature-wrap">
-      <div>매너온도</div>
-      <div class="text-color-03" th:text="${driverInfo.dTemperature}">
-        <span>°C</span>
+  <div layout:fragment="content">
+    <div id="article-profile-right">
+      <div id="temperature-wrap">
+        <div>매너온도</div>
+        <div class="text-color-03" th:text="${driverInfo.dTemperature}">
+          <span>°C</span>
+        </div>
       </div>
+      <div class="meters">
+        <div class="bar"></div>
+      </div>
+      <div class="face"></div>
     </div>
-    <div class="meters">
-      <div class="bar bar-color-03"></div>
+    <div>
+      <label for=""></label>
+      <input type="text" name="" id="" th:text="">
     </div>
-    <div class="face face-03"></div>
-  </div>
-</div>
 
-<th:block layout:fragment="js">
-  <script>
-    $(".bar").css("width", "[[${driverInfo.dTemperature}]]%");
-  </script>
-  <script src="/custom/js/driver/dMyPage.js"></script>
-</th:block>
+  </div>
+
+  <th:block layout:fragment="js">
+    <script>
+      var dTemperature = "[[${driverInfo.dTemperature}]]";
+      $(".bar").css("width", `${ dTemperature }%`);
+      dTemperature = parseFloat(dTemperature);
+
+      if (dTemperature > 0 && dTemperature <= 12.5) {
+        $(".bar").addClass("bar-color-01");
+        $(".face").addClass("face-01");
+      } else if (dTemperature > 12.5 && dTemperature <= 30) {
+        $(".bar").addClass("bar-color-02");
+        $(".face").addClass("face-02");
+      } else if (dTemperature > 30 && dTemperature <= 36.5) {
+        $(".bar").addClass("bar-color-03");
+        $(".face").addClass("face-03");
+      } else if (dTemperature > 36.5 && dTemperature <= 50.5) {
+        $(".bar").addClass("bar-color-04");
+        $(".face").addClass("face-04");
+      } else if (dTemperature > 50.5 && dTemperature <= 65.5) {
+        $(".bar").addClass("bar-color-05");
+        $(".face").addClass("face-05");
+      } else if (dTemperature > 65.5) {
+        $(".bar").addClass("bar-color-06");
+        $(".face").addClass("face-06");
+      }
+    </script>
+    <script src="/custom/js/driver/dMyPage.js"></script>
+  </th:block>
 
 </html>

@@ -42,7 +42,6 @@ public class DrvLoginController {
 	public String loginMain(HttpSession session, Model model)
 				throws UnsupportedEncodingException, UnknownHostException {
 
-////////////////////// dirverLoginForm 이거 제대로 확인///////////////////////////////////
 		DriverLoginForm dLoginForm = new DriverLoginForm();
 		model.addAttribute("dLoginForm", dLoginForm);
 		
@@ -104,7 +103,6 @@ public class DrvLoginController {
 		if(session != null) {
 			session.invalidate();
 		}
-		
 		return "redirect:/";
 	}
 	

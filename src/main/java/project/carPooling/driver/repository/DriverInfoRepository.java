@@ -28,9 +28,14 @@ public interface DriverInfoRepository {
 	
 	public void deleteAll();
 	
+	// 회원 정보 수정 update 처리
 	public void updateDriverInfo(DriverInfo driverInfo);
 	
-	public boolean updateDriverSignOut(Integer dIdx);
+	// 회원 탈퇴 시 update 처리
+//	public void updateDriverSignOut(DriverInfo driverInfo);
+	public boolean updateDriverSignOut(String dUserEmail);
+	
+	public DriverInfo selectByIdNum(String idNum);
 	
 	
 }

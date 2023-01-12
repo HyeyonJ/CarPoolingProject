@@ -77,6 +77,30 @@ public class MybatisPassengerInfoRepository implements PassengerInfoRepository {
 		return passenger;
 	}
 
+	// 회원 정보 수정 시 update 처리
+	@Override
+	public void updatePassengerInfo(PassengerInfo passenger) {
+		passengerMapper.updatePassengerInfo(passenger);
+	}
+
+	@Override
+	public boolean updatePassengerSignOut(String pUserEmail) {
+		boolean result = false;
+		
+		try {
+			passengerMapper.updatePassengerSignOut(pUserEmail);
+			result = true;
+		} catch (Exception e) {
+			
+		}
+		return result;
+	}
+	@Override
+	public PassengerInfo selectByIdNum(String idNum) {
+		PassengerInfo passenger = passengerMapper.selectByIdNum(idNum);
+		return passenger;
+	}
+
 
 
 

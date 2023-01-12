@@ -88,25 +88,32 @@ public class MybatisDriverInfoRepository implements DriverInfoRepository {
 		driverMapper.deleteAll();
 	}
 	
+	// 회원 정보 수정 시 update 처리
 	@Override
 	public void updateDriverInfo(DriverInfo driverInfo) {
 		driverMapper.updateDriverInfo(driverInfo);
 //		return driverInfo;
 	}
+	
 	@Override
-	public boolean updateDriverSignOut(Integer dIdx) {		
+	public boolean updateDriverSignOut(String dUserEmail) {		
 		
 		boolean result = false;		
 		
 		try {
-			driverMapper.updateDriverSignOut(dIdx);
+			driverMapper.updateDriverSignOut(dUserEmail);
 			result = true;			
 		} catch (Exception e) {
-			log.error("driverMapper update error {}", dIdx);
 		}
 		
 		return result;
 		
+	}
+
+	@Override
+	public DriverInfo selectByIdNum(String idNum) {
+		DriverInfo driverInfo = driverMapper.selectByIdNum(idNum);
+		return driverInfo;
 	}
 
 }
