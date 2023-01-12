@@ -77,7 +77,6 @@
 			p_user_pw = null,
 			p_user_name = null,
 			p_user_tel = null,
-			p_user_email = null,
 			p_user_gender = null,
 			p_id_num = null,
 			p_sign_out	= 'true'

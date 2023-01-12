@@ -71,7 +71,7 @@ public class DrvKaKaoLoginController {
 			return "redirect:/driver/login";
 		}
 		
-		if ( driverInfo2 == null ) {
+		if (driverInfo2 == null ) {
 			return "driver/join/dKakaoCallback";
 			
 		}

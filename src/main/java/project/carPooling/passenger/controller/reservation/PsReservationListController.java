@@ -68,8 +68,21 @@ public class PsReservationListController {
 			PaymentData paymentData = reservationListRepository.selectPaymentDataByRIdx(rIdx);
 			pastRsv.put("receiptUrl", paymentData.getReceiptUrl());
 		}
-		
 		return pastRsvList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/passengerCarpool/list/completeRsvList")
+	public List<Map<String, Object>> completeRsvList(HttpServletRequest req){
+		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
+		List<Map<String, Object>> completeRsvList = reservationListRepository.selectCompleteRsvList(passengerInfo.getPIdx());
+		System.out.println(completeRsvList);
+		for(Map<String, Object> completeRsv : completeRsvList) {
+			Integer rIdx = Integer.parseInt(String.valueOf(completeRsv.get("R_IDX")));
+			PaymentData paymentData = reservationListRepository.selectPaymentDataByRIdx(rIdx);
+			completeRsv.put("receiptUrl", paymentData.getReceiptUrl());
+		}
+		return completeRsvList;
 	}
 	
 	@ResponseBody

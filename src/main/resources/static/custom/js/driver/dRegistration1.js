@@ -78,7 +78,7 @@ function commuteCheck(selectTime) {
     // 출근 또는 퇴근을 선택해주세요. - 보여주기
     $("#workCheck").css("display", "block");
     // 바로 focusOut 하기
-    $(`#${selectTime}`).blur();
+    $(`#${ selectTime }`).blur();
     return false;
   } else {
     // 출근 또는 퇴근을 선택해주세요. - 숨기기
@@ -352,7 +352,7 @@ function initTmap() {
   map = new Tmapv2.Map("map_div", {
     center: new Tmapv2.LatLng(37.5652045, 126.98702028),
     width: "600px",
-    height: "550px",
+    height: "620px",
     zoom: 17,
     zoomControl: true,
     scrollwheel: true,
@@ -376,11 +376,11 @@ function searchPOI(location) {
 
   if (locationPointVal == "") {
     $("#routeCheck").css("display", "none");
-    $(`#${locationPoint}Check`).css("display", "block");
-    $(`#${locationPoint}`).focus();
+    $(`#${ locationPoint }Check`).css("display", "block");
+    $(`#${ locationPoint }`).focus();
     return;
   } else {
-    $(`#${locationPoint}Check`).css("display", "none");
+    $(`#${ locationPoint }Check`).css("display", "none");
   }
 
   $.ajax({
@@ -459,9 +459,9 @@ function searchPOI(location) {
         $(markerArr[i]._htmlElement).click(() => {
           const lat = markerArr[i]._marker_data.options.position._lat;
           const lng = markerArr[i]._marker_data.options.position._lng;
-          $(`#${location}`).val(markerArr[i]._marker_data.options.title);
-          $(`#${locationlon}`).val(lng);
-          $(`#${locationlat}`).val(lat);
+          $(`#${ location }`).val(markerArr[i]._marker_data.options.title);
+          $(`#${ locationlon }`).val(lng);
+          $(`#${ locationlat }`).val(lat);
         });
       }
 
@@ -472,13 +472,13 @@ function searchPOI(location) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });
@@ -662,13 +662,13 @@ function route() {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });

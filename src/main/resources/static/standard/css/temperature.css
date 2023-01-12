@@ -3,12 +3,11 @@
   display: block;
   width: 50%;
   background-color: #e9ecef;
-  height: 10px;
+  height: 20px;
   border-radius: 100px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
   position: relative;
-  margin-top: 24px;
 }
 
 .meters .bar {
@@ -17,7 +16,7 @@
   left: 0;
   bottom: 0;
   background-color: #495057;
-  height: 10px;
+  height: 20px;
   border-radius: 100px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
@@ -100,6 +99,6 @@
 
 .face {
   position: absolute;
-  left: 645px;
-  top: 65px;
+  right: -30px;
+  top: -2px;
 }
