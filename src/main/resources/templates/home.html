@@ -8,9 +8,11 @@
 <title>Select CarPooling Mode</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- CSS only -->
+
+
 <style>
 
-.background-wrap {
+.background-wrap{
   background-image: url('img/carTravel.jpg');
   background-size: 100% 880px;
   width: 100%;
@@ -18,6 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .content {
@@ -45,43 +48,25 @@
   }
 }
 
+
+
 </style>
 </head>
 <th:block layout:fragment="content">
 	<div class="text-on-img">
-		<div class="background-wrap">
-			<div class="content" style="text-align: center;">
-				<div class="carTime">차가 필요한 모든 순간,</div>
-				<div class="carPooling">
-					<span>C</span><span>a</span><span>r</span><span>p</span><span>o</span><span>o</span><span>l</span><span>i</span><span>n</span><span>g</span>
-				</div>
-					<div style="text-align: center; margin:20px;">
-						<button type="button" class="btn btn-dark" th:onclick="|location.href='@{/driver/login}'|">운전자모드</button>
-						<button type="button"  class="btn btn-dark" th:onclick="|location.href='@{/passenger/login}'|">탑승자모드</button>
+			<div class="background-wrap">
+				<div class="content" style="text-align: center;">
+					<div class="carTime">차가 필요한 모든 순간,</div>
+					<div class="carPooling">
+						<span>C</span><span>a</span><span>r</span><span>p</span><span>o</span><span>o</span><span>l</span><span>i</span><span>n</span><span>g</span>
 					</div>
-			</div>
-		</div>
+						<div style="text-align: center; margin:20px;">
+							<button type="button" class="btn btn-dark" th:onclick="|location.href='@{/driver/login}'|">운전자모드</button>
+							<button type="button"  class="btn btn-dark" th:onclick="|location.href='@{/passenger/login}'|">탑승자모드</button>
+						</div>
+					</div>
+				</div>
 	</div>
-
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
-	<div class="shooting_star"></div>
 </th:block>
 
 <script>
