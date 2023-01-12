@@ -1,18 +1,17 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<nav th:fragment="navFragment" style="background-color: #025955;"
-	class="navbar sticky-top">
+<nav  th:fragment="navFragment" style="background-color:#FDF5E6;"
+	class="navbar sticky-top shadow p-3 mb-5 bg-body-tertiary rounded">
 	<div class="container-fluid">
 		<a class="navbar-brand" th:onclick="|location.href='@{/driver/driverCarpool/registration}'|"
 			href="#"
-			style="color: white; font-family: 'NanumSquareNeoHeavy'; font-size: 2.3rem; height: 60px;">카풀링</a>
+			style="color: black; font-size: 2.3rem; height: 60px;">카풀링</a>
 		<button class="navbar-toggler" type="button"
 			data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
 			aria-controls="offcanvasDarkNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="offcanvas offcanvas-end"
-			style="background-color: #025955; color: white;" tabindex="-1"
+		<div class="offcanvas offcanvas-end hahahaha"
+			style="background-color:#FDF5E6; color: black;" tabindex="-1"
 			id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Driver
@@ -21,33 +20,33 @@
 					data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
 			<div class="offcanvas-body">
-				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 dropdrop">
 					<li class="nav-item"><a class="nav-link active"
-						style="color: white;" aria-current="page"
+						style="color: black;" aria-current="page"
 						th:onclick="|location.href='@{/driver/driverCarpool/registration}'|">카풀등록</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" style="color: white;"
+					<li class="nav-item"><a class="nav-link" style="color:black;"
 						aria-current="page"
 						th:data-url="@{|/chatting/drvChatting/${session.loginId}|}"
 						th:onclick="openWin(this.getAttribute('data-url'))" href="#">카풀톡</a>
 					</li>
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" style="color: white;" href="#"
+						class="nav-link dropdown-toggle" style="color:black;" href="#"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							마이 카풀링 </a>
 						<ul class="dropdown-menu dropdown-menu-dark"
-							style="background-color: #025955; color: white;">
-							<li><a class="dropdown-item" style="color: white;"
+							style="background-color:#FDF5E6; color: black;">
+							<li><a class="dropdown-item" style="color:black;"
 								th:onclick="|location.href='@{/driver/driverCarpool/list}'|"
 								aria-current="page" href="#">나의 카풀</a></li>
-							<li><a class="dropdown-item" style="color: white;"
+							<li><a class="dropdown-item" style="color:black;"
 								th:onclick="|location.href='@{/driver/driverCarpool/myPage}'|"
 								aria-current="page" href="#">마이페이지</a></li>
-							<li><a class="dropdown-item" style="color: white;"
+							<li><a class="dropdown-item" style="color:black;"
 								th:onclick="|location.href='@{/driver/info}'|"
 								aria-current="page" href="#">회원정보수정</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" style="color: white;"
+					<li class="nav-item"><a class="nav-link" style="color:black;"
 						th:onclick="|location.href='@{/driver/logout}'|"
 						aria-current="page" href="#">로그아웃</a></li>
 				</ul>

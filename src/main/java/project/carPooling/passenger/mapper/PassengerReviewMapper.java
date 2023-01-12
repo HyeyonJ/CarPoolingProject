@@ -1,8 +1,11 @@
 package project.carPooling.passenger.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import project.carPooling.driver.domain.DReview;
 import project.carPooling.passenger.domain.PReview;
 
 @Mapper
@@ -15,4 +18,13 @@ public interface PassengerReviewMapper {
 	public Integer selectDrIdxByRIdx(Integer rIdx);
 	
 	public void updateCompleteStatus(Integer drIdx);
+	
+	public List<PReview> selectMyReview(Integer pIdx);
+
+	public List<DReview> selectDrReview(Integer pIdx);
+	
+	public void updateReview(@Param("rIdx") Integer rIdx, @Param("content") String content);
+	
+	public void deleteReview(Integer rIdx);
+
 }

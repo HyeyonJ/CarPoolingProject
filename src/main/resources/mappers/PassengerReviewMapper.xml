@@ -1,26 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="project.carPooling.passenger.mapper.PassengerReviewMapper">
+<mapper
+	namespace="project.carPooling.passenger.mapper.PassengerReviewMapper">
 	<insert id="insert">
-		INSERT INTO P_REVIEW (r_idx, from_idx, to_idx, star_point, nickname, content)
-		VALUES(#{rIdx}, #{fromIdx}, #{toIdx}, #{starPoint}, #{nickname}, #{content})
+		INSERT INTO P_REVIEW (r_idx, from_idx, to_idx,
+		star_point, nickname, content)
+		VALUES(#{rIdx}, #{fromIdx}, #{toIdx},
+		#{starPoint}, #{nickname}, #{content})
 	</insert>
-	
+
 	<update id="updateDriverTemperature">
 		UPDATE DRIVER
-		SET d_temperature = d_temperature + #{starPoint}
+		SET d_temperature = d_temperature +
+		#{starPoint}
 		WHERE d_idx = #{toIdx}
 	</update>
-	
+
 	<select id="selectDrIdxByRIdx" resultType="Integer">
 		SELECT dr.dr_idx
-		FROM D_REGISTRATION dr, RESERVATION r
-		WHERE r.r_idx = #{rIdx} AND dr.dr_idx = r.dr_idx
+		FROM
+		D_REGISTRATION dr, RESERVATION r
+		WHERE r.r_idx = #{rIdx} AND dr.dr_idx
+		= r.dr_idx
 	</select>
-	
+
 	<update id="updateCompleteStatus">
 		UPDATE D_REGISTRATION
-		SET d_reservation_status = 'completed'
+		SET d_reservation_status =
+		'completed'
 		WHERE dr_idx = #{drIdx}
 	</update>
+
+	<select id="selectMyReview" resultType="PReview">
+		SELECT * FROM P_REVIEW
+		WHERE from_idx = #{pIdx}
+	</select>
+
+	<select id="selectDrReview" resultType="DReview">
+		SELECT * FROM P_REVIEW
+		WHERE to_idx = #{pIdx}
+	</select>
+	
+	<update id="updateReview">
+		UPDATE P_REVIEW
+		SET content = #{content}
+		WHERE r_idx = #{rIdx} 
+	</update>
+	
+	<delete id="deleteReview">
+		DELETE FROM P_REVIEW
+		WHERE r_idx = #{rIdx}
+	</delete>
 </mapper>

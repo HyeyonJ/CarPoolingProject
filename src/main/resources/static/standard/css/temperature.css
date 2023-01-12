@@ -1,9 +1,9 @@
 .meters {
   clear: both;
   display: block;
-  width: 50%;
+  width: 90%;
   background-color: #e9ecef;
-  height: 20px;
+  height: 30px;
   border-radius: 100px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
@@ -16,7 +16,7 @@
   left: 0;
   bottom: 0;
   background-color: #495057;
-  height: 20px;
+  height: 30px;
   border-radius: 100px;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
