@@ -11,7 +11,7 @@
 			aria-controls="offcanvasDarkNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="offcanvas offcanvas-end text-bg-dark"
+		<div class="offcanvas offcanvas-end"
 			style="background-color: #025955;" tabindex="-1"
 			id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 			<div class="offcanvas-header">
@@ -37,13 +37,13 @@
 							마이 카풀링 </a>
 						<ul class="dropdown-menu dropdown-menu-dark"
 							style="background-color: #025955; color: white;">
-							<li><a class="dropdown-item active"
+							<li><a class="dropdown-item"
 								th:onclick="|location.href='@{/passenger/passengerCarpool/list}'|"
 								style="color: white;" href="#" aria-current="page">나의 카풀</a></li>
-							<li><a class="dropdown-item active"
+							<li><a class="dropdown-item"
 								th:onclick="|location.href='@{/passenger/passengerCarpool/myPage}'|"
-								style="color: white;" href="#" aria-current="page">나의 카풀</a></li>
-							<li><a class="dropdown-item active" style="color: white;"
+								style="color: white;" href="#" aria-current="page">마이페이지</a></li>
+							<li><a class="dropdown-item" style="color: white;"
 								th:onclick="|location.href='@{/passenger/info}'|" href="#"
 								aria-current="page">회원정보수정</a></li>
 						</ul></li>
