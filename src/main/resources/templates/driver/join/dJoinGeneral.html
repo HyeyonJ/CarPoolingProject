@@ -13,7 +13,7 @@
 
 <div layout:fragment="content">
 	<div class="container mt-5">
-		<form class="form-control-lg validation-form" novalidate action=""
+		<form class="form-control-lg validation-form" action=""
 			method="post" th:object="${driverInfo}">
 			<div class="row justify-content-center">
 				<div class="col col-md-6 mb-3">
@@ -100,7 +100,7 @@
 						<input type="email" class="form-control" id="dUserEmail"
 							name="dUserEmail" aria-label="dUserEmail"
 							th:field="*{dUserEmail}" aria-describedby="checkEmail"
-							pattern="^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+							pattern="^([0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3})$"
 							placeholder="carpooling@example.com"
 							title="이메일 양식:carpooling@sample.com" maxlength="50" required>
 						<button class="btn btn-dark" type="button" id="checkEmail">인증</button>
@@ -124,7 +124,8 @@
 			<div class="row justify-content-center">
 				<!-- 휴대폰 번호 입력 -->
 				<div class="col col-md-6 mb-3">
-					<label for="dUserTel">* 휴대폰번호</label> <input type="text"
+					<label for="dUserTel">* 휴대폰번호</label> <span
+						class="text-center small mt-2" id="checkTelMsg"></span> <input type="text"
 						class="form-control" id="dUserTel" name="dUserTel"
 						placeholder="010-1234-5678 숫자만" pattern="^(010-\d{3,4}-\d{4})$"
 						maxlength="13" title="숫자만 입력" th:field="*{dUserTel}" required>
@@ -194,7 +195,7 @@
 						class="text-center small mt-2" id="checkCarNumMsg"
 						style="color: red"></span> <input type="text" class="form-control"
 						id="dCarNum" name="dCarNum" placeholder="00땡0000, 000땡0000"
-						pattern="(\d{2,3})([가-힣]{1})(\d{4})" maxlength="8"
+						pattern="^(\d{2,3})([가-힣]{1})(\d{4})$" maxlength="8"
 						title="자동차 번호 입력" th:field="*{dCarNum}" required>
 					<div class="invalid-feedback">
 						<span>자동차번호를 확인해주세요. </span>

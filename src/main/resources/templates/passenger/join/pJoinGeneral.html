@@ -40,8 +40,8 @@
 			<div class="row justify-content-center">
 				<!-- 아이디 입력 / 중복 체크 -->
 				<div class="col col-md-6 mb-3">
-					<label for="pUserId">* 아이디(id)</label>
-					<span class="text-center small mt-2" id="checkIdMsg" style="color: red"></span>
+					<label for="pUserId">* 아이디(id)</label> <span
+						class="text-center small mt-2" id="checkIdMsg"></span>
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" id="pUserId" name="pUserId" placeholder="아이디"
 							pattern="[a-zA-Z0-9]{4,12}" aria-label="pUserId" aria-describedby="checkId" th:field="*{pUserId}"
@@ -54,7 +54,8 @@
 			<div class="row justify-content-center">
 				<!-- 패스워드 입력 -->
 				<div class="col col-md-6 mb-3">
-					<label for="pUserPw">* 패스워드(pw)</label>
+					<label for="pUserPw">* 패스워드(pw)</label> <span
+						class="text-center small mt-2" id="checkPwMsg"></span>
 					<input type="password" class="form-control" id="pUserPw" name="pUserPw" th:field="*{pUserPw}" placeholder="패스워드"
 						pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 						title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지" maxlength="16" required>
@@ -75,8 +76,8 @@
 			<div class="row justify-content-center">
 				<!-- 이메일 입력 / 중복 체크 / 인증 메일 발송 -->
 				<div class="col col-md-6 mb-3">
-					<label for="pUserEmail">* 이메일(email)</label>
-					<span class="text-center small mt-2" id="checkEmailMsg" style="color: red"></span>
+					<label for="pUserEmail">* 이메일(email)</label> <span
+						class="text-center small mt-2" id="checkEmailMsg"></span>
 					<div class="input-group mb-3">
 						<input type="email" class="form-control" id="pUserEmail" name="pUserEmail"
 							aria-label="pUserEmail" aria-describedby="checkEmail" th:field="*{pUserEmail}"
@@ -103,7 +104,8 @@
 			<div class="row justify-content-center">
 				<!-- 휴대폰번호 입력 -->
 				<div class="col col-md-6 mb-3">
-					<label for="pUserTel">* 휴대폰번호</label>
+					<label for="pUserTel">* 휴대폰번호</label> <span
+						class="text-center small mt-2" id="checkTelMsg"></span> 
 					<input type="text" class="form-control" id="pUserTel" name="pUserTel"
 					 		pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 					 		th:field="*{pUserTel}" value="010" required>
@@ -115,7 +117,8 @@
 			<div class="row justify-content-center">
 				<!-- 주민등록번호 입력 -->
 				<div class="col col-md-6 mb-3">
-					<label for="pIdNumM">* 주민등록번호</label>
+					<label for="pIdNumM">* 주민등록번호</label> <span
+						class="text-center small mt-2" id="checkIdNumMsg"></span>
 					<input type="text" class="form-control" id="pIdNumM" name="pIdNumM"
 						pattern="^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$"
 						placeholder="990101-1******" title="주민등록번호 13자리 숫자만 입력" maxlength="14" required>

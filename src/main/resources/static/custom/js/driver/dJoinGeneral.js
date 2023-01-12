@@ -111,6 +111,7 @@ userPwCheck.onkeyup = function() {
 
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
 userEmail.onkeyup = function(){
+	const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	$("#checkEmailMsg").html('<span style="color:red"> carpooling@sample.com</span>');
 	if (regEmail.test($("#dUserEmail").val())) {
 		$("#checkEmailMsg").html('<span style="color:red"> 인증 필요</span>');
@@ -118,7 +119,8 @@ userEmail.onkeyup = function(){
 }
 $("#checkEmail").click(function() {
 	$("#inputVcode").css("display", "none");
-	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+	inputCode.value = null;
+	const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	$("#checkEmail").removeClass("btn-outline-dark");
 	$("#checkEmail").addClass("btn-dark");
 	if (regEmail.test($("#dUserEmail").val())) {
@@ -143,7 +145,6 @@ $("#checkEmail").click(function() {
 								data: { email: $("#dUserEmail").val() },
 								success: () => {
 									/* 유효시간 출력 */
-									
 								}
 							});
 						}
@@ -183,7 +184,7 @@ $("#checkVcode").click(function() {
 							$("#checkEmail").addClass("btn-outline-dark");
 							$("#inputVcode").css("display", "none");
 							$("#checkEmailMsg").html('<span style="color:darkblue"> 인증 완료</span>');
-							inputCode.value = null;
+							
 						}
 					});
 				} else {
@@ -229,10 +230,15 @@ var autoHypenPhone = function (tel) {
   return tel;
 };
 
-userTel.onkeyup = function () {
-  this.value = autoHypenPhone(this.value);
-  
+userTel.onkeyup = function() {
+	this.value = autoHypenPhone(this.value);
+	const regTel = /^(010-\d{3,4}-\d{4})$/;
+	$("#checkTelMsg").html('<span style="color:red"> 010포함 숫자만 입력</span>');
+	if (regTel.test($("#dUserTel").val())) {
+		$("#checkTelMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+	}
 };
+
 
 /* 주민등록번호 '-' 자동 입력 */
 var autoHypenIdNum = function (idNum) {
@@ -355,7 +361,7 @@ licenseIdNum.onkeyup = function() {
 }
 
 carNum.onkeyup = function() {
-	const regCarNum = /(\d{2,3})([가-힣]{1})(\d{4})/;
+	const regCarNum = /^(\d{2,3})([가-힣]{1})(\d{4})$/;
 	$("#checkCarNumMsg").html('<span style="color:red"> 00땡0000, 000땡0000</span>');
 	if (regCarNum.test($("#dCarNum").val())) {
 		$.ajax({
@@ -365,7 +371,7 @@ carNum.onkeyup = function() {
 			success: function(res, status) {
 				if (res == true) {
 					$("#checkCarNumMsg").html('<span style="color:red"> 이미 등록된 자동차입니다.</span>');
-				} else {
+				} else {					
 					$("#checkCarNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 				}
 			}
