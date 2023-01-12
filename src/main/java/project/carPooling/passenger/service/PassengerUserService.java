@@ -30,7 +30,7 @@ public class PassengerUserService {
 		boolean checkId = false;
         DriverInfo driver = driverRepository.selectByLoginId(id);
         PassengerInfo passenger = passengerRepository.selectByLoginId(id);
-        if(driver!=null && passenger!=null ) { checkId = true; }        
+        if(driver!=null || passenger!=null ) { checkId = true; }        
         return checkId;
     }
 	
