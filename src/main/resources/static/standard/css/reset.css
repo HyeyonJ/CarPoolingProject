@@ -1,0 +1,78 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.outer {
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/carTravel.jpg");
+  background-size: cover;
+}
+
+#wrap {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+#wrapHome {
+  min-height: 90%;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+footer {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  padding: 0 25px;
+  line-height: 60px;
+  background: #433520;
+  bottom: 0;
+  transform: translateY(-100%);
+}
+
+#footerHome {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  padding: 0 25px;
+  line-height: 60px;
+  background: #433520;
+  bottom: 0;
+  transform: translateY(-88%);
+}
+
+footer p {
+  color: #fcf8ec;
+  font-family: "NanumSquareNeoExtraBold";
+}
+
+.title {
+  color: #433520;
+  font-family: "NanumSquareNeoExtraBold";
+  font-size: 2.3rem;
+  margin: 40px 0px 40px 0px;
+}

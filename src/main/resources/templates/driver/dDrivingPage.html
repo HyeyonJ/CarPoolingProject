@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutDriver}">
+
+  <head>
+    <title>dDriving</title>
+    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  </head>
+
+  <div layout:fragment="content">
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+      <div class="text-center">
+        운전자분, 카풀 운행이 시작되었습니다.
+        <br>
+        탑승자분이 버튼을 누르면 운행이 종료됩니다!
+      </div>
+      <div id="map_div"></div>
+    </div>
+    <input type="hidden" id="drIdx" th:value="${drIdx}">
+    <form id="reivewDataForm" th:action="|@{/driver/driverCarpool/review}|" method="get" th:object="${dReview}">
+      <input type="hidden" id="pIdx" name="pIdx" th:field="*{toIdx}">
+      <input type="hidden" id="rIdx" name="rIdx" th:field="*{rIdx}">
+    </form>
+  </div>
+
+  <th:block layout:fragment="js">
+    <script src="/custom/js/driver/dDrivingPage.js"></script>
+  </th:block>
+
+</html>
