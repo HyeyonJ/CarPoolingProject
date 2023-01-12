@@ -64,8 +64,7 @@
 	<update id="updatePassengerInfo">
 		UPDATE PASSENGER 
 		SET p_user_pw = #{pUserPw},
-			p_user_name = #{pUserName},
-			p_user_tel = #{pUserTel},
+			p_user_tel = #{pUserTel}
 		WHERE  p_user_email = #{pUserEmail}
 	</update>
 	

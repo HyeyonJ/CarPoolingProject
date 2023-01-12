@@ -145,7 +145,6 @@ public class DrvNaverLoginController {
 			HttpSession session = req.getSession();
 			session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
 			
-			driverInfoRepository.insert(driverInfo);
 			return "driver/dRegistration";
 		}
 		

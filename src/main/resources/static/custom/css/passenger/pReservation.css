@@ -7,7 +7,7 @@ body {
 
 .btn {
   color: #fcf8ec;
-  background-color: #433520;
+  background-color: rgb(212, 206, 223);
 }
 
 .label {
@@ -149,7 +149,6 @@ margin-bottom: 100px;
 
 /* 체크 되었을 때의 변경되는 span태그 스타일 */
 .box-radio-input input[type="radio"]:checked + span {
-  border: 1px solid #433520;
-  background: #433520;
-  color: #fff;
+	background-color: rgb(212, 206, 223);
+	color: #fff;
 }

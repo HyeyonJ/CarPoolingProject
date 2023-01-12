@@ -157,14 +157,12 @@
 				<div class="col col-md-6 mb-3">
 					<label for="dLicenseNum">* 면허번호</label> <span
 						class="text-center small mt-2" id="checkLicenseNumMsg"></span>
-					<div class="input-group mb-3">
 						<input type="text" class="form-control" id="dLicenseNum"
 							name="dLicenseNum" aria-label="dLicenseNum"
 							aria-describedby="checkLicenseNum" th:field="*{dLicenseNum}"
 							pattern="^(\d{2}-\d{2}-\d{6}-\d{2})$"
 							placeholder="00-00-000000-00 숫자만" maxlength="15"
 							title="면허 번호 숫자만 입력" required>
-					</div>
 					<div class="invalid-feedback">
 						<span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
 					</div>
@@ -189,8 +187,8 @@
 				<!-- 자동차 번호 입력 -->
 				<div class="col col-md-6 mb-3">
 					<label for="dCarNum">* 자동차번호</label> <span
-						class="text-center small mt-2" id="checkCarNumMsg"
-						style="color: red"></span> <input type="text" class="form-control"
+						class="text-center small mt-2" id="checkCarNumMsg"></span>
+					<input type="text" class="form-control"
 						id="dCarNum" name="dCarNum" placeholder="00땡0000, 000땡0000"
 						pattern="^(\d{2,3})([가-힣]{1})(\d{4})$" maxlength="8"
 						title="자동차 번호 입력" th:field="*{dCarNum}" required>

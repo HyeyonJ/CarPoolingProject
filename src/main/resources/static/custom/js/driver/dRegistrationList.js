@@ -4,7 +4,7 @@ $("#reviewModal").on("hide.bs.modal", function () {
 });
 
 function reservatedRgsList() {
-  $("#reservatedRgsList").css("display", "block");
+  $("#reservatedRgsList").css("display", "flex");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
   $("#completedRgsList").css("display", "none");
@@ -54,7 +54,7 @@ function reservatedRgsList() {
           data[i].D_END_LAT +
           ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
         html +=
-          '<button class="btn btn-primary rsvsbtn" onclick="drivingStart(' +
+          '<button class="btn btnbtn" onclick="drivingStart(' +
           data[i].DR_IDX +
           ')" >운행시작</button>\t';
         html +=
@@ -62,7 +62,7 @@ function reservatedRgsList() {
           data[i].DR_IDX +
           "," +
           data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+          ')" class="btn btnbtn">카풀취소</button>\t';
         //		Chatting Room 생성
         html +=
           '<form action="/chatting/room/dr" method="post" id="formId' +
@@ -96,7 +96,7 @@ function reservatedRgsList() {
 
 function waitingRgsList() {
   $("#reservatedRgsList").css("display", "none");
-  $("#waitingRgsList").css("display", "block");
+  $("#waitingRgsList").css("display", "flex");
   $("#pastRgsList").css("display", "none");
   $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
@@ -145,7 +145,7 @@ function waitingRgsList() {
           data[i].DR_IDX +
           "," +
           data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+          ')" class="btn btnbtn  ">카풀취소</button>\t';
         html += "</div>";
       }
       $("#waitingRgsList").html(html);
@@ -156,7 +156,7 @@ function waitingRgsList() {
 function pastRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "none");
-  $("#pastRgsList").css("display", "block");
+  $("#pastRgsList").css("display", "flex");
   $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
 
@@ -257,7 +257,7 @@ function completedRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
-  $("#completedRgsList").css("display", "block");
+  $("#completedRgsList").css("display", "flex");
   $("#canceledRgsList").css("display", "none");
 
   $.ajax({
@@ -317,7 +317,7 @@ function canceledRgsList() {
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
   $("#completedRgsList").css("display", "none");
-  $("#canceledRgsList").css("display", "block");
+  $("#canceledRgsList").css("display", "flex");
 
   $.ajax({
     url: "/driver/driverCarpool/list/canceledRgsList",

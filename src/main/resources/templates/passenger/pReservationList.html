@@ -47,6 +47,7 @@
         width: 100px;
         height: 40px;
       }
+      
     </style>
   </head>
 
@@ -58,22 +59,74 @@
           <span class="title">나의 카풀</span>
         </div>
 
+	        <div>
+	          <div>
+				<div class="section-fluid-main">
+				    <div class="section-row">
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+				            <img src="https://i.pinimg.com/564x/fe/71/49/fe7149761e7823503f5d0c9c0d3d32fa.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>확정된예약</h2>
+				      </div>
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+				            <img src="/img/road2.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>지난예약</h2>
+				      </div>
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+<!-- 				          여기 -->
+				            <img src="https://assets.codepen.io/1462889/sl6.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>완료된예약</h2>
+				      </div>
+				      <div class="section-col">
+				        <div class="section">
+				          <div class="section-in">
+				            <img src="https://i.pinimg.com/564x/8c/c2/f3/8cc2f39cd71eba0c10d0a3fabc6aa953.jpg" alt="">
+				          </div>
+				        </div>
+				      </div>
+				      <div class="hover-text">
+				        <h2>취소된예약</h2>
+				      </div>
+	
+<!-- 				    <a href="https://front.codes/" class="logo" target="_blank"> -->
+<!-- 				      <img src="https://assets.codepen.io/1462889/fcy.png" alt=""> -->
+<!-- 				    </a>   -->
+				  </div>
+
         <div>
           <div>
-            <div class="btn-field">
-              <button id="currentRsvListBtn" onclick="currentRsvList();" class="btn btn-primary rsvsbtn">확정된예약</button>
-              <button id="pastRsvListBtn" onclick="pastRsvList();" class="btn btn-primary rsvsbtn">지난예약</button>
+            <div class="btn-field" style="background-color:  rgb(212, 206, 223); margin-top:50px;">
+              <button id="currentRsvListBtn" onclick="currentRsvList();" class="btn">확정된예약</button>
+              <button id="pastRsvListBtn" onclick="pastRsvList();" class="btn">지난예약</button>
               <button id="completedRsvListBtn" onclick="completedRsvList();"
-                class="btn btn-primary rsvsbtn">완료된예약</button>
+                class="btn">완료된예약</button>
               <button id="canceledRsvListBtn" onclick="canceledRsvList();"
-                class="btn btn-primary rsvsbtn">취소된예약</button>
+                class="btn">취소된예약</button>
             </div>
             <div class="boxes">
-              <div id="currentRsvList"></div>
-              <div id="pastRsvList"></div>
-              <div id="completedRsvList"></div>
-              <div id="canceledRsvList"></div>
+              <div id="currentRsvList" class="pReserList"></div>
+              <div id="pastRsvList" class="pReserList"></div>
+              <div id="completedRsvList" class="pReserList"></div>
+              <div id="canceledRsvList" class="pReserList"></div>
             </div>
+            
             <div id="popup_mask"></div>
             <!-- 팝업 배경 DIV -->
 

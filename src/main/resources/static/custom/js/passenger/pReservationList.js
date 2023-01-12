@@ -64,13 +64,13 @@ function currentRsvList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
         html +=
-          '<button class="btn btn-primary rsvsbtn" onclick="waitingBoarding()" >탑승대기</button>\t';
+          '<button class="btn btnbtn" onclick="waitingBoarding()" >탑승대기</button>\t';
         html +=
           '<button id="PUT" onclick="cancelRsv(' +
           data[i].DR_IDX +
-          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+          ')" class="btn btnbtn">카풀취소</button>\t';
         html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
         //		Chatting Room 생성 
         html +=
@@ -153,7 +153,7 @@ function pastRsvList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
         html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
         html += "</div>";
       }
@@ -323,7 +323,7 @@ function canceledRsvList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
         html += `<a href="${ data[i].cancelReceiptUrl }"><button class="btn btn-primary">결제취소내역</button></a>\t`;
         html += "</div>";
       }
