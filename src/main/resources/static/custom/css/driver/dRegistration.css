@@ -1,6 +1,5 @@
 body {
   height: 100vh;
-  background-color: #fcf8ec;
 }
 
 .dr-section {
@@ -25,7 +24,6 @@ body {
   color: #433520;
   margin-bottom: 5px;
   display: block;
-  font-family: "NanumSquareNeoBold";
   font-size: 1rem;
 }
 
@@ -41,7 +39,6 @@ body {
   color: #433520;
   margin-bottom: 5px;
   display: block;
-  font-family: "NanumSquareNeoBold";
   font-size: 1.2rem;
 }
 

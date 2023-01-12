@@ -4,16 +4,23 @@
       layout:decorate="~{layouts/layoutdriver}">
 <head>
 <title>driverInfo Info Edit</title>
+    <link rel="stylesheet" href="/standard/css/temperature.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>	
 	.errormsg { color: red; }
 	.emailButton { padding-top: 24px; }
 	.formButton { margin: 0 12px; }
+	.userInfo {
+	        font-family: 'Gowun Dodum', sans-serif;
+	}
 </style>
 </head>
 
 <th:block layout:fragment="content">
-	<div class="container mt-5">
+	<div class="container mt-5 userInfo">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 				<div class="row">
@@ -147,7 +154,7 @@
 					</div>
 					<!-- 				회원 탈퇴 -->
 					<div class="row">
-						<div style="margin-top: 20px;">
+						<div style="margin-top: 20px; margin-left:300px;">
 							<a th:href="@{/passenger/signOut}" style="color: gray;">회원 탈퇴></a>
 						</div>
 					</div>
