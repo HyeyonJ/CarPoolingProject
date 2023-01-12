@@ -42,14 +42,13 @@ button {
 
 footer {
 	border-top: solid 0.5px silver;
-	height: 150px;
 	width: 100%;
-	background: white;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	align-items: start;
-	justify-items: center;
+	background: white;	
 	text-align: center;
+	clear:both;
+    height: 220px;
+    margin:0px;
+    padding: 10px;
 	/* position: relative; */
 	/* line-height: 60px; */
 	/* bottom: 0; */
@@ -60,47 +59,90 @@ footer {
     box-sizing: border-box;
 }
 
-.footerContainer div {
+.infoContainer{
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	align-items: start;
+	justify-items: center;
+}
+
+.infoContainer div{
+	margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.info {
+	margin:0;
+}
+
+.info div {
 	margin: 0 20px;
 }
 
-.footerContainer h1{
-	font-size: 35px;
+.info h1{
+	font-size: 40px;
+	font-weight:700;
     text-align: center;
 }
 
-.footerContainer span{
+.info span{
 	margin-right: 1em;
     margin-block-start: 0.1em;
     margin-block-end: 0.1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
+
+.bInfo {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.info p {
+	font-size: 13px;
+}
+
+.infoP {
+	opacity: 0.7;
+};
+
+.info a {
+	font-size: 12px;
+    color: #433520;
+    text-decoration: underline;
+}
+
+.info a:hover {
+	color: #433520;
+}
+
+
+.Clause, .Policy {
+    min-width: 390px;
+    background-color:rgba(0,0,0,0.8);
+    color: white;
+    position: absolute;
+    z-index: 10;
+    justify-content: center;
+}
+
+.ClauseBody, .PolicyBody {
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 50px;
+    width: 60%;
+}
+
+.ClauseButton, .PolicyButton {
+    float: right;
+    margin: 10px 0;
+}
+
 
 footer p {	
 	color: #433520;
 	margin: 0;
-}
-
-.span6 {
-	font-size: 50px;
-	font-weight: 600;
-    display: inline-block;
-}
-
-.spanCan {
-	font-size: 25px;
-	font-weight: 700;
-    display: inline-block;
-}
-
-.f2 span {
-	margin-right: 1em;
-    display: block;
-    margin-block-start: 0.1em;
-    margin-block-end: 0.1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+	opacity: 0.7;
 }
 
 .title {
