@@ -33,10 +33,11 @@ public class PsgVerifyController {
 
 	//주민등록번호 중복 체크
 	@GetMapping("/check/idNum")
-	public boolean passengerCheckIdNum(@RequestParam String idNum) {		
-		boolean CheckIdNum = pUserService.passengerCheckIdNum(idNum);		
-		log.info("주민등록번호 중복 체크 : {}", CheckIdNum);
-		return CheckIdNum;
+	public boolean passengerCheckIdNum(@RequestParam String idNum) {
+		System.out.println(idNum);
+		boolean checkIdNum = pUserService.passengerCheckIdNum(idNum);
+		log.info("주민등록번호 중복 체크 : {}", checkIdNum);
+		return checkIdNum;
 	}
 	
 	//아이디 중복 체크

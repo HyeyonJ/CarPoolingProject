@@ -1,10 +1,10 @@
 var userId = document.getElementById("pUserId");
 var userPw = document.getElementById("pUserPw");
 var userPwCheck = document.getElementById("pUserPwCheck");
+var userIdNum = document.getElementById("pIdNumM");
 var userEmail = document.getElementById("pUserEmail");
 var inputCode = document.getElementById("pUserVcode");
 var userTel = document.getElementById("pUserTel");
-var userIdNum = document.getElementById("pIdNumM");
 
 
 
@@ -50,42 +50,42 @@ userId.onkeyup = function(){
 	}
 }
 
-$("#checkId").click(function () {
+$("#checkId").click(function() {
 	$("#checkId").removeClass("btn-outline-dark");
 	$("#checkId").addClass("btn-dark");
-  const regId = /^[a-zA-Z0-9]{4,12}$/;
-  if (regId.test($("#pUserId").val())) {
-    $.ajax({
-      type: "GET",
-      url: "/passenger/check/id",
-      data: { id: $("#pUserId").val() },
-      success: function (res, status) {
-        /* 아이디 중복 체크 */
-        if (res == true) {
-          Swal.fire(
-            "이미 사용중인 아이디입니다.",
-            "다른 아이디를 입력해주세요.",
-            "error"
-          );
-        } else {
-          Swal.fire(
-            "사용 가능한 아이디입니다.",
-            "회원가입을 진행해주세요.",
-            "success"
-          ).then((OK) => {
-            if (OK) {
-              /* 확인 완료 후 버튼색상, 메세지 변경 */
-              $("#checkId").removeClass("btn-dark");
-              $("#checkId").addClass("btn-outline-dark");
-              $("#checkIdMsg").html('<span style="color:darkblue"> 확인 완료</span>');
-            }
-          });
-        }
-      },
-    });
-  } else {
-    Swal.fire("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error");
-  }
+	const regId = /^[a-zA-Z0-9]{4,12}$/;
+	if (regId.test($("#pUserId").val())) {
+		$.ajax({
+			type: "GET",
+			url: "/passenger/check/id",
+			data: { id: $("#pUserId").val() },
+			success: function(res, status) {
+				/* 아이디 중복 체크 */
+				if (res == true) {
+					Swal.fire(
+						"이미 사용중인 아이디입니다.",
+						"다른 아이디를 입력해주세요.",
+						"error"
+					);
+				} else {
+					Swal.fire(
+						"사용 가능한 아이디입니다.",
+						"회원가입을 진행해주세요.",
+						"success"
+					).then((OK) => {
+						if (OK) {
+							/* 확인 완료 후 버튼색상, 메세지 변경 */
+							$("#checkId").removeClass("btn-dark");
+							$("#checkId").addClass("btn-outline-dark");
+							$("#checkIdMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+						}
+					});
+				}
+			},
+		});
+	} else {
+		Swal.fire("사용할 수 없는 아이디입니다.", "다시 확인해주세요.", "error");
+	}
 });
 
 
