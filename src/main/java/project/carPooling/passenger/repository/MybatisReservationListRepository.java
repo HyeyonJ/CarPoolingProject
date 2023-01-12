@@ -34,6 +34,12 @@ public class MybatisReservationListRepository implements ReservationListReposito
 	}
 	
 	@Override
+	public List<Map<String, Object>> selectCompleteRsvList(Integer pIdx) {
+		List<Map<String, Object>> completeRsvList = reservationListMapper.selectCompleteRsvList(pIdx);
+		return completeRsvList;
+	}
+	
+	@Override
 	public List<Map<String, Object>> selectCancelRsvList(Integer pIdx) {
 		List<Map<String, Object>> cancelRsvList = reservationListMapper.selectCancelRsvList(pIdx);
 		return cancelRsvList;
@@ -120,6 +126,7 @@ public class MybatisReservationListRepository implements ReservationListReposito
 	public Map<String, Object> selectCancelPayMentByPayIdx(String payIdx) {
 		return reservationListMapper.selectCancelPayMentByPayIdx(payIdx);
 	}
+
 
 
 }

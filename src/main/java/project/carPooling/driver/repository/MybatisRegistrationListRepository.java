@@ -39,6 +39,12 @@ public class MybatisRegistrationListRepository implements RegistrationListReposi
 	}
 	
 	@Override
+	public List<Map<String, Object>> selectCompleteRgsList(Integer dIdx) {
+		List<Map<String, Object>> completeRgsList = registrationListMapper.selectCompleteRgsList(dIdx);
+		return completeRgsList;
+	}
+	
+	@Override
 	public List<Map<String, Object>> selectCanceledRgsList(Integer dIdx) {
 		List<Map<String, Object>> canceledRgsList = registrationListMapper.selectCanceledRgsList(dIdx);
 		return canceledRgsList;

@@ -4,6 +4,7 @@
 
   <head>
     <title>reservationList</title>
+    <link rel="stylesheet" href="/custom/css/driver/dRegistrationList.css">
     <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
     <style>
       #prSection {
@@ -50,24 +51,30 @@
       <div class="container">
 
         <div class="d-flex justify-content-center">
-          <h2 class="mb-4 fw-bold">나의카풀</h2>
+          <span class="title">나의 카풀</span>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="search-wrap-1 ftco-animate p-4 boxes">
+
+        <div>
+          <div>
+            <div class="btn-field">
               <button id="reservatedRgsListBtn" onclick="reservatedRgsList();"
                 class="btn btn-primary rsvsbtn">예약된카풀</button>
               <button id="waitingRgsListBtn" onclick="waitingRgsList();" class="btn btn-primary rsvsbtn">대기중인카풀</button>
               <button id="pastRgsListBtn" onclick="pastRgsList();" class="btn btn-primary rsvsbtn">과거카풀</button>
+              <button id="completedRgsListBtn" onclick="completedRgsList();"
+                class="btn btn-primary rsvsbtn">완료된카풀</button>
               <button id="canceledRgsListBtn" onclick="canceledRgsList();"
                 class="btn btn-primary rsvsbtn">취소된카풀</button>
             </div>
+
             <div class="boxes">
               <div id="reservatedRgsList"></div>
               <div id="waitingRgsList"></div>
               <div id="pastRgsList"></div>
+              <div id="completedRgsList"></div>
               <div id="canceledRgsList"></div>
             </div>
+
             <div id="popup_mask"></div>
             <!-- 팝업 배경 DIV -->
 

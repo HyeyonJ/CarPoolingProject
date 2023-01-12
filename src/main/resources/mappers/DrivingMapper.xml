@@ -21,6 +21,6 @@
 	<select id="selectCompleteStatus" resultType="String">
 		SELECT dr.dr_idx
 		FROM D_REGISTRATION dr, RESERVATION r
-		WHERE r.r_idx = #{rIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'complete'
+		WHERE r.r_idx = #{rIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'completed'
 	</select>
 </mapper>

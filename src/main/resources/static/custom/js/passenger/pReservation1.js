@@ -395,10 +395,10 @@ function reservation() {
         //console.log("결제 승인 실패");
         alert(
           "결제 실패했습니다." +
-            "에러코드 : " +
-            rsp.error_code +
-            "에러 메시지 : " +
-            rsp.error_message
+          "에러코드 : " +
+          rsp.error_code +
+          "에러 메시지 : " +
+          rsp.error_message
         );
       }
     });
@@ -443,7 +443,7 @@ function initTmap() {
   map = new Tmapv2.Map("map_div", {
     center: new Tmapv2.LatLng(37.5652045, 126.98702028),
     width: "600px",
-    height: "550px",
+    height: "620px",
     zoom: 17,
     zoomControl: true,
     scrollwheel: true,
@@ -467,11 +467,11 @@ function searchPOI(location) {
 
   if (locationPointVal == "") {
     $("#routeCheck").css("display", "none");
-    $(`#${locationPoint}Check`).css("display", "block");
-    $(`#${locationPoint}`).focus();
+    $(`#${ locationPoint }Check`).css("display", "block");
+    $(`#${ locationPoint }`).focus();
     return;
   } else {
-    $(`#${locationPoint}Check`).css("display", "none");
+    $(`#${ locationPoint }Check`).css("display", "none");
   }
 
   $.ajax({
@@ -564,9 +564,9 @@ function searchPOI(location) {
         $(markerArr[i]._htmlElement).click(() => {
           const lat = markerArr[i]._marker_data.options.position._lat;
           const lng = markerArr[i]._marker_data.options.position._lng;
-          $(`#${location}`).val(markerArr[i]._marker_data.options.title);
-          $(`#${locationlon}`).val(lng);
-          $(`#${locationlat}`).val(lat);
+          $(`#${ location }`).val(markerArr[i]._marker_data.options.title);
+          $(`#${ locationlon }`).val(lng);
+          $(`#${ locationlat }`).val(lat);
         });
       }
 
@@ -577,13 +577,13 @@ function searchPOI(location) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });
@@ -780,13 +780,13 @@ function route() {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });
@@ -964,13 +964,13 @@ function dRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-          request.status +
-          "\n" +
-          "message:" +
-          request.responseText +
-          "\n" +
-          "error:" +
-          error
+        request.status +
+        "\n" +
+        "message:" +
+        request.responseText +
+        "\n" +
+        "error:" +
+        error
       );
     },
   });

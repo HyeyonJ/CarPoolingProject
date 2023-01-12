@@ -69,6 +69,14 @@ public class DrRegistrationListController {
 	}
 	
 	@ResponseBody
+	@GetMapping("/driverCarpool/list/completeRgsList")
+	public List<Map<String, Object>> completeRgsList(HttpServletRequest req) {
+		DriverInfo driverInfo = sessionManager.getDrSession(req);
+		List<Map<String, Object>> completeRgsList = registrationListRepository.selectCompleteRgsList(driverInfo.getDIdx());
+		return completeRgsList;
+	}
+
+	@ResponseBody
 	@GetMapping("/driverCarpool/list/canceledRgsList")
 	public List<Map<String, Object>> canceledRgsList(HttpServletRequest req) {
 		DriverInfo driverInfo = sessionManager.getDrSession(req);
