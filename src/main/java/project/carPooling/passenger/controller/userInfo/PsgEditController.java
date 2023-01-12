@@ -49,17 +49,9 @@ public class PsgEditController {
 	public String passengerUserInfoEdit(@ModelAttribute PassengerInfo passenger, Model model
 					, HttpServletRequest req) {
 		
-		System.out.println("passenger : " + passenger);
-
 		passengerInfoRepository.updatePassengerInfo(passenger);
 		
-//		HttpSession session = req.getSession();
-//		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
-		
-//		return "driver/userInfo/dEditUserInfo";
-//		return "redirect:/driver/userInfo/dUserInfo";
 		return "redirect:/passenger/info";
-//		return "redirect:/";
 	}
 	
 	// 회원 정보 수정 시 uUserType

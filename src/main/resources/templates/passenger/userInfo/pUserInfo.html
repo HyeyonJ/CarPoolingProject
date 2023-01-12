@@ -3,14 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutPassenger}">
 <head>
-<title>Passenger Info Edit</title>
+<title>Passenger Info</title>
     <link rel="stylesheet" href="/standard/css/temperature.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>	
-	.errormsg { color: red; }
-	.emailButton { padding-top: 24px; }
 	.formButton { margin: 0 12px; }
 	.userInfo { font-family: 'Gowun Dodum', sans-serif; }
 </style>
@@ -30,31 +28,6 @@
 				<form class="validation-form" novalidate="novalidate"
 					th:action="|@{/passenger/info}|" method="post"
 					th:object="${passenger}">					
-					
-					<!-- 				가입유형지정 -->
-					<div class="row justify-content-center" id="inputUserType">
-						<div class="col col-md-2 mb-3 form-check"
-							th:each="pUserType : ${pUserTypes}">
-							<input class="form-check-input" type="radio"
-								th:field="${passenger.pUserType}" name="pUserType"
-								th:value="${pUserType.name}"> <label
-								th:for="${#ids.prev('pUserType')}" th:text="${pUserType.memo}"></label>
-						</div>
-					</div>
-					<!-- 가입자 성별 -->
-					<div class="row justify-content-center" id="inputUserGender">
-						<div class="col col-md-2 mb-3 form-check">
-							<input class="form-check-input" type="radio"
-								th:field="${passenger.pUserGender}" id="pUserGender1"
-								name="pUserGender" th:value="M" hidden> <label
-								th:text="남성" hidden></label>
-						</div>
-						<div class="col col-md-2 mb-3 form-check">
-							<input class="form-check-input" type="radio"
-								th:field="*{pUserGender}" id="pUserGender2" name="pUserGender"
-								th:value="F" hidden> <label th:text="여성" hidden></label>
-						</div>
-					</div>
 					<!-- 				아이디 수정 -->
 					<div class="row justify-content-center">
 						<div class="col-md-6 mb-3">
@@ -74,8 +47,9 @@
 					<!-- 				패스워드 수정 -->
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="pUserPw">새로운 비밀번호</label> <input type="text"
-								th:field="${passenger.pUserPw}" class="form-control"
+							<label for="pUserPw">새로운 비밀번호</label> <span
+								class="text-center small mt-2" id="checkPwMsg"></span>
+							<input type="text" th:field="${passenger.pUserPw}" class="form-control"
 								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
 								placeholder="패스워드" maxlength="16">
@@ -138,8 +112,9 @@
 					<!-- 				휴대폰 번호 수정 -->
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
-							<label for="pUserTel">휴대폰번호</label> <input type="text"
-								class="form-control" id="pUserTel" name="pUserTel"
+							<label for="pUserTel">휴대폰번호</label> <span
+								class="text-center small mt-2" id="checkTelMsg"></span>
+							<input type="text" class="form-control" id="pUserTel" name="pUserTel"
 								pattern="^(010-\d{3,4}-\d{4})$" maxlength="13" title="숫자만 입력"
 								th:field="${passenger.pUserTel}" value="010">
 							<div class="invalid-feedback">
