@@ -22,7 +22,7 @@ public class DriverInfo {
 	private String dCarNum;
 	private String dAccountNum;
 	private Integer dAccountBank;	
-	private Integer dPoint;
+	private int dPoint;
 	private double dTemperature;
 	private String dPenalty;
 	private Boolean dSignOut;

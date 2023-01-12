@@ -70,7 +70,7 @@ public class DrvEditController {
 					, HttpServletRequest req) {
 		
 		System.out.println("driverInfo : " + driverInfo);
-
+		System.out.println("에러위치" + driverInfo.getdPoint() + driverInfo);
 		driverInfoRepository.updateDriverInfo(driverInfo);
 
 		return "redirect:/driver/info";
