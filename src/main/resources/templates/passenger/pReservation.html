@@ -118,7 +118,7 @@
 
             </div>
 			
-			<div style="text-align:center;">
+			<div>
 	            <input type="hidden" id="startlon" name="startlon">
 	            <input type="hidden" id="startlat" name="startlat">
 	            <input type="hidden" id="endlon" name="endlon">
@@ -146,12 +146,16 @@
         <div id="map_div">
         </div>
       </div>
-
     </div>
-    <div class="listed">
-      <div id="searchCarpoolList"></div>
-    </div>
-
+	
+	<div style="margin-top:50px;"></div>
+	<div class="listed" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    	<div class="card">
+  			<div class="card-body">
+		      <div id="searchCarpoolList"></div>
+		    </div>
+  		</div>
+	</div>
     <!-- 카풀 셀렉트 모달 -->
     <div class="modal fade" id="selectModal" tabindex="-1" aria-labelledby="selectModalLabel" aria-hidden="true">
       <div class="modal-dialog">
