@@ -3,21 +3,23 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layoutDriverHome}">
 <head>
-<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-<!-- <meta name="google-signin-client_id" content="763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com"> -->
-<title>Insert title here</title>
+<title>Driver Google Join</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+   .formButton { margin: 0 12px; }
+</style>
 </head>
 <th:block layout:fragment="content">
 	<div style="margin-top: 50px;"></div>
 	<div style="margin: auto; margin: center; text-align: center;">
-		<img src="/img/google.png"
+		현재 <img src="/img/google.png"
 			style="width: 180px; height: 50px; margin-bottom: 20px;"> 계정으로
 		인증되었습니다.
 	</div>
 	<div style="margin: auto; margin: center; text-align: center;">
-		<span>구글을 통해서 간편로그인을 한 경우 </span><span>Carpooling 서비스를 이용하시기 위해
-		</span><br> <span>추가 정보가 필요합니다. </span><span>추가 정보를 기입해주시길 바랍니다.</span>
+		<span>구글계정으로 간편로그인을 한 경우 </span><br>
+		<span>Carpooling 서비스를 이용하시기 위해 </span><br>
+		<span>추가 정보 입력이 필요합니다. </span>
 	</div>
 	<div
 		style="border-bottom: solid 1px silver; margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;"></div>
@@ -27,9 +29,8 @@
 				<form class="validation-form"
 					th:action="|@{/driver/login/google/join}|" method="post"
 					th:object="${driverInfo}">
-
 					<div class="row justify-content-center">
-						<div class="col col-md-6 mb-3">
+						<div class="col col-md-6 mb-3" style="text-align: center;">
 							<h4>Driver 회원가입</h4>
 						</div>
 					</div>
@@ -71,12 +72,6 @@
 								id="dUserPw" name="dUserPw" placeholder="패스워드를 입력해주세요."
 								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
-								maxlength="16" required> <label for="dUserPwCheck">*
-								패스워드 확인(pw)</label> <span class="text-center small mt-2"
-								id="checkPwMsg2"></span> <input type="password"
-								class="form-control" id="dUserPwCheck" name="dUserPwCheck"
-								placeholder="패스워드를 다시 한 번 입력해주세요."
-								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								maxlength="16" required>
 							<div class="invalid-feedback">
 								<span>패스워드를 확인해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개
@@ -130,17 +125,15 @@
 						<!-- 면허 번호 입력 -->
 						<div class="col col-md-6 mb-3">
 							<label for="dLicenseNum">* 면허번호</label> <span
-								class="text-center small mt-2" id="checkLicenseNumMsg"></span>
-							<div class="input-group mb-3">
+								class="text-center small mt-2" id="checkLicenseNumMsg"></span>							
 								<input type="text" class="form-control" id="dLicenseNum"
 									name="dLicenseNum" aria-label="dLicenseNum"
 									aria-describedby="checkLicenseNum" th:field="*{dLicenseNum}"
 									pattern="^(\d{2}-\d{2}-\d{6}-\d{2})$"
 									placeholder="00-00-000000-00 숫자만" maxlength="15"
 									title="면허 번호 숫자만 입력" required>
-							</div>
 							<div class="invalid-feedback">
-								<span>면허번호를 확인해주세요. </span><span>(숫자만 입력)</span>
+								<span>면허번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
@@ -148,15 +141,13 @@
 						<!-- 식별 번호 입력 -->
 						<div class="col col-md-6 mb-3">
 							<label for="dLicenseIdNum">* 식별번호</label> <span
-								class="text-center small mt-2" id="checkLIdNumMsg"
-								style="color: red"></span> <input type="text"
-								class="form-control" id="dLicenseIdNum" name="dLicenseIdNum"
+								class="text-center small mt-2" id="checkLIdNumMsg"></span> 
+							<input type="text" class="form-control" id="dLicenseIdNum" name="dLicenseIdNum"
 								th:field="*{dLicenseIdNum}" pattern="^([A-Z0-9]{5,6})$"
 								placeholder="영문(대)+숫자 5자리 혹은 6자리" maxlength="8"
 								title="식별 번호 (영문대문자+숫자) 입력" required>
 							<div class="invalid-feedback">
-								<span>(면허증 우측 사진 아래)</span> <span>식별번호를 확인해주세요. </span><span>(영문대문자+숫자
-									5자리 혹은 6자리)</span>
+								<span>(면허증 우측 사진 아래)</span> <span>식별번호를 확인해주세요. </span>
 							</div>
 						</div>
 					</div>
@@ -164,9 +155,8 @@
 						<!-- 자동차 번호 입력 -->
 						<div class="col col-md-6 mb-3">
 							<label for="dCarNum">* 자동차번호</label> <span
-								class="text-center small mt-2" id="checkCarNumMsg"
-								style="color: red"></span> <input type="text"
-								class="form-control" id="dCarNum" name="dCarNum"
+								class="text-center small mt-2" id="checkCarNumMsg"></span> 
+							<input type="text" class="form-control" id="dCarNum" name="dCarNum"
 								placeholder="00땡0000, 000땡0000"
 								pattern="^(\d{2,3})([가-힣]{1})(\d{4})$" maxlength="8"
 								title="자동차 번호 입력" th:field="*{dCarNum}" required>

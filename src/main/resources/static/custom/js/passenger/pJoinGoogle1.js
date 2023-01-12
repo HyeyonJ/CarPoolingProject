@@ -1,6 +1,5 @@
 var userEmail = document.getElementById("pUserEmail");
 var userPw = document.getElementById("pUserPw");
-var userPwCheck = document.getElementById("pUserPwCheck");
 var userName = document.getElementById("pUserName");
 var userTel = document.getElementById("pUserTel");
 var userIdNum = document.getElementById("pIdNumM");

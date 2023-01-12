@@ -84,8 +84,8 @@ userTel.onkeyup = function() {
 accountBank.onkeyup = $("#checkAccBankMsg").html('<span style="color:red"> 신한</span>');
 accountNum.onkeyup = $("#checkAccNumMsg").html('<span style="color:red"> 110xxxoooooo</span>');
 
-accountBank.onblur = $("#checkAccBankMsg").html('<span style="color:dark"> 일단 입력</span>');
-accountNum.onblur = $("#checkAccNumMsg").html('<span style="color:dark"> 추후 보완합시다.</span>');
+accountBank.onblur = $("#checkAccBankMsg").html('<span style="color:darkblue"> 일단 입력</span>');
+accountNum.onblur = $("#checkAccNumMsg").html('<span style="color:darkblue"> 추후 보완합시다.</span>');
 
 
 

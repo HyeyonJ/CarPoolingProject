@@ -5,18 +5,22 @@
 <head>
 <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 <!-- <meta name="google-signin-client_id" content="763971359461-9lfqph5au0nq8m152udh8sh30jnuq4ae.apps.googleusercontent.com"> -->
-<title>Insert title here</title>
+<title>Passenger Google Join</title>
+<style>
+   .formButton { margin: 0 12px; }
+</style>
 </head>
 <th:block layout:fragment="content">
 	<div style="margin-top: 50px;"></div>
 	<div style="margin: auto; margin: center; text-align: center;">
-		<img src="/img/google.png"
+		현재 <img src="/img/google.png"
 			style="width: 180px; height: 50px; margin-bottom: 20px;"> 계정으로
 		인증되었습니다.
 	</div>
 	<div style="margin: auto; margin: center; text-align: center;">
-		<span>구글을 통해서 간편로그인을 한 경우 </span><span>Carpooling 서비스를 이용하시기 위해 </span><br>
-		<span>추가 정보가 필요합니다. </span><span>추가 정보를 기입해주시길 바랍니다.</span>
+		<span>구글계정으로 간편로그인을 한 경우 </span><br>
+		<span>Carpooling 서비스를 이용하시기 위해 </span><br>
+		<span>추가 정보 입력이 필요합니다. </span>
 	</div>
 	<div
 		style="border-bottom: solid 1px silver; margin-left: 100px; margin-right: 100px; margin-top: 50px; margin-bottom: 50px;"></div>
@@ -26,7 +30,6 @@
 				<form class="validation-form"
 					th:action="|@{/passenger/login/google/join}|"
 					method="post" th:object="${passengerInfo}">
-
 					<div class="row justify-content-center">
 						<div class="col col-md-6 mb-3">
 							<h4>Passenger 회원가입</h4>
@@ -71,16 +74,9 @@
 								th:field="*{pUserPw}" placeholder="패스워드"
 								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								title="영문, 숫자, 특수문자 각 1개 이상 포함 최소 8자리에서 최대 16자리까지"
-								maxlength="16" required> <label for="pUserPwCheck">*
-								패스워드 확인(pw)</label> <span class="text-center small mt-2"
-								id="checkPwMsg2"></span> <input type="password"
-								class="form-control" id="pUserPwCheck" name="pUserPwCheck"
-								placeholder="패스워드를 다시 한 번 입력해주세요."
-								pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$"
 								maxlength="16" required>
 							<div class="invalid-feedback">
-								<span>패스워드를 확인해주세요.</span> <span>(영문대/소문자, 숫자, 특수문자 각 1개
-									이상 포함, </span><span>최소 8자리에서 최대 16자리까지)</span>
+								<span>패스워드를 확인해주세요.</span>
 							</div>
 						</div>
 					</div>
