@@ -223,11 +223,11 @@ $("#checkEmail").click(function() {
 /* 인증 코드 입력 & 확인 버튼 */
 $("#checkVcode").click(function() {
 	const regVcode = /^[A-Z0-9]{10}$/;
-	if (regVcode.test($("#pUserVcode").val())) {
+	if (regVcode.test($("#dUserVcode").val())) {
 		$.ajax({
 			type: "GET",
-			url: "/passenger/check/vCode",
-			data: { code: $("#pUserVcode").val() },
+			url: "/driver/check/vCode",
+			data: { code: $("#dUserVcode").val() },
 			success: function(res, status) {
 				if (res == true) {
 					Swal.fire(
