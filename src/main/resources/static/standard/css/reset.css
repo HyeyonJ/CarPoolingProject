@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
 
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: "Gowun Dodum", sans-serif;
 }
 
 html,
@@ -36,37 +35,20 @@ button {
 }
 
 #wrap {
-  min-height: 100%;
-  position: relative;
-  padding-bottom: 60px;
-}
-
-#wrapHome {
   min-height: 90%;
   position: relative;
   padding-bottom: 60px;
 }
 
 footer {
-  position: relative;
-  height: 100px;
-  width: 100%;
-  padding: 0 25px;
-  line-height: 60px;
+  /* position: relative; */
+  /* height: 100px; */
+  /* width: 100%; */
+  /* padding: 0 25px; */
+  /* line-height: 60px; */
   background: #433520;
-  bottom: 0;
-  transform: translateY(-100%);
-}
-
-#footerHome {
-  position: relative;
-  height: 100px;
-  width: 100%;
-  padding: 0 25px;
-  line-height: 60px;
-  background: #433520;
-  bottom: 0;
-  transform: translateY(-88%);
+  /* bottom: 0; */
+  /* transform: translateY(-100%); */
 }
 
 footer p {
@@ -76,5 +58,5 @@ footer p {
 .title {
   color: #433520;
   font-size: 2.3rem;
-  margin: 40px 0px 40px 0px;
+  margin: 40px 0px 50px 0px;
 }

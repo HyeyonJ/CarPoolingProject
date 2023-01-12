@@ -23,6 +23,8 @@ public interface PassengerReviewMapper {
 
 	public List<DReview> selectDrReview(Integer pIdx);
 	
+	public List<PReview> selectUserReview(Integer dIdx);
+	
 	public void updateReview(@Param("rIdx") Integer rIdx, @Param("content") String content);
 	
 	public void deleteReview(Integer rIdx);

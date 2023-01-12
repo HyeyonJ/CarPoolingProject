@@ -40,6 +40,11 @@
 		SELECT * FROM D_REVIEW
 		WHERE to_idx = #{pIdx}
 	</select>
+		
+	<select id="selectUserReview" resultType="PReview">
+		SELECT * FROM P_REVIEW
+		WHERE to_idx = #{dIdx}
+	</select>
 	
 	<update id="updateReview">
 		UPDATE P_REVIEW

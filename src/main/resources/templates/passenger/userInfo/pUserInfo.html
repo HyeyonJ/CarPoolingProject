@@ -13,7 +13,6 @@
 	.userInfo { font-family: 'Gowun Dodum', sans-serif; }
 </style>
 </head>
-
 <th:block layout:fragment="content">
 	<div class="container mt-5 userInfo">
 		<div class="input-form-backgroud row">
@@ -22,7 +21,7 @@
 					<div class="col col-md-6 mb-3" style="text-align: center;">
 						<h4>내정보 관리</h4>
 						<div style="border-bottom: solid 1px silver; margin-left: 200px;
-						 margin-right: 200px; margin-bottom: 50px;"></div>
+							margin-right: 200px; margin-bottom: 50px;"></div>
 					</div>
 				</div>
 				<form class="validation-form" novalidate="novalidate"
@@ -130,17 +129,17 @@
 						</div>
 					</div>
 					<!-- 회원 탈퇴 -->
-					<div class="row">
-						<div class="col col-md-6 mb-3">
-							<a th:href="@{/passenger/signOut}" style="color: gray;">회원탈퇴</a>
+						<div class="row justify-content-center">
+							<div style="margin-top: 20px; width: 50%;">
+								<a th:href="@{/passenger/signOut}" style="color: gray;">회원 탈퇴></a>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-</th:block>
-<th:block layout:fragment="js">
-	<script src="/custom/js/passenger/pEditUserInfo.js"></script>
-</th:block>
+	</th:block>
+	<th:block layout:fragment="js">
+		<script src="/custom/js/passenger/pEditUserInfo.js"></script>
+	</th:block>
 </html>

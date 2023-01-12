@@ -47,13 +47,20 @@ public class MybatisPassengerReviewRepository implements PassengerReviewReposito
 	}
 
 	@Override
+	public List<PReview> selectUserReview(Integer dIdx) {
+		return passengerReviewMapper.selectUserReview(dIdx);
+	}
+
+	@Override
 	public void updateReview(Integer rIdx, String content) {
 		passengerReviewMapper.updateReview(rIdx, content);
 	}
+
 
 	@Override
 	public void deleteReview(Integer rIdx) {
 		passengerReviewMapper.deleteReview(rIdx);
 	}
+
 
 }

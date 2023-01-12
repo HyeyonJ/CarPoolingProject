@@ -183,18 +183,18 @@
 								th:onclick="|location.href='@{/driver/driverCarpool/registration}'|">취소</button>
 						</div>
 					</div>
-					<!-- 회원 탈퇴 -->
-					<div class="row">
-						<div class="col col-md-6 mb-3">
-							<a th:href="@{/driver/signOut}" style="color: gray;">회원 탈퇴 ></a>
+					<!-- 				회원 탈퇴 -->
+					<div class="row justify-content-center">
+						<div style="margin-top: 20px; width: 50%;">
+							<a th:href="@{/driver/signOut}" style="color:gray;">회원 탈퇴 ></a>
 						</div>
 					</div>
-				</form>				
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-</th:block>
-<th:block layout:fragment="js">
-	<script src="/custom/js/driver/dEditUserInfo.js"></script>
-</th:block>
+	</th:block>
+	<th:block layout:fragment="js">
+		<script src="/custom/js/driver/dEditUserInfo.js"></script>
+	</th:block>
 </html>

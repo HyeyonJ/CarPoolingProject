@@ -256,10 +256,10 @@ $("#searchBtn").click(() => {
             var html = "";
             if (data.length > 0) {
               for (var i = 0; i < data.length; i++) {
-                html += '<div id="match">';
+                html += '<div id="match" class="container">';
                 // html += '<img src="img/car.png>" id="matchimg">';
                 html +=
-                  '<a href="">' + randomName(nameList) + '</a>' +
+                  '<a href="http://localhost:8080/passenger/passengerCarpool/userPage?dIdx=' + data[i].didx + '">' + randomName(nameList) + '</a>' +
                   '<br>\n'
                 html +=
                   '<input type="hidden" id="' +

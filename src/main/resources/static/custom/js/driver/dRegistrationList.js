@@ -258,7 +258,7 @@ function completedRgsList() {
           data[i].DR_IDX +
           "," +
           data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">후기작성</button>\t';
+          ')" class="btn btn-primary rsvsbtn">리뷰작성</button>\t';
         html += "</div>";
       }
       $("#completedRgsList").html(html);

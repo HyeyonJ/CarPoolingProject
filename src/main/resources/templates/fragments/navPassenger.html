@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<nav th:fragment="navFragment" style="background-color:	#FFF5EE;"
-	class="navbar sticky-top shadow p-3 mb-5 bg-body-tertiary rounded">
-	<div class="container-fluid">
-		<a class="navbar-brand" th:onclick="|location.href='@{/passenger/passengerCarpool/reservation}'|"
-			href="#"
-			style="font-size: 2.3rem; height: 60px; color:black;">카풀링</a>
-		<button class="navbar-toggler" type="button"
-			data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-			aria-controls="offcanvasDarkNavbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="offcanvas offcanvas-end"
-			style="background-color:	#FFF5EE;" tabindex="-1"
-			id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"
-					style="background-color:	#FFF5EE; color:black;">Passenger
-					mode</h5>
-				<button type="button" class="btn-close btn-close-white"
-					data-bs-dismiss="offcanvas" aria-label="Close"></button>
-			</div>
-			<div class="offcanvas-body">
-				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-					<li class="nav-item"><a class="nav-link active"
-						style="color: black;"
-						th:onclick="|location.href='@{/passenger/passengerCarpool/reservation}'|"
-						aria-current="page" href="#">카풀 찾기</a></li>
-					<li><a class="nav-link active" style="color:black"
-						aria-current="page"
-						th:data-url="@{|/chatting/psgChatting/${session.loginId}|}"
-						th:onclick="openWin(this.getAttribute('data-url'))">카풀톡</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" style="color:black;" href="#"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							마이 카풀링 </a>
-						<ul class="dropdown-menu dropdown-menu-dark"
-							style="background-color:	#FFF5EE; color:black;">
-							<li><a class="dropdown-item"
-								th:onclick="|location.href='@{/passenger/passengerCarpool/list}'|"
-								style="color:black;" href="#" aria-current="page">나의 카풀</a></li>
-							<li><a class="dropdown-item"
-								th:onclick="|location.href='@{/passenger/passengerCarpool/myPage}'|"
-								style="color:black;" href="#" aria-current="page">마이페이지</a></li>
-							<li><a class="dropdown-item" style="color:black;"
-								th:onclick="|location.href='@{/passenger/info}'|" href="#"
-								aria-current="page">회원정보수정</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link" style="color:black;"
-						th:onclick="|location.href='@{/passenger/logout}'|"
-						aria-current="page" href="#">로그아웃</a></li>
-				</ul>
+	<nav th:fragment="navFragment" style="background-color:#FFF0F5;"
+		class="navbar sticky-top shadow p-3 mb-3 bg-body-tertiary rounded">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:onclick="|location.href='@{/passenger/passengerCarpool/reservation}'|" href="#"
+				style="font-size: 2.3rem; height: 60px; color:black;">카풀링</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+				aria-controls="offcanvasDarkNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-end" style="background-color:#FFF0F5;" tabindex="-1" id="offcanvasDarkNavbar"
+				aria-labelledby="offcanvasDarkNavbarLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="background-color:	#FFF0F5; color:black;">
+						Passenger
+						mode</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+						aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+						<li class="nav-item"><a class="nav-link active" style="color: black;"
+								th:onclick="|location.href='@{/passenger/passengerCarpool/reservation}'|" aria-current="page"
+								href="#">카풀 찾기</a></li>
+						<li><a class="nav-link active" style="color:black" aria-current="page"
+								th:data-url="@{|/chatting/psgChatting/${session.loginId}|}"
+								th:onclick="openWin(this.getAttribute('data-url'))">카풀톡</a></li>
+						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" style="color:black;" href="#"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								마이 카풀링 </a>
+							<ul class="dropdown-menu dropdown-menu-dark" style="background-color:	#FFF0F5; color:black;">
+								<li><a class="dropdown-item" th:onclick="|location.href='@{/passenger/passengerCarpool/list}'|"
+										style="color:black;" href="#" aria-current="page">나의 카풀</a></li>
+								<li><a class="dropdown-item" th:onclick="|location.href='@{/passenger/passengerCarpool/myPage}'|"
+										style="color:black;" href="#" aria-current="page">마이페이지</a></li>
+								<li><a class="dropdown-item" style="color:black;" th:onclick="|location.href='@{/passenger/info}'|"
+										href="#" aria-current="page">회원정보수정</a></li>
+							</ul>
+						</li>
+						<li class="nav-item"><a class="nav-link" style="color:black;"
+								th:onclick="|location.href='@{/passenger/logout}'|" aria-current="page" href="#">로그아웃</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-	<script th:inline="javascript">
-		function openWin(url) {
-			ReportPrintPreview = window
+		<script th:inline="javascript">
+			function openWin(url) {
+				ReportPrintPreview = window
 					.open(
-							"about:blank",
-							"ReportPrintPreview",
-							"width=400,height=500,left=250,top=50,dependent=yes,menubar=yes,status=yes,resizable=yes,toolbar=no,scrollbars=yes");
-			ReportPrintPreview.location.href = url;
-			ReportPrintPreview.focus();
-		}
-	</script>
-</nav>
+						"about:blank",
+						"ReportPrintPreview",
+						"width=400,height=500,left=250,top=50,dependent=yes,menubar=yes,status=yes,resizable=yes,toolbar=no,scrollbars=yes");
+				ReportPrintPreview.location.href = url;
+				ReportPrintPreview.focus();
+			}
+		</script>
+	</nav>
+
 </html>
