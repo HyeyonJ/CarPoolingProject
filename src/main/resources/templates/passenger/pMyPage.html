@@ -42,8 +42,8 @@
       <div class="col-sm-7">
         <h3 style="font-weight: bold; margin-top: 100px;" class="mypage">
           <span th:text="${passengerInfo.pUserName}"></span><span>님의 마이페이지</span>
-          <a th:href="@{/passenger/info}"><button class="btn btn-secondary mt-1"
-              style="margin-left: 200px;">프로필수정</button></a>
+          <a th:href="@{/passenger/info}"><button class="btn mt-1"
+              style="margin-left: 200px; background-color:  rgb(212, 206, 223);">프로필수정</button></a>
         </h3>
       </div>
     </div>
@@ -66,38 +66,48 @@
               <div class="face"></div>
             </div>
           </td>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">내가작성한리뷰</h5>
-          </th>
-          <td colspan="2">
-            <div th:each="myReview : ${myReviewList}">
-              <span style="color:silver">별점</span>
-              <span style="color:silver" th:text="${myReview.starPoint}"></span>
-              <div th:text="${myReview.content}"></div>
-              <button class="btn btn-primary" th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
-              <button class="btn btn-primary" th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
-              <div style="border-bottom: solid 1px silver;"></div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">내가받은리뷰</h5>
-          </th>
-          <td colspan="2">
-            <div th:each="drReview : ${drReviewList}">
-              <span style="color:silver">별점</span>
-              <span style="color:silver" th:text="${drReview.starPoint}"></span>
-              <span style="color:silver">/ from</span>
-              <span style="color:silver" th:text="${drReview.nickname}"></span>
-              <div th:text="${drReview.content}"></div>
-              <div style="border-bottom: solid 1px silver;"></div>
-            </div>
-          </td>
-        </tr>
       </tbody>
     </table>
+		<div class="container" style="width: 80%; margin-top: 70px;">
+			<h4 style="font-weight: bold;">"내가작성한리뷰"</h4>
+			<div
+				style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+				<div th:each="myReview : ${myReviewList}"
+					style="margin-top: 30px; width: 45%;">
+					<div class="card">
+						<div class="card-header">
+							<span>★별점</span> <span th:text="${myReview.starPoint}"></span>
+						</div>
+						<div class="card-body">
+							<div th:text="${myReview.content}"></div>
+							- <span th:text="${myReview.nickname}"></span>
+								<div style="text-align: center;">
+									<button class="btn" style="background-color:  rgb(212, 206, 223);" th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
+              						<button class="btn" style="background-color:  rgb(212, 206, 223);" th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" style="width: 80%; margin-top: 70px;">
+			<h4 style="font-weight: bold;">"내가받은리뷰"</h4>
+			<div
+				style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+				<div th:each="drReview : ${drReviewList}"
+					style="margin-top: 30px; width: 45%;">
+					<div class="card">
+						<div class="card-header">
+							<span>★별점</span> <span th:text="${drReview.starPoint}"></span>
+						</div>
+						<div class="card-body">
+							<div th:text="${drReview.content}"></div>
+							- <span th:text="${drReview.nickname}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
   </div>
 
   <th:block layout:fragment="js">

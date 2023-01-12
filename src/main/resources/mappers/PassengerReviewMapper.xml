@@ -37,7 +37,7 @@
 	</select>
 
 	<select id="selectDrReview" resultType="DReview">
-		SELECT * FROM P_REVIEW
+		SELECT * FROM D_REVIEW
 		WHERE to_idx = #{pIdx}
 	</select>
 	
