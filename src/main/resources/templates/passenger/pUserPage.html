@@ -31,7 +31,7 @@
       </div>
       <div class="col-sm-7">
         <h3 style="font-weight: bold; margin-top: 100px;" class="mypage">
-          <span th:text="${userInfo.dUserName}"></span><span>님의 마이페이지</span>
+          <span th:text="${userInfo.dUserName}"></span><span>님의 프로필</span>
         </h3>
       </div>
     </div>
@@ -54,21 +54,27 @@
               <div class="face"></div>
             </div>
           </td>
-        <tr>
-          <th scope="row">
-            <h5 style="font-weight:bold;">다른사람이작성한리뷰</h5>
-          </th>
-          <td coln="2">
-            <div th:each="userReview : ${userReviewList}">
-              <span style="color:silver">별점</span>
-              <span style="color:silver" th:text="${userReview.starPoint}"></span>
-              <div th:text="${userReview.content}"></div>
-              <div style="border-bottom: solid 1px silver;"></div>
-            </div>
-          </td>
         </tr>
       </tbody>
     </table>
+    
+	    <div class="container" style="width: 80%; margin-top: 70px;">
+            <h4 style="font-weight:bold;">"다른사람이 작성한리뷰"</h4>
+	            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+		            <div th:each="userReview : ${userReviewList}" style="margin-top: 30px; width: 45%;">
+						<div class="card">
+							<div class="card-header">
+								<span>★별점</span> 
+								<span th:text="${userReview.starPoint}"></span>
+							</div>
+						<div class="card-body">
+							<div th:text="${userReview.content}"></div>
+							- <span th:text="${userReview.nickname}"></span>
+						</div>
+				</div>
+			</div>
+	            </div>
+         </div>
   </div>
 
   <th:block layout:fragment="js">
