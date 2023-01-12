@@ -28,7 +28,7 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" style="color: white;"
 						aria-current="page"
-						th:data-url="@{|/chatting/myChatting/${session.loginId}|}"
+						th:data-url="@{|/chatting/drvChatting/${session.loginId}|}"
 						th:onclick="openWin(this.getAttribute('data-url'))" href="#">카풀톡</a>
 					</li>
 					<li class="nav-item dropdown"><a
@@ -41,20 +41,8 @@
 								th:onclick="|location.href='@{/driver/driverCarpool/list}'|"
 								aria-current="page" href="#">나의 카풀</a></li>
 							<li><a class="dropdown-item" style="color: white;"
-								th:onclick="|location.href='@{/driver/driverCarpool/list/reservatedRgsList}'|"
-								aria-current="page" href="#">예약 카풀</a></li>
-							<li><a class="dropdown-item" style="color: white;"
-								th:onclick="|location.href='@{/driver/driverCarpool/list/waitingRgsList}'|"
-								aria-current="page" href="#">요청 카풀</a></li>
-							<li><a class="dropdown-item" style="color: white;"
-								th:onclick="|location.href='@{/driver/driverCarpool/list/pastRgsList}'|"
-								aria-current="page" href="#">완료 카풀</a></li>
-							<li><a class="dropdown-item" style="color: white;"
-								th:onclick="|location.href='@{/driver/driverCarpool/list/canceledRgsList}'|"
-								aria-current="page" href="#">취소 카풀</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
+								th:onclick="|location.href='@{/driver/driverCarpool/myPage}'|"
+								aria-current="page" href="#">마이페이지</a></li>
 							<li><a class="dropdown-item" style="color: white;"
 								th:onclick="|location.href='@{/driver/info}'|"
 								aria-current="page" href="#">회원정보수정</a></li>

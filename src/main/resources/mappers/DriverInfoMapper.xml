@@ -14,16 +14,18 @@
       FROM dual
     </selectKey>
     INSERT INTO driver (d_idx, d_user_type, d_user_id, d_user_pw, d_user_name, d_user_tel,
-    d_user_email, d_user_gender, d_id_num, d_license_num, d_license_id_num, d_car_num, 
+    d_user_email, d_user_gender, d_id_num, d_account_num, d_account_bank, d_license_num,
+    d_license_id_num, d_car_num, 
     d_point,d_penalty, d_sign_out)
     VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
-    #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dLicenseNum}, #{dLicenseIdNum}, #{dCarNum},
+    #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dAccountNum}, #{dAccountBank}, #{dLicenseNum}, 
+    #{dLicenseIdNum}, #{dCarNum},
     0, 3,'false')
   </insert>
 
   <select id="selectByLoginId" resultType="DriverInfo">
     SELECT * FROM DRIVER
-    WHERE d_user_id = #{dUserId} AND d_sign_out = 'false'
+    WHERE d_user_id = #{dUserId}
   </select>
 
   <!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
@@ -38,8 +40,9 @@
 
       <select id="selectByEmail" resultType="DriverInfo">
         SELECT * FROM DRIVER
-        WHERE d_user_email = #{dUserEmail} AND d_sign_out = 'false'
+        WHERE d_user_email = #{dUserEmail}
       </select>
+      
 
       <select id="selectByNameAndEmail" resultType="DriverInfo">
         SELECT * FROM DRIVER

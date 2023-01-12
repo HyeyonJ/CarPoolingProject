@@ -5,6 +5,7 @@
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>
 <link th:href="@{/custom/css/chatStyle.css}" rel="stylesheet">
+<!-- class="modal fade" id="chatModal" -->
 <body>
 <div class="modal fade" id="chatModal" data-bs-backdrop="static" aria-labelledby="staticBackdropLabel"
      aria-hidden="true">
@@ -20,7 +21,7 @@
 
             <div class="display-container modal-body" style="height: 1000px">
                 <ul class="chatting-list" id="msgArea">
-                </ul>
+                </ul>                                    
             </div>
 
             <div class="input-container modal-footer">
@@ -37,8 +38,9 @@
 
 </div>
 
-<div class="wrapper" style="margin-top: 100px;">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chatModal">채팅방 입장하기</button>
+<div class="wrapper" style="margin-top: 100px; background-color: #FCF8EC;">
+    <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#chatModal">채팅방 입장하기</button>
+    <button type="button" class="btn btn-primary" onclick="history.back();">목록으로 돌아가기</button>
 </div>
 
 </body>

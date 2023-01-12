@@ -29,7 +29,7 @@
 						aria-current="page" href="#">카풀 찾기</a></li>
 					<li><a class="nav-link active" style="color: white;"
 						aria-current="page"
-						th:data-url="@{|/chatting/myChatting/${session.loginId}|}"
+						th:data-url="@{|/chatting/psgChatting/${session.loginId}|}"
 						th:onclick="openWin(this.getAttribute('data-url'))">카풀톡</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" style="color: white;" href="#"
@@ -41,17 +41,8 @@
 								th:onclick="|location.href='@{/passenger/passengerCarpool/list}'|"
 								style="color: white;" href="#" aria-current="page">나의 카풀</a></li>
 							<li><a class="dropdown-item active"
-								th:onclick="|location.href='@{/passengerCarpool/list/currentRsvList}'|"
-								style="color: white;" href="#" aria-current="page">예약 카풀</a></li>
-							<li><a class="dropdown-item" style="color: white;"
-								th:onclick="|location.href='@{//passengerCarpool/list/pastRsvList}'|"
-								aria-current="page" href="#">완료 카풀</a></li>
-							<li><a class="dropdown-item" style="color: white;"
-								th:onclick="|location.href='@{/passengerCarpool/list/cancelRsvList}'|"
-								aria-current="page" href="#">취소 카풀</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
+								th:onclick="|location.href='@{/passenger/passengerCarpool/myPage}'|"
+								style="color: white;" href="#" aria-current="page">나의 카풀</a></li>
 							<li><a class="dropdown-item active" style="color: white;"
 								th:onclick="|location.href='@{/passenger/info}'|" href="#"
 								aria-current="page">회원정보수정</a></li>

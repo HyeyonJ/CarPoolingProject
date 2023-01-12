@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -66,7 +67,8 @@ public class PsgNaverLoginController {
 	public String psgNaverCallback(HttpSession session
 			, HttpServletRequest request
 			, Model model, HttpServletRequest req
-			, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL)
+			, @RequestParam(name="redirectURL", defaultValue="/passenger/passengerCarpool/reservation") String redirectURL,
+			RedirectAttributes rAttr)
 				throws IOException, ParseException {
 
 		String code = request.getParameter("code");
@@ -134,6 +136,11 @@ public class PsgNaverLoginController {
 		model.addAttribute("passengerInfo", passengerInfo);
 		
 		PassengerInfo passengerInfo2 = passengerInfoRepository.selectByEmail(passengerInfo.getPUserEmail());
+		
+		if(passengerInfo2 != null && passengerInfo2.getPSignOut() == true) {
+			rAttr.addFlashAttribute("signOut", true);
+			return "redirect:/passenger/login";
+		}
 		
 		if ( passengerInfo2 == null ) {
 //			bindingResult.reject("loginForm", "이메일 or 비밀번호");

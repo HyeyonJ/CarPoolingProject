@@ -12,10 +12,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ChatRoomDTO {
 
-    private String roomOwner;
     private String roomId;
     private String name;
-    private int password;
 
     private Set<WebSocketSession> sessions = new HashSet<>();
     //해당 세션 = 웹소켓 세션 

@@ -16,13 +16,14 @@ import project.carPooling.chatting.repository.ChatRepository;
 import project.carPooling.chatting.repository.ChatRoomRepository;
 
 
+
 @Service
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService{
     private final ChatRoomRepository crr;
     private final ChatRepository cr;
 
-    //채팅방 전체 리스트 확인
+    //채팅방 전체 리스트 확인 
     @Override
     public List<ChatRoomInfoDTO> findAllRooms(){
         List<ChatRoomEntity> chatRoomEntityList = crr.findAll(Sort.by(Sort.Direction.DESC, "id"));
@@ -35,6 +36,8 @@ public class ChatServiceImpl implements ChatService{
         return chatRoomList;
     }
     
+    
+    
     // 채팅 Room Id로 찾기
     @Override
     public ChatRoomInfoDTO findRoomById(String roomId){
@@ -43,11 +46,19 @@ public class ChatServiceImpl implements ChatService{
         return chatRoomInfoDTO;
     }
 
-    //채팅방 생성하기
+    //Passenger 채팅방 생성하기
     @Override
-    public void createChatRoomDTO(String name, String roomOwner){
+    public void createPsChatRoomDTO(String name, String roomId, Integer pIdx, Integer dIdx, Integer rIdx){
         ChatRoomDTO room = ChatRoomDTO.create(name);
-        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),room.getRoomId(),roomOwner);
+        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),room.getRoomId(), pIdx, dIdx, rIdx);
+        crr.save(chatRoomEntity);
+    }
+    
+  //Driver 채팅방 생성하기
+    @Override
+    public void createDrChatRoomDTO(String name, String roomId, Integer pIdx, Integer dIdx, Integer rIdx){
+        ChatRoomDTO room = ChatRoomDTO.create(name);
+        ChatRoomEntity chatRoomEntity = ChatRoomEntity.toChatRoomEntity(room.getName(),room.getRoomId(),pIdx, dIdx, rIdx);
         crr.save(chatRoomEntity);
     }
 

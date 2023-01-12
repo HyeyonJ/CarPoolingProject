@@ -90,7 +90,13 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-	<script>
+	<script th:inline="javascript">
+		const signOut = "[[${signOut}]]";
+		
+		if(signOut === "true"){
+			Swal.fire("로그인 실패!", "이미 탈퇴한 회원입니다.", "error")
+		}
+	
 		function handleCredentialResponse(response) {
 			const responsePayload = parseJwt(response.credential);
 			console.log("ID: " + responsePayload.sub);
