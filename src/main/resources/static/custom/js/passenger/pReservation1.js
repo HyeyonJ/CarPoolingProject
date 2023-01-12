@@ -167,6 +167,7 @@ $("#selectBoardingTime").click((e) => {
   }
 });
 
+
 $("#searchBtn").click(() => {
   $("#searchCarpoolList").empty();
 
@@ -234,11 +235,7 @@ $("#searchBtn").click(() => {
     pEndLat: $("#endlat").val() + 1,
   };
 
-  var nameList = new Array('어피치', '초롱초롱', '튜브', '프로도', '라이언', '프로도');
 
-  function randomName(nameList) {
-    return nameList[Math.floor(Math.random() * nameList.length)];
-  }
 
   $.ajax({
     url: "/passenger/passengerCarpool/reservation/searchAll",
@@ -252,6 +249,12 @@ $("#searchBtn").click(() => {
           "success"
         ).then((OK) => {
           if (OK) {
+            var nameList = new Array('어피치', '초롱초롱', '튜브', '프로도', '라이언', '프로도');
+
+            function randomName(nameList) {
+              return nameList[Math.floor(Math.random() * nameList.length)];
+            }
+            const random = randomName(nameList);
             console.log(data);
             var html = "";
             if (data.length > 0) {
@@ -259,7 +262,7 @@ $("#searchBtn").click(() => {
                 html += '<div id="match" class="container">';
                 // html += '<img src="img/car.png>" id="matchimg">';
                 html +=
-                  '<a href="http://localhost:8080/passenger/passengerCarpool/userPage?dIdx=' + data[i].didx + '">' + randomName(nameList) + '</a>' +
+                  '<a href="http://localhost:8080/passenger/passengerCarpool/userPage?dIdx=' + data[i].didx + '&randomName=' + random + '">' + random + '</a>' +
                   '<br>\n'
                 html +=
                   '<input type="hidden" id="' +

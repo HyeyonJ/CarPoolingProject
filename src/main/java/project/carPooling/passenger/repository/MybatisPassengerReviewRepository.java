@@ -36,14 +36,12 @@ public class MybatisPassengerReviewRepository implements PassengerReviewReposito
 	
 	@Override
 	public List<PReview> selectMyReview(Integer pIdx) {
-		List<PReview> pReviewList = passengerReviewMapper.selectMyReview(pIdx);
-		return pReviewList;
+		return passengerReviewMapper.selectMyReview(pIdx);
 	}
 
 	@Override
 	public List<DReview> selectDrReview(Integer pIdx) {
-		List<DReview> dReviewList = passengerReviewMapper.selectDrReview(pIdx);
-		return dReviewList;
+		return passengerReviewMapper.selectDrReview(pIdx);
 	}
 
 	@Override

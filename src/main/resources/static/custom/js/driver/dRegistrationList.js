@@ -1,5 +1,10 @@
+// 부트스트랩 모달창 닫을 시 입력값 초기화
+$("#reviewModal").on("hide.bs.modal", function () {
+  $(this).find(".modal-body form")[0].reset();
+});
+
 function reservatedRgsList() {
-  $("#reservatedRgsList").css("display", "block");
+  $("#reservatedRgsList").css("display", "flex");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
   $("#completedRgsList").css("display", "none");
@@ -47,9 +52,9 @@ function reservatedRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
         html +=
-          '<button class="btn btn-primary rsvsbtn" onclick="drivingStart(' +
+          '<button class="btn btnbtn" onclick="drivingStart(' +
           data[i].DR_IDX +
           ')" >운행시작</button>\t';
         html +=
@@ -57,7 +62,7 @@ function reservatedRgsList() {
           data[i].DR_IDX +
           "," +
           data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+          ')" class="btn btnbtn">카풀취소</button>\t';
         //		Chatting Room 생성
         html +=
           '<form action="/chatting/room/dr" method="post" id="formId' +
@@ -91,7 +96,7 @@ function reservatedRgsList() {
 
 function waitingRgsList() {
   $("#reservatedRgsList").css("display", "none");
-  $("#waitingRgsList").css("display", "block");
+  $("#waitingRgsList").css("display", "flex");
   $("#pastRgsList").css("display", "none");
   $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
@@ -134,13 +139,13 @@ function waitingRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
         html +=
           '<button id="PUT" onclick="cancelWaitingRgs(' +
           data[i].DR_IDX +
           "," +
           data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
+          ')" class="btn btnbtn  ">카풀취소</button>\t';
         html += "</div>";
       }
       $("#waitingRgsList").html(html);
@@ -151,7 +156,7 @@ function waitingRgsList() {
 function pastRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "none");
-  $("#pastRgsList").css("display", "block");
+  $("#pastRgsList").css("display", "flex");
   $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
 
@@ -199,10 +204,51 @@ function pastRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
         html += "</div>";
       }
       $("#pastRgsList").html(html);
+    },
+  });
+}
+
+function getRIdxAndPIdx(rIdx, pIdx) {
+  $("#rIdx").val(rIdx);
+  $("#pIdx").val(pIdx);
+}
+
+$(function () {
+  $("#starRate").barrating({
+    theme: "fontawesome-stars",
+  });
+});
+
+var nameList = new Array('어피치', '초롱초롱', '튜브', '프로도', '라이언', '프로도');
+
+function randomName(nameList) {
+  return nameList[Math.floor(Math.random() * nameList.length)];
+}
+
+$("#nickname").val(randomName(nameList));
+
+function reviewSubmit() {
+  const dReview = {
+    starPoint: $("#starRate").val(),
+    nickname: $("#nickname").val(),
+    content: $("#content").val(),
+    toIdx: $("#pIdx").val(),
+    rIdx: $("#rIdx").val(),
+  };
+
+  $.ajax({
+    url: "/driver/driverCarpool/review",
+    type: "POST",
+    data: dReview,
+    success: function (data, status) {
+      if (status === "success") {
+        window.location.href =
+          "http://localhost:8080/driver/driverCarpool/registration";
+      }
     },
   });
 }
@@ -211,7 +257,7 @@ function completedRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
-  $("#completedRgsList").css("display", "block");
+  $("#completedRgsList").css("display", "flex");
   $("#canceledRgsList").css("display", "none");
 
   $.ajax({
@@ -221,6 +267,8 @@ function completedRgsList() {
       console.log(data);
       var html = "";
       for (var i = 0; i < data.length; i++) {
+        const rIdx = data[i].rIdx.toString();
+        const pIdx = data[i].pIdx.toString();
         var dDate = data[i].D_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
@@ -252,13 +300,11 @@ function completedRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html +=
-          '<button id="PUT" onclick="cancelWaitingRgs(' +
-          data[i].DR_IDX +
-          "," +
-          data[i].P_IDX +
-          ')" class="btn btn-primary rsvsbtn">리뷰작성</button>\t';
+          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
+        if (data[i].dReview === false) {
+          html +=
+            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btn-primary rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
+        }
         html += "</div>";
       }
       $("#completedRgsList").html(html);
@@ -271,7 +317,7 @@ function canceledRgsList() {
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
   $("#completedRgsList").css("display", "none");
-  $("#canceledRgsList").css("display", "block");
+  $("#canceledRgsList").css("display", "flex");
 
   $.ajax({
     url: "/driver/driverCarpool/list/canceledRgsList",
@@ -310,7 +356,7 @@ function canceledRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
         html += "</div>";
       }
       $("#canceledRgsList").html(html);

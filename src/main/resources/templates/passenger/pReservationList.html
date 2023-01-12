@@ -5,6 +5,10 @@
   <head>
     <title>reservationList</title>
     <link rel="stylesheet" href="/custom/css/passenger/pReservationList.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/standard/css/fontawesome-stars.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
     <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
     <style>
       #prSection {
@@ -44,162 +48,6 @@
         height: 40px;
       }
       
-  /*       여기부터 */
-
-/* Please ❤ this if you like it! */
-
-
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-body{
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 1.7;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  overflow-x: none;
-}
-p{
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #fff;
-  margin: 0;
-}
-.section-fluid-main{
-  position: relative;
-  display: block;
-  overflow: hidden;
-  width: calc(100% - 40px);
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 1140px;
-}
-.section-row{
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-.section-row:hover .section-col{
-  opacity: 0.1;
-}
-.section-col{
-  position: relative;
-  width: 100%;
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
-  transition: opacity 250ms linear;
-}
-.section-row .section-col:hover{
-  opacity: 1;
-}
-.section{
-  position: relative;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  cursor: pointer;
-  padding: 15px;
-}
-.section-in{
-  position: relative;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.section-in img{
-  display: block;
-  width: 100%;
-  height: 300px;
-  transition: transform 250ms linear;
-}
-.section-col:hover .section-in img{
-  transform: scale(1.1) rotate(-3deg);
-}
-
-.hover-text{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 100;
-  pointer-events: none;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  -ms-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center;
-  -ms-flex-pack: center;
-  text-align: center;
-    -ms-flex-item-align: center;
-    align-self: center;
-  mix-blend-mode: difference;
-}
-.hover-text h2{
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800;
-  font-size: 8vw;
-  line-height: 1;
-  color: #fff;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: transform 250ms linear, opacity 250ms ease;
-}
-.section-col:hover + .hover-text h2{
-  opacity: 1;
-  transform: scale(1);
-}
-
-
-.logo {
-  position: fixed;
-  top: 25px;
-  left: 25px;
-  display: block;
-  z-index: 1000;
-  transition: all 250ms linear;
-}
-.logo img {
-  height: 26px;
-  width: auto;
-  display: block;
-  transition: filter 250ms 700ms linear;
-}
-
-
-@media (max-width: 767px) {
-  .section-col{
-    -ms-flex: 0 0 100%;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-  .hover-text h2{
-    font-size: 12vw;
-  }
-}    
     </style>
   </head>
 
@@ -273,11 +121,12 @@ p{
                 class="btn">취소된예약</button>
             </div>
             <div class="boxes">
-              <div id="currentRsvList"></div>
-              <div id="pastRsvList"></div>
-              <div id="completedRsvList"></div>
-              <div id="canceledRsvList"></div>
+              <div id="currentRsvList" class="pReserList"></div>
+              <div id="pastRsvList" class="pReserList"></div>
+              <div id="completedRsvList" class="pReserList"></div>
+              <div id="canceledRsvList" class="pReserList"></div>
             </div>
+            
             <div id="popup_mask"></div>
             <!-- 팝업 배경 DIV -->
 
@@ -290,22 +139,42 @@ p{
         </div>
       </div>
 
-      <!-- 카풀 경로 모달 -->
-      <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+      <!-- 리뷰 작성 모달 -->
+      <div class="modal fade" id="review" tabindex="-1" aria-labelledby="reviewLabel" aria-hidden="true">
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="selectModalLabel">선택하신 카풀의 경로입니다.</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <h1 class="modal-title fs-5" id="reviewLabel">리뷰를 작성해주세요.</h1>
+              <input type="hidden" id="rIdx">
+              <input type="hidden" id="pIdx">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div id="map_div"></div>
+              <div class="d-flex justify-content-center" id="starPoint">
+                <select id="starRate">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="nickname">작성자</label>
+                <input type="text" class="form-control" id="nickname" aria-describedby=" emailHelp" readonly>
+                <small id="textHelp" class="form-text text-muted">솔직한 후기를 위해 작성자의 이름은 임의의 닉네임으로 표시 됩니다.</small>
+              </div>
+              <div class="form-group">
+                <label for="comment">내용</label>
+                <input type="text" class="form-control" id="content" aria-describedby="emailHelp"
+                  placeholder="리뷰 내용을 작성해주세요." value="">
+              </div>
+
+              <button type="button" onclick="reviewSubmit()"
+                class="btn btn-primary btn-block text-center btn-submit">후기등록</button>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary rsvsbtn" data-dismiss="modal">확인</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

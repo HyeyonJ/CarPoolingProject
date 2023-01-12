@@ -32,6 +32,7 @@ public class DrReviewController {
 		return "driver/dReview";
 	}
 	
+	@ResponseBody
 	@PostMapping("/driverCarpool/review")
 	public void reviewForm(@ModelAttribute DReview dReview, HttpServletRequest req) {
 		DriverInfo driverInfo = sessionManager.getDrSession(req);

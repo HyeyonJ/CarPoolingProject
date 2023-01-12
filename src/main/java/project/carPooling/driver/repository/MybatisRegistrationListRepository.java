@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DRegistration;
+import project.carPooling.driver.domain.DReview;
 import project.carPooling.driver.mapper.RegistrationListMapper;
 
 @Repository
@@ -103,5 +104,15 @@ public class MybatisRegistrationListRepository implements RegistrationListReposi
 	@Override
 	public void updateCanceledRegistration(Integer drIdx) {
 		registrationListMapper.updateCanceledRegistration(drIdx);
+	}
+
+	@Override
+	public Map<String, Object> selectRIdxAndPIdx(Integer drIdx) {
+		return registrationListMapper.selectRIdxAndPIdx(drIdx);
+	}
+
+	@Override
+	public DReview selectReviewExistStatus(Integer rIdx) {
+		return registrationListMapper.selectReviewExistStatus(rIdx);
 	}
 }

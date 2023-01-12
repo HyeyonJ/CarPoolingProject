@@ -77,4 +77,16 @@
 		WHERE pay_idx = #{payIdx}
 	</select>
 	
+	<select id="selectRIdxAndPIdx" resultType="map">
+		SELECT r.p_idx, r.r_idx
+		FROM D_REGISTRATION dr, RESERVATION r
+		WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'completed'
+	</select>
+	
+	<select id="selectReviewExistStatus" resultType="PReview">
+		SELECT *
+		FROM P_REVIEW
+		WHERE r_idx = #{rIdx}
+	</select>
+	
 </mapper>

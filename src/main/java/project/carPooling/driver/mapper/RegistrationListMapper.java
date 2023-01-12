@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import project.carPooling.driver.domain.DRegistration;
+import project.carPooling.driver.domain.DReview;
 
 @Mapper
 public interface RegistrationListMapper {
@@ -30,4 +31,7 @@ public interface RegistrationListMapper {
 	
 	public String selectPassengerEmail(Integer drIdx);
 	
+	public Map<String, Object> selectRIdxAndPIdx(Integer drIdx);
+	
+	public DReview selectReviewExistStatus(Integer rIdx);
 }

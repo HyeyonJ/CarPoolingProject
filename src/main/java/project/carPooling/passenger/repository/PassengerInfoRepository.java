@@ -35,5 +35,6 @@ public interface PassengerInfoRepository {
 	
 	public PassengerInfo selectByIdNum(String idNum);
 	
+	public PassengerInfo selectByIdx(Integer pIdx);
 
 }

@@ -3,6 +3,8 @@ package project.carPooling.driver.repository;
 import java.util.List;
 import java.util.Map;
 
+import project.carPooling.driver.domain.DReview;
+
 
 public interface RegistrationListRepository {
 	
@@ -21,4 +23,8 @@ public interface RegistrationListRepository {
 	public String selectPassengerEmail(Integer drIdx);
 	
 	public void updateCanceledRegistration(Integer drIdx);
+	
+	public Map<String, Object> selectRIdxAndPIdx(Integer drIdx);
+	
+	public DReview selectReviewExistStatus(Integer rIdx);
 }

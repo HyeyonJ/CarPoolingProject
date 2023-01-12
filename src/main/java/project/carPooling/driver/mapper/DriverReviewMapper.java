@@ -18,8 +18,11 @@ public interface DriverReviewMapper {
 	public List<DReview> selectMyReview(Integer dIdx);
 
 	public List<PReview> selectPsReview(Integer dIdx);
+	
+	public List<DReview> selectUserReview(Integer pIdx);
 
 	public void updateReview(@Param("rIdx") Integer rIdx, @Param("content") String content);
 
 	public void deleteReview(Integer rIdx);
+	
 }

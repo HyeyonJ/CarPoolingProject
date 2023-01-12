@@ -20,6 +20,7 @@ import project.carPooling.global.gmail.MailService;
 import project.carPooling.global.gmail.MailTO;
 import project.carPooling.global.payment.repository.PaymentRepository;
 import project.carPooling.global.session.SessionManager;
+import project.carPooling.passenger.domain.PReview;
 import project.carPooling.passenger.domain.PassengerInfo;
 import project.carPooling.passenger.domain.PaymentData;
 import project.carPooling.passenger.repository.ReservationListRepository;
@@ -76,11 +77,19 @@ public class PsReservationListController {
 	public List<Map<String, Object>> completeRsvList(HttpServletRequest req){
 		PassengerInfo passengerInfo = sessionManager.getPsSession(req);
 		List<Map<String, Object>> completeRsvList = reservationListRepository.selectCompleteRsvList(passengerInfo.getPIdx());
-		System.out.println(completeRsvList);
+		PReview pReview = null;
 		for(Map<String, Object> completeRsv : completeRsvList) {
 			Integer rIdx = Integer.parseInt(String.valueOf(completeRsv.get("R_IDX")));
 			PaymentData paymentData = reservationListRepository.selectPaymentDataByRIdx(rIdx);
 			completeRsv.put("receiptUrl", paymentData.getReceiptUrl());
+			completeRsv.put("rIdx", rIdx);
+			completeRsv.put("pIdx", passengerInfo.getPIdx());
+			pReview = reservationListRepository.selectReviewExistStatus(rIdx);
+			if(pReview == null) {
+				completeRsv.put("pReview", false);
+			} else {
+				completeRsv.put("pReview", true);
+			}
 		}
 		return completeRsvList;
 	}

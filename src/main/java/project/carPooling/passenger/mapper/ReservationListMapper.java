@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import project.carPooling.driver.domain.DRegistration;
+import project.carPooling.passenger.domain.PReview;
 import project.carPooling.passenger.domain.PaymentData;
 
 @Mapper
@@ -32,4 +33,6 @@ public interface ReservationListMapper {
 	public PaymentData selectPaymentDataByRIdx(Integer rIdx);
 	
 	public Map<String, Object> selectCancelPayMentByPayIdx(String payIdx);
+	
+	public PReview selectReviewExistStatus(Integer rIdx);
 }

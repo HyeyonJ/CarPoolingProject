@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import project.carPooling.driver.domain.DRegistration;
+import project.carPooling.passenger.domain.PReview;
 import project.carPooling.passenger.domain.PaymentData;
 import project.carPooling.passenger.mapper.ReservationListMapper;
 
@@ -127,6 +128,10 @@ public class MybatisReservationListRepository implements ReservationListReposito
 		return reservationListMapper.selectCancelPayMentByPayIdx(payIdx);
 	}
 
+	@Override
+	public PReview selectReviewExistStatus(Integer rIdx) {
+		return 	reservationListMapper.selectReviewExistStatus(rIdx);
+	}
 
 
 }

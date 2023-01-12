@@ -5,7 +5,7 @@
 		INSERT INTO D_REVIEW (r_idx, from_idx, to_idx, star_point, nickname, content)
 		VALUES(#{rIdx}, #{fromIdx}, #{toIdx}, #{starPoint}, #{nickname}, #{content})
 	</insert>
-
+	
 	<update id="updatePassengerTemperature">
 		UPDATE PASSENGER
 		SET p_temperature = p_temperature + #{starPoint}
@@ -20,6 +20,11 @@
 	<select id="selectPsReview" resultType="PReview">
 		SELECT * FROM P_REVIEW
 		WHERE to_idx = #{dIdx}
+	</select>
+	
+	<select id="selectUserReview" resultType="DReview">
+		SELECT * FROM D_REVIEW
+		WHERE to_idx = #{pIdx}
 	</select>
 	
 	<update id="updateReview">
