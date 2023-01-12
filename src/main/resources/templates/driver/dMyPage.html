@@ -8,22 +8,27 @@
   </head>
 
   <div layout:fragment="content">
+    <div>
+      이름: <span th:text="${driverInfo.dUserName}"></span>
+      <br>
+      포인트: <span th:text="${driverInfo.dPoint}"></span>
+      <button class="btn btn-primary">출금하기</button>
+      <br>
+      패널티: <span th:text="${driverInfo.dPenalty}"></span>
+    </div>
     <div id="article-profile-right">
-      <div id="temperature-wrap">
+      <div>
         <div>매너온도</div>
-        <div class="text-color-03" th:text="${driverInfo.dTemperature}">
-          <span>°C</span>
+        <div>
+          <span class="text-color-03" th:text="${driverInfo.dTemperature}"></span>°C
         </div>
       </div>
       <div class="meters">
         <div class="bar"></div>
+        <div class="face"></div>
       </div>
-      <div class="face"></div>
     </div>
-    <div>
-      <label for=""></label>
-<!--       <input type="text" name="" id="" th:text=""> -->
-    </div>
+    <a th:href="@{/driver/info}"><button class="btn btn-primary mt-1">프로필 수정</button></a>
 
   </div>
 

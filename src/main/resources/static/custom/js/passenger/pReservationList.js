@@ -13,6 +13,7 @@ setInterval(function () {
 function currentRsvList() {
   $("#currentRsvList").css("display", "block");
   $("#pastRsvList").css("display", "none");
+  $("#completedRsvList").css("display", "none");
   $("#canceledRsvList").css("display", "none");
 
   $.ajax({
@@ -25,12 +26,13 @@ function currentRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">운전자</span>\t' +
+          '<span>운전자</span>\t' +
           data[i].D_USER_NAME +
           "<br>\n";
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -38,15 +40,15 @@ function currentRsvList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
@@ -63,7 +65,7 @@ function currentRsvList() {
           data[i].R_IDX +
           ')" >탑승대기</button>\t';
         html +=
-          '<button id="PUT" onclick="cancelReservation(' +
+          '<button id="PUT" onclick="cancelRsv(' +
           data[i].DR_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
         html += '<button class="btn btn-primary">채팅</button>\t';
@@ -78,6 +80,7 @@ function currentRsvList() {
 function pastRsvList() {
   $("#currentRsvList").css("display", "none");
   $("#pastRsvList").css("display", "block");
+  $("#completedRsvList").css("display", "none");
   $("#canceledRsvList").css("display", "none");
 
   $.ajax({
@@ -91,12 +94,13 @@ function pastRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">운전자</span>\t' +
+          '<span>운전자</span>\t' +
           data[i].D_USER_NAME +
           "<br>\n";
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -104,15 +108,15 @@ function pastRsvList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
@@ -132,9 +136,72 @@ function pastRsvList() {
   });
 }
 
+function completedRsvList() {
+  $("#currentRsvList").css("display", "none");
+  $("#pastRsvList").css("display", "none");
+  $("#completedRsvList").css("display", "block");
+  $("#canceledRsvList").css("display", "none");
+
+  $.ajax({
+    url: "/passenger/passengerCarpool/list/completeRsvList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+        var rDate = data[i].R_DATE.substring(0, 10);
+
+        html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+        html +=
+          '<span>운전자</span>\t' +
+          data[i].D_USER_NAME +
+          "<br>\n";
+        html +=
+          '<span>카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span>출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span>도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span>요금</span>\t' +
+          data[i].D_FEE +
+          "원 <br>\n";
+        html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html += '<button class="btn btn-primary">후기작성</button>\t';
+        html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
+        html += "</div>";
+      }
+      $("#completedRsvList").html(html);
+    },
+  });
+}
+
 function canceledRsvList() {
   $("#currentRsvList").css("display", "none");
   $("#pastRsvList").css("display", "none");
+  $("#completedRsvList").css("display", "none");
   $("#canceledRsvList").css("display", "block");
 
   $.ajax({
@@ -148,12 +215,13 @@ function canceledRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">운전자</span>\t' +
+          '<span>운전자</span>\t' +
           data[i].D_USER_NAME +
           "<br>\n";
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -161,15 +229,15 @@ function canceledRsvList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' +
+          '<span>요금</span>\t' +
           data[i].cancelAmount +
           "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";

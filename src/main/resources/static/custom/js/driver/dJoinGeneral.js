@@ -1,10 +1,10 @@
 var userId = document.getElementById("dUserId");
 var userPw = document.getElementById("dUserPw");
 var userPwCheck = document.getElementById("dUserPwCheck");
+var userIdNum = document.getElementById("dIdNumM");
 var userEmail = document.getElementById("dUserEmail");
 var inputCode = document.getElementById("dUserVcode");
 var userTel = document.getElementById("dUserTel");
-var userIdNum = document.getElementById("dIdNumM");
 var licenseNum = document.getElementById("dLicenseNum");
 var licenseIdNum = document.getElementById("dLicenseIdNum");
 var carNum = document.getElementById("dCarNum");
@@ -49,6 +49,7 @@ userId.onkeyup = function(){
 		$("#checkIdMsg").html('<span style="color:red"> 중복 확인 필요</span>');
 	}
 }
+
 $("#checkId").click(function() {
 	$("#checkId").removeClass("btn-outline-dark");
 	$("#checkId").addClass("btn-dark");
@@ -96,6 +97,7 @@ userPw.onkeyup = function() {
 		$("#checkPwMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 	}
 }
+
 /* 패스워드 확인 */
 userPwCheck.onkeyup = function() {
 	const regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
@@ -109,8 +111,66 @@ userPwCheck.onkeyup = function() {
 };
 
 
+/* 주민등록번호 '-' 자동 입력 */
+var autoHypenIdNum = function (idNum) {
+  idNum = idNum.replace(/[^0-9]/g, "");
+  var tmp = "";
+  if (idNum.length < 7) {
+    return idNum;
+  } else {
+    tmp += idNum.substr(0, 6);
+    tmp += "-";
+    tmp += idNum.substr(6);
+    $("#dIdNum").val(tmp);
+    return tmp;
+  }
+  return idNum;
+};
+
+var autoMaskingIdNum = function (idNum) {
+  tmp = idNum.replaceAll(/([0-9]{6})-([1-4]{1})([0-9]{6})/g, "$1-$2******");
+  return tmp;
+};
+
+userIdNum.onkeyup = function () {
+  this.value = autoHypenIdNum(this.value);
+  const regIdNum = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$/;
+  $("#checkIdNumMsg").html('<span style="color:red"> 13자리 숫자만 입력</span>');
+	if (regIdNum.test($("#dIdNum").val())) {
+		$("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
+		$.ajax({
+			type: "GET",
+			url: "/driver/check/idNum",
+			data: { idNum: $("#dIdNum").val() },
+			success: function (res, status) {
+				if(res == true) {
+					$("#checkIdNumMsg").html('<span style="color:red"> 이미 가입된 주민등록번호입니다.</span>');
+				} else {
+					$("#checkIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
+				}
+
+			}
+		});
+	}
+};
+
+userIdNum.onblur = function () {
+  this.value = autoMaskingIdNum(this.value);
+  /* 성별 자동 선택*/
+  if (
+    $("#dIdNum").val().substr(7, 1) === "1" ||
+    $("#dIdNum").val().substr(7, 1) === "3"
+  ) {
+    $("#dUserGender1").attr("checked", true);
+  } else {
+    $("#dUserGender2").attr("checked", true);
+  }
+};
+
+
 /* 이메일 인증 (인증코드 발송 > 결과 확인) */
 userEmail.onkeyup = function(){
+	const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	$("#checkEmailMsg").html('<span style="color:red"> carpooling@sample.com</span>');
 	if (regEmail.test($("#dUserEmail").val())) {
 		$("#checkEmailMsg").html('<span style="color:red"> 인증 필요</span>');
@@ -118,7 +178,8 @@ userEmail.onkeyup = function(){
 }
 $("#checkEmail").click(function() {
 	$("#inputVcode").css("display", "none");
-	const regEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+	inputCode.value = null;
+	const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	$("#checkEmail").removeClass("btn-outline-dark");
 	$("#checkEmail").addClass("btn-dark");
 	if (regEmail.test($("#dUserEmail").val())) {
@@ -133,7 +194,7 @@ $("#checkEmail").click(function() {
 						"사용 가능한 이메일입니다.",
 						"입력하신 이메일로 인증코드가 발송됩니다.",
 						"success"
-					).then((OK) => {						
+					).then((OK) => {
 						if (OK) {
 							/* 인증 코드 입력 폼 출력 & 인증 메일 발송 */
 							$("#inputVcode").css("display", "block");
@@ -143,7 +204,6 @@ $("#checkEmail").click(function() {
 								data: { email: $("#dUserEmail").val() },
 								success: () => {
 									/* 유효시간 출력 */
-									
 								}
 							});
 						}
@@ -163,14 +223,12 @@ $("#checkEmail").click(function() {
 /* 인증 코드 입력 & 확인 버튼 */
 $("#checkVcode").click(function() {
 	const regVcode = /^[A-Z0-9]{10}$/;
-	if (regVcode.test($("#dUserVcode").val())) {
+	if (regVcode.test($("#pUserVcode").val())) {
 		$.ajax({
 			type: "GET",
-			url: "/driver/check/vCode",
-			data: { code: $("#dUserVcode").val() },
+			url: "/passenger/check/vCode",
+			data: { code: $("#pUserVcode").val() },
 			success: function(res, status) {
-				console.log(res);
-				console.log(status);
 				if (res == true) {
 					Swal.fire(
 						"이메일 인증이 완료되었습니다.",
@@ -183,7 +241,6 @@ $("#checkVcode").click(function() {
 							$("#checkEmail").addClass("btn-outline-dark");
 							$("#inputVcode").css("display", "none");
 							$("#checkEmailMsg").html('<span style="color:darkblue"> 인증 완료</span>');
-							inputCode.value = null;
 						}
 					});
 				} else {
@@ -199,6 +256,7 @@ $("#checkVcode").click(function() {
 		Swal.fire("잘못 입력하셨습니다.", "인증코드를 다시 확인해주세요.", "error");
 	}
 });
+
 
 /* 휴대폰 번호 '-' 자동 입력 */
 var autoHypenPhone = function (tel) {
@@ -229,68 +287,15 @@ var autoHypenPhone = function (tel) {
   return tel;
 };
 
-userTel.onkeyup = function () {
-  this.value = autoHypenPhone(this.value);
-  
-};
-
-/* 주민등록번호 '-' 자동 입력 */
-var autoHypenIdNum = function (idNum) {
-  idNum = idNum.replace(/[^0-9]/g, "");
-  var tmp = "";
-  if (idNum.length < 7) {
-    return idNum;
-  } else {
-    tmp += idNum.substr(0, 6);
-    tmp += "-";
-    tmp += idNum.substr(6);
-    $("#dIdNum").val(tmp);
-    return tmp;
-  }
-  return idNum;
-};
-
-var autoMaskingIdNum = function (idNum) {
-  tmp = idNum.replaceAll(/([0-9]{6})-([1-4]{1})([0-9]{6})/g, "$1-$2******");
-  return tmp;
-};
-
-
-userIdNum.onkeyup = function () {
-  this.value = autoHypenIdNum(this.value);
-  const regIdNum = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])-[1-4][0-9*]{6})$/;
-  $("#checkIdNumMsg").html('<span style="color:red"> 13자리 숫자만 입력</span>');
-	if (regIdNum.test($("#dIdNum").val())) {
-		$("#checkIdNumMsg").html('<span style="color:red"> 확인 필요</span>');
-		$.ajax({
-			type: "GET",
-			url: "/driver/check/idNum",
-			data: { idNum: $("#dIdNum").val() },
-			success: function (res, status) {
-				if(res == true) {
-					$("#checkIdNumMsg").html('<span style="color:red"> 이미 가입된 주민등록번호입니다.</span>');
-				} else {
-					$("#checkIdNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
-				}
-
-			}
-		});
+userTel.onkeyup = function() {
+	this.value = autoHypenPhone(this.value);
+	const regTel = /^(010-\d{3,4}-\d{4})$/;
+	$("#checkTelMsg").html('<span style="color:red"> 010포함 숫자만 입력</span>');
+	if (regTel.test($("#dUserTel").val())) {
+		$("#checkTelMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 	}
 };
 
-userIdNum.onblur = function () {
-  this.value = autoMaskingIdNum(this.value);
-  /* 성별 자동 선택*/
-
-  if (
-    $("#dIdNum").val().substr(7, 1) === "1" ||
-    $("#dIdNum").val().substr(7, 1) === "3"
-  ) {
-    $("#dUserGender1").attr("checked", true);
-  } else {
-    $("#dUserGender2").attr("checked", true);
-  }
-};
 
 /* 면허 번호 '-' 자동 입력 */
 var autoHypenLicenseNum = function (licenseNum) {
@@ -355,7 +360,7 @@ licenseIdNum.onkeyup = function() {
 }
 
 carNum.onkeyup = function() {
-	const regCarNum = /(\d{2,3})([가-힣]{1})(\d{4})/;
+	const regCarNum = /^(\d{2,3})([가-힣]{1})(\d{4})$/;
 	$("#checkCarNumMsg").html('<span style="color:red"> 00땡0000, 000땡0000</span>');
 	if (regCarNum.test($("#dCarNum").val())) {
 		$.ajax({
@@ -365,7 +370,7 @@ carNum.onkeyup = function() {
 			success: function(res, status) {
 				if (res == true) {
 					$("#checkCarNumMsg").html('<span style="color:red"> 이미 등록된 자동차입니다.</span>');
-				} else {
+				} else {					
 					$("#checkCarNumMsg").html('<span style="color:darkblue"> 확인 완료</span>');
 				}
 			}

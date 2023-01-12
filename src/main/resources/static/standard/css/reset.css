@@ -69,3 +69,10 @@ footer p {
   color: #fcf8ec;
   font-family: "NanumSquareNeoExtraBold";
 }
+
+.title {
+  color: #433520;
+  font-family: "NanumSquareNeoExtraBold";
+  font-size: 2.3rem;
+  margin: 40px 0px 40px 0px;
+}

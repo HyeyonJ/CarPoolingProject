@@ -10,6 +10,8 @@ public interface ReservationListRepository {
 	
 	public List<Map<String, Object>> selectPastRsvList(Integer pIdx);
 	
+	public List<Map<String, Object>> selectCompleteRsvList(Integer pIdx);
+	
 	public List<Map<String, Object>> selectCancelRsvList(Integer pIdx);
 	
 	public int cancelCurrentReservation(Integer drIdx, Integer pIdx);

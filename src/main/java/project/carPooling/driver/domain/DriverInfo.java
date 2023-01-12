@@ -118,10 +118,10 @@ public class DriverInfo {
 	public void setdAccountNum(String dAccountNum) {
 		this.dAccountNum = dAccountNum;
 	}
-	public Integer getdAccountBank() {
+	public String getdAccountBank() {
 		return dAccountBank;
 	}
-	public void setdAccountBank(Integer dAccountBank) {
+	public void setdAccountBank(String dAccountBank) {
 		this.dAccountBank = dAccountBank;
 	}
 	public int getdPoint() {

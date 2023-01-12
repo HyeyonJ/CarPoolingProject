@@ -2,6 +2,7 @@ function reservatedRgsList() {
   $("#reservatedRgsList").css("display", "block");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
+  $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
 
   $.ajax({
@@ -14,12 +15,13 @@ function reservatedRgsList() {
         var dDate = data[i].D_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">탑승자</span>\t' +
+          '<span>탑승자</span>\t' +
           data[i].P_USER_NAME +
           "<br>\n";
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -27,15 +29,15 @@ function reservatedRgsList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
           data[i].D_START_LON +
@@ -56,7 +58,26 @@ function reservatedRgsList() {
           "," +
           data[i].P_IDX +
           ')" class="btn btn-primary rsvsbtn">카풀취소</button>\t';
-        html += '<button class="btn btn-primary">채팅</button>\t';
+        //		Chatting Room 생성
+        html +=
+        	'<form action="/chatting/room/dr" method="post">';
+        html +=
+        		'<input type="hidden" name="pIdx" value="' +
+        		data[i].P_IDX + 
+        		'"></input>'
+        html +=
+        		'<input type="hidden" name="rIdx" value="' +
+        		data[i].DR_IDX + 
+        		'"></input>' 
+        html +=
+        		'<input type="hidden" name="name" value="' +
+        		data[i].DR_IDX + 
+        		"번 방"+
+        		'"></input>' 		
+		html +=
+          '<button class="btn btn-primary">채팅</button>';				
+        html +=  
+        	'</form>'
         html += "</div>";
       }
       $("#reservatedRgsList").html(html);
@@ -68,6 +89,7 @@ function waitingRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "block");
   $("#pastRgsList").css("display", "none");
+  $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
 
   $.ajax({
@@ -80,8 +102,9 @@ function waitingRgsList() {
         var dDate = data[i].D_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -89,15 +112,15 @@ function waitingRgsList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
           data[i].D_START_LON +
@@ -125,6 +148,7 @@ function pastRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "block");
+  $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "none");
 
   $.ajax({
@@ -137,12 +161,13 @@ function pastRgsList() {
         var dDate = data[i].D_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">탑승자</span>\t' +
+          '<span>탑승자</span>\t' +
           data[i].P_USER_NAME +
           "<br>\n";
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -150,15 +175,15 @@ function pastRgsList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' +
+          '<span>요금</span>\t' +
           data[i].cancelAmount +
           "원 <br>\n";
         html +=
@@ -178,10 +203,70 @@ function pastRgsList() {
   });
 }
 
+function completedRgsList() {
+  $("#reservatedRgsList").css("display", "none");
+  $("#waitingRgsList").css("display", "none");
+  $("#pastRgsList").css("display", "none");
+  $("#completedRgsList").css("display", "block");
+  $("#canceledRgsList").css("display", "none");
+
+  $.ajax({
+    url: "/driver/driverCarpool/list/completeRgsList",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      var html = "";
+      for (var i = 0; i < data.length; i++) {
+        var dDate = data[i].D_DATE.substring(0, 10);
+
+        html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
+        html +=
+          '<span>카풀일시</span>\t' +
+          dDate +
+          "\t" +
+          data[i].D_START_TIME +
+          "\t -\t " +
+          data[i].D_END_TIME +
+          "<br>\n";
+        html +=
+          '<span>출발지</span>\t' +
+          data[i].D_START_POINT +
+          "<br>\n";
+        html +=
+          '<span>도착지</span>\t' +
+          data[i].D_END_POINT +
+          "<br>\n";
+        html +=
+          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+        html +=
+          '<button id="view" onclick="viewRoute(' +
+          data[i].D_START_LON +
+          ", " +
+          data[i].D_START_LAT +
+          ", " +
+          data[i].D_END_LON +
+          ", " +
+          data[i].D_END_LAT +
+          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html +=
+          '<button id="PUT" onclick="cancelWaitingRgs(' +
+          data[i].DR_IDX +
+          "," +
+          data[i].P_IDX +
+          ')" class="btn btn-primary rsvsbtn">리뷰작성</button>\t';
+        html += "</div>";
+      }
+      $("#completedRgsList").html(html);
+    },
+  });
+}
+
 function canceledRgsList() {
   $("#reservatedRgsList").css("display", "none");
   $("#waitingRgsList").css("display", "none");
   $("#pastRgsList").css("display", "none");
+  $("#completedRgsList").css("display", "none");
   $("#canceledRgsList").css("display", "block");
 
   $.ajax({
@@ -193,8 +278,9 @@ function canceledRgsList() {
       for (var i = 0; i < data.length; i++) {
         var dDate = data[i].D_DATE.substring(0, 10);
         html += '<div class="rsv">\n';
+        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span class="fitem">카풀일시</span>\t' +
+          '<span>카풀일시</span>\t' +
           dDate +
           "\t" +
           data[i].D_START_TIME +
@@ -202,15 +288,15 @@ function canceledRgsList() {
           data[i].D_END_TIME +
           "<br>\n";
         html +=
-          '<span class="fitem">출발지</span>\t' +
+          '<span>출발지</span>\t' +
           data[i].D_START_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">도착지</span>\t' +
+          '<span>도착지</span>\t' +
           data[i].D_END_POINT +
           "<br>\n";
         html +=
-          '<span class="fitem">요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
           data[i].D_START_LON +
@@ -281,7 +367,7 @@ function cancelReservatedRgs(drIdx, pIdx) {
                 const cancelResData = data;
                 cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
                 $.ajax({
-                  url: "/carpoolingPay/cancel/complete",
+                  url: "/carpoolingPay/cancel/completed",
                   type: "POST",
                   data: cancelData,
                 }).done(function (data, status) {
@@ -381,8 +467,6 @@ function drivingStart(drIdx) {
     },
   });
 }
-
-
 
 var count = 0;
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;                                                                                                                                                                                         
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
@@ -24,7 +25,12 @@ public class ChatListController {
     private final ChatService cs;
     
     //Ajax / 모든 채팅방 조회 
-//    @GetMapping("/findAllChattingRooms");
+    @ResponseBody
+    @GetMapping("/getChattingList")
+    public List<ChatRoomInfoDTO> getChattingList(){
+    	List <ChatRoomInfoDTO> allRoomList = cs.findAllRooms();
+    	return allRoomList;
+    }
     
     //Passenger 채팅 방 조회
     @GetMapping("/psgChatting/{memberId}")

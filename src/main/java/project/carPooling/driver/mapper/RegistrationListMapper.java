@@ -16,6 +16,8 @@ public interface RegistrationListMapper {
 
 	public List<Map<String, Object>> selectPastRgsList(Integer dIdx);
 	
+	public List<Map<String, Object>> selectCompleteRgsList(Integer dIdx);
+	
 	public List<Map<String, Object>> selectCanceledRgsList(Integer dIdx);
 
 	public DRegistration selectRegistrationByDrIdx(Integer drIdx);

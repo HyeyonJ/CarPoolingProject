@@ -26,9 +26,15 @@
 		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') <![CDATA[<]]> sysdate	
 	</select>
 	
+	<select id="selectCompleteRgsList" resultType="map">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE d_reservation_status = 'completed'
+	</select>
+	
 	<select id="selectCanceledRgsList" resultType="map">
 		SELECT *
-		FROM d_registration
+		FROM D_REGISTRATION
 		WHERE d_cancel_status = 'canceled'
 	</select>
 	
