@@ -37,6 +37,7 @@ public class PsgLoginController {
 	@GetMapping("/login")
 	public String loginMain(HttpSession session, Model model)
 			throws UnsupportedEncodingException, UnknownHostException {
+		
 		PassengerLoginForm pLoginForm = new PassengerLoginForm();
 		model.addAttribute("pLoginForm", pLoginForm);
 		
@@ -70,7 +71,7 @@ public class PsgLoginController {
 			return "redirect:/passenger/login";
 		}
 		//계정 정보가 있으나, 탈퇴한 회원
-		if(passenger != null && passenger.getPSignOut() == true) {
+		if(passenger.getPSignOut() == true) {
 			rAttr.addFlashAttribute("signOut", true);
 			return "redirect:/passenger/login";
 		}		
@@ -80,7 +81,6 @@ public class PsgLoginController {
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
 		session.setAttribute(SessionVar.LOGIN_ID, passenger.getPIdx());
 		session.setAttribute(SessionVar.LOGIN_NAME, passenger.getPUserName());
-//		session.setAttribute(SessionVar.LOGIN_EMAIL, passenger.getPUserEmail());
 		
 		//넘어온 redirectURL값이 있으면 해당 경로로 이동
 		return "redirect:" + redirectURL;

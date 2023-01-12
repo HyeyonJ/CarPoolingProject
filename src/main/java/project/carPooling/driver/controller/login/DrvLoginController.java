@@ -60,8 +60,8 @@ public class DrvLoginController {
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute DriverLoginForm dLoginForm
 						, HttpServletResponse resp, HttpServletRequest req
-						, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL,
-						RedirectAttributes rAttr) {
+						, @RequestParam(name="redirectURL", defaultValue="/driver/driverCarpool/registration") String redirectURL
+						, RedirectAttributes rAttr) {
 		
 		DriverInfo driver = driverLoginService.login(dLoginForm.getLoginId(), dLoginForm.getPassword());
 		

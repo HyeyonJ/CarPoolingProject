@@ -12,14 +12,16 @@ public class PassengerLoginService {
 	
 	private final PassengerInfoRepository passengerRepository;
 	
+	public PassengerInfo checkLogin(String loginId) {
+		PassengerInfo passenger = passengerRepository.selectByLoginId(loginId);
+		if(passenger != null) { return passenger; }
+		return null;
+	}
+	
 	public PassengerInfo login(String loginId, String password) {
 		PassengerInfo passenger = passengerRepository.selectByLoginId(loginId);
-		
-		if (passenger != null) {
-			if (passenger.getPUserPw().equals(password)) {
-				return passenger;
-			}
-		} return null;
+		if (passenger.getPUserPw().equals(password)) { return passenger; }
+		return null;
 	}
 
 }
