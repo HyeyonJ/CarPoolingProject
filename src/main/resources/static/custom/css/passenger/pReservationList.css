@@ -13,11 +13,15 @@
   background-color: #cfc6cf;
 }
 
+.chatBtn {
+  background-color: #f5ecce;
+}
+
 .CommuteSPAN {
   display: inline-block;
   font-weight: 100;
-  background-color: #cd3184;
-  color: white;
+  background-color: #deb887;
+  color: black;
   width: 50px;
   height: 40px;
   text-align: center;

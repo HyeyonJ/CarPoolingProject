@@ -167,7 +167,7 @@ $("#selectBoardingTime").click((e) => {
   }
 });
 
-
+$(".card-body").css("display", "none");
 $("#searchBtn").click(() => {
   $("#searchCarpoolList").empty();
 
@@ -258,6 +258,7 @@ $("#searchBtn").click(() => {
             console.log(data);
             var html = "";
             if (data.length > 0) {
+              $(".card-body").css("display", "block");
               for (var i = 0; i < data.length; i++) {
                 html += '<div id="match" class="container">';
                 // html += '<img src="img/car.png>" id="matchimg">';

@@ -13,6 +13,10 @@
   background-color: #cfc6cf;
 }
 
+.chatBtn {
+  background-color: #f5ecce;
+}
+
 .CommuteSPAN {
   display: inline-block;
   font-weight: 100;

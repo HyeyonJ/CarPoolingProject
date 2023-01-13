@@ -147,8 +147,13 @@
         </div>
 
       </div>
-      <div class="listed">
-        <div id="searchCarpoolList"></div>
+      <div style="margin-top:50px"></div>
+      <div class="pReservationClass">
+        <div class="card">
+          <div class="card-body">
+            <div id="searchCarpoolList"></div>
+          </div>
+        </div>
       </div>
 
       <!-- 카풀 셀렉트 모달 -->
@@ -163,16 +168,19 @@
               <form id="selectCp">
                 <input type="hidden" id="drIdx" name="drIdx">
                 카풀날짜 <input type="text" id="dDate" name="dDate" class="inputborder" readonly><br>
-                픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly> - <input
-                  type="text" id="dEndTime" name="dEndTime" class="inputborder" readonly><br>
-                출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly><br>
-                도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly><br>
-                카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly>원<br>
+                픽업시간 <input type="text" id="dStartTime" name="dStartTime" class="inputborder" readonly
+                  style="width:40px;"> - <input type="text" id="dEndTime" name="dEndTime" class="inputborder"
+                  readonly><br>
+                출발지 <input type="text" id="dStartPoint" name="dStartPoint" class="inputborder" readonly
+                  style="width: 300px;"><br>
+                도착지 <input type="text" id="dEndPoint" name="dEtartPoint" class="inputborder" readonly
+                  style="width: 300px;"><br>
+                카풀요금 <input type="text" id="dFee" name="dFee" class="inputborder" readonly style="width:36px;">원<br>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary rsvsbtn" data-bs-dismiss="modal">취소</button>
-              <button type="button" class="btn rsvsbtn" id="requestReserve" onclick="reservation();">결제</button>
+              <button type="button" class="btn" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn" id="requestReserve" onclick="reservation();">결제</button>
             </div>
           </div>
         </div>

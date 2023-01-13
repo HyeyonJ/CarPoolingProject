@@ -3,6 +3,26 @@ $("#reviewModal").on("hide.bs.modal", function () {
   $(this).find(".modal-body form")[0].reset();
 });
 
+$("#reservatedRgsList, .reservatedRgsImg").click(() => {
+  reservatedRgsList();
+})
+
+$("#waitingRgsList, .waitingRgsImg").click(() => {
+  waitingRgsList();
+})
+
+$("#pastRgsList, .pastRgsImg").click(() => {
+  pastRgsList();
+})
+
+$("#completedRgsList, .completedRgsImg").click(() => {
+  completedRgsList();
+})
+
+$("#canceledRgsList").click(() => {
+  canceledRgsList();
+})
+
 function reservatedRgsList() {
   $("#reservatedRgsList").css("display", "flex");
   $("#waitingRgsList").css("display", "none");
@@ -52,7 +72,7 @@ function reservatedRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
+          ')" class="btn btnbtn rsvsbtn">경로보기</button>\t';
         html +=
           '<button class="btn btnbtn" onclick="drivingStart(' +
           data[i].DR_IDX +
@@ -67,7 +87,7 @@ function reservatedRgsList() {
         html +=
           '<form action="/chatting/room/dr" method="post" id="formId' +
           data[i].DR_IDX +
-          '">';
+          '" style="width: 100%; margin-top:10px;>';
         html +=
           '<input type="hidden" name="pIdx" value="' +
           data[i].P_IDX +
@@ -82,9 +102,9 @@ function reservatedRgsList() {
           "번 방" +
           '"></input>';
         html +=
-          '<span class="fitem" onclick="roomExistCheck(' +
+          '<span class="btn chatBtn" onclick="roomExistCheck(' +
           data[i].DR_IDX +
-          ')">채팅</span>';
+          ')" style="width: 100%;">채팅</span>';
         html +=
           '</form>'
         html += "</div>";
@@ -139,7 +159,7 @@ function waitingRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
+          ')" class="btn btnbtn rsvsbtn">경로보기</button>\t';
         html +=
           '<button id="PUT" onclick="cancelWaitingRgs(' +
           data[i].DR_IDX +
@@ -204,7 +224,7 @@ function pastRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
+          ')" class="btn btnbtn rsvsbtn">경로보기</button>\t';
         html += "</div>";
       }
       $("#pastRgsList").html(html);
@@ -300,10 +320,10 @@ function completedRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
+          ')" class="btn btnbtn rsvsbtn">경로보기</button>\t';
         if (data[i].dReview === false) {
           html +=
-            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btn-primary rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
+            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btnbtn rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
         }
         html += "</div>";
       }
@@ -356,7 +376,7 @@ function canceledRgsList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn">경로보기</button>\t';
+          ')" class="btn btnbtn rsvsbtn">경로보기</button>\t';
         html += "</div>";
       }
       $("#canceledRgsList").html(html);
@@ -368,7 +388,7 @@ function canceledRgsList() {
 function cancelReservatedRgs(drIdx, pIdx) {
   Swal.fire({
     title: "등록을 취소하시겠습니까?",
-    text: "픽업가능 출발시간으로부터 24시간미만이면 1회 경고가 누적되며 5회 이상 누적시 서비스이용이 정지됩니다. 신중히 선택바랍니다.",
+    text: "픽업가능 출발시간으로부터 24시간미만이면 1회 경고가 누적되며 3회 이상 누적시 서비스이용이 정지됩니다. 신중히 선택바랍니다.",
     icon: "warning",
 
     showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음

@@ -15,8 +15,24 @@ $("#reviewModal").on("hide.bs.modal", function () {
   $(this).find(".modal-body form")[0].reset();
 });
 
+$("#currentRsvListBtn, .currentRsvImg").click(() => {
+  currentRsvList();
+})
+
+$("#pastRsvListBtn, .pastRsvImg").click(() => {
+  pastRsvList();
+})
+
+$("#completedRsvListBtn, .completedRsvImg").click(() => {
+  completedRsvList();
+})
+
+$("#canceledRsvListBtn, .canceledRsvImg").click(() => {
+  canceledRsvList();
+})
+
 function currentRsvList() {
-  $("#currentRsvList").css("display", "block");
+  $("#currentRsvList").css("display", "flex");
   $("#pastRsvList").css("display", "none");
   $("#completedRsvList").css("display", "none");
   $("#canceledRsvList").css("display", "none");
@@ -71,12 +87,12 @@ function currentRsvList() {
           '<button id="PUT" onclick="cancelRsv(' +
           data[i].DR_IDX +
           ')" class="btn btnbtn">카풀취소</button>\t';
-        html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
+        html += `<a href="${ data[i].receiptUrl }"><button class="btn btnbtn">결제내역</button></a>\t`;
         //		Chatting Room 생성 
         html +=
           '<form action="/chatting/room/ps" method="post" id="formId' +
           data[i].R_IDX +
-          '">';
+          '" style="width: 100%; margin-top:10px;">';
         html +=
           '<input type="hidden" name="dIdx" value="' +
           data[i].D_IDX +
@@ -91,9 +107,9 @@ function currentRsvList() {
           "번 방" +
           '"></input>'
         html +=
-          '<span class="btn btn-primary" onclick="roomExistCheck(' +
+          '<span class="btn chatBtn" onclick="roomExistCheck(' +
           data[i].R_IDX +
-          ')">채팅</span>';
+          ')" style="width: 100%;">채팅</span>';
         html +=
           '</form>'
         html += "</div>";
@@ -105,7 +121,7 @@ function currentRsvList() {
 
 function pastRsvList() {
   $("#currentRsvList").css("display", "none");
-  $("#pastRsvList").css("display", "block");
+  $("#pastRsvList").css("display", "flex");
   $("#completedRsvList").css("display", "none");
   $("#canceledRsvList").css("display", "none");
 
@@ -154,7 +170,7 @@ function pastRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
+        html += `<a href="${ data[i].receiptUrl }"><button class="btn btnbtn">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#pastRsvList").html(html);
@@ -207,7 +223,7 @@ function reviewSubmit() {
 function completedRsvList() {
   $("#currentRsvList").css("display", "none");
   $("#pastRsvList").css("display", "none");
-  $("#completedRsvList").css("display", "block");
+  $("#completedRsvList").css("display", "flex");
   $("#canceledRsvList").css("display", "none");
 
   $.ajax({
@@ -258,11 +274,11 @@ function completedRsvList() {
           data[i].D_END_LON +
           ", " +
           data[i].D_END_LAT +
-          ')" class="btn btn-primary rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${ data[i].receiptUrl }"><button class="btn btn-primary">결제내역</button></a>\t`;
+          ')" class="btn btnbtn rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
+        html += `<a href="${ data[i].receiptUrl }"><button class="btn btnbtn">결제내역</button></a>\t`;
         if (data[i].pReview === false) {
           html +=
-            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btn-primary rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
+            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btnbtn rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
         }
         html += "</div>";
       }
@@ -275,7 +291,7 @@ function canceledRsvList() {
   $("#currentRsvList").css("display", "none");
   $("#pastRsvList").css("display", "none");
   $("#completedRsvList").css("display", "none");
-  $("#canceledRsvList").css("display", "block");
+  $("#canceledRsvList").css("display", "flex");
 
   $.ajax({
     url: "/passenger/passengerCarpool/list/cancelRsvList",
@@ -324,7 +340,7 @@ function canceledRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${ data[i].cancelReceiptUrl }"><button class="btn btn-primary">결제취소내역</button></a>\t`;
+        html += `<a href="${ data[i].cancelReceiptUrl }"><button class="btn btnbtn">결제취소내역</button></a>\t`;
         html += "</div>";
       }
       $("#canceledRsvList").html(html);
@@ -336,7 +352,7 @@ function canceledRsvList() {
 function cancelRsv(dr_idx) {
   Swal.fire({
     title: "예약을 취소하시겠습니까?",
-    text: "픽업가능 출발시간으로부터 24시간, 12시간, 6시간미만이면 취소수수료가 있습니다.(24시간미만->20%, 12시간미만->25%, 6시간미만->30%) 신중히 선택바랍니다.",
+    text: "픽업가능 출발시간으로부터 24시간, 12시간, 6시간미만이면 취소수수료가 있습니다. 신중히 선택바랍니다. (24시간미만->20%, 12시간미만->25%, 6시간미만->30%)",
     icon: "warning",
 
     showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
