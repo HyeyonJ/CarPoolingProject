@@ -12,7 +12,7 @@ function editReview(rIdx) {
         success: function (data, status) {
           if (status === "success") {
             console.log("완료");
-            // $('#divReloadLayer').load(location.href + ' #divReloadLayer');
+            window.location.reload();
           }
         },
       });

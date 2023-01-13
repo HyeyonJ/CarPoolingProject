@@ -69,6 +69,8 @@ public class PsgKaKaoLoginController {
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_PASSENGER, passenger);
+		session.setAttribute(SessionVar.LOGIN_ID, passenger.getPIdx());
+		session.setAttribute(SessionVar.LOGIN_NAME, passenger.getPUserName());
 		
 		return "redirect:" + redirectURL;
     }

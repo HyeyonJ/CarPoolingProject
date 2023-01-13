@@ -78,6 +78,8 @@ public class DrvKaKaoLoginController {
 		
 		HttpSession session = req.getSession();
 		session.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo2);
+		session.setAttribute(SessionVar.LOGIN_ID, driverInfo2.getDIdx());
+		session.setAttribute(SessionVar.LOGIN_NAME, driverInfo2.getDUserName());
 //		session.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;

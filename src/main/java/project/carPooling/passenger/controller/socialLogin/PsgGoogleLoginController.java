@@ -47,6 +47,8 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 			
 			HttpSession session = req.getSession();
 			session.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo);
+			session.setAttribute(SessionVar.LOGIN_ID, passengerInfo.getPIdx());
+			session.setAttribute(SessionVar.LOGIN_NAME, passengerInfo.getPUserName());
 
 			return "redirect:/passenger/passengerCarpool/reservation";
 		}

@@ -26,6 +26,7 @@ public class DrDrvingController {
 	
 	@GetMapping("/driverCarpool/drivingPage")
 	public String driving(Model model, @RequestParam Integer drIdx) {
+		System.out.println("안들어옴");
 		DReview dReview = new DReview();
 		model.addAttribute("drIdx", drIdx);
 		model.addAttribute("dReview", dReview);
@@ -41,8 +42,10 @@ public class DrDrvingController {
 		return map;
 	}
 	
+	@ResponseBody
 	@PutMapping("/driverCarpool/drivingPage")
 	public void updateDrivingRegistration(@RequestParam Integer drIdx) {
+		System.out.println("들어옴");
 		drivingRepository.updateDrivingRegistration(drIdx);
 	}
 	

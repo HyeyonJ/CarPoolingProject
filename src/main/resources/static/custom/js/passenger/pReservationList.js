@@ -41,6 +41,7 @@ function currentRsvList() {
     url: "/passenger/passengerCarpool/list/currentRsvList",
     type: "GET",
     success: function (data) {
+      console.log(data);
       var html = "";
       for (var i = 0; i < data.length; i++) {
         var dDate = data[i].D_DATE.substring(0, 10);

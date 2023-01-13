@@ -94,9 +94,9 @@
               - <span th:text="${myReview.nickname}"></span>
               <div style="text-align: center;">
                 <button class="btn" style="background-color:  rgb(212, 206, 223);"
-                  th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
-                <button class="btn" style="background-color:  rgb(212, 206, 223);"
                   th:onclick="editReview([[${myReview.rIdx}]])">리뷰수정</button>
+                <button class="btn" style="background-color:  rgb(212, 206, 223);"
+                  th:onclick="deleteReview([[${myReview.rIdx}]])">리뷰삭제</button>
               </div>
             </div>
           </div>

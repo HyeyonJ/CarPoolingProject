@@ -43,7 +43,7 @@ public class PaymentController {
 
     }
 
-	@PostMapping("/cancel/complete")
+	@PostMapping("/cancel/completed")
 	public void completeCancelPay(@ModelAttribute PaymentData cancelData) {
 		log.info("cancelData : {}", cancelData);
 		

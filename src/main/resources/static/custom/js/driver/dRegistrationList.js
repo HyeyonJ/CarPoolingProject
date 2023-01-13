@@ -87,7 +87,7 @@ function reservatedRgsList() {
         html +=
           '<form action="/chatting/room/dr" method="post" id="formId' +
           data[i].DR_IDX +
-          '" style="width: 100%; margin-top:10px;>';
+          '" style="width: 100%; margin-top:10px;">';
         html +=
           '<input type="hidden" name="pIdx" value="' +
           data[i].P_IDX +
@@ -436,6 +436,7 @@ function cancelReservatedRgs(drIdx, pIdx) {
               .done(function (data, status) {
                 const cancelResData = data;
                 cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
+                console.log(cancelResData);
                 $.ajax({
                   url: "/carpoolingPay/cancel/completed",
                   type: "POST",

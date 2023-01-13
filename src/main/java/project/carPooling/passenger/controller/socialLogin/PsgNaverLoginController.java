@@ -150,6 +150,8 @@ public class PsgNaverLoginController {
 		
 		HttpSession session1 = req.getSession();
 		session1.setAttribute(SessionVar.LOGIN_PASSENGER, passengerInfo2);
+		session.setAttribute(SessionVar.LOGIN_ID, passengerInfo2.getPIdx());
+		session.setAttribute(SessionVar.LOGIN_NAME, passengerInfo2.getPUserName());
 //		session1.setMaxInactiveInterval(540);
 		
 		return "redirect:" + redirectURL;

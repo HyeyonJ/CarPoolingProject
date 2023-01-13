@@ -40,11 +40,13 @@ public class DrReviewController {
 		driverReviewRepository.insert(dReview);
 	}
 	
+	@ResponseBody
 	@PutMapping("/driverCarpool/review/edit")
 	public void editReview(@RequestParam Integer rIdx, @RequestParam String content) {
 		driverReviewRepository.updateReview(rIdx, content);
 	}
 	
+	@ResponseBody
 	@DeleteMapping("/driverCarpool/review/delete")
 	public void deleteReview(@RequestParam Integer rIdx) {
 		driverReviewRepository.deleteReview(rIdx);

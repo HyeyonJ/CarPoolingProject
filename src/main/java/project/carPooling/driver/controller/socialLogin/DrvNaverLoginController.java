@@ -132,6 +132,8 @@ public class DrvNaverLoginController {
 		
 		HttpSession session1 = req.getSession();
 		session1.setAttribute(SessionVar.LOGIN_DRIVER, driverInfo);
+		session.setAttribute(SessionVar.LOGIN_ID, driverInfo.getDIdx());
+		session.setAttribute(SessionVar.LOGIN_NAME, driverInfo.getDUserName());
 		
 		return "redirect:" + redirectURL;
 	}
