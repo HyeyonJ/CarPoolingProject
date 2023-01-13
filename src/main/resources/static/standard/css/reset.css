@@ -72,7 +72,7 @@ footer {
 }
 
 .info {
-	margin:0;
+	margin:0 15px;
 }
 
 .info div {
@@ -99,7 +99,8 @@ footer {
 }
 
 .info p {
-	font-size: 13px;
+	font-size: 14px;
+    text-align: left;
 }
 
 .infoP {
