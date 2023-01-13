@@ -1,4 +1,4 @@
-package project.carPooling.passenger.controller;
+package project.carPooling.passenger.controller.userInfo;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import project.carPooling.passenger.repository.PassengerReviewRepository;
 @RequiredArgsConstructor
 @RequestMapping("/passenger")
 @Controller
-public class PsMyPage {
+public class PsMyPageController {
 	
 	private final PassengerReviewRepository passengerReviewRepository;
 	private final SessionManager sessionManager;

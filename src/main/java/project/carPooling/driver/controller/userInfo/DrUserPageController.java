@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller;
+package project.carPooling.driver.controller.userInfo;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import project.carPooling.passenger.repository.PassengerInfoRepository;
 @RequiredArgsConstructor
 @RequestMapping("/driver")
 @Controller
-public class DrUserPage {
+public class DrUserPageController {
 
 	private final PassengerInfoRepository passengerInfoRepository;
 	private final DriverReviewRepository driverReviewRepository;

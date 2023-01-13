@@ -1,4 +1,4 @@
-package project.carPooling.driver.controller;
+package project.carPooling.driver.controller.userInfo;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import project.carPooling.passenger.domain.PReview;
 @RequiredArgsConstructor
 @RequestMapping("/driver")
 @Controller
-public class DrMyPage {
+public class DrMyPageController {
 	
 	private final DriverReviewRepository driverReviewRepository;
 	private final SessionManager sessionManager;
