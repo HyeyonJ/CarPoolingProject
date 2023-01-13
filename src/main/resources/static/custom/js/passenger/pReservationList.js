@@ -718,7 +718,7 @@ function roomExistCheck(thisRIdx) {
     success: function (data) {
       //			console.log(data);
       var result = 0;
-      for (var i = 1; i <= data.length; i++) {
+      for (var i = 0; i < data.length; i++) {
         if (data[i].rIdx == thisRIdx) {
           result++;
         }
