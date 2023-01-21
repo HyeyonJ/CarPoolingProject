@@ -8,9 +8,6 @@ body {
   justify-content: space-around;
 }
 
-#pr_section {
-}
-
 .btn {
   color: #fcf8ec;
   background-color: rgb(212, 206, 223);
@@ -107,17 +104,6 @@ body {
 .form-field {
   width: 400px;
 }
-
-/* 경로확인 카풀검색 btn */
-/* .rsbbtn {
-  display: inline-block !important;
-  height: 50px;
-} */
-
-/* .rsvsbtn {
-  display: inline-block !important;
-  height: 40px;
-} */
 
 .modal-body {
   text-align: left;

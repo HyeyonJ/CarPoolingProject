@@ -15,12 +15,10 @@ import project.carPooling.chatting.entity.ChatRoomEntity;
 import project.carPooling.chatting.repository.ChatRepository;
 import project.carPooling.chatting.repository.ChatRoomRepository;
 
-
-
 @Service
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService{
-    private final ChatRoomRepository crr;
+	private final ChatRoomRepository crr;
     private final ChatRepository cr;
 
     //채팅방 전체 리스트 확인 

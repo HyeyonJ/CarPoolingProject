@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="project.carPooling.passenger.mapper.RidingMapper">
 	<select id="selectDrivingStatus" resultType="Integer">
 		SELECT dr.dr_idx
-		FROM D_REGISTRATION dr, RESERVATION r
-		WHERE r.p_idx = #{pIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'driving'
+		FROM D_REGISTRATION dr, (SELECT * FROM RESERVATION WHERE r_cancel_status = 'uncanceled' AND p_idx = #{pIdx}) r
+		WHERE dr.dr_idx = r.dr_idx 
+		AND dr.d_reservation_status = 'driving'
 	</select>
 	
 	<select id="selectDRegistrationByDrIdx" resultType="DRegistration">

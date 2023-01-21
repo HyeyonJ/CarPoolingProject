@@ -4,10 +4,12 @@ setInterval(function () {
     type: "GET",
     success: function (data, status) {
       if (data !== "") {
-        window.location.href = "http://localhost:8080/passenger/passengerCarpool/ridingPage?drIdx=" + data;
+        window.location.href =
+          "http://localhost:8080/passenger/passengerCarpool/ridingPage?drIdx=" +
+          data;
       }
-    }
-  })
+    },
+  });
 }, 1000);
 
 // 부트스트랩 모달창 닫을 시 입력값 초기화
@@ -17,19 +19,19 @@ $("#reviewModal").on("hide.bs.modal", function () {
 
 $("#currentRsvListBtn, .currentRsvImg").click(() => {
   currentRsvList();
-})
+});
 
 $("#pastRsvListBtn, .pastRsvImg").click(() => {
   pastRsvList();
-})
+});
 
 $("#completedRsvListBtn, .completedRsvImg").click(() => {
   completedRsvList();
-})
+});
 
 $("#canceledRsvListBtn, .canceledRsvImg").click(() => {
   canceledRsvList();
-})
+});
 
 function currentRsvList() {
   $("#currentRsvList").css("display", "flex");
@@ -48,29 +50,20 @@ function currentRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
-        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span>운전자</span>\t' +
-          data[i].D_USER_NAME +
-          "<br>\n";
+          '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
+        html += "<span>운전자</span>\t" + data[i].D_USER_NAME + "<br>\n";
         html +=
-          '<span>카풀일시</span>\t' +
+          "<span>카풀일시</span>\t" +
           dDate +
           "\t" +
           data[i].D_START_TIME +
           "\t -\t " +
           data[i].D_END_TIME +
           "<br>\n";
-        html +=
-          '<span>출발지</span>\t' +
-          data[i].D_START_POINT +
-          "<br>\n";
-        html +=
-          '<span>도착지</span>\t' +
-          data[i].D_END_POINT +
-          "<br>\n";
-        html +=
-          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+        html += "<span>출발지</span>\t" + data[i].D_START_POINT + "<br>\n";
+        html += "<span>도착지</span>\t" + data[i].D_END_POINT + "<br>\n";
+        html += "<span>요금</span>\t" + data[i].D_FEE + "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
@@ -88,8 +81,8 @@ function currentRsvList() {
           '<button id="PUT" onclick="cancelRsv(' +
           data[i].DR_IDX +
           ')" class="btn btnbtn">카풀취소</button>\t';
-        html += `<a href="${ data[i].receiptUrl }"><button class="btn btnbtn">결제내역</button></a>\t`;
-        //		Chatting Room 생성 
+        html += `<a href="${data[i].receiptUrl}"><button class="btn btnbtn">결제내역</button></a>\t`;
+        //		Chatting Room 생성
         html +=
           '<form action="/chatting/room/ps" method="post" id="formId' +
           data[i].R_IDX +
@@ -97,22 +90,21 @@ function currentRsvList() {
         html +=
           '<input type="hidden" name="dIdx" value="' +
           data[i].D_IDX +
-          '"></input>'
+          '"></input>';
         html +=
           '<input type="hidden" name="rIdx" value="' +
           data[i].R_IDX +
-          '"></input>'
+          '"></input>';
         html +=
           '<input type="hidden" name="name" value="' +
           data[i].R_IDX +
           "번 방" +
-          '"></input>'
+          '"></input>';
         html +=
           '<span class="btn chatBtn" onclick="roomExistCheck(' +
           data[i].R_IDX +
           ')" style="width: 100%;">채팅</span>';
-        html +=
-          '</form>'
+        html += "</form>";
         html += "</div>";
       }
       $("#currentRsvList").html(html);
@@ -137,29 +129,20 @@ function pastRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
-        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span>운전자</span>\t' +
-          data[i].D_USER_NAME +
-          "<br>\n";
+          '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
+        html += "<span>운전자</span>\t" + data[i].D_USER_NAME + "<br>\n";
         html +=
-          '<span>카풀일시</span>\t' +
+          "<span>카풀일시</span>\t" +
           dDate +
           "\t" +
           data[i].D_START_TIME +
           "\t -\t " +
           data[i].D_END_TIME +
           "<br>\n";
-        html +=
-          '<span>출발지</span>\t' +
-          data[i].D_START_POINT +
-          "<br>\n";
-        html +=
-          '<span>도착지</span>\t' +
-          data[i].D_END_POINT +
-          "<br>\n";
-        html +=
-          '<span>요금</span>\t' + data[i].D_FEE + "원 <br>\n";
+        html += "<span>출발지</span>\t" + data[i].D_START_POINT + "<br>\n";
+        html += "<span>도착지</span>\t" + data[i].D_END_POINT + "<br>\n";
+        html += "<span>요금</span>\t" + data[i].D_FEE + "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
@@ -171,7 +154,7 @@ function pastRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${ data[i].receiptUrl }"><button class="btn btnbtn">결제내역</button></a>\t`;
+        html += `<a href="${data[i].receiptUrl}"><button class="btn btnbtn">결제내역</button></a>\t`;
         html += "</div>";
       }
       $("#pastRsvList").html(html);
@@ -190,7 +173,14 @@ $(function () {
   });
 });
 
-var nameList = new Array('어피치', '초롱초롱', '튜브', '프로도', '라이언', '프로도');
+var nameList = new Array(
+  "어피치",
+  "초롱초롱",
+  "튜브",
+  "프로도",
+  "라이언",
+  "프로도"
+);
 
 function randomName(nameList) {
   return nameList[Math.floor(Math.random() * nameList.length)];
@@ -220,7 +210,6 @@ function reviewSubmit() {
   });
 }
 
-
 function completedRsvList() {
   $("#currentRsvList").css("display", "none");
   $("#pastRsvList").css("display", "none");
@@ -240,31 +229,20 @@ function completedRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
-        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span>운전자</span>\t' +
-          data[i].D_USER_NAME +
-          "<br>\n";
+          '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
+        html += "<span>운전자</span>\t" + data[i].D_USER_NAME + "<br>\n";
         html +=
-          '<span>카풀일시</span>\t' +
+          "<span>카풀일시</span>\t" +
           dDate +
           "\t" +
           data[i].D_START_TIME +
           "\t -\t " +
           data[i].D_END_TIME +
           "<br>\n";
-        html +=
-          '<span>출발지</span>\t' +
-          data[i].D_START_POINT +
-          "<br>\n";
-        html +=
-          '<span>도착지</span>\t' +
-          data[i].D_END_POINT +
-          "<br>\n";
-        html +=
-          '<span>요금</span>\t' +
-          data[i].D_FEE +
-          "원 <br>\n";
+        html += "<span>출발지</span>\t" + data[i].D_START_POINT + "<br>\n";
+        html += "<span>도착지</span>\t" + data[i].D_END_POINT + "<br>\n";
+        html += "<span>요금</span>\t" + data[i].D_FEE + "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
@@ -276,10 +254,14 @@ function completedRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btnbtn rsvsbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${ data[i].receiptUrl }"><button class="btn btnbtn">결제내역</button></a>\t`;
+        html += `<a href="${data[i].receiptUrl}"><button class="btn btnbtn">결제내역</button></a>\t`;
         if (data[i].pReview === false) {
           html +=
-            '<button onclick="getRIdxAndPIdx(' + rIdx + ',' + pIdx + ')" class="btn btnbtn rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
+            '<button onclick="getRIdxAndPIdx(' +
+            rIdx +
+            "," +
+            pIdx +
+            ')" class="btn btnbtn rsvsbtn" data-bs-toggle="modal" data-bs-target="#review">후기작성</button>\t';
         }
         html += "</div>";
       }
@@ -305,31 +287,20 @@ function canceledRsvList() {
         var rDate = data[i].R_DATE.substring(0, 10);
 
         html += '<div class="rsv">\n';
-        html += '<span class="CommuteSPAN">' + data[i].D_COMMUTE + '</span><br>\n';
         html +=
-          '<span>운전자</span>\t' +
-          data[i].D_USER_NAME +
-          "<br>\n";
+          '<span class="CommuteSPAN">' + data[i].D_COMMUTE + "</span><br>\n";
+        html += "<span>운전자</span>\t" + data[i].D_USER_NAME + "<br>\n";
         html +=
-          '<span>카풀일시</span>\t' +
+          "<span>카풀일시</span>\t" +
           dDate +
           "\t" +
           data[i].D_START_TIME +
           "\t -\t " +
           data[i].D_END_TIME +
           "<br>\n";
-        html +=
-          '<span>출발지</span>\t' +
-          data[i].D_START_POINT +
-          "<br>\n";
-        html +=
-          '<span>도착지</span>\t' +
-          data[i].D_END_POINT +
-          "<br>\n";
-        html +=
-          '<span>요금</span>\t' +
-          data[i].cancelAmount +
-          "원 <br>\n";
+        html += "<span>출발지</span>\t" + data[i].D_START_POINT + "<br>\n";
+        html += "<span>도착지</span>\t" + data[i].D_END_POINT + "<br>\n";
+        html += "<span>요금</span>\t" + data[i].cancelAmount + "원 <br>\n";
         html += '<span id="frdate">예약일자 ' + rDate + "</span><br>\n";
         html +=
           '<button id="view" onclick="viewRoute(' +
@@ -341,7 +312,7 @@ function canceledRsvList() {
           ", " +
           data[i].D_END_LAT +
           ')" class="btn btnbtn" data-toggle="modal" data-target="#viewModal">경로보기</button>\t';
-        html += `<a href="${ data[i].cancelReceiptUrl }"><button class="btn btnbtn">결제취소내역</button></a>\t`;
+        html += `<a href="${data[i].cancelReceiptUrl}"><button class="btn btnbtn">결제취소내역</button></a>\t`;
         html += "</div>";
       }
       $("#canceledRsvList").html(html);
@@ -402,7 +373,7 @@ function cancelRsv(dr_idx) {
                 const cancelResData = data;
                 cancelData.receiptUrl = data.response.cancel_receipt_urls[0];
                 $.ajax({
-                  url: "/carpoolingPay/cancel/complete",
+                  url: "/carpoolingPay/cancel/completed",
                   type: "POST",
                   data: cancelData,
                 }).done(function (data, status) {
@@ -424,7 +395,7 @@ function cancelRsv(dr_idx) {
                     Swal.fire(
                       "예약취소성공!",
                       "카풀 예약이 취소되었습니다.\n취소수수료를 제외한 선결제 금액이 즉시 반환됩니다.\n취소수수료-픽업가능출발시간으로부터\n(24시간미만->20%, 12시간미만->25%, 6시간미만->30%)\n" +
-                      "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
+                        "자세한 사항은 결제취소내역에서 확인할 수 있습니다.",
                       "success"
                     ).then((OK) => {
                       if (OK) {
@@ -445,7 +416,11 @@ function cancelRsv(dr_idx) {
 }
 
 function waitingBoarding() {
-  Swal.fire("조금만 기다려주세요!", "운전자가 운행 시작 버튼을 누르면 자동으로 운행이 시작됩니다.", "info");
+  Swal.fire(
+    "조금만 기다려주세요!",
+    "운전자가 운행 시작 버튼을 누르면 자동으로 운행이 시작됩니다.",
+    "info"
+  );
 }
 
 var count = 0;
@@ -661,13 +636,13 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
     error: function (request, status, error) {
       console.log(
         "code:" +
-        request.status +
-        "\n" +
-        "message:" +
-        request.responseText +
-        "\n" +
-        "error:" +
-        error
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
       );
     },
   });
@@ -711,11 +686,10 @@ function viewRoute(d_startlon, d_startlat, d_endlon, d_endlat) {
   });
 }
 
-
 function roomExistCheck(thisRIdx) {
   $.ajax({
-    type: 'GET',
-    url: '/chatting/getChattingList',
+    type: "GET",
+    url: "/chatting/getChattingList",
     success: function (data) {
       //			console.log(data);
       var result = 0;
@@ -727,9 +701,8 @@ function roomExistCheck(thisRIdx) {
       if (result == 0) {
         $("#formId" + thisRIdx).submit();
       } else {
-        alert('이미 채팅방이 존재합니다. 카풀톡을 확인해 주세요.');
+        alert("이미 채팅방이 존재합니다. 카풀톡을 확인해 주세요.");
       }
-    }
-  })
-};
-
+    },
+  });
+}
