@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutDriver}">
+
+<head>
+  <title>reservationList</title>
+  <link rel="stylesheet" href="/custom/css/driver/dRegistrationList.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="/standard/css/fontawesome-stars.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
+  <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b54bdec824142b3b3887c3917595b73"></script>
+  <style>
+    #prSection {
+      margin-top: 100px;
+    }
+
+    /* 팝업 배경 css*/
+    #popup_mask {
+      position: fixed;
+      width: 100%;
+      height: 1000px;
+      top: 0px;
+      left: 0px;
+      display: none;
+      background-color: rgb(0, 0, 0);
+      -moz-opacity: 0.8;
+      filter: alpha(opacity=80);
+      opacity: 0.8;
+    }
+
+    /*팝업창 css*/
+    #popupDiv {
+      top: 0px;
+      position: fixed;
+      background: white;
+      width: 500px;
+      height: 550px;
+      display: none;
+      padding-left: 10px;
+      z-index: 1000;
+    }
+
+    #popCloseBtn {
+      margin-left: 330px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+</head>
+
+<div layout:fragment="content">
+  <section id="drListSection">
+    <div class="container">
+
+      <div class="d-flex justify-content-center" style="margin-top:50px;">
+        <span class="title">나의 카풀</span>
+      </div>
+
+      <div>
+        <div>
+          <div class="section-fluid-main">
+            <div class="section-row">
+              <div class="section-col">
+                <div class="section">
+                  <div class="section-in">
+                    <img src="https://i.pinimg.com/564x/fe/71/49/fe7149761e7823503f5d0c9c0d3d32fa.jpg" alt=""
+                      class="reservatedRgsImg" onclick="$('html, body').stop().animate( { scrollTop : '1200' } );">
+                  </div>
+                </div>
+              </div>
+              <div class="hover-text">
+                <h2>예약된 카풀</h2>
+              </div>
+              <div class="section-col">
+                <div class="section">
+                  <div class="section-in">
+                    <img src="/img/road2.jpg" alt="" class="waitingRgsImg"
+                      onclick="$('html, body').stop().animate( { scrollTop : '1200' } ); ">
+                  </div>
+                </div>
+              </div>
+              <div class="hover-text">
+                <h2>대기중인 카풀</h2>
+              </div>
+              <div class="section-col">
+                <div class="section">
+                  <div class="section-in">
+                    <!-- 				          여기 -->
+                    <img src="https://assets.codepen.io/1462889/sl6.jpg" alt="" class="pastRgsImg"
+                      onclick="$('html, body').stop().animate( { scrollTop : '800' } ); ">
+                  </div>
+                </div>
+              </div>
+              <div class="hover-text">
+                <h2>과거카풀</h2>
+              </div>
+              <div class="section-col">
+                <div class="section">
+                  <div class="section-in">
+                    <img src="https://i.pinimg.com/564x/8c/c2/f3/8cc2f39cd71eba0c10d0a3fabc6aa953.jpg" alt=""
+                      class="completedRgsImg" onclick="$('html, body').stop().animate( { scrollTop : '800' } ); ">
+                  </div>
+                </div>
+              </div>
+              <div class="hover-text">
+                <h2>완료된카풀</h2>
+              </div>
+
+              <!-- 				    <a href="https://front.codes/" class="logo" target="_blank"> -->
+              <!-- 				      <img src="https://assets.codepen.io/1462889/fcy.png" alt=""> -->
+              <!-- 				    </a>   -->
+            </div>
+
+            <div class="btn-field" style="background-color:  rgb(212, 206, 223); margin-top:50px;">
+              <button id="reservatedRgsListBtn" onclick="reservatedRgsList();" class="btn">예약된카풀</button>
+              <button id="waitingRgsListBtn" onclick="waitingRgsList();" class="btn">대기중인카풀</button>
+              <button id="pastRgsListBtn" onclick="pastRgsList();" class="btn">과거카풀</button>
+              <button id="completedRgsListBtn" onclick="completedRgsList();" class="btn">완료된카풀</button>
+              <button id="canceledRgsListBtn" onclick="canceledRgsList();" class="btn">취소된카풀</button>
+            </div>
+
+            <div>
+              <div id="reservatedRgsList" class="listlist"></div>
+              <div id="waitingRgsList" class="listlist"></div>
+              <div id="pastRgsList" class="listlist"></div>
+              <div id="completedRgsList" class="listlist"></div>
+              <div id="canceledRgsList" class="listlist"></div>
+            </div>
+
+            <div id="popup_mask"></div>
+            <!-- 팝업 배경 DIV -->
+
+            <div id="popupDiv">
+              <!-- 팝업창 -->
+              <button id="popCloseBtn" class="btn btn-primary">닫기</button>
+              <div id="map_div"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 리뷰 작성 모달 -->
+    <div class="modal fade" id="review" tabindex="-1" aria-labelledby="reviewLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="reviewLabel">리뷰를 작성해주세요.</h1>
+            <input type="hidden" id="rIdx">
+            <input type="hidden" id="pIdx">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-center" id="starPoint">
+              <select id="starRate">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="nickname">작성자</label>
+              <input type="text" class="form-control" id="nickname" aria-describedby=" emailHelp" readonly>
+              <small id="textHelp" class="form-text text-muted">솔직한 후기를 위해 작성자의 이름은 임의의 닉네임으로 표시 됩니다.</small>
+            </div>
+            <div class="form-group">
+              <label for="comment">내용</label>
+              <input type="text" class="form-control" id="content" aria-describedby="emailHelp"
+                placeholder="리뷰 내용을 작성해주세요." value="">
+            </div>
+
+            <button type="button" onclick="reviewSubmit()"
+              class="btn btn-primary btn-block text-center btn-submit">후기등록</button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<th:block layout:fragment="js">
+  <script src="/custom/js/driver/dRegistrationList.js"></script>
+</th:block>
+
+</html>

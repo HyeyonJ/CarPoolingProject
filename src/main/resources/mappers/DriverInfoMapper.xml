@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.carPooling.driver.mapper.DriverInfoMapper">
+
+  <insert id="insert" parameterType="DriverInfo">
+    <selectKey keyProperty="dUserId" resultType="String" order="BEFORE">
+      SELECT (CASE WHEN #{dUserType} like 'KAKAO' 
+      						THEN 'k@dr'||TO_CHAR(SYSDATE, 'YYMMDD')||D_SOCIAL_ID_SEQ.nextVal
+     			   WHEN #{dUserType} like 'NAVER' 
+     			   			THEN 'n@dr'||TO_CHAR(SYSDATE, 'YYMMDD')||D_SOCIAL_ID_SEQ.nextVal
+      			   WHEN #{dUserType} like 'GOOGLE' 
+      			   			THEN 'g@dr'||TO_CHAR(SYSDATE, 'YYMMDD')||D_SOCIAL_ID_SEQ.nextVal
+      		ELSE #{dUserId} END) as dUserId
+      FROM dual
+    </selectKey>
+    INSERT INTO driver (d_idx, d_user_type, d_user_id, d_user_pw, d_user_name, d_user_tel,
+    d_user_email, d_user_gender, d_id_num, d_account_num, d_account_bank, d_license_num,
+    d_license_id_num, d_car_num, 
+    d_point,d_penalty, d_sign_out)
+    VALUES(d_idx_seq.nextVal, #{dUserType}, #{dUserId}, #{dUserPw}, #{dUserName}, #{dUserTel},
+    #{dUserEmail}, #{dUserGender}, #{dIdNum}, #{dAccountNum}, #{dAccountBank}, #{dLicenseNum}, 
+    #{dLicenseIdNum}, #{dCarNum},
+    0, 3,'false')
+  </insert>
+
+  <select id="selectByLoginId" resultType="DriverInfo">
+    SELECT * FROM DRIVER
+    WHERE d_user_id = #{dUserId}
+  </select>
+
+  <!-- 	<insert id="kakaoInsert" parameterType="java.util.HashMap"> -->
+  <!-- 		insert into driver(d_email, d_gender) -->
+  <!-- 			values(#{d_email}, #{d_gender}) -->
+  <!-- 	</insert> -->
+
+	<select id="selectByIdx" resultType="DriverInfo">
+      SELECT * FROM DRIVER
+      WHERE d_idx = #{dIdx}
+    </select>
+
+      <select id="selectByEmail" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_user_email = #{dUserEmail}
+      </select>
+      
+
+      <select id="selectByNameAndEmail" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_user_name = #{dUserName}
+        AND d_user_email = #{dUserEmail}
+      </select>
+
+      <select id="selectByNameAndTel" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_user_name = #{dUserName}
+        AND d_user_tel = #{dUserTel}
+      </select>
+
+      <!-- public List<DriverInfo> selectAll(); -->
+
+      <!-- public void deleteAll(); -->
+
+      <!-- public DriverInfo update(DriverInfo driver); -->
+
+      <select id="selectByLicenseNum" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_license_num = #{dLicenseNum}
+      </select>
+
+      <select id="selectByCarNum" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_car_num = #{dCarNum}
+      </select>
+      
+<!-- 회원 정보 수정 -->
+	<update id="updateDriverInfo" parameterType="DriverInfo">
+		UPDATE DRIVER
+		SET d_user_pw = #{dUserPw},
+			d_user_name = #{dUserName},
+			d_user_tel = #{dUserTel},
+			d_license_num = #{dLicenseNum},
+			d_license_id_num = #{dLicenseIdNum},
+			d_car_num = #{dCarNum},
+			d_account_num = #{dAccountNum},
+			d_account_bank = #{dAccountBank}
+		WHERE d_user_email = #{dUserEmail}
+	</update>
+	
+<!-- 회원 탈퇴 -->
+<!-- idx, id, email 남기기-->
+	<update id="updateDriverSignOut">
+		UPDATE DRIVER
+		SET d_user_type = null,
+			d_user_pw = null,
+			d_user_name = '탈퇴회원',
+			d_user_tel = null,
+			d_user_gender = null, 
+			d_id_num = null, 
+			d_license_num = null, 
+			d_license_id_num = null, 
+			d_car_num = null, 
+      d_account_num = null, 
+      d_account_bank = null,
+      d_point = null,
+      d_penalty = null, 
+      d_sign_out = 'true'
+    WHERE d_user_email = #{dUserEmail}
+	</update>
+	
+	<select id="selectByIdNum" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_id_num = #{dIdNum}
+    </select>
+    
+    <select id="selectDriverByAccountInfo" resultType="DriverInfo">
+        SELECT * FROM DRIVER
+        WHERE d_account_num = #{dAccountNum}
+        AND d_account_bank = #{dAccountBank}
+    </select>
+
+</mapper>

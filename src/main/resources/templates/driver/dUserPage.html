@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layoutDriver}">
+
+  <head>
+    <title>dUserPage</title>
+    <link rel="stylesheet" href="/standard/css/temperature.css">
+
+    <style>
+      .box {
+        width: 150px;
+        height: 150px;
+        border-radius: 70%;
+        overflow: hidden;
+        margin-left: 100px;
+      }
+
+      .profile {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+
+
+  <div layout:fragment="content" style="margin:50px;">
+    <div class="row">
+      <div class="col-sm-5" style="text-align: center; margin-bottom: 20px;">
+        <div class="box">
+          <img class="profile" src="https://i.pinimg.com/564x/71/20/23/7120230d2db9d4b9dcd84f4d1dd48a10.jpg"></img>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <h3 style="font-weight:bold; margin-top:100px;" class="mypage">
+          <span th:text="${userInfo.pUserName}"></span><span>님의 프로필</span>
+        </h3>
+      </div>
+    </div>
+    <div style="border-bottom: solid 1px silver; margin-left:100px; margin-right:100px; margin-bottom:50px;"></div>
+
+    <table class="table container mypage" style="width:80%;">
+      <tbody>
+        <tr>
+          <th scope="row" style="width:20%">
+            <h5 style="font-weight:bold; margin-top: 20px;">매너온도</h5>
+          </th>
+          <td>
+            <div>
+              <div style="position: relative; right: -82%; width: 50px;">
+                <span class="text-color-03" th:text="${userInfo.pTemperature}"></span>°C
+              </div>
+            </div>
+            <div class="meters">
+              <div class="bar"></div>
+              <div class="face"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container" style="width: 80%; margin-top: 70px;">
+      <h4 style="font-weight:bold;">"다른사람이 작성한리뷰"</h4>
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div th:each="userReview : ${userReviewList}" style="margin-top: 30px; width: 45%;">
+          <div class="card">
+            <div class="card-header">
+              <span>★별점</span>
+              <span th:text="${userReview.starPoint}"></span>
+            </div>
+            <div class="card-body">
+              <div th:text="${userReview.content}"></div>
+              - <span th:text="${userReview.nickname}"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="js">
+    <script>
+      var userTemperature = "[[${userInfo.pTemperature}]]";
+      $(".bar").css("width", `${ userTemperature }%`);
+      userTemperature = parseFloat(userTemperature);
+
+      if (userTemperature > 0 && userTemperature <= 12.5) {
+        $(".bar").addClass("bar-color-01");
+        $(".face").addClass("face-01");
+      } else if (userTemperature > 12.5 && userTemperature <= 30) {
+        $(".bar").addClass("bar-color-02");
+        $(".face").addClass("face-02");
+      } else if (userTemperature > 30 && userTemperature <= 36.5) {
+        $(".bar").addClass("bar-color-03");
+        $(".face").addClass("face-03");
+      } else if (userTemperature > 36.5 && userTemperature <= 50.5) {
+        $(".bar").addClass("bar-color-04");
+        $(".face").addClass("face-04");
+      } else if (userTemperature > 50.5 && userTemperature <= 65.5) {
+        $(".bar").addClass("bar-color-05");
+        $(".face").addClass("face-05");
+      } else if (userTemperature > 65.5) {
+        $(".bar").addClass("bar-color-06");
+        $(".face").addClass("face-06");
+      }
+    </script>
+  </th:block>
+
+</html>

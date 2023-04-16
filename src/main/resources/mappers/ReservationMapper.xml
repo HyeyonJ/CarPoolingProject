@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<mapper namespace="project.carPooling.passenger.mapper.ReservationMapper">
+	<insert id="insert">
+		INSERT INTO RESERVATION (r_idx, p_idx, dr_idx, r_date)
+		VALUES(R_IDX_SEQ.nextval, #{pIdx}, #{drIdx}, sysdate)
+	</insert>
+
+	<select id="selectCarpoolByGender" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A')
+		and d_cancel_status = 'uncanceled'
+		and d_idx = #{dIdx} 
+		and to_char(d_date, 'yyyymmdd') = to_char(#{pDate}, 'yyyymmdd')
+		and d_commute = #{searchCarPool.pCommute}
+		and d_reservation_status = 'waiting'
+		and to_date('11111111'||substr(#{searchCarPool.pBoardingTime}, 1,2)||substr(#{searchCarPool.pBoardingTime}, 4,2), 'YYYYMMDDHH24MI')
+		    between to_date('11111111'||substr(d_start_time, 1,2)||substr(d_start_time, 4,2), 'YYYYMMDDHH24MI')
+		    and to_date('11111111'||substr(d_end_time, 1,2)||substr(d_end_time, 4,2), 'YYYYMMDDHH24MI')
+		and (SELECT DISTNACE_WGS84(d_start_lat, d_start_lon, #{searchCarPool.pStartLat}, #{searchCarPool.pStartLon}) FROM DUAL) <![CDATA[<=]]> 1
+		and (SELECT DISTNACE_WGS84(d_end_lat, d_end_lon, #{searchCarPool.pEndLat}, #{searchCarPool.pEndLon}) FROM DUAL) <![CDATA[<=]]> 1
+	</select>
+	
+	<select id="selectCarpoolByAny" resultType="dRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE (d_hope_gender = #{pUserGender} or d_hope_gender = 'A')
+		and d_cancel_status = 'uncanceled'
+		and to_char(d_date, 'yyyymmdd') = to_char(#{pDate}, 'yyyymmdd')
+		and d_commute = #{searchCarPool.pCommute}
+		and d_reservation_status = 'waiting'
+		and to_date('11111111'||substr(#{searchCarPool.pBoardingTime}, 1,2)||substr(#{searchCarPool.pBoardingTime}, 4,2), 'YYYYMMDDHH24MI')
+		    between to_date('11111111'||substr(d_start_time, 1,2)||substr(d_start_time, 4,2), 'YYYYMMDDHH24MI')
+		    and to_date('11111111'||substr(d_end_time, 1,2)||substr(d_end_time, 4,2), 'YYYYMMDDHH24MI')
+		and (SELECT DISTNACE_WGS84(d_start_lat, d_start_lon, #{searchCarPool.pStartLat}, #{searchCarPool.pStartLon}) FROM DUAL) <![CDATA[<=]]> 1
+		and (SELECT DISTNACE_WGS84(d_end_lat, d_end_lon, #{searchCarPool.pEndLat}, #{searchCarPool.pEndLon}) FROM DUAL) <![CDATA[<=]]> 1
+	</select>
+	
+	<select id="selectCarpoolByDrIdx" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE dr_idx = #{drIdx}
+		and d_cancel_status = 'uncanceled'
+	</select>
+	
+	<select id="selectDIdxByGender" resultType="Integer">
+		SELECT d_idx
+		FROM DRIVER
+		WHERE d_user_gender = #{pHopeGender}
+	</select>
+	
+	<select id="selectPUserGenderByPIdx" resultType="String">
+		SELECT p_user_gender
+		FROM PASSENGER
+		WHERE p_idx = #{p_idx}
+	</select>
+	
+	<update id="updateWaitingToReservated">
+		UPDATE D_REGISTRATION
+		SET d_reservation_status = 'reservated'
+		WHERE dr_idx = #{drIdx}
+	</update>
+	
+	<select id="selectRIdxByDrIdx" resultType="Integer">
+		SELECT r_idx
+		FROM RESERVATION
+		WHERE dr_idx = #{drIdx}
+		AND p_idx = #{pIdx}
+		AND r_cancel_status = 'uncanceled'
+	</select>
+	
+    <select id="selectDRegistrationByDrIdx" resultType="DRegistration">
+        SELECT dr.dr_idx dr_idx, dr.d_idx d_idx, dr.d_date d_date, dr.d_hope_gender d_hope_gender, dr.d_commute d_commute, dr.d_start_time d_start_time, dr.d_end_time d_end_time, dr.d_start_point d_start_point,
+        	   dr.d_end_point d_end_point, dr.d_fee d_fee, dr.d_distance d_distance, dr.d_time d_time, dr.d_start_lon d_start_lon, dr.d_start_lat d_start_lat, dr.d_end_lon d_end_lon, dr.d_end_lat d_end_lat, dr.d_reservation_status d_reservation_status
+        FROM D_REGISTRATION dr, RESERVATION r
+        WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx
+        AND r.p_idx = #{pIdx}
+        AND r.r_cancel_status = 'uncanceled'
+        and dr.d_cancel_status = 'uncanceled'
+    </select>
+	
+</mapper>

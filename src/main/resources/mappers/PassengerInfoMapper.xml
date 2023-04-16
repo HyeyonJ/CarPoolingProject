@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<mapper namespace="project.carPooling.passenger.mapper.PassengerInfoMapper">
+
+	<!-- public Integer insert(PassengerInfo passsenger); -->
+	<insert id="insert" parameterType="PassengerInfo">
+		<selectKey keyProperty="pUserId" resultType="String" order="BEFORE">
+			SELECT (CASE WHEN #{pUserType} like 'KAKAO' THEN 'k@ps'||TO_CHAR(SYSDATE, 'YYMMDD')||P_SOCIAL_ID_SEQ.nextVal
+						WHEN  #{pUserType} like 'NAVER' THEN 'n@ps'||TO_CHAR(SYSDATE, 'YYMMDD')||P_SOCIAL_ID_SEQ.nextVal
+						WHEN  #{pUserType} like 'GOOGLE' THEN 'g@ps'||TO_CHAR(SYSDATE, 'YYMMDD')||P_SOCIAL_ID_SEQ.nextVal
+						ELSE #{pUserId}
+						END) as pUserId
+						FROM dual
+		</selectKey>
+		INSERT INTO passenger (p_idx, p_user_type, p_user_id, p_user_pw, p_user_name, p_user_tel,
+		p_user_email, p_user_gender, p_id_num, p_sign_out)
+		VALUES(p_idx_seq.nextVal, #{pUserType}, #{pUserId}, #{pUserPw}, #{pUserName}, #{pUserTel},
+		#{pUserEmail}, #{pUserGender}, #{pIdNum}, 'false')
+	</insert>
+	
+	<!-- public PassengerInfo selectById(int id); -->
+	
+	<!-- public PassengerInfo selectByLoginId(String loginId); -->
+	<select id="selectByLoginId" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_user_id = #{pUserId}
+	</select>
+	
+	<!-- public PassengerInfo selectByEmail(String email); -->
+	<select id="selectByEmail" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_user_email = #{pUserEmail}
+	</select>
+	
+	<!-- public PassengerInfo selectByNameAndEmail(String name, String email); -->
+	<select id="selectByNameAndEmail" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_user_name = #{pUserName}
+		AND p_user_email = #{pUserEmail}
+	</select>
+
+	<!-- public PassengerInfo selectByNameAndTel(String name, String tel); -->
+	<select id="selectByNameAndTel" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_user_name = #{pUserName}
+		AND p_user_tel = #{pUserTel}
+	</select>
+	
+	<!-- public PassengerInfo selectByNameAndIdnum(String name, String idnum1, String idnum2); -->
+	<select id="selectByNameAndIdnum" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_user_name = #{pUserName}
+		AND p_id_num = #{p_idNum}
+	</select>
+	
+	<!-- public List<PassengerInfo> selectAll(); -->
+	
+	<!-- public void deleteAll(); -->
+	
+	<!-- public PassengerInfo update(PassengerInfo passenger); -->
+	
+<!-- 	회원 정보 수정 -->
+	<update id="updatePassengerInfo">
+		UPDATE PASSENGER 
+		SET p_user_pw = #{pUserPw},
+			p_user_tel = #{pUserTel}
+		WHERE  p_user_email = #{pUserEmail}
+	</update>
+	
+<!-- 	회원 탈퇴 -->
+<!-- idx, email, id 남기기-->
+	<update id="updatePassengerSignOut">
+		UPDATE PASSENGER
+		SET p_user_type = null,
+			p_user_pw = null,
+			p_user_name = null,
+			p_user_tel = null,
+			p_user_gender = null,
+			p_id_num = null,
+			p_sign_out	= 'true'
+		WHERE p_user_email = #{pUserEmail}
+	</update>
+	
+	<select id="selectByIdNum" resultType="PassengerInfo">
+		SELECT * FROM passenger
+		WHERE p_id_num = #{pIdNum}
+	</select>
+	
+	<select id="selectByIdx" resultType="PassengerInfo">
+      SELECT * FROM PASSENGER
+      WHERE p_idx = #{pIdx}
+    </select>
+	
+</mapper>

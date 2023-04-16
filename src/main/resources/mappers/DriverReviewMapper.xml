@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.carPooling.driver.mapper.DriverReviewMapper">
+	<insert id="insert">
+		INSERT INTO D_REVIEW (r_idx, from_idx, to_idx, star_point, nickname, content)
+		VALUES(#{rIdx}, #{fromIdx}, #{toIdx}, #{starPoint}, #{nickname}, #{content})
+	</insert>
+	
+	<update id="updatePassengerTemperature">
+		UPDATE PASSENGER
+		SET p_temperature = p_temperature + #{starPoint}
+		WHERE p_idx = #{toIdx}
+	</update>
+	
+	<select id="selectMyReview" resultType="DReview">
+		SELECT * FROM D_REVIEW
+		WHERE from_idx = #{dIdx}
+	</select>
+
+	<select id="selectPsReview" resultType="PReview">
+		SELECT * FROM P_REVIEW
+		WHERE to_idx = #{dIdx}
+	</select>
+	
+	<select id="selectUserReview" resultType="DReview">
+		SELECT * FROM D_REVIEW
+		WHERE to_idx = #{pIdx}
+	</select>
+	
+	<update id="updateReview">
+		UPDATE D_REVIEW
+		SET content = #{content}
+		WHERE r_idx = #{rIdx} 
+	</update>
+	
+	<delete id="deleteReview">
+		DELETE FROM D_REVIEW
+		WHERE r_idx = #{rIdx}
+	</delete>
+</mapper>

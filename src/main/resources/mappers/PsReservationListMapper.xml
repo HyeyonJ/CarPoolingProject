@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">        
+<mapper namespace="project.carPooling.passenger.mapper.ReservationListMapper">
+	<select id="selectCurrentRsvList" resultType="map">
+		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME", 
+		dr.d_idx, dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee,  r.r_idx, r.r_date
+		FROM d_registration dr, reservation r
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled' AND dr.d_cancel_status = 'uncanceled' AND dr.d_reservation_status = 'reservated'
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') >= sysdate
+	</select>
+	
+	<select id="selectPastRsvList" resultType="map">
+		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME",
+		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.r_idx, r.r_date
+		FROM d_registration dr, reservation r
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled' AND dr.d_cancel_status = 'uncanceled' AND dr.d_reservation_status = 'reservated'
+		AND to_date(to_char(dr.d_date, 'yymmdd')||substr(dr.d_start_time, 0, 2)||substr(dr.d_end_time, 4,5), 'yymmddhh24mi') <![CDATA[<]]> sysdate
+	</select>
+	
+	<select id="selectCompleteRsvList" resultType="map">
+		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME",
+		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee, r.r_idx, r.r_date
+		FROM d_registration dr, reservation r
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'uncanceled' AND dr.d_cancel_status = 'uncanceled' AND dr.d_reservation_status = 'completed'
+	</select>
+	
+	<select id="selectCancelRsvList" resultType="map">
+		SELECT (SELECT d_user_name FROM DRIVER WHERE d_idx = dr.d_idx) "D_USER_NAME", 
+		dr.dr_idx, dr.d_commute, dr.d_date, dr.d_start_time, dr.d_end_time, dr.d_start_point, dr.d_end_point, dr.d_start_lon, dr.d_start_lat, dr.d_end_lon, dr.d_end_lat, dr.d_fee,  r.r_idx, r.r_date
+		FROM d_registration dr, reservation r
+		WHERE r.p_idx=#{pIdx} AND dr.dr_idx = r.dr_idx AND r.r_cancel_status = 'canceled'
+	</select>
+	
+	<select id="selectDriverEmail" resultType="String">
+		SELECT d_user_email
+		FROM DRIVER
+		WHERE d_idx = 
+		(SELECT d_idx
+		FROM D_REGISTRATION
+		WHERE dr_idx = #{drIdx})
+	</select>
+	
+	<update id="updateDriverPoint">
+		UPDATE DRIVER
+		SET d_point = d_point + #{point}
+		WHERE d_idx = #{dIdx}
+	</update>
+	
+	<update id="updateWaitingRegistration">
+		UPDATE D_REGISTRATION
+		SET d_reservation_status = 'waiting'
+		WHERE dr_idx = #{drIdx}
+	</update>
+	
+	<update id="updateCanceledReservation">
+		UPDATE RESERVATION
+		SET r_cancel_status = 'canceled'
+		WHERE dr_idx = #{drIdx} 
+		AND p_idx = #{pIdx} 
+		AND r_cancel_status = 'uncanceled'
+	</update>
+	
+	<select id="selectRegistrationByDrIdx" resultType="DRegistration">
+		SELECT *
+		FROM D_REGISTRATION
+		WHERE dr_idx = #{drIdx}
+	</select>
+	
+	<select id="selectPaymentDataByRIdx" resultType="PaymentData">
+		SELECT * FROM PAYMENT
+		WHERE r_idx = #{rIdx}
+	</select>
+	
+	<select id="selectCancelPayMentByPayIdx" resultType="Map">
+		SELECT cancel_amount ,receipt_url FROM CANCEL_PAYMENT
+		WHERE pay_idx = #{payIdx}
+	</select>
+	
+	<select id="selectRIdxAndPIdx" resultType="map">
+		SELECT r.p_idx, r.r_idx
+		FROM D_REGISTRATION dr, RESERVATION r
+		WHERE dr.dr_idx = #{drIdx} AND dr.dr_idx = r.dr_idx AND dr.d_reservation_status = 'completed'
+	</select>
+	
+	<select id="selectReviewExistStatus" resultType="PReview">
+		SELECT *
+		FROM P_REVIEW
+		WHERE r_idx = #{rIdx}
+	</select>
+	
+</mapper>
