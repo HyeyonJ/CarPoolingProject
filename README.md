@@ -36,7 +36,7 @@
 
 <div align="center">
   
-<img width="80%" alt="스크린샷 2023-11-16 172640" src="https://github.com/HyeyonJ/IT-Da-Shopping/assets/113879120/3f8400e2-630e-405d-82f3-81ba72b81f42">
+<img width="80%" alt="스크린샷 2023-11-16 172640" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/74cfe0b5-2786-42ea-be6d-3711b7911beb">
 
 </div>
 
