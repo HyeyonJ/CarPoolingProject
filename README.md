@@ -1,4 +1,5 @@
-<img width="100%" alt="chatting" src="https://github.com/HyeyonJ/IT-Da-Shopping/assets/113879120/ebf0c8b0-99ad-463b-a06b-f611d176524c.gif">
+<img width="100%" alt="chatting" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/36001d3c-a22a-4a76-9a39-abc1754885b0.gif">
+![Carpooling](https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/36001d3c-a22a-4a76-9a39-abc1754885b0)
 
 <div align="center">
   
