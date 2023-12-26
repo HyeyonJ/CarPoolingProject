@@ -2,7 +2,7 @@
 
 <div align="center">
   
-## IT-DA shop
+## Carpooling(카풀 - 링)
 추운 겨울, 더운 여름 택시를 잡으려고 했지만 어려움을 겪으셨나요?<br>
 "carpooling(카풀링)"은 경로를 탐색하여 운전자와 사용자를 매칭하는 카풀 서비스입니다.<br><br>
 
@@ -50,7 +50,8 @@
 ### ⚙️ Architecture
 
 <div>
-<img width="100%" alt="스크린샷 2023-11-16 173007" src="https://github.com/HyeyonJ/IT-Da-Shopping/assets/113879120/fd153b94-ce19-4196-a144-5e5150a7fb67">
+<img width="100%" alt="스크린샷 2023-11-16 173007" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/5bdbcb0b-2efe-4a82-be0f-01210cf502e6">
+  ![스크린샷 2023-12-26 145709](https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/5bdbcb0b-2efe-4a82-be0f-01210cf502e6)
 </div>
 
 
