@@ -51,7 +51,6 @@
 
 <div>
 <img width="100%" alt="스크린샷 2023-11-16 173007" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/5bdbcb0b-2efe-4a82-be0f-01210cf502e6">
-  ![스크린샷 2023-12-26 145709](https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/5bdbcb0b-2efe-4a82-be0f-01210cf502e6)
 </div>
 
 
