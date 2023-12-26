@@ -60,7 +60,7 @@
 <img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/99164c53-3c0f-4fa6-a756-b8d5247abc83">
 <img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/9b17b13b-e18d-4f79-bb8a-5fa0def7e1e1">
 <img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/3ae5220f-5b6d-41f6-9f30-0e5d89c1f226">
-<img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/bc49f2b3-4181-40f3-b7ac-59aeeed72426">
+
 <img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/ffe0d22a-f88f-4649-a4e1-11e864d94f9c">
 <img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/98a79f8f-6dbf-4f5e-8a85-22b23ee92f00">
 <img width="100%" alt="스크린샷 2023-11-28 170311" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/9b17b13b-e18d-4f79-bb8a-5fa0def7e1e1">
