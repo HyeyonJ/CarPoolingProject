@@ -1,5 +1,4 @@
 <img width="100%" alt="chatting" src="https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/36001d3c-a22a-4a76-9a39-abc1754885b0.gif">
-![Carpooling](https://github.com/HyeyonJ/CarPoolingProject/assets/113879120/36001d3c-a22a-4a76-9a39-abc1754885b0)
 
 <div align="center">
   
@@ -17,8 +16,7 @@
 2. [기술 스택](#2-기술-스택)
 3. [설계 및 아키텍처](#3-설계-및-아키텍처)
 4. [최적화를 위한 고민](#4-최적화를-위한-고민)
-5. [테스트](#5-테스트)
-6. [Reference](#6-Reference)
+5. [Reference](#6-Reference)
 
 <br>
 
